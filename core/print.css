@@ -18,6 +18,17 @@
 @page {
   margin: 2cm;
   size: A4;
+
+  /* Page numbers via CSS Paged Media margin boxes — the only place
+     counter(page) works reliably in Chrome/Edge print engines */
+  @bottom-right {
+    content: "Page " counter(page);
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 8pt;
+    color: #4a7a9b;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -87,11 +98,39 @@
     display: inline !important;
   }
 
-  /* Remove hover transforms everywhere */
+  /* Remove hover transforms and animations everywhere */
   * {
     transform: none !important;
     transition: none !important;
     animation: none !important;
+  }
+
+  /* Reset motion initial states — bp-motion="draw" sets opacity:0 on page
+     sections before animating them in. Cancelling the animation leaves them
+     invisible. Force full opacity so the printed page is not blank. */
+  [data-bp-motion="draw"] .bp-nav,
+  [data-bp-motion="draw"] .bp-hero,
+  [data-bp-motion="draw"] .bp-section,
+  [data-bp-motion="draw"] .bp-section-sm,
+  [data-bp-motion="draw"] .bp-section-lg,
+  [data-bp-motion="draw"] .bp-main-content,
+  [data-bp-motion="draw"] .bp-footer {
+    opacity: 1 !important;
+  }
+
+  /* Compress section padding — screen spacing is intentionally generous;
+     print doesn't have infinite scroll so half-page gaps waste paper */
+  .bp-section,
+  .bp-section-sm,
+  .bp-section-lg {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .bp-hero {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    min-height: unset !important;
   }
 
   /* Prevent orphaned headings */
@@ -109,36 +148,27 @@
   }
 
   /* --------------------------------------------------------------------------
-     ANNOTATIONS AS MARGIN NOTES
-     Floats the annotation to the right — becomes a true margin note.
+     ANNOTATIONS — INLINE REFERENCE NOTES
+     Float-right works when annotation is in a full-width container, but
+     breaks inside grid columns (28% of a 50%-wide column = ~14% page width,
+     words stack one per line). Display as a left-bordered block note instead
+     — readable at any container width.
      -------------------------------------------------------------------------- */
 
   .bp-annotation {
-    float: right;
-    width: 28%;
-    margin-left: var(--bp-space-6);
-    margin-bottom: var(--bp-space-4);
-    font-size: var(--bp-text-xs);
-    color: var(--color-text-muted) !important;
-    border-left: 2px solid var(--color-primary);
-    padding-left: var(--bp-space-3);
+    display: block;
+    float: none;
+    width: auto;
+    margin: 1em 0;
+    font-size: 8.5pt;
+    color: #4a7a9b !important;
+    border-left: 2px solid #1d4ed8;
+    padding-left: 0.75em;
     font-style: italic;
   }
 
-  /* --------------------------------------------------------------------------
-     PAGE NUMBERS
-     Injected into the bottom of the last bp-footer on the page.
-     CSS Paged Media (supported in Chrome/Edge print).
-     -------------------------------------------------------------------------- */
-
-  .bp-footer-bottom::after {
-    content: "Page " counter(page);
-    font-family: var(--bp-font-mono), monospace;
-    font-size: var(--bp-text-xs);
-    color: var(--color-text-muted);
-    letter-spacing: var(--bp-tracking-widest);
-    text-transform: uppercase;
-  }
+  /* Page numbers are handled by @page { @bottom-right } above —
+     counter(page) does not work in ::after pseudo-elements in Chrome print */
 
   /* --------------------------------------------------------------------------
      STATS — COLLAPSE TO DATA ROWS
