@@ -70,41 +70,60 @@ The user already has a `brand.css` in their project.
 
 Run this after extracting visual signal (or from scratch if Entry Point 1).
 
+**Acknowledge before advancing.** After each answer, react with one specific observation before asking the next question. Not filler encouragement ("Great!") — a genuine take on what the answer implies. Example: "A $5K decision with a warm aesthetic — that's an interesting combination. It can work if the warmth reads as confidence rather than approachability. Let's think about how the typography handles that." This is what separates a conversation from a form.
+
 ### Question 1 — What is this?
 
-> "In one sentence: what does this do and who is it for?"
+> "What are we building? Give me the short version — what it does and who it's for."
 
 Extract: domain, primary user, core action.
 
 ### Question 2 — Who is making the decision?
 
-> "Who's making the decision on your site — someone spending $50 on their own card, or someone justifying $5,000 to their boss?"
+> "Who's making the call on your site — someone spending $50 on their own card, or someone justifying $5,000 to their boss?"
 
 A $50 decision is emotional and fast — warm colors, conversational tone, clear CTA, social proof above the fold. A $5,000 decision is rational and slow — credentials, case studies, contact form instead of "sign up free," no pricing on the page. The design is different because the buyer's psychology is different.
 
 ### Question 3 — What does trust look like here?
 
-> "Should this feel like a glass office tower, or a well-lit independent bookshop?"
+> "What's the social signal this page should carry?
+>
+> (a) Glass office tower — sharp, formal, authority before conversation
+> (b) Well-lit independent bookshop — warm, accessible, trust through personality
+> (c) Research lab — precise, minimal, the work earns the credibility
+> (d) New-money startup — energy, momentum, we're moving fast on this"
 
 Glass office tower → sharp corners (`--bp-radius-none`), serif or medium-weight sans, dark navy, high contrast, conservative layout. No "sign up free" button.
 
-Well-lit bookshop → generous rounding (`--bp-radius-xl`), warm humanist font, light theme or warm dark, inviting whitespace.
+Bookshop → generous rounding (`--bp-radius-xl`), warm humanist font, light theme or warm dark, inviting whitespace.
 
-**Why this question works:** It's not asking for technical preferences — it's asking for a felt sense of the brand's social context. People answer this with confidence even if they've never opened a CSS file.
+Research lab → dense information, monospace labels, cool neutral palette, zero decoration.
+
+New-money startup → bold hero type, accent color with energy, motion on scroll, prominent CTA.
+
+**Why this works:** It's not asking for technical preferences — it's asking for a felt sense of the brand's social context. People answer this with confidence even if they've never opened a CSS file. Allow "somewhere between X and Y" — the blend is often the real answer.
 
 ### Question 4 — What does the primary action feel like?
 
-> "Fast and precise like a Bloomberg terminal, or warm and considered like Notion?"
+> "How should using this page feel?
+>
+> (a) Bloomberg terminal — dense, immediate, zero decoration, all signal
+> (b) Notion — spacious, calm, feels like a document you can settle into
+> (c) Linear — tight, fast, precision without coldness
+> (d) Airbnb — warm, exploratory, imagery leads"
 
-Bloomberg → dense, dark, monospace labels, zero decorative elements, all information all the time. Motion: none or minimal.
-
-Notion → spacious, neutral, clean hierarchy, page feels like a document. Motion: subtle, purposeful.
-
-This sets the interaction feel: whether `bp-animate` is appropriate, whether transitions should be snappy or slow, whether the page should feel dynamic or composed.
+This maps to animation, motion, density, and spacing decisions. Bloomberg → `bp-animate` off, dense layout, monospace everywhere. Notion → spacious sections, generous padding, subtle motion. Linear → compressed sections, precision typography, fast hover states. Airbnb → large visual area, warm colors, content-forward hierarchy.
 
 ### Question 5 — Colors: what does your industry already use?
 
-> "What are the brand colors of two or three companies in your space that you respect — not necessarily love, just respect as credible? You don't need to know the hex values — just describe them."
+> "What's the dominant visual feel in your space?
+>
+> (a) Dark and technical — developer tools, security, fintech
+> (b) Clean and clinical — healthcare, compliance, HR
+> (c) Warm and human — food, education, creative services
+> (d) Bold and editorial — agency, media, fashion
+>
+> Or describe what you actually see if I'm missing it."
 
 Use this to anchor the palette. If three respected competitors use dark navy and steel blue, your audience already reads those colors as trust. Don't fight it — own it at higher quality.
 
@@ -112,23 +131,38 @@ Use this to anchor the palette. If three respected competitors use dark navy and
 
 ### Question 6 — Typography feel (not font names)
 
-> "For your heading type, pick one: (a) sharp and geometric — modern, precise, no personality; (b) warm and humanist — friendly, approachable, human-made; (c) authoritative serif — established, earned, legal-adjacent."
+> "For your heading type, pick one:
+>
+> (a) Sharp and geometric — modern, precise, no personality
+> (b) Warm and humanist — friendly, approachable, human-made
+> (c) Authoritative serif — established, earned, legal-adjacent"
 
 This maps to a font stack you choose, but the user never needs to name a font. The feel is what matters.
 
 ### Question 7 — Stakes
 
-> "Does a typo on your homepage cost you a customer?"
+> "How formal does this need to be?
+>
+> (a) Every word matters — this is a $10K conversation, not a signup form
+> (b) Professional but not stiff — we take the work seriously, not ourselves
+> (c) Relaxed and direct — the brand is the product, the page can breathe"
 
-Yes → meticulous, formal, high polish. Every word reviewed. No casual copy, no humor. Layout that communicates operational rigor.
-
-No → more latitude. Can be warm, direct, even slightly rough. The product earns trust, not the page.
+(a) → meticulous, high polish, no humor, layout that communicates operational rigor.
+(b) → clean and competent, some warmth, copy can have voice.
+(c) → more latitude, can be direct, rough edges aren't disqualifying.
 
 ### Question 8 — Page goal
 
-> "What is the one thing you want a visitor to do after reading this page?"
+> "What's the one thing you want someone to do when they leave this page?
+>
+> (a) Sign up or create an account
+> (b) Book a call or demo
+> (c) Buy something right now
+> (d) Contact us or fill out a form
+>
+> Something else entirely?"
 
-This determines: what the primary CTA says, how prominently it appears, whether the page is conversion-focused (AIDA structure) or credibility-focused (features → proof → contact).
+This determines CTA text, CTA prominence, and whether the page is conversion-focused (AIDA structure) or credibility-focused (features → proof → contact).
 
 ---
 
