@@ -139,12 +139,31 @@
     color: #0a1628 !important;
   }
 
+  /* Keep section headers with the content that follows — without this, a
+     section title lands at the bottom of one page while its grid starts on
+     the next. Same problem as a chapter title orphaned from chapter content. */
+  .bp-section-header,
+  .bp-section-label,
+  .bp-mono-label,
+  .bp-hero-eyebrow {
+    break-after: avoid;
+  }
+
   /* Keep cards and sections intact across page breaks */
   .bp-card,
   .bp-pricing-card,
   .bp-testimonial,
   .bp-stat {
     break-inside: avoid;
+  }
+
+  /* Tighten grid gaps — screen grids have generous spacing designed for
+     visual breathing room; on paper that gap becomes dead whitespace */
+  .bp-grid,
+  .bp-grid-2,
+  .bp-grid-3,
+  .bp-grid-4 {
+    gap: 1rem !important;
   }
 
   /* --------------------------------------------------------------------------
