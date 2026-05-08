@@ -292,6 +292,24 @@
     margin-bottom: var(--bp-space-3);
   }
 
+  /* Footer — keep together and compress padding so it doesn't split across
+     pages. The footer grid (brand blurb + nav columns) is compact enough to
+     fit on one page if padding is removed and break-inside is enforced. */
+  .bp-footer {
+    break-inside: avoid;
+    padding-top: 1.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .bp-footer-grid {
+    gap: 1rem !important;
+  }
+
+  .bp-footer-bottom {
+    margin-top: 1rem !important;
+    padding-top: 0.75rem !important;
+  }
+
   /* --------------------------------------------------------------------------
      BLUEPRINT DECORATIVE — PRESERVED IN PRINT
      These are architectural conventions. They belong on paper.
