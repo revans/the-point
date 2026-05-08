@@ -1,0 +1,255 @@
+/* ==========================================================================
+   THE POINT — Print Mode
+   Makes pages styled with The Point look like real architectural drawings
+   when printed — not gutted webpages.
+
+   A blueprint is a physical document. The grid, annotations, mono labels,
+   and bracket corners all belong on paper. This stylesheet leans into that.
+
+   Usage: @media print fires automatically on Ctrl+P / window.print().
+   Add class="bp-print-spec" to any section to render it as a formal
+   specification document with auto-numbered REQ blocks.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   PAGE SETUP
+   -------------------------------------------------------------------------- */
+
+@page {
+  margin: 2cm;
+  size: A4;
+}
+
+/* --------------------------------------------------------------------------
+   PRINT CONTEXT
+   -------------------------------------------------------------------------- */
+
+@media print {
+
+  /* Force white background, low-opacity navy grid — structural, not decorative */
+  body {
+    background-color: #ffffff !important;
+    background-image:
+      linear-gradient(rgba(10, 22, 40, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 22, 40, 0.06) 1px, transparent 1px),
+      linear-gradient(rgba(10, 22, 40, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 22, 40, 0.03) 1px, transparent 1px) !important;
+    background-size: 40px 40px, 40px 40px, 10px 10px, 10px 10px !important;
+    color: #0a1628 !important;
+  }
+
+  /* Override all semantic color vars to print-safe dark-on-white values */
+  :root,
+  [data-bp-theme="dark"],
+  [data-bp-theme="light"],
+  [data-bp-theme="auto"] {
+    --color-bg:             #ffffff;
+    --color-bg-secondary:   #f5f7fa;
+    --color-surface:        #ffffff;
+    --color-surface-elevated: #f0f4f8;
+    --color-border:         #bfdbfe;
+    --color-text:           #0a1628;
+    --color-text-secondary: #1e3a57;
+    --color-text-muted:     #4a7a9b;
+    --color-primary:        #1d4ed8;
+    --color-primary-hover:  #1e40af;
+    --color-primary-subtle: rgba(29, 78, 216, 0.06);
+    --bp-shadow-sm:         none;
+    --bp-shadow-md:         none;
+    --bp-shadow-lg:         none;
+    --bp-shadow-glow:       none;
+  }
+
+  /* --------------------------------------------------------------------------
+     STRIP INTERACTIVE CHROME
+     -------------------------------------------------------------------------- */
+
+  /* Navigation — hidden entirely */
+  .bp-nav,
+  .bp-nav-actions { display: none !important; }
+
+  /* Modals, overlays, toasts — never in print */
+  .bp-overlay,
+  .bp-modal,
+  .bp-toast-container,
+  .bp-toast { display: none !important; }
+
+  /* Buttons — strip to plain text, preserve label */
+  .bp-btn {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    height: auto !important;
+    color: var(--color-primary) !important;
+    font-size: var(--bp-text-sm) !important;
+    text-decoration: underline !important;
+    display: inline !important;
+  }
+
+  /* Remove hover transforms everywhere */
+  * {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Prevent orphaned headings */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+    color: #0a1628 !important;
+  }
+
+  /* Keep cards and sections intact across page breaks */
+  .bp-card,
+  .bp-pricing-card,
+  .bp-testimonial,
+  .bp-stat {
+    break-inside: avoid;
+  }
+
+  /* --------------------------------------------------------------------------
+     ANNOTATIONS AS MARGIN NOTES
+     Floats the annotation to the right — becomes a true margin note.
+     -------------------------------------------------------------------------- */
+
+  .bp-annotation {
+    float: right;
+    width: 28%;
+    margin-left: var(--bp-space-6);
+    margin-bottom: var(--bp-space-4);
+    font-size: var(--bp-text-xs);
+    color: var(--color-text-muted) !important;
+    border-left: 2px solid var(--color-primary);
+    padding-left: var(--bp-space-3);
+    font-style: italic;
+  }
+
+  /* --------------------------------------------------------------------------
+     PAGE NUMBERS
+     Injected into the bottom of the last bp-footer on the page.
+     CSS Paged Media (supported in Chrome/Edge print).
+     -------------------------------------------------------------------------- */
+
+  .bp-footer-bottom::after {
+    content: "Page " counter(page);
+    font-family: var(--bp-font-mono), monospace;
+    font-size: var(--bp-text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: var(--bp-tracking-widest);
+    text-transform: uppercase;
+  }
+
+  /* --------------------------------------------------------------------------
+     STATS — COLLAPSE TO DATA ROWS
+     Cards with glow and 4xl numbers become compact labeled data.
+     -------------------------------------------------------------------------- */
+
+  .bp-stat {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--bp-space-4);
+    padding: var(--bp-space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bp-stat-value {
+    font-size: var(--bp-text-base) !important;
+    font-weight: var(--bp-font-semibold);
+    min-width: 80px;
+    color: #0a1628 !important;
+  }
+
+  .bp-stat-label {
+    flex: 1;
+    color: var(--color-text-muted) !important;
+  }
+
+  .bp-stat-change-up,
+  .bp-stat-change-down {
+    color: var(--color-text-muted) !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     bp-print-spec
+     Applied to any <section> or container to render it as a formal
+     specification document. Each bp-card inside becomes a numbered
+     requirement block: REQ-01, REQ-02, etc.
+
+     Use case: a pricing page printed with bp-print-spec becomes a
+     formal proposal document ready to hand across a table.
+     -------------------------------------------------------------------------- */
+
+  .bp-print-spec {
+    counter-reset: bp-req;
+  }
+
+  .bp-print-spec .bp-card {
+    counter-increment: bp-req;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-bottom: var(--bp-space-4);
+    break-inside: avoid;
+    position: relative;
+  }
+
+  .bp-print-spec .bp-card::before {
+    content: "REQ-" counter(bp-req, decimal-leading-zero);
+    display: block;
+    font-family: var(--bp-font-mono), 'JetBrains Mono', monospace;
+    font-size: var(--bp-text-xs);
+    font-weight: var(--bp-font-semibold);
+    letter-spacing: var(--bp-tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-primary) !important;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--bp-space-2);
+    margin-bottom: var(--bp-space-3);
+  }
+
+  /* Pricing cards rendered as spec blocks */
+  .bp-print-spec .bp-pricing-card {
+    counter-increment: bp-req;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  .bp-print-spec .bp-pricing-card::before {
+    content: "TIER-" counter(bp-req, decimal-leading-zero);
+    display: block;
+    font-family: var(--bp-font-mono), monospace;
+    font-size: var(--bp-text-xs);
+    letter-spacing: var(--bp-tracking-widest);
+    text-transform: uppercase;
+    color: var(--color-primary) !important;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--bp-space-2);
+    margin-bottom: var(--bp-space-3);
+  }
+
+  /* --------------------------------------------------------------------------
+     BLUEPRINT DECORATIVE — PRESERVED IN PRINT
+     These are architectural conventions. They belong on paper.
+     -------------------------------------------------------------------------- */
+
+  .bp-mono-label {
+    color: var(--color-text-muted) !important;
+    border-color: var(--color-border) !important;
+  }
+
+  /* Gradient text falls back to solid primary in print */
+  .bp-text-gradient {
+    background: none !important;
+    -webkit-text-fill-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+  }
+
+  /* Skeleton hidden in print — no loading state needed */
+  .bp-skeleton,
+  .bp-skeleton-text,
+  .bp-skeleton-title,
+  .bp-skeleton-card { display: none !important; }
+
+}

@@ -1,0 +1,21 @@
+/* ==========================================================================
+   THE POINT — Mood: Forest
+   Natural, calm, approachable. Forest is alive but unhurried.
+
+   Use for: wellness, environmental, outdoor, health, education, nonprofits,
+            anything that should feel grounded and trustworthy without formality.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/forest.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #16a34a;
+    --color-primary-hover:  #15803d;
+    --color-primary-subtle: rgba(22, 163, 74, 0.1);
+    --color-primary-glow:   rgba(22, 163, 74, 0.2);
+  }
+}

@@ -129,6 +129,50 @@
 }
 
 /* --------------------------------------------------------------------------
+   AUTO THEME
+   Follows the OS preference. Set data-bp-theme="auto" on <html>.
+   Dark is the default so only the light overrides need a media query.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: light) {
+  [data-bp-theme="auto"] {
+    --bp-bg:              #f5f7fa;
+    --bp-bg-secondary:    #edf0f5;
+    --bp-bg-elevated:     #e8ecf2;
+    --bp-surface:         #ffffff;
+    --bp-surface-hover:   #f0f4f9;
+    --bp-border:          #93c5fd;
+    --bp-border-subtle:   #bfdbfe;
+
+    --bp-text-primary:    #0a1628;
+    --bp-text-secondary:  #1e40af;
+    --bp-text-muted:      #6b8cae;
+    --bp-text-accent:     #2563eb;
+
+    --bp-accent:          #1d4ed8;
+    --bp-accent-hover:    #1e40af;
+    --bp-accent-subtle:   rgba(29, 78, 216, 0.08);
+    --bp-accent-glow:     rgba(29, 78, 216, 0.15);
+
+    --bp-grid-color:      rgba(29, 78, 216, 0.07);
+    --bp-grid-color-bold: rgba(29, 78, 216, 0.14);
+
+    --bp-shadow-sm:       0 1px 3px rgba(10, 22, 40, 0.08), 0 1px 2px rgba(10, 22, 40, 0.05);
+    --bp-shadow-md:       0 4px 16px rgba(10, 22, 40, 0.1), 0 2px 6px rgba(10, 22, 40, 0.06);
+    --bp-shadow-lg:       0 10px 32px rgba(10, 22, 40, 0.12), 0 4px 12px rgba(10, 22, 40, 0.08);
+    --bp-shadow-glow:     0 0 20px rgba(29, 78, 216, 0.15), 0 0 40px rgba(29, 78, 216, 0.07);
+    --bp-shadow-inset:    inset 1px 0 rgba(255, 255, 255, 0.8);
+
+    --bp-success:         #16a34a;
+    --bp-success-subtle:  rgba(22, 163, 74, 0.08);
+    --bp-warning:         #d97706;
+    --bp-warning-subtle:  rgba(217, 119, 6, 0.08);
+    --bp-error:           #dc2626;
+    --bp-error-subtle:    rgba(220, 38, 38, 0.08);
+  }
+}
+
+/* --------------------------------------------------------------------------
    SHARED TOKENS (not theme-dependent)
    -------------------------------------------------------------------------- */
 
@@ -228,11 +272,16 @@
   --color-bg:               var(--bp-bg);
   --color-bg-secondary:     var(--bp-bg-secondary);
   --color-surface:          var(--bp-surface);
+  --color-surface-elevated: var(--bp-bg-elevated);
   --color-border:           var(--bp-border);
 
   --color-text:             var(--bp-text-primary);
   --color-text-secondary:   var(--bp-text-secondary);
   --color-text-muted:       var(--bp-text-muted);
+  --color-text-accent:      var(--bp-text-accent);
+
+  --color-code-bg:          var(--bp-accent-subtle);
+  --color-code-text:        var(--bp-text-accent);
 
   --font-heading:           var(--bp-font-sans);
   --font-body:              var(--bp-font-sans);
@@ -324,7 +373,7 @@ code, pre, kbd {
 }
 
 pre {
-  background-color: var(--bp-bg-elevated);
+  background-color: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: var(--bp-space-4);
@@ -332,8 +381,8 @@ pre {
 }
 
 code {
-  background-color: var(--bp-accent-subtle);
-  color: var(--bp-text-accent);
+  background-color: var(--color-code-bg);
+  color: var(--color-code-text);
   padding: 0.125em 0.375em;
   border-radius: var(--bp-radius-sm);
 }

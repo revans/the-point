@@ -1,0 +1,25 @@
+/* ==========================================================================
+   THE POINT — Mood: Violet
+   Creative, expressive, modern. This is violet used with intention,
+   not the averaged purple of every AI-generated startup page.
+
+   Use for: creative tools, design software, digital art, agencies,
+            anything that needs to feel innovative without feeling generic.
+
+   The difference from the AI default: this violet is deployed deliberately —
+   with a strong hierarchy, not as the ambient color of everything.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/violet.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #7c3aed;
+    --color-primary-hover:  #6d28d9;
+    --color-primary-subtle: rgba(124, 58, 237, 0.1);
+    --color-primary-glow:   rgba(124, 58, 237, 0.22);
+  }
+}

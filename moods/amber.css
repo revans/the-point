@@ -1,0 +1,21 @@
+/* ==========================================================================
+   THE POINT — Mood: Amber
+   Warm, editorial, confident. Amber burns with intention.
+
+   Use for: food, hospitality, editorial, content brands, independent makers,
+            anything that should feel warm and unhurried.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/amber.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #d97706;
+    --color-primary-hover:  #b45309;
+    --color-primary-subtle: rgba(217, 119, 6, 0.1);
+    --color-primary-glow:   rgba(217, 119, 6, 0.22);
+  }
+}

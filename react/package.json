@@ -2,7 +2,6 @@
   "name": "@the-point/react",
   "version": "0.1.0",
   "description": "React component layer for The Point design system",
-  "main": "index.ts",
   "types": "index.ts",
   "peerDependencies": {
     "react": ">=18.0.0",

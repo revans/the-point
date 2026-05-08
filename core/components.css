@@ -1214,6 +1214,22 @@
 }
 
 /* --------------------------------------------------------------------------
+   MOTION HELPERS
+   -------------------------------------------------------------------------- */
+
+/* Rescopes all transition tokens within the container to the bounce curve.
+   Because child components use var(--bp-transition-*) for their transitions,
+   overriding the token here cascades down — no per-component overrides needed.
+
+   Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
+*/
+.bp-animate {
+  --bp-transition-fast:   all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bp-transition-base:   all 0.3s  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bp-transition-smooth: all 0.4s  cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --------------------------------------------------------------------------
    SKELETON LOADING
    -------------------------------------------------------------------------- */
 
@@ -1243,4 +1259,27 @@
   height: 1.5em;
   width: 60%;
   margin-bottom: var(--bp-space-3);
+}
+
+/* Grid-unit sizes — snap to the 40px blueprint grid.
+   Skeleton blocks sit exactly on grid lines: loading state reads
+   like an empty blueprint form with reserved, precisely-sized spaces. */
+.bp-skeleton-1u { height: 40px; }
+.bp-skeleton-2u { height: 80px; }
+.bp-skeleton-3u { height: 120px; }
+.bp-skeleton-4u { height: 160px; }
+.bp-skeleton-6u { height: 240px; }
+
+/* bp-skeleton-card — matches exact bp-card outer dimensions so
+   the skeleton→card swap has zero layout shift (no content jumping).
+   Apply bp-skeleton to inner children for the shimmer effect. */
+.bp-skeleton-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--bp-radius-lg);
+  padding: var(--bp-space-6);
+  box-shadow: var(--bp-shadow-inset), var(--bp-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bp-space-4);
 }

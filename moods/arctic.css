@@ -1,0 +1,22 @@
+/* ==========================================================================
+   THE POINT — Mood: Arctic
+   Clean, precise, cold-functional. Arctic communicates capability
+   without warmth — which is exactly right for some audiences.
+
+   Use for: developer tools, infrastructure, data, fintech, anything where
+            precision and reliability matter more than approachability.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/arctic.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #0ea5e9;
+    --color-primary-hover:  #0284c7;
+    --color-primary-subtle: rgba(14, 165, 233, 0.1);
+    --color-primary-glow:   rgba(14, 165, 233, 0.22);
+  }
+}

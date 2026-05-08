@@ -1,7 +1,7 @@
 /* ==========================================================================
    THE POINT — Brand Template
    Copy this file per project. Override only what your brand needs.
-   Everything else falls back to the blueprint base.
+   Everything else falls back to the blueprint base (or the mood file, if any).
 
    HOW TO USE:
    1. Copy this file into your project as brand.css (or any name you like)
@@ -9,10 +9,20 @@
    3. Uncomment and set the variables you want to change
    4. Leave everything else commented out — the blueprint defaults will show
 
+   LOAD ORDER:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/amber.css">  ← optional mood
+     <link rel="stylesheet" href="./brand.css">                ← always wins
+
+   LAYER: brand-state — this file's declarations win over blueprint and any mood.
+   You do not need to understand CSS layers to use this file.
+
    MINIMAL SETUP (just colors):
      --color-primary + --color-primary-hover is all you need for a brand.
      Everything else inherits automatically.
    ========================================================================== */
+
+@layer brand-state {
 
 :root {
 
@@ -47,10 +57,11 @@
      Only needed if you're moving away from the blueprint palette entirely.
      ---------------------------------------------------------------------- */
 
-  /* --color-bg:           #your-background; */
-  /* --color-bg-secondary: #your-secondary-background; */
-  /* --color-surface:      #your-card-background; */
-  /* --color-border:       #your-border-color; */
+  /* --color-bg:               #your-background; */
+  /* --color-bg-secondary:     #your-secondary-background; */
+  /* --color-surface:          #your-card-background; */
+  /* --color-surface-elevated: #your-elevated-surface; */  /* pre / code block backgrounds */
+  /* --color-border:           #your-border-color; */
 
 
   /* -------------------------------------------------------------------------
@@ -61,6 +72,9 @@
   /* --color-text:           #your-primary-text; */
   /* --color-text-secondary: #your-secondary-text; */
   /* --color-text-muted:     #your-muted-text; */
+  /* --color-text-accent:    #your-accent-text; */     /* inline code text */
+  /* --color-code-bg:        rgba(r, g, b, 0.08); */  /* inline code background */
+  /* --color-code-text:      #your-code-color; */     /* inline code text color */
 
 
   /* -------------------------------------------------------------------------
@@ -100,6 +114,8 @@
 
 }
 
+} /* end @layer brand-state */
+
 
 /* ==========================================================================
    EXAMPLE: Full brand override (uncomment and edit to use)
@@ -109,16 +125,18 @@
    ========================================================================== */
 
 /*
-:root {
-  --color-primary:        #f59e0b;
-  --color-primary-hover:  #d97706;
-  --color-primary-subtle: rgba(245, 158, 11, 0.1);
-  --color-primary-glow:   rgba(245, 158, 11, 0.2);
+@layer brand-state {
+  :root {
+    --color-primary:        #f59e0b;
+    --color-primary-hover:  #d97706;
+    --color-primary-subtle: rgba(245, 158, 11, 0.1);
+    --color-primary-glow:   rgba(245, 158, 11, 0.2);
 
-  --font-heading: 'Outfit', sans-serif;
-  --font-body:    'Inter', sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body:    'Inter', sans-serif;
 
-  --radius: var(--bp-radius-xl);
+    --radius: var(--bp-radius-xl);
+  }
 }
 */
 
@@ -131,8 +149,10 @@
    ========================================================================== */
 
 /*
-:root {
-  --color-primary:       #6366f1;
-  --color-primary-hover: #4f46e5;
+@layer brand-state {
+  :root {
+    --color-primary:       #6366f1;
+    --color-primary-hover: #4f46e5;
+  }
 }
 */

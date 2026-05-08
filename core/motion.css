@@ -1,0 +1,203 @@
+/* ==========================================================================
+   THE POINT — Motion System
+   Two layers of motion:
+
+   1. Page-level draw   data-bp-motion="draw" on <html>
+      A primary-colored T-square line sweeps left-to-right across the top,
+      then page sections fade up in sequence — like a draftsman sketching
+      the layout before filling it in.
+
+   2. Component-level   bp-animate and bp-animate-draw on any element
+      bp-animate:      rescopes transition tokens to the bounce curve
+      bp-animate-draw: draws the component border clockwise on load or
+                       scroll entry (no pseudo-elements — safe alongside
+                       bp-bracket which uses ::before and ::after)
+
+   All animations respect prefers-reduced-motion.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   KEYFRAMES
+   -------------------------------------------------------------------------- */
+
+/* T-square sweep: a single line draws left to right */
+@keyframes bp-draw-line-h {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Content materialise: fade up from 12px below */
+@keyframes bp-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Component border draw: clockwise top → right → bottom → left.
+   Implemented via background-image gradients so ::before / ::after
+   remain free for bp-bracket and other decorative utilities. */
+@keyframes bp-border-draw {
+  0%   {
+    background-size: 0%   1px,  1px  0%,  0%   1px,  1px  0%;
+  }
+  25%  {
+    background-size: 100% 1px,  1px  0%,  0%   1px,  1px  0%;
+  }
+  50%  {
+    background-size: 100% 1px,  1px 100%, 0%   1px,  1px  0%;
+  }
+  75%  {
+    background-size: 100% 1px,  1px 100%, 100% 1px,  1px  0%;
+  }
+  100% {
+    background-size: 100% 1px,  1px 100%, 100% 1px,  1px 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PAGE-LEVEL DRAW  data-bp-motion="draw"
+
+   Add this attribute to <html> alongside data-bp-theme:
+     <html data-bp-theme="dark" data-bp-motion="draw">
+
+   A gradient T-square line sweeps across the very top of the viewport,
+   then the page sections rise into place behind it.
+   -------------------------------------------------------------------------- */
+
+[data-bp-motion="draw"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-primary) 70%,
+    transparent 100%
+  );
+  transform-origin: left center;
+  z-index: var(--bp-z-toast);
+  pointer-events: none;
+  animation: bp-draw-line-h 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Nav materialises first, just after the line completes */
+[data-bp-motion="draw"] .bp-nav {
+  opacity: 0;
+  animation: bp-fade-up 0.4s ease-out 0.35s forwards;
+}
+
+/* Hero is the biggest element — give it the most time */
+[data-bp-motion="draw"] .bp-hero {
+  opacity: 0;
+  animation: bp-fade-up 0.5s ease-out 0.5s forwards;
+}
+
+/* Sections stagger in sequence */
+[data-bp-motion="draw"] .bp-section,
+[data-bp-motion="draw"] .bp-section-sm,
+[data-bp-motion="draw"] .bp-section-lg {
+  opacity: 0;
+  animation: bp-fade-up 0.45s ease-out 0.6s forwards;
+}
+
+/* App layout body (sidebar apps) */
+[data-bp-motion="draw"] .bp-main-content {
+  opacity: 0;
+  animation: bp-fade-up 0.45s ease-out 0.5s forwards;
+}
+
+/* Footer is last */
+[data-bp-motion="draw"] .bp-footer {
+  opacity: 0;
+  animation: bp-fade-up 0.4s ease-out 0.7s forwards;
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION GUARD
+   Users who set prefers-reduced-motion get the final state instantly.
+   No layout shift, no flash — just no animation.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-bp-motion="draw"] body::before {
+    display: none;
+  }
+
+  [data-bp-motion="draw"] .bp-nav,
+  [data-bp-motion="draw"] .bp-hero,
+  [data-bp-motion="draw"] .bp-section,
+  [data-bp-motion="draw"] .bp-section-sm,
+  [data-bp-motion="draw"] .bp-section-lg,
+  [data-bp-motion="draw"] .bp-main-content,
+  [data-bp-motion="draw"] .bp-footer {
+    opacity: 1;
+    animation: none;
+  }
+
+  .bp-animate-draw {
+    animation: none !important;
+    /* Show the final border state immediately */
+    background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100% !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENT-LEVEL DRAW  .bp-animate-draw
+
+   Add to any bp-card, bp-pricing-card, or section to draw its border
+   on load (or on scroll entry in browsers that support animation-timeline).
+
+   Uses animated background-image gradients — four 1px lines positioned
+   at each edge, sized from 0 to 100% in sequence. This leaves ::before
+   and ::after free for bp-bracket and other decorative utilities.
+
+   Usage:
+     <div class="bp-card bp-animate-draw">...</div>
+     <div class="bp-card bp-bracket bp-animate-draw">...</div>  ← works fine
+   -------------------------------------------------------------------------- */
+
+.bp-animate-draw {
+  --_draw-color: var(--color-primary);
+
+  /* Four 1px gradient lines — top, right, bottom, left edges */
+  background-image:
+    linear-gradient(var(--_draw-color), var(--_draw-color)),
+    linear-gradient(var(--_draw-color), var(--_draw-color)),
+    linear-gradient(var(--_draw-color), var(--_draw-color)),
+    linear-gradient(var(--_draw-color), var(--_draw-color));
+
+  /* Each line positioned at its edge */
+  background-position:
+    0      0,      /* top */
+    100%   0,      /* right */
+    0      100%,   /* bottom */
+    0      0;      /* left */
+
+  background-repeat: no-repeat;
+
+  /* Start all lines at zero size */
+  background-size: 0% 1px, 1px 0%, 0% 1px, 1px 0%;
+
+  /* Draw clockwise: top → right → bottom → left */
+  animation: bp-border-draw 0.8s ease-out both;
+
+  /* Scroll-driven: draw when element enters the viewport */
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
+}
+
+/* Fallback for browsers without scroll-driven animation support.
+   Just plays on load with a short delay. */
+@supports not (animation-timeline: view()) {
+  .bp-animate-draw {
+    animation: bp-border-draw 0.8s ease-out 0.15s both;
+  }
+}

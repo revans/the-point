@@ -9,6 +9,7 @@ A CSS design system with a blueprint aesthetic. One import, one optional brand f
 ```html
 <html data-bp-theme="dark">   <!-- deep navy blueprint -->
 <html data-bp-theme="light">  <!-- drafting paper blueprint -->
+<html data-bp-theme="auto">   <!-- follows OS preference -->
 
 <link rel="stylesheet" href="path/to/the-point/index.css">
 <link rel="stylesheet" href="./brand.css">  <!-- optional -->
@@ -21,12 +22,62 @@ A CSS design system with a blueprint aesthetic. One import, one optional brand f
 
 ## Brand Customization
 
-Copy `brand-template.css` and override only what you need. Minimum viable brand is two lines:
+### Layer system
+
+The Point uses CSS `@layer` to make brand overrides deterministic regardless of load order:
+
+```
+blueprint     ← The Point core (tokens, components, utilities)
+brand-base    ← Mood files (moods/amber.css, moods/slate.css, …)
+brand-seasonal← Campaign / seasonal overrides
+brand-state   ← Your brand.css — always wins
+```
+
+Higher layers win. Your `brand.css` in `brand-state` wins over any mood file.
+
+### Mood files
+
+Pre-built color directions in `moods/`. Drop one in between `index.css` and `brand.css`:
+
+```html
+<link rel="stylesheet" href="the-point/index.css">
+<link rel="stylesheet" href="the-point/moods/amber.css">
+<link rel="stylesheet" href="./brand.css">
+```
+
+| Mood | Feel | Use for |
+|---|---|---|
+| `amber.css` | Warm, editorial, confident | Food, hospitality, independent makers |
+| `slate.css` | Professional, restrained, trustworthy | Legal, finance, B2B consulting |
+| `forest.css` | Natural, calm, approachable | Wellness, education, nonprofits |
+| `violet.css` | Creative, expressive, modern | Design tools, agencies, creative software |
+| `ember.css` | Bold, warm, high-energy | Events, launches, sports, media |
+| `arctic.css` | Clean, precise, cold-functional | Developer tools, infrastructure, fintech |
+
+Mood files only set `--color-primary` and its variants. Your `brand.css` overrides any of them.
+
+### Runtime theme switching (10 lines of JS)
+
+Give the mood `<link>` an ID and swap its `href` to change palettes without a reload:
+
+```html
+<link id="mood-link" rel="stylesheet" href="the-point/moods/amber.css">
+```
+
+```js
+document.getElementById('mood-link').href = 'the-point/moods/forest.css'
+```
+
+### Custom brand file
+
+Copy `brand-template.css` into your project. It wraps in `@layer brand-state` automatically. Minimum viable brand is two lines:
 
 ```css
-:root {
-  --color-primary:       #your-color;
-  --color-primary-hover: #your-color-darker;
+@layer brand-state {
+  :root {
+    --color-primary:       #your-color;
+    --color-primary-hover: #your-color-darker;
+  }
 }
 ```
 
@@ -41,10 +92,14 @@ Copy `brand-template.css` and override only what you need. Minimum viable brand 
 | `--color-bg` | Page background |
 | `--color-bg-secondary` | Section alternating background |
 | `--color-surface` | Card / component background |
+| `--color-surface-elevated` | `pre` block background |
 | `--color-border` | All borders |
 | `--color-text` | Primary text |
 | `--color-text-secondary` | Body text, descriptions |
 | `--color-text-muted` | Labels, meta, placeholders |
+| `--color-text-accent` | Highlighted / accent text |
+| `--color-code-bg` | Inline `code` background |
+| `--color-code-text` | Inline `code` text color |
 | `--font-heading` | Heading font-family |
 | `--font-body` | Body font-family |
 | `--font-mono` | Monospace font-family |
@@ -441,6 +496,29 @@ Pass `error: true` to force error state, `error: false` to suppress it.
 <div class="bp-skeleton" style="height: 200px;"></div>  <!-- custom size -->
 ```
 
+### Grid-unit sizes (snap to the 40px blueprint grid)
+```html
+<div class="bp-skeleton bp-skeleton-1u"></div>  <!-- 40px  -->
+<div class="bp-skeleton bp-skeleton-2u"></div>  <!-- 80px  -->
+<div class="bp-skeleton bp-skeleton-3u"></div>  <!-- 120px -->
+<div class="bp-skeleton bp-skeleton-4u"></div>  <!-- 160px -->
+<div class="bp-skeleton bp-skeleton-6u"></div>  <!-- 240px -->
+```
+
+### bp-skeleton-card — zero layout shift card placeholder
+Matches `bp-card` exactly (same padding, border, border-radius). When real content loads, the swap causes no layout shift. Apply `bp-skeleton` to inner children for shimmer.
+```html
+<div class="bp-skeleton-card">
+  <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+  <div class="bp-skeleton bp-skeleton-1u" style="width: 140px;"></div>
+  <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+  <div class="bp-skeleton bp-skeleton-1u" style="width: 80%;"></div>
+</div>
+```
+
+### Skeleton pages as wireframe deliverables
+Build a full page layout using only `bp-skeleton-*` classes. The result is simultaneously an interactive wireframe and the real production loading state — the same file serves both purposes. See `examples/wireframe.html` for a complete implementation.
+
 ---
 
 ## Blueprint Decorative Utilities
@@ -539,6 +617,63 @@ bp-cursor-pointer
 ```
 bp-hide-mobile    → hidden below 768px
 bp-hide-desktop   → hidden above 768px
+```
+
+---
+
+## Motion
+
+### Page-level draw animation
+Add `data-bp-motion="draw"` to `<html>` alongside the theme:
+```html
+<html data-bp-theme="dark" data-bp-motion="draw">
+```
+A primary-colored line sweeps left-to-right across the top of the page, then `.bp-nav`, `.bp-hero`, `.bp-section`, and `.bp-footer` fade up in sequence — like a draftsman sketching layout before filling it in. Automatically disabled when `prefers-reduced-motion` is set.
+
+### bp-animate — bounce transitions on a container
+Rescopes `--bp-transition-*` tokens to the bounce curve within the container. All child buttons, cards, links, and nav items automatically use it — no per-element overrides.
+```html
+<div class="bp-animate">
+  <button class="bp-btn bp-btn-primary">Bouncy button</button>
+  <div class="bp-card bp-card-hover">Bouncy card</div>
+</div>
+```
+
+### bp-animate-draw — border drawn clockwise on scroll entry
+Draws the element border clockwise (top → right → bottom → left) using animated background gradients. Triggers when the element enters the viewport via `animation-timeline: view()`. Falls back to a page-load animation in older browsers. Safe to combine with `bp-bracket`.
+```html
+<div class="bp-card bp-animate-draw">...</div>
+<div class="bp-card bp-bracket bp-animate-draw">...</div>  <!-- works fine -->
+```
+
+---
+
+## Print Mode
+
+Print mode fires automatically via `@media print` (Ctrl+P / `window.print()`). No extra class needed — the stylesheet handles it.
+
+**What happens automatically:**
+- White background, low-opacity navy grid (structural, not decorative)
+- Navigation and interactive chrome stripped
+- Buttons render as plain text links
+- Glow shadows, transforms, animations removed
+- `bp-annotation` floats right as a margin note (28% width)
+- `bp-stat` collapses from card to compact labeled data rows
+- Page numbers appear in the footer via CSS counter
+
+### `bp-print-spec` — formal specification mode
+Add `bp-print-spec` to any `<section>`. Each `bp-card` inside becomes a numbered requirement block (`REQ-01`, `REQ-02`, ...). Pricing cards use `TIER-01` numbering.
+
+```html
+<!-- A pricing section printed as a formal proposal -->
+<section class="bp-section bp-print-spec">
+  <div class="bp-container">
+    <div class="bp-grid bp-grid-3">
+      <div class="bp-pricing-card">...</div>   <!-- prints as TIER-01 -->
+      <div class="bp-pricing-card">...</div>   <!-- prints as TIER-02 -->
+    </div>
+  </div>
+</section>
 ```
 
 ---
@@ -644,3 +779,61 @@ Z-index:   var(--bp-z-{base|raised|dropdown|sticky|overlay|modal|toast})
 Fonts:     var(--bp-font-sans)  var(--bp-font-mono)
 Blue:      var(--bp-blue-{50|100|200|300|400|500|600|700|800|900})
 ```
+
+---
+
+## AI Agents
+
+The Point ships with two Claude Code agents in `.claude/agents/`. Use them in Claude Code with `@blueprint` or `@copy`.
+
+### @blueprint
+
+Generates a complete `brand.css` + HTML page from a design interview or URL.
+
+**Entry points:**
+- `@blueprint` — blank slate; runs the full 8-question design interview (none technical — "glass office tower or bookshop?", "$50 or $5,000 decision?")
+- `@blueprint https://example.com` — reads the URL's visual language, asks 3–4 personalizing questions
+- `@blueprint` + image/screenshot — extracts aesthetic from the image, asks 3–4 questions
+- `@blueprint` + existing `brand.css` — reads current vars, asks "Keep this direction or start fresh?"
+
+**Outputs:**
+- `brand.css` — only the variables that differ from The Point defaults
+- A complete HTML file using `bp-` classes from this reference doc
+- Placeholder text marked as `[Hero headline]`, `[CTA: primary action]`, `[Feature 1 name]`, etc.
+
+**Skills loaded automatically:**
+- `blueprint-taste.md` — bans AI-default aesthetics (dark purple palette, Inter Bold 72px, glowing orbs, glass morphism, 6-identical-card grids, uniform spacing)
+- `blueprint-copywriter.md` — bans generic copy; runs two-branch interview for real copy signal
+
+After generating HTML, Blueprint hands off to `@copy` to fill all placeholder text.
+
+### @copy
+
+Fills placeholder text in any existing The Point HTML file with real product copy.
+
+**What it reads as placeholders:**
+- Text in `[square brackets]`
+- `<!-- placeholder -->` comments
+- Generic strings: "Feature Name", "Subtitle goes here", "Your headline", "Lorem ipsum"
+
+**Interview — two branches:**
+
+Branch A (has customers):
+> "What's the one thing your best customer said that made you realize you were onto something?"
+
+Branch B (no customers yet) — three questions:
+1. Describe the moment of frustration that made you know this was real
+2. What does someone say right before they'd desperately want your product?
+3. What does the Reddit post your ideal customer writes at 11pm look like?
+
+**Banned phrases (never generated):**
+- "Transform your workflow" / "Elevate your experience" / "Revolutionize how you X"
+- "Effortlessly [verb]" / "Streamline your workflow" / "All-in-one solution"
+- Any CTA ending in "today" / CTA that is exactly "Get started"
+- Three-word value props: "Simple. Powerful. Yours."
+
+**Produces for every page:**
+- 3 headline variants (benefit-led, curiosity, direct)
+- Subtitle that adds new information — does not restate the headline
+- CTA text specific enough to only work for this product
+- Feature descriptions starting with the outcome, not the capability

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Point — Skeleton Wireframe</title>
+  <link rel="stylesheet" href="../index.css">
+  <style>
+    /* Slight opacity on the skeleton card containers so the grid shows through */
+    .bp-skeleton-card { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+  <!--
+    SKELETON WIREFRAME — THE POINT
+    ================================
+    This file is two things simultaneously:
+      1. An interactive wireframe — hand it to a client as a layout blueprint
+      2. The real production loading state — use these exact classes in your app
+
+    Because bp-skeleton-card matches bp-card's exact dimensions (padding,
+    border, border-radius), swapping skeleton → real content causes zero
+    layout shift. The wireframe IS the loading state.
+
+    Grid-unit sizes (1u = 40px, the blueprint grid unit):
+      bp-skeleton-1u   40px
+      bp-skeleton-2u   80px
+      bp-skeleton-3u  120px
+      bp-skeleton-4u  160px
+      bp-skeleton-6u  240px
+
+    All shimmer via the bp-skeleton class on leaf elements.
+  -->
+
+  <!-- NAV SKELETON -->
+  <nav class="bp-nav">
+    <div class="bp-container bp-nav-inner">
+      <div class="bp-skeleton bp-skeleton-1u" style="width: 100px;"></div>
+      <div class="bp-flex bp-gap-4" style="flex: 1; justify-content: center;">
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+      </div>
+      <div class="bp-flex bp-gap-3">
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 70px;"></div>
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 100px;"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SKELETON -->
+  <section class="bp-hero bp-container">
+    <!-- Eyebrow -->
+    <div class="bp-skeleton bp-skeleton-1u" style="width: 140px; border-radius: 9999px; margin-bottom: 1.5rem;"></div>
+    <!-- Title: 2 lines -->
+    <div class="bp-skeleton bp-skeleton-2u" style="width: 640px; max-width: 100%;"></div>
+    <div style="height: 0.5rem;"></div>
+    <div class="bp-skeleton bp-skeleton-2u" style="width: 480px; max-width: 100%; margin-bottom: 1.5rem;"></div>
+    <!-- Subtitle -->
+    <div class="bp-skeleton bp-skeleton-1u" style="width: 520px; max-width: 100%;"></div>
+    <div style="height: 0.5rem;"></div>
+    <div class="bp-skeleton bp-skeleton-1u" style="width: 400px; max-width: 100%; margin-bottom: 2rem;"></div>
+    <!-- CTA buttons -->
+    <div class="bp-flex bp-gap-4">
+      <div class="bp-skeleton bp-skeleton-1u" style="width: 160px;"></div>
+      <div class="bp-skeleton bp-skeleton-1u" style="width: 130px;"></div>
+    </div>
+  </section>
+
+  <!-- STATS ROW SKELETON -->
+  <section class="bp-section-sm" style="background-color: var(--color-bg-secondary);">
+    <div class="bp-container">
+      <div class="bp-grid bp-grid-4">
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-2u" style="width: 80px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 120px;"></div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-2u" style="width: 80px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 120px;"></div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-2u" style="width: 80px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 120px;"></div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-2u" style="width: 80px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 120px;"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION SKELETON -->
+  <section class="bp-section">
+    <div class="bp-container">
+
+      <!-- Section header -->
+      <div class="bp-section-header">
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 100px; margin: 0 auto var(--bp-space-3);"></div>
+        <div class="bp-skeleton bp-skeleton-2u" style="width: 400px; max-width: 100%; margin: 0 auto var(--bp-space-4);"></div>
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 500px; max-width: 100%; margin: 0 auto;"></div>
+      </div>
+
+      <!-- Feature cards — bp-skeleton-card matches bp-card-feature exactly -->
+      <div class="bp-grid bp-grid-3">
+
+        <div class="bp-skeleton-card">
+          <!-- Icon placeholder: 48px × 48px = slightly over 1u -->
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+          <div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 140px; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 85%;"></div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+          <div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 160px; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 75%;"></div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+          <div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 120px; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+          <div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 150px; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 80%;"></div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+          <div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 130px; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 70%;"></div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 48px; height: 48px; border-radius: var(--bp-radius-lg);"></div>
+          <div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 145px; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 88%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION SKELETON -->
+  <section class="bp-section" style="background-color: var(--color-bg-secondary);">
+    <div class="bp-container">
+
+      <div class="bp-section-header">
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 80px; margin: 0 auto var(--bp-space-3);"></div>
+        <div class="bp-skeleton bp-skeleton-2u" style="width: 320px; max-width: 100%; margin: 0 auto;"></div>
+      </div>
+
+      <div class="bp-grid bp-grid-3">
+
+        <!-- Standard pricing card skeleton — matches bp-pricing-card dimensions -->
+        <div class="bp-skeleton-card" style="gap: var(--bp-space-6);">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+          <div class="bp-skeleton bp-skeleton-4u" style="width: 100px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+          <div class="bp-flex bp-flex-col bp-gap-3">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 80%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 90%;"></div>
+          </div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+        </div>
+
+        <!-- Featured pricing card -->
+        <div class="bp-skeleton-card" style="gap: var(--bp-space-6); border-color: var(--color-primary);">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+          <div class="bp-skeleton bp-skeleton-4u" style="width: 120px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+          <div class="bp-flex bp-flex-col bp-gap-3">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 85%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 90%;"></div>
+          </div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+        </div>
+
+        <!-- Enterprise card -->
+        <div class="bp-skeleton-card" style="gap: var(--bp-space-6);">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 80px;"></div>
+          <div class="bp-skeleton bp-skeleton-4u" style="width: 100px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+          <div class="bp-flex bp-flex-col bp-gap-3">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 75%;"></div>
+          </div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%;"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SKELETON -->
+  <section class="bp-section">
+    <div class="bp-container">
+
+      <div class="bp-section-header">
+        <div class="bp-skeleton bp-skeleton-2u" style="width: 360px; max-width: 100%; margin: 0 auto;"></div>
+      </div>
+
+      <div class="bp-grid bp-grid-3">
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 70%;"></div>
+          <div class="bp-flex bp-gap-3 bp-items-center" style="margin-top: auto; padding-top: var(--bp-space-4);">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 40px; height: 40px; border-radius: 9999px; flex-shrink: 0;"></div>
+            <div class="bp-flex bp-flex-col bp-gap-2" style="flex: 1;">
+              <div class="bp-skeleton bp-skeleton-1u" style="width: 120px;"></div>
+              <div class="bp-skeleton bp-skeleton-1u" style="width: 100px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 90%;"></div>
+          <div class="bp-flex bp-gap-3 bp-items-center" style="margin-top: auto; padding-top: var(--bp-space-4);">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 40px; height: 40px; border-radius: 9999px; flex-shrink: 0;"></div>
+            <div class="bp-flex bp-flex-col bp-gap-2" style="flex: 1;">
+              <div class="bp-skeleton bp-skeleton-1u" style="width: 110px;"></div>
+              <div class="bp-skeleton bp-skeleton-1u" style="width: 90px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bp-skeleton-card">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 100%; margin-bottom: 0.25rem;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 80%; margin-bottom: 0.25rem;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 65%;"></div>
+          <div class="bp-flex bp-gap-3 bp-items-center" style="margin-top: auto; padding-top: var(--bp-space-4);">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 40px; height: 40px; border-radius: 9999px; flex-shrink: 0;"></div>
+            <div class="bp-flex bp-flex-col bp-gap-2" style="flex: 1;">
+              <div class="bp-skeleton bp-skeleton-1u" style="width: 130px;"></div>
+              <div class="bp-skeleton bp-skeleton-1u" style="width: 100px;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER SKELETON -->
+  <footer class="bp-footer">
+    <div class="bp-container">
+      <div class="bp-footer-grid">
+
+        <div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 120px; margin-bottom: var(--bp-space-3);"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 220px; margin-bottom: 0.25rem;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 180px;"></div>
+        </div>
+
+        <div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 80px; margin-bottom: var(--bp-space-4);"></div>
+          <div class="bp-flex bp-flex-col bp-gap-2">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 70px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 80px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 55px;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 80px; margin-bottom: var(--bp-space-4);"></div>
+          <div class="bp-flex bp-flex-col bp-gap-2">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 65px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 80px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 70px;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 80px; margin-bottom: var(--bp-space-4);"></div>
+          <div class="bp-flex bp-flex-col bp-gap-2">
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 75px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+            <div class="bp-skeleton bp-skeleton-1u" style="width: 85px;"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bp-footer-bottom">
+        <div class="bp-skeleton bp-skeleton-1u" style="width: 180px;"></div>
+        <div class="bp-flex bp-gap-4">
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+          <div class="bp-skeleton bp-skeleton-1u" style="width: 60px;"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

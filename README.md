@@ -42,6 +42,7 @@ Add one attribute to your `<html>` element:
 ```html
 <html data-bp-theme="dark">   <!-- deep navy, light blue lines -->
 <html data-bp-theme="light">  <!-- drafting paper, blueprint blue lines -->
+<html data-bp-theme="auto">   <!-- follows OS dark/light preference -->
 ```
 
 That's it. Your page is designed.
@@ -51,10 +52,12 @@ That's it. Your page is designed.
 Copy `brand-template.css` into your project and rename it `brand.css`. Uncomment and set the variables you want to change:
 
 ```css
-:root {
-  --color-primary:       #f97316;   /* your brand color */
-  --color-primary-hover: #ea580c;
-  --font-heading:        'Outfit', sans-serif;
+@layer brand-state {
+  :root {
+    --color-primary:       #f97316;   /* your brand color */
+    --color-primary-hover: #ea580c;
+    --font-heading:        'Outfit', sans-serif;
+  }
 }
 ```
 
@@ -87,9 +90,11 @@ Toggle with a single attribute. No JavaScript required.
 The blueprint grid is part of the default aesthetic. To remove it in your brand file:
 
 ```css
-:root {
-  --bp-grid-color:      transparent;
-  --bp-grid-color-bold: transparent;
+@layer brand-state {
+  :root {
+    --bp-grid-color:      transparent;
+    --bp-grid-color-bold: transparent;
+  }
 }
 ```
 
@@ -104,6 +109,54 @@ The brand file is a spectrum, not a switch:
 
 ---
 
+## Mood library
+
+Six pre-built color directions that live between `index.css` and your `brand.css`. Drop one in to get 80% of a brand direction for free:
+
+```html
+<link rel="stylesheet" href="the-point/index.css">
+<link rel="stylesheet" href="the-point/moods/amber.css">
+<link rel="stylesheet" href="./brand.css">
+```
+
+| Mood | Feel | Primary color |
+|---|---|---|
+| `amber.css` | Warm, editorial, confident | #d97706 |
+| `slate.css` | Professional, restrained, trustworthy | #475569 |
+| `forest.css` | Natural, calm, approachable | #16a34a |
+| `violet.css` | Creative, expressive, modern | #7c3aed |
+| `ember.css` | Bold, warm, high-energy | #ea580c |
+| `arctic.css` | Clean, precise, cold-functional | #0ea5e9 |
+
+Mood files only set the primary color family. Your `brand.css` overrides any of them.
+
+### Layer compositing
+
+The Point uses CSS `@layer` to make override order deterministic:
+
+```
+blueprint      ← The Point core (lowest priority)
+brand-base     ← Mood files
+brand-seasonal ← Campaign / seasonal overrides
+brand-state    ← Your brand.css (always wins)
+```
+
+This means you can load a mood file AND a brand.css — the brand.css wins on any variable both files touch, without needing `!important` or higher specificity.
+
+### Runtime mood switching
+
+Give the mood `<link>` an id and swap `href` to change palettes without a reload:
+
+```html
+<link id="mood" rel="stylesheet" href="the-point/moods/amber.css">
+```
+
+```js
+document.getElementById('mood').href = 'the-point/moods/forest.css'
+```
+
+---
+
 ## File structure
 
 ```
@@ -112,10 +165,26 @@ the-point/
   ├── brand-template.css     ← copy this per project
   ├── llm.md                 ← reference doc for LLM-assisted development
   ├── README.md              ← you are here
-  └── core/
-      ├── base.css           ← design tokens, themes, reset, body styles
-      ├── components.css     ← all component classes
-      └── utilities.css      ← spacing, typography, layout helpers
+  ├── core/
+  │   ├── base.css           ← design tokens, themes, reset, body styles
+  │   ├── components.css     ← all component classes
+  │   ├── utilities.css      ← spacing, typography, layout helpers
+  │   ├── motion.css         ← animation system (bp-animate, draw animations)
+  │   └── print.css          ← print mode, bp-print-spec
+  ├── moods/
+  │   ├── amber.css          ← warm, editorial, confident
+  │   ├── slate.css          ← professional, restrained, trustworthy
+  │   ├── forest.css         ← natural, calm, approachable
+  │   ├── violet.css         ← creative, expressive, modern
+  │   ├── ember.css          ← bold, warm, high-energy
+  │   └── arctic.css         ← clean, precise, cold-functional
+  └── .claude/
+      ├── agents/
+      │   ├── blueprint.md   ← Blueprint design agent (@blueprint)
+      │   └── copy.md        ← Copywriter agent (@copy)
+      └── skills/
+          ├── blueprint-taste.md       ← design taste enforcer
+          └── blueprint-copywriter.md  ← copy interview framework
 ```
 
 You never need to edit the `core/` files. All customization happens in your brand file.
@@ -161,7 +230,9 @@ All components use `bp-` prefixed classes. A brief overview:
 **Content**
 `bp-pricing-card` `bp-pricing-card-featured`
 `bp-testimonial`
-`bp-divider` `bp-skeleton`
+`bp-divider` `bp-skeleton` `bp-skeleton-text` `bp-skeleton-title`
+`bp-skeleton-1u` `bp-skeleton-2u` `bp-skeleton-3u` `bp-skeleton-4u` `bp-skeleton-6u`
+`bp-skeleton-card`
 
 **App layout**
 `bp-app-layout` `bp-sidebar` `bp-sidebar-header` `bp-sidebar-nav`
@@ -177,13 +248,20 @@ All components use `bp-` prefixed classes. A brief overview:
 **Blueprint decorative**
 `bp-bracket` `bp-mono-label` `bp-annotation` `bp-dotted-connector` `bp-text-gradient`
 
+**Motion**
+`bp-animate` — rescopes transitions to bounce curve within a container
+`bp-animate-draw` — draws component border clockwise on scroll entry
+
+**Print**
+`bp-print-spec` — applied to any section, renders it as a formal specification document with auto-numbered `REQ-01` / `TIER-01` blocks. See [Print mode](#print-mode).
+
 For full HTML patterns for every component, see `llm.md`.
 
 ---
 
 ## Examples
 
-The `examples/` directory has six complete pages showing how different the same library can look:
+The `examples/` directory has nine complete pages showing how different the same library can look:
 
 | File | Theme | Brand | Layout type |
 |---|---|---|---|
@@ -195,6 +273,7 @@ The `examples/` directory has six complete pages showing how different the same 
 | `link-bio.html` | Dark | Teal (Maya Chen) | Centered card, link-in-bio |
 | `event.html` | Dark | Red (Signal 2026) | Conference page, live countdown |
 | `onboarding.html` | Dark | Green (Grove) | 4-step interactive wizard |
+| `wireframe.html` | Light | None | Full skeleton wireframe — interactive layout blueprint and production loading state in one file |
 
 All examples are standalone HTML files. Open any of them directly in a browser.
 
@@ -209,6 +288,132 @@ All examples are standalone HTML files. Open any of them directly in a browser.
 3. Describe the page or component you want
 
 The LLM will use the library's classes and patterns rather than inventing its own styles. This keeps output consistent and dramatically reduces the amount of CSS the LLM needs to generate.
+
+---
+
+## Blueprint Agent
+
+The Point ships with a built-in AI design agent that interviews you (or reads a URL/screenshot) and generates a complete `brand.css` + HTML page — without producing the AI defaults everyone recognizes.
+
+The agent lives in `.claude/agents/blueprint.md` and loads two skills:
+
+- **`blueprint-taste.md`** — fires before any design decision. Bans the AI startup palette (dark background + indigo/violet), Inter Bold at 72px, glowing orb hero graphics, glass morphism cards, six identical feature cards, and uniform spacing. Forces every choice to be justified for the specific audience.
+- **`blueprint-copywriter.md`** — fires after design decisions. Bans every generic landing page phrase ("Transform your workflow", "Effortlessly X", "Get started today"). Runs a two-branch interview to extract real signal from either customer quotes or founder frustration.
+
+### How to use @blueprint
+
+Four entry points — Blueprint detects which one applies:
+
+**Blank slate (full interview):**
+```
+@blueprint
+```
+
+Eight questions, none technical. Examples: "Who's making the decision — someone spending $50 or justifying $5,000 to their boss?" and "Should this feel like a glass office tower or a well-lit independent bookshop?"
+
+**URL to extract style from:**
+```
+@blueprint https://stripe.com
+```
+
+Reads the visual language (palette, weight, spacing, corner radius) and asks 3–4 personalizing questions — the URL answers the visual questions.
+
+**Image or screenshot:**
+Upload a screenshot or Dribbble image. Blueprint extracts the aesthetic and asks 3–4 questions.
+
+**Existing brand.css:**
+Point it at a `brand.css` you already have. It reads which variables are set, asks "Keep this direction or start fresh?", and builds from there.
+
+### Output
+
+After the interview, Blueprint generates:
+- `brand.css` — only the variables that differ from defaults
+- A complete HTML file using The Point component classes
+- All placeholder text marked with `[brackets]` for the copy agent
+
+It then hands off to `@copy`, which runs its own two-branch interview and fills all the text.
+
+### @copy — standalone use
+
+Use `@copy` on any existing The Point HTML file to replace placeholder text with real copy:
+
+```
+@copy
+```
+
+The agent reads the file, lists every placeholder it found, runs the interview, and writes back to the same file.
+
+---
+
+## Print mode
+
+Add `class="bp-print-spec"` to any section to make it print as a formal specification document. No other class needed — `@media print` fires automatically on Ctrl+P.
+
+**What the print stylesheet does automatically:**
+- Forces white background with low-opacity navy grid (structural presence, not decorative)
+- Hides navigation, modals, overlays, and toasts
+- Strips buttons to plain text links
+- Removes all glow shadows, transforms, and animations
+- Floats `bp-annotation` blocks to the right margin (28% width, with a primary-color left border)
+- Collapses `bp-stat` from large card numbers to compact labeled data rows
+- Injects page numbers into the footer via CSS `counter(page)`
+
+### `bp-print-spec` — formal specification mode
+
+Apply to any `<section>`. Each `bp-card` inside auto-numbers as `REQ-01`, `REQ-02`, etc. Pricing cards use `TIER-01`.
+
+```html
+<!-- A pricing page that becomes a formal proposal when printed -->
+<section class="bp-section bp-print-spec">
+  <div class="bp-container">
+    <div class="bp-grid bp-grid-3">
+      <div class="bp-pricing-card">...</div>   <!-- prints as TIER-01 -->
+      <div class="bp-pricing-card">...</div>   <!-- prints as TIER-02 -->
+      <div class="bp-pricing-card">...</div>   <!-- prints as TIER-03 -->
+    </div>
+  </div>
+</section>
+```
+
+The counter labels (`REQ-`, `TIER-`) are injected via CSS — no changes to HTML needed.
+
+---
+
+## Motion
+
+### Page draw animation
+
+Add `data-bp-motion="draw"` to your `<html>` element alongside the theme:
+
+```html
+<html data-bp-theme="dark" data-bp-motion="draw">
+```
+
+A primary-colored line sweeps left-to-right across the top of the page, then the nav, hero, sections, and footer fade up in sequence — like a draftsman sketching the layout before filling it in. Automatically disabled for users with `prefers-reduced-motion` set in their OS.
+
+### Bounce transitions
+
+Wrap any container in `bp-animate` to switch all child transitions to the bounce curve:
+
+```html
+<div class="bp-animate">
+  <button class="bp-btn bp-btn-primary">Bouncy</button>
+  <div class="bp-card bp-card-hover">Bouncy card</div>
+</div>
+```
+
+This works by rescoping the `--bp-transition-*` tokens within the container. Every component that inherits those tokens picks up the bounce automatically.
+
+### Component border draw
+
+Add `bp-animate-draw` to any card or section to draw its border clockwise (top → right → bottom → left) when it enters the viewport:
+
+```html
+<div class="bp-card bp-animate-draw">...</div>
+<div class="bp-card bp-bracket bp-animate-draw">...</div>
+```
+
+Uses animated `background-image` gradients — no pseudo-elements — so it's safe to combine with `bp-bracket`. Scroll-driven in Chrome/Edge via `animation-timeline: view()`. Falls back to a page-load animation in other browsers.
 
 ---
 
