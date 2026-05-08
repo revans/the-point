@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark" data-bp-motion="draw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbit — See exactly what your agent did</title>
+  <meta name="description" content="Orbit shows you every decision your agent made, in order: actions, reasoning, tool calls, cost, and duration. No more guessing why it went off-plan.">
+
+  <!-- The Point CSS framework -->
+  <link rel="stylesheet" href="../index.css">
+  <!-- Mood base: arctic.css — cold-functional developer-tool structure -->
+  <link rel="stylesheet" href="../moods/arctic.css">
+  <!-- Orbit brand: cognac amber accent, Plus Jakarta Sans, deep navy surfaces -->
+  <link rel="stylesheet" href="brand.css">
+</head>
+
+<body>
+
+  <!-- ================================================================
+       NAV
+       Brand name left in monospace — reads as a technical instrument,
+       not a consumer product. Three links, one CTA. No "Home" link.
+       ================================================================ -->
+  <nav class="bp-nav">
+    <div class="bp-container bp-nav-inner">
+      <a href="#" class="bp-nav-brand bp-font-mono">Orbit</a>
+      <ul class="bp-nav-links">
+        <li><a href="#features" class="bp-nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="bp-nav-link">How it works</a></li>
+        <li><a href="#waitlist" class="bp-nav-link">Early access</a></li>
+      </ul>
+      <div class="bp-nav-actions">
+        <a href="#waitlist" class="bp-btn bp-btn-primary bp-btn-sm">Get early access</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ================================================================
+       HERO
+       Headline chosen for specificity: the diversion moment is the
+       exact frustration from the brief. Not "visibility into agents" —
+       "why your agent went off-plan." That's the 11pm Reddit post.
+
+       Subtitle adds new information: what Orbit actually captures,
+       so the reader knows this is more than a logger.
+
+       Signal strip below: the four dimensions Orbit measures,
+       written in mono labels. Engineers read this and immediately
+       understand the scope. No explanation required.
+       ================================================================ -->
+  <section class="bp-hero bp-container">
+    <div class="bp-hero-eyebrow">
+      <span class="bp-mono-label">AGENT OBSERVABILITY</span>
+      <span class="bp-badge bp-badge-warning" style="margin-left: 0.75rem;">Pre-launch</span>
+    </div>
+    <h1 class="bp-hero-title">
+      Now you can see why<br>
+      your agent <span class="bp-text-gradient">went off-plan</span>
+    </h1>
+    <p class="bp-hero-subtitle">
+      Orbit captures every action, tool call, agent handoff, and reasoning step in a run —
+      so you know exactly where it slowed down, what it cost, and why it diverted.
+    </p>
+    <div class="bp-hero-actions">
+      <a href="#waitlist" class="bp-btn bp-btn-primary bp-btn-xl">Reserve your spot</a>
+      <a href="#features" class="bp-btn bp-btn-ghost bp-btn-xl">See what it captures</a>
+    </div>
+
+    <!-- Signal strip: the observable dimensions Orbit covers.
+         Written in mono. No prose. Engineers know what these mean. -->
+    <div class="bp-flex bp-gap-8 bp-mt-12 bp-hide-mobile" style="border-top: 1px solid var(--color-border); padding-top: 2rem;">
+      <div>
+        <span class="bp-mono-label bp-text-muted">PER RUN</span>
+        <p class="bp-font-mono bp-text-secondary bp-text-sm bp-mt-1">cost · duration · tool calls · outcome</p>
+      </div>
+      <div>
+        <span class="bp-mono-label bp-text-muted">PER TOOL</span>
+        <p class="bp-font-mono bp-text-secondary bp-text-sm bp-mt-1">latency · tokens in · tokens out · errors</p>
+      </div>
+      <div>
+        <span class="bp-mono-label bp-text-muted">PER SKILL</span>
+        <p class="bp-font-mono bp-text-secondary bp-text-sm bp-mt-1">loaded · invoked · resolved · skipped</p>
+      </div>
+      <div>
+        <span class="bp-mono-label bp-text-muted">PER HANDOFF</span>
+        <p class="bp-font-mono bp-text-secondary bp-text-sm bp-mt-1">agent → agent · context passed · latency added</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       PROBLEM SIGNAL SECTION
+       The three sentences from the brief, rendered as real copy.
+       These are not testimonials — they're the actual questions
+       the audience is asking. Presenting them unvarnished works
+       because every engineer who reads them thinks: "yes, that's me."
+       ================================================================ -->
+  <section class="bp-section" style="background-color: var(--color-bg-secondary);">
+    <div class="bp-container bp-container-lg">
+
+      <div class="bp-section-header">
+        <span class="bp-section-label">THE PROBLEM</span>
+        <h2 class="bp-section-title">Agents are black boxes. That's not good enough.</h2>
+        <p class="bp-section-subtitle">
+          Every team shipping agents eventually hits the same wall.
+        </p>
+      </div>
+
+      <div class="bp-grid bp-grid-3">
+
+        <div class="bp-card" style="padding: 2rem;">
+          <p class="bp-text-secondary bp-leading-relaxed bp-mb-4" style="font-style: italic; font-size: 1.0625rem;">
+            "I deployed updates to my skills and now the agent is slower. I have no idea which change caused it or which tool call is taking the most time."
+          </p>
+          <div class="bp-flex bp-items-center bp-gap-2">
+            <div class="bp-avatar bp-avatar-sm" style="background: var(--color-primary-subtle); color: var(--color-primary); font-family: var(--font-mono); font-size: 0.625rem;">DEV</div>
+            <span class="bp-text-muted bp-text-sm">Engineer, after a skill update</span>
+          </div>
+        </div>
+
+        <div class="bp-card" style="padding: 2rem;">
+          <p class="bp-text-secondary bp-leading-relaxed bp-mb-4" style="font-style: italic; font-size: 1.0625rem;">
+            "Our LLM bill went up 40% this month. I can't tell which team, which agent, or which run is responsible."
+          </p>
+          <div class="bp-flex bp-items-center bp-gap-2">
+            <div class="bp-avatar bp-avatar-sm" style="background: var(--color-primary-subtle); color: var(--color-primary); font-family: var(--font-mono); font-size: 0.625rem;">MGR</div>
+            <span class="bp-text-muted bp-text-sm">Engineering manager, budget review</span>
+          </div>
+        </div>
+
+        <div class="bp-card" style="padding: 2rem;">
+          <p class="bp-text-secondary bp-leading-relaxed bp-mb-4" style="font-style: italic; font-size: 1.0625rem;">
+            "The agent deviated from the plan and I genuinely don't know what reasoning led it there. The logs tell me what happened, not why."
+          </p>
+          <div class="bp-flex bp-items-center bp-gap-2">
+            <div class="bp-avatar bp-avatar-sm" style="background: var(--color-primary-subtle); color: var(--color-primary); font-family: var(--font-mono); font-size: 0.625rem;">SWE</div>
+            <span class="bp-text-muted bp-text-sm">r/LLMDevs, posted at 11pm</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       FEATURES — PRIMARY (2 featured treatments)
+       Two load-bearing capabilities get the full treatment: more space,
+       a bracket decoration, a bottom stat. The other three are compact.
+       NOT six identical cards. The two featured ones are what Orbit does
+       that nothing else does.
+       ================================================================ -->
+  <section class="bp-section" id="features">
+    <div class="bp-container">
+
+      <div class="bp-section-header">
+        <span class="bp-section-label">WHAT ORBIT SHOWS YOU</span>
+        <h2 class="bp-section-title">Every run, laid flat</h2>
+        <p class="bp-section-subtitle">
+          Not a summary. Not sampled. The full sequence of what happened, in order, with numbers attached.
+        </p>
+      </div>
+
+      <!-- Two featured cards: wider, more breathing room, a stat each -->
+      <div class="bp-grid bp-grid-2 bp-mb-6">
+
+        <!-- Featured 1: Run timeline trace — THE core capability -->
+        <div class="bp-card bp-bracket bp-animate-draw" style="padding: 2.5rem;">
+          <div class="bp-flex bp-items-center bp-gap-3 bp-mb-5">
+            <div style="width: 40px; height: 40px; border-radius: var(--bp-radius-md); background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 5h14M3 10h10M3 15h6" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="16" cy="10" r="1.5" fill="var(--color-primary)"/>
+                <circle cx="12" cy="15" r="1.5" fill="var(--color-primary)" opacity="0.5"/>
+              </svg>
+            </div>
+            <span class="bp-mono-label bp-text-muted">RUN TIMELINE</span>
+          </div>
+          <h3 class="bp-text-xl bp-font-semibold bp-mb-3">
+            See the exact sequence of decisions your agent made
+          </h3>
+          <p class="bp-text-secondary bp-leading-relaxed bp-mb-5">
+            Open any run and walk through it step by step: which tool was called, what the agent was thinking before it called it, how long each step took, and where the plan changed. You stop debugging by re-running. You read what already happened.
+          </p>
+          <p class="bp-annotation">
+            Captures reasoning steps, not just tool calls — so you see the "why" before the "what." Works with Claude, GPT-4o, and any agent built on a structured framework.
+          </p>
+          <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+            <span class="bp-stat-value bp-text-primary" style="font-size: 1.875rem; font-weight: 600; font-family: var(--font-mono);">Every step</span>
+            <span class="bp-stat-label bp-text-muted bp-text-sm" style="margin-left: 0.75rem;">captured in sequence, not sampled</span>
+          </div>
+        </div>
+
+        <!-- Featured 2: Cost visibility per run -->
+        <div class="bp-card bp-bracket bp-animate-draw" style="padding: 2.5rem;">
+          <div class="bp-flex bp-items-center bp-gap-3 bp-mb-5">
+            <div style="width: 40px; height: 40px; border-radius: var(--bp-radius-md); background: var(--color-primary-subtle); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 14l4-4 3 3 4-5 3 3" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="2" y="3" width="16" height="14" rx="1" stroke="var(--color-primary)" stroke-width="1.25" opacity="0.3"/>
+              </svg>
+            </div>
+            <span class="bp-mono-label bp-text-muted">COST ACCOUNTING</span>
+          </div>
+          <h3 class="bp-text-xl bp-font-semibold bp-mb-3">
+            Know exactly which runs — and which agents — are driving your bill
+          </h3>
+          <p class="bp-text-secondary bp-leading-relaxed bp-mb-5">
+            Orbit attributes cost to every run, every agent, every team. When your LLM spend goes up, you open Orbit and know immediately: which agent changed, which skill is now calling a more expensive model, which tool is generating unexpectedly long outputs. The bill stops being a mystery.
+          </p>
+          <p class="bp-annotation">
+            Cost is computed from actual token counts at the SDK level — not estimated from billing APIs. Accurate to the individual tool call.
+          </p>
+          <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+            <span class="bp-stat-value bp-text-primary" style="font-size: 1.875rem; font-weight: 600; font-family: var(--font-mono);">Per tool call</span>
+            <span class="bp-stat-label bp-text-muted bp-text-sm" style="margin-left: 0.75rem;">cost attribution, not just per run</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Three compact supporting features -->
+      <div class="bp-grid bp-grid-3">
+
+        <!-- Compact 1: Reasoning trace / why it diverted -->
+        <div class="bp-card bp-card-hover bp-card-feature">
+          <div class="bp-card-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M10 2C6.13 2 3 5.13 3 9c0 2.39 1.19 4.5 3 5.74V17h8v-2.26C15.81 13.5 17 11.39 17 9c0-3.87-3.13-7-7-7z" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 17h4" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="bp-card-title">Reasoning trace</h3>
+            <p class="bp-card-description">
+              See what the agent was thinking before it took each action. When it diverts from the plan you gave it, you read the reasoning step that caused it — not a log of what it did after.
+            </p>
+          </div>
+        </div>
+
+        <!-- Compact 2: Agent-to-agent handoff tracing -->
+        <div class="bp-card bp-card-hover bp-card-feature">
+          <div class="bp-card-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="5" cy="10" r="3" stroke="var(--color-primary)" stroke-width="1.5"/>
+              <circle cx="15" cy="10" r="3" stroke="var(--color-primary)" stroke-width="1.5" opacity="0.6"/>
+              <path d="M8 10h4" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M10 8l2 2-2 2" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="bp-card-title">Agent handoff tracing</h3>
+            <p class="bp-card-description">
+              Multi-agent runs surface as a single connected trace. You see what context Agent A passed to Agent B, where handoff latency was added, and whether the receiving agent got what it needed to continue the task.
+            </p>
+          </div>
+        </div>
+
+        <!-- Compact 3: Duration and performance regression after updates -->
+        <div class="bp-card bp-card-hover bp-card-feature">
+          <div class="bp-card-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="10" cy="10" r="7" stroke="var(--color-primary)" stroke-width="1.5"/>
+              <path d="M10 6v4l2.5 2.5" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="bp-card-title">Duration per run, per agent</h3>
+            <p class="bp-card-description">
+              After a skill update, compare run duration before and after. Orbit shows which tool call got slower and by how much — so you don't have to reproduce the slowdown to understand it.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       HOW IT WORKS
+       Three steps. Honest and specific — what command, what changes,
+       what appears immediately. No vagueness about "integration."
+       ================================================================ -->
+  <section class="bp-section" id="how-it-works" style="background-color: var(--color-bg-secondary);">
+    <div class="bp-container">
+
+      <div class="bp-section-header">
+        <span class="bp-section-label">HOW IT WORKS</span>
+        <h2 class="bp-section-title">One SDK. No agent code changes.</h2>
+        <p class="bp-section-subtitle">
+          Orbit wraps your agent at the framework level. It observes what your agent does without touching what it does.
+        </p>
+      </div>
+
+      <div class="bp-grid bp-grid-3">
+
+        <div class="bp-card" style="padding: 2rem;">
+          <div class="bp-flex bp-items-center bp-gap-3 bp-mb-4">
+            <span class="bp-text-primary bp-font-mono" style="font-size: 1.5rem; font-weight: 600;">01</span>
+            <div class="bp-dotted-connector" style="flex: 1;"></div>
+          </div>
+          <h3 class="bp-font-semibold bp-text-base bp-mb-2">Install the SDK</h3>
+          <p class="bp-card-description bp-mb-4">
+            One package. Works with Claude Code, LangChain, CrewAI, and custom agent frameworks. No changes to your agent logic.
+          </p>
+          <code class="bp-font-mono bp-text-xs bp-text-accent" style="display: block; background: var(--color-surface-elevated); padding: 0.625rem 0.875rem; border-radius: var(--bp-radius-sm);">npm install @orbitai/sdk</code>
+        </div>
+
+        <div class="bp-card" style="padding: 2rem;">
+          <div class="bp-flex bp-items-center bp-gap-3 bp-mb-4">
+            <span class="bp-text-primary bp-font-mono" style="font-size: 1.5rem; font-weight: 600;">02</span>
+            <div class="bp-dotted-connector" style="flex: 1;"></div>
+          </div>
+          <h3 class="bp-font-semibold bp-text-base bp-mb-2">Wrap your agent</h3>
+          <p class="bp-card-description bp-mb-4">
+            Two lines of initialization. Orbit instruments at the framework level — it sees every tool call, every LLM request, every skill invocation automatically from that point forward.
+          </p>
+          <code class="bp-font-mono bp-text-xs bp-text-accent" style="display: block; background: var(--color-surface-elevated); padding: 0.625rem 0.875rem; border-radius: var(--bp-radius-sm);">import { orbit } from '@orbitai/sdk'<br>orbit.init({ key: process.env.ORBIT_KEY })</code>
+        </div>
+
+        <div class="bp-card" style="padding: 2rem;">
+          <div class="bp-flex bp-items-center bp-gap-3 bp-mb-4">
+            <span class="bp-text-primary bp-font-mono" style="font-size: 1.5rem; font-weight: 600;">03</span>
+          </div>
+          <h3 class="bp-font-semibold bp-text-base bp-mb-2">Run your agent. See the trace.</h3>
+          <p class="bp-card-description bp-mb-4">
+            Your first run appears in the Orbit dashboard before you've written a second line of integration code. Timeline, cost, tool calls — all there on the first run.
+          </p>
+          <code class="bp-font-mono bp-text-xs bp-text-accent" style="display: block; background: var(--color-surface-elevated); padding: 0.625rem 0.875rem; border-radius: var(--bp-radius-sm);">app.useorbit.dev/runs/first-trace</code>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       WAITLIST CTA
+       Pre-launch. One job. No decorative elements. The grid is enough.
+       Email input only — name and company fields signal distrust.
+       CTA text is specific: "Get early access" names what happens.
+       ================================================================ -->
+  <section class="bp-section-lg" id="waitlist">
+    <div class="bp-container bp-container-md">
+
+      <div class="bp-text-center bp-mb-10">
+        <span class="bp-mono-label bp-text-primary" style="display: block; margin-bottom: 1rem; letter-spacing: 0.1em;">EARLY ACCESS — OPEN NOW</span>
+        <h2 class="bp-text-4xl bp-font-semibold bp-mb-4" style="line-height: 1.2;">
+          Stop guessing what<br>your agent actually did
+        </h2>
+        <p class="bp-text-secondary bp-text-lg bp-leading-relaxed">
+          We're opening access to a small group of teams first. Early access is free.
+          You get Orbit before it's public, and we get your feedback on what matters most.
+        </p>
+      </div>
+
+      <form class="bp-flex bp-gap-3 bp-justify-center bp-flex-wrap" style="max-width: 480px; margin: 0 auto;" action="#" method="post">
+        <div class="bp-form-group bp-flex-1" style="min-width: 240px; margin-bottom: 0;">
+          <input
+            type="email"
+            class="bp-input"
+            placeholder="your@email.com"
+            name="email"
+            required
+            autocomplete="email"
+            aria-label="Work email address"
+          >
+        </div>
+        <button type="submit" class="bp-btn bp-btn-primary bp-btn-lg bp-shrink-0">
+          Get early access
+        </button>
+      </form>
+
+      <p class="bp-text-muted bp-text-sm bp-text-center bp-mt-4">
+        No pitch call, no sales process. We'll send one email when you're in.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       FOOTER
+       Pre-launch minimal. Product name, description, status badge.
+       Navigation links mirror the page sections — no doc links yet.
+       ================================================================ -->
+  <footer class="bp-footer">
+    <div class="bp-container">
+      <div class="bp-footer-grid">
+
+        <div>
+          <div class="bp-footer-brand-name bp-font-mono">Orbit</div>
+          <p class="bp-footer-brand-desc">
+            Agent observability for teams who need to know why their agent went off-plan,
+            what it cost, and how long each step took.
+          </p>
+          <p class="bp-text-muted bp-text-xs bp-mt-4 bp-flex bp-items-center bp-gap-2">
+            <span class="bp-mono-label">STATUS</span>
+            <span class="bp-badge bp-badge-warning">Pre-launch</span>
+          </p>
+        </div>
+
+        <div>
+          <div class="bp-footer-col-title">Product</div>
+          <ul class="bp-footer-links">
+            <li><a href="#features" class="bp-footer-link">Features</a></li>
+            <li><a href="#how-it-works" class="bp-footer-link">How it works</a></li>
+            <li><a href="#waitlist" class="bp-footer-link">Early access</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="bp-footer-col-title">Connect</div>
+          <ul class="bp-footer-links">
+            <li><a href="#" class="bp-footer-link">GitHub</a></li>
+            <li><a href="#" class="bp-footer-link">Twitter / X</a></li>
+            <li><a href="mailto:hello@useorbit.dev" class="bp-footer-link">hello@useorbit.dev</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="bp-footer-bottom">
+        <span class="bp-footer-copy bp-font-mono" style="font-size: 0.75rem;">© 2026 Orbit. All rights reserved.</span>
+        <div class="bp-flex bp-gap-4">
+          <a href="#" class="bp-footer-link">Privacy</a>
+          <a href="#" class="bp-footer-link">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
