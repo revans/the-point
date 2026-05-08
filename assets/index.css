@@ -1,0 +1,30 @@
+/* the-point v0.1.0 */
+/* ==========================================================================
+   THE POINT — Entry Point
+   This file is installed into your project by @blueprint.
+   After installation it lives at:
+     Rails:      vendor/assets/stylesheets/the-point/index.css
+     Vite/React: src/assets/the-point/index.css
+     Plain HTML: public/the-point/index.css
+
+   Import it from its installed location, then optionally a mood and brand file:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/amber.css">  ← optional
+     <link rel="stylesheet" href="brand.css">                  ← optional
+
+   Layer order (lower layers are overridden by higher ones):
+     blueprint     ← The Point core tokens and components
+     brand-base    ← Mood files (moods/amber.css, moods/slate.css, …)
+     brand-seasonal← Campaign / event / seasonal overrides
+     brand-state   ← Your brand.css — always wins
+   ========================================================================== */
+
+/* Establish layer order before any imports.
+   @layer declarations are one of the few rules allowed before @import. */
+@layer blueprint, brand-base, brand-seasonal, brand-state;
+
+@import './core/base.css' layer(blueprint);
+@import './core/components.css' layer(blueprint);
+@import './core/utilities.css' layer(blueprint);
+@import './core/motion.css' layer(blueprint);
+@import './core/print.css' layer(blueprint);

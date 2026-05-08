@@ -1,6 +1,6 @@
 # The Point
 
-A CSS design system with a blueprint aesthetic. Drop it into any project, set one attribute, and you have a fully designed UI. Add a single brand file to make it yours.
+A CSS design system with a blueprint aesthetic. Use `bp-` classes in your markup, set one attribute on `<html>`, and you have a fully designed UI. Add a single brand file to make it yours.
 
 Works in React, Rails, Electron, plain HTML — anything that renders HTML.
 
@@ -35,7 +35,28 @@ import 'path/to/the-point/index.css'
 *= require the-point/index
 ```
 
-### 2. Set the theme
+### 2. Write markup with `bp-` classes
+
+Use the library's component classes in your HTML. A minimal page looks like:
+
+```html
+<nav class="bp-nav">...</nav>
+<main>
+  <section class="bp-hero bp-section">
+    <div class="bp-container">
+      <h1 class="bp-hero-title">...</h1>
+      <p class="bp-hero-subtitle">...</p>
+      <div class="bp-hero-actions">
+        <a href="#" class="bp-btn bp-btn-primary">Get started</a>
+      </div>
+    </div>
+  </section>
+</main>
+```
+
+See `llm.md` for full HTML patterns for every component. The `examples/` directory has nine complete pages you can copy from.
+
+### 3. Set the theme
 
 Add one attribute to your `<html>` element:
 
@@ -45,9 +66,9 @@ Add one attribute to your `<html>` element:
 <html data-bp-theme="auto">   <!-- follows OS dark/light preference -->
 ```
 
-That's it. Your page is designed.
+That's the last step. Your page is designed.
 
-### 3. Add branding (optional)
+### 4. Add branding (optional)
 
 Copy `brand-template.css` into your project and rename it `brand.css`. Uncomment and set the variables you want to change:
 
@@ -161,33 +182,41 @@ document.getElementById('mood').href = 'the-point/moods/forest.css'
 
 ```
 the-point/
-  ├── index.css              ← single import entry point
-  ├── brand-template.css     ← copy this per project
+  ├── README.md
+  ├── ROADMAP.md
+  ├── LICENSE
   ├── llm.md                 ← reference doc for LLM-assisted development
-  ├── README.md              ← you are here
-  ├── core/
-  │   ├── base.css           ← design tokens, themes, reset, body styles
-  │   ├── components.css     ← all component classes
-  │   ├── utilities.css      ← spacing, typography, layout helpers
-  │   ├── motion.css         ← animation system (bp-animate, draw animations)
-  │   └── print.css          ← print mode, bp-print-spec
-  ├── moods/
-  │   ├── amber.css          ← warm, editorial, confident
-  │   ├── slate.css          ← professional, restrained, trustworthy
-  │   ├── forest.css         ← natural, calm, approachable
-  │   ├── violet.css         ← creative, expressive, modern
-  │   ├── ember.css          ← bold, warm, high-energy
-  │   └── arctic.css         ← clean, precise, cold-functional
-  └── .claude/
-      ├── agents/
-      │   ├── blueprint.md   ← Blueprint design agent (@blueprint)
-      │   └── copy.md        ← Copywriter agent (@copy)
-      └── skills/
-          ├── blueprint-taste.md       ← design taste enforcer
-          └── blueprint-copywriter.md  ← copy interview framework
+  ├── .claude-plugin/
+  │   └── plugin.json        ← Claude Code plugin manifest
+  ├── agents/
+  │   ├── blueprint.md       ← @blueprint — design interview + install
+  │   └── copy.md            ← @copy — fills placeholder text
+  ├── skills/
+  │   ├── blueprint-taste.md       ← design taste enforcer
+  │   └── blueprint-copywriter.md  ← copy interview framework
+  ├── assets/                ← CSS files, installed into your project by @blueprint
+  │   ├── index.css          ← entry point (includes version comment)
+  │   ├── brand-template.css ← copy this as your brand.css
+  │   ├── core/
+  │   │   ├── base.css       ← design tokens, themes, reset, body styles
+  │   │   ├── components.css ← all component classes
+  │   │   ├── utilities.css  ← spacing, typography, layout helpers
+  │   │   ├── motion.css     ← animation system (bp-animate, draw animations)
+  │   │   └── print.css      ← print mode, bp-print-spec
+  │   └── moods/
+  │       ├── amber.css      ← warm, editorial, confident
+  │       ├── slate.css      ← professional, restrained, trustworthy
+  │       ├── forest.css     ← natural, calm, approachable
+  │       ├── violet.css     ← creative, expressive, modern
+  │       ├── ember.css      ← bold, warm, high-energy
+  │       └── arctic.css     ← clean, precise, cold-functional
+  ├── integrations/
+  │   ├── rails/             ← helpers, ERB partials, Stimulus theme controller
+  │   └── react/             ← TypeScript component wrappers
+  └── examples/              ← standalone HTML pages, open directly in a browser
 ```
 
-You never need to edit the `core/` files. All customization happens in your brand file.
+You never need to edit the `assets/core/` files. All customization happens in your brand file.
 
 ---
 
