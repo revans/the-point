@@ -133,7 +133,14 @@ Icons are inferred automatically from variant. Pass `icon: false` to suppress.
   <%= bp_card_title "Feature" %>
   <%= bp_card_description "Description" %>
 <% end %>
+
+<%# Border draw animation — draws clockwise on scroll entry %>
+<%= bp_card animate_draw: true do %>
+  Content
+<% end %>
 ```
+
+Options: `hover:` `feature:` `bracket:` `animate_draw:`
 
 ### Alert
 ```erb
@@ -266,9 +273,25 @@ Options: `direction:` `:up` `:down` `:neutral` | `arrow_position:` `:prepend` `:
 <%= bp_gradient_text "highlighted phrase" %>
 <%= bp_divider %>         <%# plain <hr> %>
 <%= bp_divider "or" %>    <%# text divider with lines %>
+
+<%# Skeleton — variant-based %>
 <%= bp_skeleton variant: :title %>
 <%= bp_skeleton variant: :text, width: "60%" %>
+
+<%# Skeleton — grid-unit heights (1u=40px, 2u=80px, 3u=120px, 4u=160px, 6u=240px) %>
+<%= bp_skeleton units: 2 %>
+<%= bp_skeleton units: 4, width: "50%" %>
+
+<%# Skeleton card — zero-layout-shift placeholder matching bp-card exactly %>
+<%= bp_skeleton_card do %>
+  <%= bp_skeleton units: 1, style: "width: 48px; border-radius: 8px;" %>
+  <%= bp_skeleton units: 1, width: "140px" %>
+  <%= bp_skeleton units: 1, width: "100%" %>
+  <%= bp_skeleton units: 1, width: "80%" %>
+<% end %>
 ```
+
+`units:` and `variant:` are mutually exclusive — `units:` takes priority if both are given.
 
 ---
 
@@ -404,11 +427,16 @@ If you need a no-JS option or want to persist preferences across devices:
 
 ```ruby
 # app/controllers/preferences_controller.rb
+THEME_CYCLE = %w[dark light auto].freeze
+
 def toggle_theme
-  session[:theme] = session[:theme] == 'dark' ? 'light' : 'dark'
+  current = session[:theme] || 'dark'
+  session[:theme] = THEME_CYCLE[(THEME_CYCLE.index(current).to_i + 1) % THEME_CYCLE.length]
   redirect_back fallback_location: root_path
 end
 ```
+
+Three themes cycle: `dark` → `light` → `auto` (follows OS preference). `auto` maps to `data-bp-theme="auto"` on the `<html>` element.
 
 ---
 

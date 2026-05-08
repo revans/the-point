@@ -29,7 +29,7 @@ export { Badge } from './components/Badge'
 export { Alert } from './components/Alert'
 export { Avatar } from './components/Avatar'
 export { Divider, DottedConnector } from './components/Divider'
-export { Skeleton } from './components/Skeleton'
+export { Skeleton, SkeletonCard } from './components/Skeleton'
 
 // Card
 export {

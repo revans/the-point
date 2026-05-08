@@ -119,12 +119,13 @@ module BlueprintHelper
   #
   # <%= bp_card hover: true, bracket: true do %>...end %>
   #
-  def bp_card(hover: false, feature: false, bracket: false, **html_options, &block)
+  def bp_card(hover: false, feature: false, bracket: false, animate_draw: false, **html_options, &block)
     css = bp_classes(
       'bp-card',
-      hover   && 'bp-card-hover',
-      feature && 'bp-card-feature',
-      bracket && 'bp-bracket',
+      hover        && 'bp-card-hover',
+      feature      && 'bp-card-feature',
+      bracket      && 'bp-bracket',
+      animate_draw && 'bp-animate-draw',
       html_options.delete(:class)
     )
     content_tag :div, class: css, **html_options, &block
@@ -319,12 +320,18 @@ module BlueprintHelper
   # bp_skeleton
   # bp_skeleton variant: :title
   # bp_skeleton variant: :text, width: "60%"
+  # bp_skeleton units: 2            → 80px (2 × 40px grid unit)
+  # bp_skeleton units: 4, width: "50%"
   #
-  def bp_skeleton(variant: :base, width: nil, height: nil, **html_options)
+  # units: 1 | 2 | 3 | 4 | 6  — snaps height to the 40px blueprint grid
+  # variant and units are mutually exclusive; units takes priority if both given
+  #
+  def bp_skeleton(variant: :base, units: nil, width: nil, height: nil, **html_options)
     css = bp_classes(
       'bp-skeleton',
-      variant == :text  && 'bp-skeleton-text',
-      variant == :title && 'bp-skeleton-title',
+      units                     && "bp-skeleton-#{units}u",
+      !units && variant == :text  && 'bp-skeleton-text',
+      !units && variant == :title && 'bp-skeleton-title',
       html_options.delete(:class)
     )
     style_parts = [
@@ -334,6 +341,23 @@ module BlueprintHelper
     ].compact.join(' ')
 
     content_tag :div, '', class: css, style: style_parts.presence, **html_options
+  end
+
+  # ── SKELETON CARD ─────────────────────────────────────────────────────────
+  #
+  # Zero-layout-shift placeholder that matches bp-card exactly.
+  # When real content loads, the bounding box stays identical — no shift.
+  #
+  # <%= bp_skeleton_card do %>
+  #   <%= bp_skeleton units: 1, style: "width: 48px; border-radius: 8px;" %>
+  #   <%= bp_skeleton units: 1, width: "140px" %>
+  #   <%= bp_skeleton units: 1, width: "100%" %>
+  #   <%= bp_skeleton units: 1, width: "80%" %>
+  # <% end %>
+  #
+  def bp_skeleton_card(**html_options, &block)
+    css = bp_classes('bp-skeleton-card', html_options.delete(:class))
+    content_tag :div, class: css, **html_options, &block
   end
 
   # ── STAT ──────────────────────────────────────────────────────────────────

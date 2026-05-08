@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-type Theme = 'dark' | 'light'
+type Theme = 'dark' | 'light' | 'auto'
 
 interface ThemeToggleProps {
   defaultTheme?: Theme
   persist?: boolean
   className?: string
 }
+
+const CYCLE: Theme[] = ['dark', 'light', 'auto']
+const LABELS: Record<Theme, string> = { dark: '☀ Light', light: '◑ Auto', auto: '◑ Dark' }
+const NEXT_LABEL: Record<Theme, string> = { dark: 'light', light: 'auto', auto: 'dark' }
 
 export function ThemeToggle({ defaultTheme = 'dark', persist = true, className = '' }: ThemeToggleProps) {
   const [theme, setTheme] = useState<Theme>(() => {
@@ -21,15 +25,15 @@ export function ThemeToggle({ defaultTheme = 'dark', persist = true, className =
     if (persist) localStorage.setItem('bp-theme', theme)
   }, [theme, persist])
 
-  const toggle = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
+  const cycle = () => setTheme(t => CYCLE[(CYCLE.indexOf(t) + 1) % CYCLE.length])
 
   return (
     <button
-      onClick={toggle}
+      onClick={cycle}
       className={['bp-btn bp-btn-secondary bp-btn-sm', className].filter(Boolean).join(' ')}
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-label={`Switch to ${NEXT_LABEL[theme]} mode`}
     >
-      {theme === 'dark' ? '☀ Light' : '◑ Dark'}
+      {LABELS[theme]}
     </button>
   )
 }
@@ -43,8 +47,8 @@ export function useTheme(defaultTheme: Theme = 'dark', persist = true) {
     return defaultTheme
   })
 
-  const toggle = () => {
-    const next = theme === 'dark' ? 'light' : 'dark'
+  const cycle = () => {
+    const next = CYCLE[(CYCLE.indexOf(theme) + 1) % CYCLE.length]
     setTheme(next)
     document.documentElement.setAttribute('data-bp-theme', next)
     if (persist) localStorage.setItem('bp-theme', next)
@@ -54,5 +58,5 @@ export function useTheme(defaultTheme: Theme = 'dark', persist = true) {
     document.documentElement.setAttribute('data-bp-theme', theme)
   }, [])
 
-  return { theme, toggle, isDark: theme === 'dark', isLight: theme === 'light' }
+  return { theme, cycle, isDark: theme === 'dark', isLight: theme === 'light', isAuto: theme === 'auto' }
 }

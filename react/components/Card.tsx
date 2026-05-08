@@ -5,14 +5,16 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   hover?: boolean
   feature?: boolean
   bracket?: boolean
+  animateDraw?: boolean
 }
 
-export function Card({ hover = false, feature = false, bracket = false, className = '', children, ...props }: CardProps) {
+export function Card({ hover = false, feature = false, bracket = false, animateDraw = false, className = '', children, ...props }: CardProps) {
   const classes = [
     'bp-card',
     hover && 'bp-card-hover',
     feature && 'bp-card-feature',
     bracket && 'bp-bracket',
+    animateDraw && 'bp-animate-draw',
     className,
   ].filter(Boolean).join(' ')
 
