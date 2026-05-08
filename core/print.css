@@ -49,26 +49,30 @@
     color: #0a1628 !important;
   }
 
-  /* Override all semantic color vars to print-safe dark-on-white values */
+  /* Override all semantic color vars to print-safe dark-on-white values.
+     !important is required: a page's own <style> block appears after the linked
+     stylesheet in source order, so it wins the cascade for custom properties
+     without !important. Brand pages that set --color-text: #fff (white) on dark
+     backgrounds would otherwise print as white text on white paper. */
   :root,
   [data-bp-theme="dark"],
   [data-bp-theme="light"],
   [data-bp-theme="auto"] {
-    --color-bg:             #ffffff;
-    --color-bg-secondary:   #f5f7fa;
-    --color-surface:        #ffffff;
-    --color-surface-elevated: #f0f4f8;
-    --color-border:         #bfdbfe;
-    --color-text:           #0a1628;
-    --color-text-secondary: #1e3a57;
-    --color-text-muted:     #4a7a9b;
-    --color-primary:        #1d4ed8;
-    --color-primary-hover:  #1e40af;
-    --color-primary-subtle: rgba(29, 78, 216, 0.06);
-    --bp-shadow-sm:         none;
-    --bp-shadow-md:         none;
-    --bp-shadow-lg:         none;
-    --bp-shadow-glow:       none;
+    --color-bg:               #ffffff !important;
+    --color-bg-secondary:     #f5f7fa !important;
+    --color-surface:          #ffffff !important;
+    --color-surface-elevated: #f0f4f8 !important;
+    --color-border:           #bfdbfe !important;
+    --color-text:             #0a1628 !important;
+    --color-text-secondary:   #1e3a57 !important;
+    --color-text-muted:       #4a7a9b !important;
+    --color-primary:          #1d4ed8 !important;
+    --color-primary-hover:    #1e40af !important;
+    --color-primary-subtle:   rgba(29, 78, 216, 0.06) !important;
+    --bp-shadow-sm:           none !important;
+    --bp-shadow-md:           none !important;
+    --bp-shadow-lg:           none !important;
+    --bp-shadow-glow:         none !important;
   }
 
   /* --------------------------------------------------------------------------
@@ -78,6 +82,12 @@
   /* Navigation — hidden entirely */
   .bp-nav,
   .bp-nav-actions { display: none !important; }
+
+  /* Decorative body pseudo-elements — scanlines, overlays, textures.
+     position:fixed elements still render in print engines and can sit at
+     z-index 1000 above all content. Nuke them. */
+  body::before,
+  body::after { display: none !important; }
 
   /* Modals, overlays, toasts — never in print */
   .bp-overlay,
@@ -292,20 +302,23 @@
     margin-bottom: var(--bp-space-3);
   }
 
-  /* Footer — keep together and compress padding so it doesn't split across
-     pages. The footer grid (brand blurb + nav columns) is compact enough to
-     fit on one page if padding is removed and break-inside is enforced. */
+  /* Footer — compress padding and allow a break between the grid and the
+     bottom bar. break-inside:avoid on .bp-footer itself forces the entire
+     footer onto one page; if it can't fit, it lands alone on a new page
+     (the "page 7" problem). Instead: keep each sub-section intact but let
+     the browser break between the grid block and the footer-bottom bar. */
   .bp-footer {
-    break-inside: avoid;
     padding-top: 1.5rem !important;
     padding-bottom: 0.5rem !important;
   }
 
   .bp-footer-grid {
+    break-inside: avoid;
     gap: 1rem !important;
   }
 
   .bp-footer-bottom {
+    break-inside: avoid;
     margin-top: 1rem !important;
     padding-top: 0.75rem !important;
   }
