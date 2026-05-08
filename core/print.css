@@ -139,14 +139,28 @@
     color: #0a1628 !important;
   }
 
-  /* Keep section headers with the content that follows — without this, a
-     section title lands at the bottom of one page while its grid starts on
-     the next. Same problem as a chapter title orphaned from chapter content. */
-  .bp-section-header,
+  /* Keep section headers intact — break-inside:avoid prevents the browser
+     from splitting the label and title across pages. break-after:avoid keeps
+     the whole header with the grid content that follows it. Both are needed:
+     inside stops the internal split; after stops the header landing alone. */
+  .bp-section-header {
+    break-inside: avoid;
+    break-after: avoid;
+  }
+
   .bp-section-label,
   .bp-mono-label,
   .bp-hero-eyebrow {
     break-after: avoid;
+  }
+
+  /* Bracket corner pseudo-elements (::before / ::after on .bp-bracket) draw
+     decorative corner marks. When a card breaks across pages they orphan at
+     the top of the next page as floating glyphs. Hide them in print —
+     the card border itself gives enough structure. */
+  .bp-bracket::before,
+  .bp-bracket::after {
+    display: none !important;
   }
 
   /* Keep cards and sections intact across page breaks */
