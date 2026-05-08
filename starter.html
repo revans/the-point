@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+  THE POINT — Starter Template
+  ─────────────────────────────
+  1. Update the <link> path to point to your copy of the-point/index.css
+  2. Set data-bp-theme to "dark" or "light" (or remove to default to dark)
+  3. Customize brand colors in the <style> block below
+  4. Build your page inside <main>
+  5. The theme toggle in the nav is wired up and ready
+-->
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page Title</title>
+
+  <!-- ① The Point design system -->
+  <link rel="stylesheet" href="./index.css">
+
+  <!-- ② Brand overrides — uncomment and set what you need.
+       Minimum: just --color-primary and --color-primary-hover.
+       Full reference: see brand-template.css               -->
+  <style>
+    :root {
+      /* --color-primary:        #your-brand-color;   */
+      /* --color-primary-hover:  #your-darker-color;  */
+
+      /* --font-heading: 'Your Font', sans-serif;      */
+      /* --font-body:    'Your Font', sans-serif;      */
+
+      /* --radius: var(--bp-radius-xl);                */
+
+      /* Remove blueprint grid lines:                  */
+      /* --bp-grid-color:      transparent;            */
+      /* --bp-grid-color-bold: transparent;            */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV ─────────────────────────────────────────── -->
+  <nav class="bp-nav">
+    <div class="bp-container bp-nav-inner">
+
+      <a href="/" class="bp-nav-brand">Your Brand</a>
+
+      <ul class="bp-nav-links">
+        <li><a href="#" class="bp-nav-link active">Home</a></li>
+        <li><a href="#" class="bp-nav-link">About</a></li>
+        <li><a href="#" class="bp-nav-link">Contact</a></li>
+      </ul>
+
+      <div class="bp-nav-actions">
+        <!-- Theme toggle — wired to the script at the bottom -->
+        <button
+          id="theme-toggle"
+          class="bp-btn bp-btn-secondary bp-btn-sm"
+          onclick="toggleTheme()"
+          aria-label="Toggle theme"
+        >☀ Light</button>
+
+        <a href="#" class="bp-btn bp-btn-primary bp-btn-sm">Get started</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- MAIN ────────────────────────────────────────── -->
+  <main>
+
+    <!-- Hero -->
+    <section class="bp-hero bp-container">
+      <div class="bp-hero-eyebrow">Your eyebrow label</div>
+      <h1 class="bp-hero-title">
+        Your headline goes<br>
+        <span class="bp-text-gradient">right here</span>
+      </h1>
+      <p class="bp-hero-subtitle">
+        A sentence or two describing what this is and who it's for.
+      </p>
+      <div class="bp-hero-actions">
+        <a href="#" class="bp-btn bp-btn-primary bp-btn-xl">Primary action</a>
+        <a href="#" class="bp-btn bp-btn-secondary bp-btn-xl">Secondary action</a>
+      </div>
+    </section>
+
+    <!-- Add sections below -->
+
+  </main>
+
+  <!-- FOOTER ──────────────────────────────────────── -->
+  <footer class="bp-footer">
+    <div class="bp-container">
+      <div class="bp-footer-bottom">
+        <span class="bp-footer-copy">© 2026 Your Company</span>
+        <div class="bp-flex bp-gap-4">
+          <a href="#" class="bp-footer-link">Privacy</a>
+          <a href="#" class="bp-footer-link">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- THEME TOGGLE ─────────────────────────────────
+       Reads and persists the user's preference in localStorage.
+       The toggle button above calls toggleTheme().
+       To set a default theme, change data-bp-theme on <html>.    -->
+  <script>
+    const STORAGE_KEY = 'bp-theme'
+    const html = document.documentElement
+    const btn = document.getElementById('theme-toggle')
+
+    // Apply saved preference on load
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) html.setAttribute('data-bp-theme', saved)
+    updateToggleLabel()
+
+    function toggleTheme() {
+      const current = html.getAttribute('data-bp-theme')
+      const next = current === 'dark' ? 'light' : 'dark'
+      html.setAttribute('data-bp-theme', next)
+      localStorage.setItem(STORAGE_KEY, next)
+      updateToggleLabel()
+    }
+
+    function updateToggleLabel() {
+      if (!btn) return
+      const theme = html.getAttribute('data-bp-theme')
+      btn.textContent = theme === 'dark' ? '☀ Light' : '◑ Dark'
+    }
+  </script>
+
+</body>
+</html>

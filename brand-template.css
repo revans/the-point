@@ -1,0 +1,138 @@
+/* ==========================================================================
+   THE POINT — Brand Template
+   Copy this file per project. Override only what your brand needs.
+   Everything else falls back to the blueprint base.
+
+   HOW TO USE:
+   1. Copy this file into your project as brand.css (or any name you like)
+   2. Set data-bp-theme="dark" or "light" on your <html> element
+   3. Uncomment and set the variables you want to change
+   4. Leave everything else commented out — the blueprint defaults will show
+
+   MINIMAL SETUP (just colors):
+     --color-primary + --color-primary-hover is all you need for a brand.
+     Everything else inherits automatically.
+   ========================================================================== */
+
+:root {
+
+  /* -------------------------------------------------------------------------
+     BRAND COLOR
+     The single most impactful change. Everything —buttons, links, focus rings,
+     badges, borders on active states — flows from these two values.
+     ---------------------------------------------------------------------- */
+
+  /* --color-primary:        #your-brand-color; */
+  /* --color-primary-hover:  #your-brand-color-darker; */
+
+  /* Optional: fine-tune how the primary color shows in subtle contexts */
+  /* --color-primary-subtle: rgba(your-rgb-values, 0.1); */
+  /* --color-primary-glow:   rgba(your-rgb-values, 0.2); */
+
+
+  /* -------------------------------------------------------------------------
+     TYPOGRAPHY
+     Swap out the fonts. Both @import and system fonts work here.
+     If using Google Fonts, add the @import above this block.
+     ---------------------------------------------------------------------- */
+
+  /* --font-heading: 'Your Heading Font', sans-serif; */
+  /* --font-body:    'Your Body Font', sans-serif; */
+  /* --font-mono:    'Your Mono Font', monospace; */
+
+
+  /* -------------------------------------------------------------------------
+     SURFACES & BACKGROUNDS
+     Override if the brand needs a different base feel.
+     Only needed if you're moving away from the blueprint palette entirely.
+     ---------------------------------------------------------------------- */
+
+  /* --color-bg:           #your-background; */
+  /* --color-bg-secondary: #your-secondary-background; */
+  /* --color-surface:      #your-card-background; */
+  /* --color-border:       #your-border-color; */
+
+
+  /* -------------------------------------------------------------------------
+     TEXT
+     Override if your background change requires different text colors.
+     ---------------------------------------------------------------------- */
+
+  /* --color-text:           #your-primary-text; */
+  /* --color-text-secondary: #your-secondary-text; */
+  /* --color-text-muted:     #your-muted-text; */
+
+
+  /* -------------------------------------------------------------------------
+     SHAPE
+     Change how rounded or sharp things feel.
+     --bp-radius-none: 0         — sharp, technical
+     --bp-radius-sm:   0.25rem   — slightly soft
+     --bp-radius-md:   0.375rem  — default (blueprint)
+     --bp-radius-lg:   0.5rem    — friendly
+     --bp-radius-xl:   0.75rem   — soft
+     --bp-radius-2xl:  1rem      — very rounded
+     ---------------------------------------------------------------------- */
+
+  /* --radius: var(--bp-radius-lg); */
+
+
+  /* -------------------------------------------------------------------------
+     GRID
+     Adjust or remove the blueprint grid if your brand shouldn't show it.
+     Set opacity to 0 to eliminate it entirely.
+     ---------------------------------------------------------------------- */
+
+  /* --bp-grid-color:      rgba(your-rgb, 0.08); */
+  /* --bp-grid-color-bold: rgba(your-rgb, 0.15); */
+  /* --bp-grid-size:       40px; */
+
+
+  /* -------------------------------------------------------------------------
+     BRAND-SPECIFIC ADDITIONS
+     Add your own custom tokens below. Prefix with --brand- to avoid
+     conflicts with the base system.
+     ---------------------------------------------------------------------- */
+
+  /* --brand-gradient-hero:   linear-gradient(135deg, #color1, #color2); */
+  /* --brand-hero-text:       #ffffff; */
+  /* --brand-accent-2:        #secondary-accent; */
+
+}
+
+
+/* ==========================================================================
+   EXAMPLE: Full brand override (uncomment and edit to use)
+
+   This shows what a complete brand.css would look like for a brand
+   using warm amber/orange as its primary color.
+   ========================================================================== */
+
+/*
+:root {
+  --color-primary:        #f59e0b;
+  --color-primary-hover:  #d97706;
+  --color-primary-subtle: rgba(245, 158, 11, 0.1);
+  --color-primary-glow:   rgba(245, 158, 11, 0.2);
+
+  --font-heading: 'Outfit', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  --radius: var(--bp-radius-xl);
+}
+*/
+
+
+/* ==========================================================================
+   EXAMPLE: Minimal brand — just a color swap
+
+   The absolute minimum to make a site feel branded.
+   Everything else remains blueprint.
+   ========================================================================== */
+
+/*
+:root {
+  --color-primary:       #6366f1;
+  --color-primary-hover: #4f46e5;
+}
+*/

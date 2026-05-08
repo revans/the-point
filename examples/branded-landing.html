@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Point — Branded Landing</title>
+  <link rel="stylesheet" href="../index.css">
+  <style>
+    /* =====================================================================
+       BRAND.CSS — Ember Co.
+       This is the only brand-specific CSS. Everything else comes from
+       the-point. The blueprint structure stays. The palette changes.
+       ===================================================================== */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --color-primary:        #f97316;
+      --color-primary-hover:  #ea580c;
+      --color-primary-subtle: rgba(249, 115, 22, 0.1);
+      --color-primary-glow:   rgba(249, 115, 22, 0.25);
+
+      --font-heading: 'Outfit', sans-serif;
+      --font-body:    'Outfit', sans-serif;
+
+      --radius: var(--bp-radius-xl);
+
+      /* Warmer background tones */
+      --color-bg:           #0f0a05;
+      --color-bg-secondary: #1a1108;
+      --color-surface:      #201508;
+      --color-border:       #3d2a10;
+
+      --color-text:           #fef3e8;
+      --color-text-secondary: #d4926a;
+      --color-text-muted:     #7a5535;
+
+      --bp-grid-color:      transparent;
+      --bp-grid-color-bold: transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="bp-nav">
+    <div class="bp-container bp-nav-inner">
+      <a href="#" class="bp-nav-brand" style="font-size: 1.5rem; letter-spacing: -0.03em;">ember</a>
+      <ul class="bp-nav-links">
+        <li><a href="#" class="bp-nav-link">Journal</a></li>
+        <li><a href="#" class="bp-nav-link">Roasts</a></li>
+        <li><a href="#" class="bp-nav-link">Subscriptions</a></li>
+        <li><a href="#" class="bp-nav-link">Our story</a></li>
+      </ul>
+      <div class="bp-nav-actions">
+        <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm">Sign in</a>
+        <a href="#" class="bp-btn bp-btn-primary bp-btn-sm">Shop now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO — full bleed, editorial feel -->
+  <section style="min-height: 88vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+
+    <!-- Background texture rings -->
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 0.04;">
+      <div style="width: 800px; height: 800px; border-radius: 50%; border: 1px solid var(--color-primary);"></div>
+    </div>
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 0.06;">
+      <div style="width: 500px; height: 500px; border-radius: 50%; border: 1px solid var(--color-primary);"></div>
+    </div>
+
+    <div class="bp-container" style="position: relative; z-index: 1;">
+      <div style="max-width: 760px;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+          <div style="width: 32px; height: 1px; background: var(--color-primary); opacity: 0.6;"></div>
+          <span class="bp-mono-label" style="color: var(--color-primary);">Single origin · Small batch · Direct trade</span>
+        </div>
+        <h1 style="font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; color: var(--color-text); margin-bottom: 2rem;">
+          Coffee that<br>
+          <span class="bp-text-gradient" style="background: linear-gradient(135deg, #f97316, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">demands attention.</span>
+        </h1>
+        <p style="font-size: 1.25rem; color: var(--color-text-secondary); line-height: 1.6; max-width: 480px; margin-bottom: 3rem;">
+          Sourced from farms we visit. Roasted in small batches. Delivered within days of roast. This is what fresh tastes like.
+        </p>
+        <div class="bp-flex bp-gap-4">
+          <a href="#" class="bp-btn bp-btn-primary bp-btn-xl">Shop this week's roast</a>
+          <a href="#" class="bp-btn bp-btn-ghost bp-btn-xl">Read the journal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENT ROASTS — card grid -->
+  <section class="bp-section">
+    <div class="bp-container">
+      <div class="bp-flex bp-justify-between bp-items-center bp-mb-10" style="flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="bp-section-label">This week</span>
+          <h2 class="bp-section-title" style="margin: 0.5rem 0 0;">Available now</h2>
+        </div>
+        <a href="#" class="bp-btn bp-btn-outline bp-btn-sm">View all roasts →</a>
+      </div>
+
+      <div class="bp-grid bp-grid-3">
+
+        <div class="bp-card bp-card-hover" style="padding: 0; overflow: hidden;">
+          <div style="height: 200px; background: linear-gradient(135deg, #1a1108, #2d1a08); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--color-border);">
+            <div style="text-align: center; opacity: 0.4;">
+              <div class="bp-mono-label" style="font-size: 3rem;">☕</div>
+            </div>
+          </div>
+          <div style="padding: 1.5rem;">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <div>
+                <span class="bp-badge bp-badge-default bp-mb-2">Light roast</span>
+                <h3 class="bp-card-title">Ethiopia Yirgacheffe</h3>
+              </div>
+              <span style="font-size: 1.25rem; font-weight: 700; color: var(--color-text);">$22</span>
+            </div>
+            <p class="bp-card-body bp-mb-4">Floral and bright with notes of jasmine, lemon zest, and stone fruit. Exceptional washed process.</p>
+            <div class="bp-flex bp-gap-2 bp-mb-4" style="flex-wrap: wrap;">
+              <span class="bp-badge bp-badge-secondary">Jasmine</span>
+              <span class="bp-badge bp-badge-secondary">Lemon</span>
+              <span class="bp-badge bp-badge-secondary">Stone fruit</span>
+            </div>
+            <a href="#" class="bp-btn bp-btn-primary bp-w-full">Add to cart</a>
+          </div>
+        </div>
+
+        <div class="bp-card bp-card-hover" style="padding: 0; overflow: hidden; border-color: var(--color-primary);">
+          <div style="height: 200px; background: linear-gradient(135deg, #1a0e05, #2d1805); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--color-primary);">
+            <div style="text-align: center; opacity: 0.4;">
+              <div class="bp-mono-label" style="font-size: 3rem;">☕</div>
+            </div>
+          </div>
+          <div style="padding: 1.5rem;">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <div>
+                <span class="bp-badge bp-badge-default bp-mb-2">Staff pick</span>
+                <h3 class="bp-card-title">Colombia Huila</h3>
+              </div>
+              <span style="font-size: 1.25rem; font-weight: 700; color: var(--color-text);">$19</span>
+            </div>
+            <p class="bp-card-body bp-mb-4">Rich and balanced with dark chocolate, red cherry, and a brown sugar finish. A crowd pleaser done right.</p>
+            <div class="bp-flex bp-gap-2 bp-mb-4" style="flex-wrap: wrap;">
+              <span class="bp-badge bp-badge-secondary">Chocolate</span>
+              <span class="bp-badge bp-badge-secondary">Cherry</span>
+              <span class="bp-badge bp-badge-secondary">Brown sugar</span>
+            </div>
+            <a href="#" class="bp-btn bp-btn-primary bp-w-full">Add to cart</a>
+          </div>
+        </div>
+
+        <div class="bp-card bp-card-hover" style="padding: 0; overflow: hidden;">
+          <div style="height: 200px; background: linear-gradient(135deg, #110a05, #221405); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--color-border);">
+            <div style="text-align: center; opacity: 0.4;">
+              <div class="bp-mono-label" style="font-size: 3rem;">☕</div>
+            </div>
+          </div>
+          <div style="padding: 1.5rem;">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <div>
+                <span class="bp-badge bp-badge-secondary bp-mb-2">Dark roast</span>
+                <h3 class="bp-card-title">Sumatra Mandheling</h3>
+              </div>
+              <span style="font-size: 1.25rem; font-weight: 700; color: var(--color-text);">$18</span>
+            </div>
+            <p class="bp-card-body bp-mb-4">Full-bodied and earthy with cedar, dark cocoa, and a long, smoky finish. For espresso or plunger.</p>
+            <div class="bp-flex bp-gap-2 bp-mb-4" style="flex-wrap: wrap;">
+              <span class="bp-badge bp-badge-secondary">Cedar</span>
+              <span class="bp-badge bp-badge-secondary">Dark cocoa</span>
+              <span class="bp-badge bp-badge-secondary">Smoke</span>
+            </div>
+            <a href="#" class="bp-btn bp-btn-primary bp-w-full">Add to cart</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIPTION CTA — full bleed, centered -->
+  <section class="bp-section-lg" style="background-color: var(--color-bg-secondary); text-align: center;">
+    <div class="bp-container" style="max-width: 640px;">
+      <span class="bp-hero-eyebrow">
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+        Fresh every two weeks
+      </span>
+      <h2 style="font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-text); margin-bottom: 1.5rem; line-height: 1.1;">
+        Never run out of something worth drinking.
+      </h2>
+      <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 2.5rem;">
+        Subscribe and we'll pick the best two roasts of each fortnight — rotating origins, always roasted fresh, always delivered within 3 days.
+      </p>
+
+      <div style="display: flex; gap: 1rem; max-width: 400px; margin: 0 auto 2rem;">
+        <input type="email" class="bp-input bp-flex-1" placeholder="your@email.com">
+        <a href="#" class="bp-btn bp-btn-primary" style="white-space: nowrap;">Get started</a>
+      </div>
+
+      <div class="bp-flex bp-justify-center bp-gap-6" style="flex-wrap: wrap;">
+        <div class="bp-flex bp-items-center bp-gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="font-size: 0.875rem; color: var(--color-text-secondary);">Pause or cancel anytime</span>
+        </div>
+        <div class="bp-flex bp-items-center bp-gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="font-size: 0.875rem; color: var(--color-text-secondary);">15% off every order</span>
+        </div>
+        <div class="bp-flex bp-items-center bp-gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="font-size: 0.875rem; color: var(--color-text-secondary);">Free shipping always</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES — horizontal -->
+  <section class="bp-section">
+    <div class="bp-container">
+      <div class="bp-grid bp-grid-4">
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; border-left: 2px solid var(--color-primary);">
+          <span class="bp-mono-label" style="color: var(--color-primary);">Direct trade</span>
+          <p style="font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.6;">We pay above fair trade minimums. Farmers know what we'll pay before harvest.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; border-left: 2px solid var(--color-border);">
+          <span class="bp-mono-label" style="color: var(--color-primary);">Small batches</span>
+          <p style="font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.6;">Never roast more than we'll sell in 10 days. Freshness is non-negotiable.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; border-left: 2px solid var(--color-border);">
+          <span class="bp-mono-label" style="color: var(--color-primary);">Carbon neutral</span>
+          <p style="font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.6;">Every shipment is offset. Our roastery runs on 100% renewable energy.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; border-left: 2px solid var(--color-border);">
+          <span class="bp-mono-label" style="color: var(--color-primary);">No middlemen</span>
+          <p style="font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.6;">Farm to roaster to you. That's it. Three steps, no compromise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bp-footer">
+    <div class="bp-container">
+      <div class="bp-footer-grid">
+        <div>
+          <div class="bp-footer-brand-name" style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em;">ember</div>
+          <p class="bp-footer-brand-desc">Single origin coffee. Small batch roasted. Delivered fresh.</p>
+        </div>
+        <div>
+          <div class="bp-footer-col-title">Shop</div>
+          <ul class="bp-footer-links">
+            <li><a href="#" class="bp-footer-link">All roasts</a></li>
+            <li><a href="#" class="bp-footer-link">Subscriptions</a></li>
+            <li><a href="#" class="bp-footer-link">Gift cards</a></li>
+            <li><a href="#" class="bp-footer-link">Equipment</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="bp-footer-col-title">Learn</div>
+          <ul class="bp-footer-links">
+            <li><a href="#" class="bp-footer-link">The journal</a></li>
+            <li><a href="#" class="bp-footer-link">Brew guides</a></li>
+            <li><a href="#" class="bp-footer-link">Origin stories</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="bp-footer-col-title">Company</div>
+          <ul class="bp-footer-links">
+            <li><a href="#" class="bp-footer-link">Our story</a></li>
+            <li><a href="#" class="bp-footer-link">Wholesale</a></li>
+            <li><a href="#" class="bp-footer-link">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bp-footer-bottom">
+        <span class="bp-footer-copy">© 2026 EMBER COFFEE CO.</span>
+        <div class="bp-flex bp-gap-4">
+          <a href="#" class="bp-footer-link">Privacy</a>
+          <a href="#" class="bp-footer-link">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

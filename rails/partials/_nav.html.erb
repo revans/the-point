@@ -1,0 +1,43 @@
+<%#
+  Blueprint Nav Partial
+  ─────────────────────
+  Usage:
+    <%= render 'blueprint/nav',
+          brand_name: 'My App',
+          brand_path: root_path,
+          links: [
+            { label: 'Features', path: '#features' },
+            { label: 'Pricing',  path: '#pricing' },
+            { label: 'Docs',     path: docs_path },
+          ]
+    %>
+
+  Then in your layout, add nav_actions to the nav:
+    <%= render 'blueprint/nav', ... do %>
+      <%= bp_button 'Sign in', variant: :ghost, size: :sm, href: login_path %>
+      <%= bp_button 'Get started', variant: :primary, size: :sm, href: signup_path %>
+    <% end %>
+%>
+
+<nav class="bp-nav">
+  <div class="bp-container bp-nav-inner">
+
+    <%= link_to brand_name, brand_path, class: 'bp-nav-brand' %>
+
+    <ul class="bp-nav-links">
+      <% links.each do |link| %>
+        <li>
+          <%= link_to link[:label], link[:path],
+                class: "bp-nav-link #{current_page?(link[:path]) ? 'active' : ''}" %>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="bp-nav-actions">
+      <% if block_given? %>
+        <%= yield %>
+      <% end %>
+    </div>
+
+  </div>
+</nav>

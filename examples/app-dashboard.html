@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Point — App Dashboard</title>
+  <link rel="stylesheet" href="../index.css">
+  <style>
+    :root {
+      --bp-grid-color:      transparent;
+      --bp-grid-color-bold: transparent;
+    }
+  </style>
+</head>
+<body style="padding: 0;">
+
+  <div class="bp-app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="bp-sidebar">
+      <div class="bp-sidebar-header">
+        <span class="bp-nav-brand">AXIOM</span>
+      </div>
+
+      <nav class="bp-sidebar-nav">
+
+        <div class="bp-sidebar-label">Overview</div>
+
+        <a href="#" class="bp-sidebar-item active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Monitoring
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Services
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          Scaling
+        </a>
+
+        <div class="bp-sidebar-label" style="margin-top: 0.75rem;">Logs & Events</div>
+
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Log Explorer
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Trace Search
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+          Analytics
+        </a>
+
+        <div class="bp-sidebar-label" style="margin-top: 0.75rem;">Config</div>
+
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Alerts
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          Team
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Settings
+        </a>
+
+      </nav>
+
+      <!-- Sidebar footer -->
+      <div style="padding: 1rem; border-top: 1px solid var(--color-border);">
+        <div class="bp-flex bp-items-center bp-gap-3">
+          <div class="bp-avatar bp-avatar-sm">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="bp-truncate" style="font-size: 0.8125rem; font-weight: 500; color: var(--color-text);">Jamie Dawson</div>
+            <div class="bp-truncate bp-mono-label" style="font-size: 0.7rem;">Pro plan</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="bp-main-content">
+
+      <!-- Top bar -->
+      <div style="position: sticky; top: 0; z-index: 100; background-color: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-border); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div>
+          <h1 style="font-size: 1rem; font-weight: 600; color: var(--color-text);">Dashboard</h1>
+        </div>
+        <div class="bp-flex bp-items-center bp-gap-3">
+          <span class="bp-badge bp-badge-success">
+            <svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+            All systems operational
+          </span>
+          <button class="bp-btn bp-btn-primary bp-btn-sm">New deployment</button>
+        </div>
+      </div>
+
+      <div style="padding: 2rem;">
+
+        <!-- STATS ROW -->
+        <div class="bp-grid bp-grid-4 bp-mb-8">
+
+          <div class="bp-card bp-bracket">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <span class="bp-mono-label">Uptime (30d)</span>
+              <span class="bp-badge bp-badge-success">+0.01%</span>
+            </div>
+            <div class="bp-stat-value">99.98%</div>
+            <div class="bp-stat-change bp-stat-change-up bp-mt-2">↑ 0.01% from last month</div>
+          </div>
+
+          <div class="bp-card bp-bracket">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <span class="bp-mono-label">Avg latency</span>
+              <span class="bp-badge bp-badge-success">-4ms</span>
+            </div>
+            <div class="bp-stat-value">12ms</div>
+            <div class="bp-stat-change bp-stat-change-up bp-mt-2">↓ 4ms from last week</div>
+          </div>
+
+          <div class="bp-card bp-bracket">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <span class="bp-mono-label">Active services</span>
+              <span class="bp-badge bp-badge-secondary">Stable</span>
+            </div>
+            <div class="bp-stat-value">14</div>
+            <div class="bp-stat-change bp-mt-2" style="color: var(--color-text-muted);">2 scaling, 12 idle</div>
+          </div>
+
+          <div class="bp-card bp-bracket">
+            <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+              <span class="bp-mono-label">Incidents (30d)</span>
+              <span class="bp-badge bp-badge-success">-2</span>
+            </div>
+            <div class="bp-stat-value">3</div>
+            <div class="bp-stat-change bp-stat-change-up bp-mt-2">↓ 2 from last month</div>
+          </div>
+
+        </div>
+
+        <!-- TWO COLUMN: chart area + activity -->
+        <div style="display: grid; grid-template-columns: 1fr 360px; gap: 1.5rem; margin-bottom: 2rem;">
+
+          <!-- Chart placeholder -->
+          <div class="bp-card">
+            <div class="bp-flex bp-justify-between bp-items-center bp-mb-6">
+              <div>
+                <h3 class="bp-card-title">Request throughput</h3>
+                <p class="bp-card-description">Requests / second · Last 24 hours</p>
+              </div>
+              <div class="bp-flex bp-gap-2">
+                <button class="bp-btn bp-btn-ghost bp-btn-xs">1h</button>
+                <button class="bp-btn bp-btn-secondary bp-btn-xs">24h</button>
+                <button class="bp-btn bp-btn-ghost bp-btn-xs">7d</button>
+              </div>
+            </div>
+
+            <!-- Fake chart bars -->
+            <div style="height: 180px; display: flex; align-items: flex-end; gap: 3px; padding: 0.5rem 0;">
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 40%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 55%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 45%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 70%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 60%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 85%; border-top: 1px solid var(--color-primary); opacity: 0.9;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 90%; border-top: 1px solid var(--color-primary);"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 75%; border-top: 1px solid var(--color-primary); opacity: 0.9;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 65%; border-top: 1px solid var(--color-primary); opacity: 0.8;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 50%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 55%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 80%; border-top: 1px solid var(--color-primary); opacity: 0.9;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 100%; border-top: 1px solid var(--color-primary);"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 88%; border-top: 1px solid var(--color-primary);"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 72%; border-top: 1px solid var(--color-primary); opacity: 0.9;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 60%; border-top: 1px solid var(--color-primary); opacity: 0.8;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 45%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 55%; border-top: 1px solid var(--color-primary); opacity: 0.7;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 70%; border-top: 1px solid var(--color-primary); opacity: 0.8;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 65%; border-top: 1px solid var(--color-primary); opacity: 0.8;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 80%; border-top: 1px solid var(--color-primary); opacity: 0.9;"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 90%; border-top: 1px solid var(--color-primary);"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 95%; border-top: 1px solid var(--color-primary);"></div>
+              <div style="flex: 1; background: var(--color-primary-subtle); border-radius: 2px 2px 0 0; height: 82%; border-top: 2px solid var(--color-primary);"></div>
+            </div>
+
+            <div class="bp-flex bp-justify-between bp-mt-2">
+              <span class="bp-mono-label">00:00</span>
+              <span class="bp-mono-label">06:00</span>
+              <span class="bp-mono-label">12:00</span>
+              <span class="bp-mono-label">18:00</span>
+              <span class="bp-mono-label">Now</span>
+            </div>
+          </div>
+
+          <!-- Activity feed -->
+          <div class="bp-card" style="max-height: 340px; overflow-y: auto;">
+            <h3 class="bp-card-title bp-mb-4">Recent events</h3>
+            <div style="display: flex; flex-direction: column; gap: 0;">
+
+              <div style="display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--bp-border-subtle);">
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--bp-success); margin-top: 5px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <p style="font-size: 0.8125rem; color: var(--color-text); font-weight: 500;">api-gateway scaled up</p>
+                  <p class="bp-mono-label" style="margin-top: 2px;">2 → 4 instances · 2 min ago</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--bp-border-subtle);">
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--bp-success); margin-top: 5px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <p style="font-size: 0.8125rem; color: var(--color-text); font-weight: 500;">Deploy v2.4.1 succeeded</p>
+                  <p class="bp-mono-label" style="margin-top: 2px;">user-service · 14 min ago</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--bp-border-subtle);">
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--bp-warning); margin-top: 5px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <p style="font-size: 0.8125rem; color: var(--color-text); font-weight: 500;">Anomaly detected + resolved</p>
+                  <p class="bp-mono-label" style="margin-top: 2px;">payment-service · 41 min ago</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--bp-border-subtle);">
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--bp-success); margin-top: 5px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <p style="font-size: 0.8125rem; color: var(--color-text); font-weight: 500;">SSL cert auto-renewed</p>
+                  <p class="bp-mono-label" style="margin-top: 2px;">app.axiom.dev · 1h ago</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--bp-border-subtle);">
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--bp-error); margin-top: 5px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <p style="font-size: 0.8125rem; color: var(--color-text); font-weight: 500;">Deploy failed → auto-rollback</p>
+                  <p class="bp-mono-label" style="margin-top: 2px;">search-service · 3h ago</p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem; padding: 0.75rem 0;">
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--bp-success); margin-top: 5px; flex-shrink: 0;"></div>
+                <div style="flex: 1;">
+                  <p style="font-size: 0.8125rem; color: var(--color-text); font-weight: 500;">api-gateway scaled down</p>
+                  <p class="bp-mono-label" style="margin-top: 2px;">4 → 2 instances · 5h ago</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SERVICES TABLE -->
+        <div class="bp-card">
+          <div class="bp-flex bp-justify-between bp-items-center bp-mb-5">
+            <div>
+              <h3 class="bp-card-title">Services</h3>
+              <p class="bp-card-description">All running services and their current status</p>
+            </div>
+            <div class="bp-flex bp-gap-2">
+              <input type="text" class="bp-input bp-btn-sm" placeholder="Filter services..." style="width: 200px;">
+              <button class="bp-btn bp-btn-secondary bp-btn-sm">+ Add service</button>
+            </div>
+          </div>
+          <div class="bp-table-wrapper">
+            <table class="bp-table">
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Status</th>
+                  <th>Instances</th>
+                  <th>Latency</th>
+                  <th>Error rate</th>
+                  <th>Last deploy</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500; color: var(--color-text); font-family: var(--font-mono); font-size: 0.8125rem;">api-gateway</div>
+                    <div class="bp-mono-label" style="font-size: 0.7rem;">v2.4.1</div>
+                  </td>
+                  <td><span class="bp-badge bp-badge-success">Healthy</span></td>
+                  <td>4</td>
+                  <td>8ms</td>
+                  <td>0.02%</td>
+                  <td>2 min ago</td>
+                  <td><button class="bp-btn bp-btn-ghost bp-btn-xs">View →</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500; color: var(--color-text); font-family: var(--font-mono); font-size: 0.8125rem;">user-service</div>
+                    <div class="bp-mono-label" style="font-size: 0.7rem;">v1.9.0</div>
+                  </td>
+                  <td><span class="bp-badge bp-badge-success">Healthy</span></td>
+                  <td>2</td>
+                  <td>14ms</td>
+                  <td>0.00%</td>
+                  <td>14 min ago</td>
+                  <td><button class="bp-btn bp-btn-ghost bp-btn-xs">View →</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500; color: var(--color-text); font-family: var(--font-mono); font-size: 0.8125rem;">payment-service</div>
+                    <div class="bp-mono-label" style="font-size: 0.7rem;">v3.1.2</div>
+                  </td>
+                  <td><span class="bp-badge bp-badge-warning">Degraded</span></td>
+                  <td>2</td>
+                  <td>42ms</td>
+                  <td>0.8%</td>
+                  <td>2 days ago</td>
+                  <td><button class="bp-btn bp-btn-ghost bp-btn-xs">View →</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500; color: var(--color-text); font-family: var(--font-mono); font-size: 0.8125rem;">search-service</div>
+                    <div class="bp-mono-label" style="font-size: 0.7rem;">v1.2.4</div>
+                  </td>
+                  <td><span class="bp-badge bp-badge-success">Healthy</span></td>
+                  <td>3</td>
+                  <td>22ms</td>
+                  <td>0.01%</td>
+                  <td>3 hours ago</td>
+                  <td><button class="bp-btn bp-btn-ghost bp-btn-xs">View →</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500; color: var(--color-text); font-family: var(--font-mono); font-size: 0.8125rem;">notification-worker</div>
+                    <div class="bp-mono-label" style="font-size: 0.7rem;">v0.8.1</div>
+                  </td>
+                  <td><span class="bp-badge bp-badge-success">Healthy</span></td>
+                  <td>1</td>
+                  <td>—</td>
+                  <td>0.00%</td>
+                  <td>1 week ago</td>
+                  <td><button class="bp-btn bp-btn-ghost bp-btn-xs">View →</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 500; color: var(--color-text); font-family: var(--font-mono); font-size: 0.8125rem;">analytics-pipeline</div>
+                    <div class="bp-mono-label" style="font-size: 0.7rem;">v2.0.0</div>
+                  </td>
+                  <td><span class="bp-badge bp-badge-secondary">Idle</span></td>
+                  <td>0</td>
+                  <td>—</td>
+                  <td>0.00%</td>
+                  <td>4 days ago</td>
+                  <td><button class="bp-btn bp-btn-ghost bp-btn-xs">View →</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

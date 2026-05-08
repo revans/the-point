@@ -1,0 +1,23 @@
+{
+  "name": "@the-point/react",
+  "version": "0.1.0",
+  "description": "React component layer for The Point design system",
+  "main": "index.ts",
+  "types": "index.ts",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": ["design-system", "react", "blueprint", "css"],
+  "notes": [
+    "These components are thin wrappers around The Point CSS classes.",
+    "You must import the CSS separately in your app entry point:",
+    "  import 'path/to/the-point/index.css'",
+    "No runtime dependencies beyond React itself."
+  ]
+}

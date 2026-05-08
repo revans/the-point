@@ -1,0 +1,35 @@
+<%#
+  Blueprint Testimonial Partial
+  ──────────────────────────────
+  Usage:
+    <%= render 'blueprint/testimonial',
+          quote:   "This design system cut our build time in half.",
+          name:    "Jamie Dawson",
+          role:    "CTO · Beacon",
+          initials: "JD"
+    %>
+
+  With an image:
+    <%= render 'blueprint/testimonial',
+          quote:    "...",
+          name:     "Jamie Dawson",
+          role:     "CTO · Beacon",
+          image_src: asset_path('avatars/jamie.jpg'),
+          image_alt: "Jamie Dawson"
+    %>
+%>
+
+<div class="bp-testimonial">
+  <p class="bp-testimonial-quote">"<%= quote %>"</p>
+  <div class="bp-testimonial-author">
+    <% if defined?(image_src) && image_src.present? %>
+      <%= bp_avatar size: :md, src: image_src, alt: (defined?(image_alt) ? image_alt : name) %>
+    <% elsif defined?(initials) && initials.present? %>
+      <%= bp_avatar initials, size: :md %>
+    <% end %>
+    <div>
+      <div class="bp-testimonial-name"><%= name %></div>
+      <div class="bp-testimonial-role"><%= role %></div>
+    </div>
+  </div>
+</div>

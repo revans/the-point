@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Point — Component Showcase</title>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    :root {
+      --bp-grid-color:      transparent;
+      --bp-grid-color-bold: transparent;
+    }
+
+    /* Showcase chrome */
+    .sc-topbar {
+      position: sticky;
+      top: 0;
+      z-index: var(--bp-z-sticky);
+      background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .sc-nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .sc-nav::-webkit-scrollbar { display: none; }
+
+    .sc-nav a {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 0.375rem 0.75rem;
+      white-space: nowrap;
+      border-radius: var(--bp-radius-md);
+      transition: var(--bp-transition-fast);
+    }
+
+    .sc-nav a:hover { color: var(--color-primary); }
+
+    /* Section structure */
+    .sc-section {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--color-border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .sc-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .sc-section-heading {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Row of demo items */
+    .sc-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .sc-row-start {
+      align-items: flex-start;
+    }
+
+    /* Sub-label */
+    .sc-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.625rem;
+      margin-top: 1.5rem;
+    }
+
+    .sc-label:first-child { margin-top: 0; }
+
+    /* Color swatch */
+    .sc-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .sc-swatch-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--bp-radius-lg);
+      border: 1px solid var(--color-border);
+    }
+
+    .sc-swatch-name {
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    /* Demo surface */
+    .sc-surface {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-lg);
+      padding: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Fake chart bars */
+    .sc-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 80px;
+    }
+
+    .sc-chart-bar {
+      flex: 1;
+      background: var(--color-primary-subtle);
+      border-top: 1px solid var(--color-primary);
+      border-radius: 2px 2px 0 0;
+      min-height: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="sc-topbar">
+    <span style="font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 700; color: var(--color-text); white-space: nowrap; letter-spacing: -0.01em;">the point</span>
+    <nav class="sc-nav">
+      <a href="#colors">Colors</a>
+      <a href="#typography">Type</a>
+      <a href="#buttons">Buttons</a>
+      <a href="#badges">Badges</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#cards">Cards</a>
+      <a href="#forms">Forms</a>
+      <a href="#nav-component">Nav</a>
+      <a href="#hero-component">Hero</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#stats">Stats</a>
+      <a href="#table">Table</a>
+      <a href="#avatars">Avatars</a>
+      <a href="#testimonial">Testimonial</a>
+      <a href="#dividers">Dividers</a>
+      <a href="#skeleton">Skeleton</a>
+      <a href="#sidebar">Sidebar</a>
+      <a href="#blueprint">Blueprint</a>
+      <a href="#utilities">Utilities</a>
+    </nav>
+    <button
+      class="bp-btn bp-btn-secondary bp-btn-sm"
+      onclick="const h = document.documentElement; h.setAttribute('data-bp-theme', h.getAttribute('data-bp-theme') === 'dark' ? 'light' : 'dark'); this.textContent = h.getAttribute('data-bp-theme') === 'dark' ? '☀ Light' : '◑ Dark';"
+      style="white-space: nowrap; flex-shrink: 0;"
+    >☀ Light</button>
+  </div>
+
+
+  <!-- =====================================================================
+       COLORS
+       ===================================================================== -->
+  <section class="sc-section" id="colors">
+    <div class="sc-section-title">Foundation</div>
+    <div class="sc-section-heading">Colors</div>
+
+    <div class="sc-label">Semantic</div>
+    <div class="sc-row">
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-bg);"></div>
+        <span class="sc-swatch-name">--color-bg</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-bg-secondary);"></div>
+        <span class="sc-swatch-name">--color-bg-secondary</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-surface);"></div>
+        <span class="sc-swatch-name">--color-surface</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-border); border-color: var(--color-text-muted);"></div>
+        <span class="sc-swatch-name">--color-border</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-primary);"></div>
+        <span class="sc-swatch-name">--color-primary</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-primary-subtle);"></div>
+        <span class="sc-swatch-name">--color-primary-subtle</span>
+      </div>
+    </div>
+
+    <div class="sc-label">Text</div>
+    <div class="sc-row">
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-text);"></div>
+        <span class="sc-swatch-name">--color-text</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-text-secondary);"></div>
+        <span class="sc-swatch-name">--color-text-secondary</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--color-text-muted);"></div>
+        <span class="sc-swatch-name">--color-text-muted</span>
+      </div>
+    </div>
+
+    <div class="sc-label">States</div>
+    <div class="sc-row">
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--bp-success);"></div>
+        <span class="sc-swatch-name">--bp-success</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--bp-warning);"></div>
+        <span class="sc-swatch-name">--bp-warning</span>
+      </div>
+      <div class="sc-swatch">
+        <div class="sc-swatch-dot" style="background: var(--bp-error);"></div>
+        <span class="sc-swatch-name">--bp-error</span>
+      </div>
+    </div>
+
+    <div class="sc-label">Blueprint blue scale</div>
+    <div class="sc-row">
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-100);"></div><span class="sc-swatch-name">100</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-200);"></div><span class="sc-swatch-name">200</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-300);"></div><span class="sc-swatch-name">300</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-400);"></div><span class="sc-swatch-name">400</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-500);"></div><span class="sc-swatch-name">500</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-600);"></div><span class="sc-swatch-name">600</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-700);"></div><span class="sc-swatch-name">700</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-800);"></div><span class="sc-swatch-name">800</span></div>
+      <div class="sc-swatch"><div class="sc-swatch-dot" style="background: var(--bp-blue-900);"></div><span class="sc-swatch-name">900</span></div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       TYPOGRAPHY
+       ===================================================================== -->
+  <section class="sc-section" id="typography">
+    <div class="sc-section-title">Foundation</div>
+    <div class="sc-section-heading">Typography</div>
+
+    <div class="sc-label">Headings</div>
+    <div style="margin-bottom: 1.5rem;">
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div class="bp-flex bp-items-baseline bp-gap-4">
+          <span class="bp-mono-label" style="width: 24px;">h1</span>
+          <h1 style="font-size: var(--bp-text-5xl); margin: 0;">The quick brown fox</h1>
+        </div>
+        <div class="bp-flex bp-items-baseline bp-gap-4">
+          <span class="bp-mono-label" style="width: 24px;">h2</span>
+          <h2 style="margin: 0;">The quick brown fox</h2>
+        </div>
+        <div class="bp-flex bp-items-baseline bp-gap-4">
+          <span class="bp-mono-label" style="width: 24px;">h3</span>
+          <h3 style="margin: 0;">The quick brown fox</h3>
+        </div>
+        <div class="bp-flex bp-items-baseline bp-gap-4">
+          <span class="bp-mono-label" style="width: 24px;">h4</span>
+          <h4 style="margin: 0;">The quick brown fox</h4>
+        </div>
+        <div class="bp-flex bp-items-baseline bp-gap-4">
+          <span class="bp-mono-label" style="width: 24px;">h5</span>
+          <h5 style="margin: 0;">The quick brown fox</h5>
+        </div>
+        <div class="bp-flex bp-items-baseline bp-gap-4">
+          <span class="bp-mono-label" style="width: 24px;">h6</span>
+          <h6 style="margin: 0;">The quick brown fox</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-label">Body & utility text</div>
+    <div style="display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.5rem;">
+      <p style="margin: 0; font-size: var(--bp-text-lg);">Large body — The quick brown fox jumps over the lazy dog.</p>
+      <p style="margin: 0;">Base body — The quick brown fox jumps over the lazy dog.</p>
+      <p style="margin: 0; font-size: var(--bp-text-sm);">Small body — The quick brown fox jumps over the lazy dog.</p>
+      <p style="margin: 0; font-size: var(--bp-text-xs); color: var(--color-text-muted);">XS / meta — The quick brown fox jumps over the lazy dog.</p>
+    </div>
+
+    <div class="sc-label">Monospace</div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem;">
+      <span class="bp-font-mono">Monospace body — REF: AX-2.4.1 · BUILD: STABLE</span>
+      <span class="bp-mono-label">Mono label — STEP 1 OF 4 · ALL SYSTEMS OPERATIONAL</span>
+      <code>inline code snippet</code>
+    </div>
+
+    <div class="sc-label">Text colors</div>
+    <div class="sc-row">
+      <span class="bp-text-primary">bp-text-primary</span>
+      <span class="bp-text-secondary">bp-text-secondary</span>
+      <span class="bp-text-muted">bp-text-muted</span>
+      <span class="bp-text-accent">bp-text-accent</span>
+      <span class="bp-text-success">bp-text-success</span>
+      <span class="bp-text-warning">bp-text-warning</span>
+      <span class="bp-text-error">bp-text-error</span>
+    </div>
+
+    <div class="sc-label">Gradient text</div>
+    <h2 style="margin: 0;" class="bp-text-gradient">Gradient heading text</h2>
+
+    <div class="sc-label">Code block</div>
+    <pre><code>const result = await fetch('/api/data')
+const json = await result.json()
+console.log(json)</code></pre>
+  </section>
+
+
+  <!-- =====================================================================
+       BUTTONS
+       ===================================================================== -->
+  <section class="sc-section" id="buttons">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Buttons</div>
+
+    <div class="sc-label">Variants</div>
+    <div class="sc-row">
+      <button class="bp-btn bp-btn-primary">Primary</button>
+      <button class="bp-btn bp-btn-secondary">Secondary</button>
+      <button class="bp-btn bp-btn-outline">Outline</button>
+      <button class="bp-btn bp-btn-ghost">Ghost</button>
+      <button class="bp-btn bp-btn-destructive">Destructive</button>
+    </div>
+
+    <div class="sc-label">Sizes</div>
+    <div class="sc-row bp-items-center">
+      <button class="bp-btn bp-btn-primary bp-btn-xs">XSmall</button>
+      <button class="bp-btn bp-btn-primary bp-btn-sm">Small</button>
+      <button class="bp-btn bp-btn-primary">Medium</button>
+      <button class="bp-btn bp-btn-primary bp-btn-lg">Large</button>
+      <button class="bp-btn bp-btn-primary bp-btn-xl">XLarge</button>
+    </div>
+
+    <div class="sc-label">Icon buttons</div>
+    <div class="sc-row bp-items-center">
+      <button class="bp-btn bp-btn-primary bp-btn-icon bp-btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="bp-btn bp-btn-secondary bp-btn-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="bp-btn bp-btn-outline bp-btn-icon bp-btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+      </button>
+      <button class="bp-btn bp-btn-ghost bp-btn-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+      </button>
+    </div>
+
+    <div class="sc-label">With icon + label</div>
+    <div class="sc-row">
+      <button class="bp-btn bp-btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New item
+      </button>
+      <button class="bp-btn bp-btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        View code
+      </button>
+      <button class="bp-btn bp-btn-outline bp-btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch demo
+      </button>
+    </div>
+
+    <div class="sc-label">States</div>
+    <div class="sc-row">
+      <button class="bp-btn bp-btn-primary" disabled>Disabled primary</button>
+      <button class="bp-btn bp-btn-secondary" disabled>Disabled secondary</button>
+      <button class="bp-btn bp-btn-primary bp-w-full" style="max-width: 300px;">Full width</button>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       BADGES
+       ===================================================================== -->
+  <section class="sc-section" id="badges">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Badges</div>
+
+    <div class="sc-row">
+      <span class="bp-badge bp-badge-default">Default</span>
+      <span class="bp-badge bp-badge-secondary">Secondary</span>
+      <span class="bp-badge bp-badge-success">Success</span>
+      <span class="bp-badge bp-badge-warning">Warning</span>
+      <span class="bp-badge bp-badge-error">Error</span>
+      <span class="bp-badge bp-badge-outline">Outline</span>
+    </div>
+
+    <div class="sc-label">With icon</div>
+    <div class="sc-row">
+      <span class="bp-badge bp-badge-success">
+        <svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+        Operational
+      </span>
+      <span class="bp-badge bp-badge-warning">
+        <svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+        Degraded
+      </span>
+      <span class="bp-badge bp-badge-error">
+        <svg width="6" height="6" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+        Outage
+      </span>
+      <span class="bp-badge bp-badge-default">
+        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        Verified
+      </span>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       ALERTS
+       ===================================================================== -->
+  <section class="sc-section" id="alerts">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Alerts</div>
+
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+      <div class="bp-alert bp-alert-default">
+        <svg class="bp-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="bp-alert-content">
+          <div class="bp-alert-title">Information</div>
+          This is an informational alert with a title and supporting text.
+        </div>
+      </div>
+      <div class="bp-alert bp-alert-success">
+        <svg class="bp-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        <div class="bp-alert-content">
+          <div class="bp-alert-title">Success</div>
+          Your changes have been saved successfully.
+        </div>
+      </div>
+      <div class="bp-alert bp-alert-warning">
+        <svg class="bp-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="bp-alert-content">
+          <div class="bp-alert-title">Warning</div>
+          Your subscription expires in 3 days. Renew to avoid interruption.
+        </div>
+      </div>
+      <div class="bp-alert bp-alert-error">
+        <svg class="bp-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <div class="bp-alert-content">
+          <div class="bp-alert-title">Error</div>
+          Something went wrong. Please try again or contact support.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       CARDS
+       ===================================================================== -->
+  <section class="sc-section" id="cards">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Cards</div>
+
+    <div class="sc-label">Basic card</div>
+    <div style="max-width: 400px; margin-bottom: 1.5rem;">
+      <div class="bp-card">
+        <div class="bp-card-header">
+          <div class="bp-card-title">Card title</div>
+          <div class="bp-card-description">Supporting description or metadata</div>
+        </div>
+        <div class="bp-card-body">
+          Card body content goes here. This can be any content — text, data, components.
+        </div>
+        <div class="bp-card-footer">
+          <button class="bp-btn bp-btn-ghost bp-btn-sm">Cancel</button>
+          <button class="bp-btn bp-btn-primary bp-btn-sm">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-label">Hoverable cards</div>
+    <div class="bp-grid bp-grid-3" style="margin-bottom: 1.5rem;">
+      <div class="bp-card bp-card-hover">
+        <div class="bp-card-title">Hover me</div>
+        <div class="bp-card-description">Lifts and glows on hover.</div>
+      </div>
+      <div class="bp-card bp-card-hover">
+        <div class="bp-card-title">Hover me</div>
+        <div class="bp-card-description">Border becomes primary color.</div>
+      </div>
+      <div class="bp-card bp-card-hover">
+        <div class="bp-card-title">Hover me</div>
+        <div class="bp-card-description">Shadow deepens on hover.</div>
+      </div>
+    </div>
+
+    <div class="sc-label">Feature cards</div>
+    <div class="bp-grid bp-grid-3">
+      <div class="bp-card bp-card-hover bp-card-feature bp-bracket">
+        <div class="bp-card-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div>
+          <h3 class="bp-card-title">Monitoring</h3>
+          <p class="bp-card-description">Real-time metrics across all your services with zero configuration.</p>
+        </div>
+      </div>
+      <div class="bp-card bp-card-hover bp-card-feature bp-bracket">
+        <div class="bp-card-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h3 class="bp-card-title">Security</h3>
+          <p class="bp-card-description">End-to-end encryption and role-based access controls built in.</p>
+        </div>
+      </div>
+      <div class="bp-card bp-card-hover bp-card-feature bp-bracket">
+        <div class="bp-card-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <h3 class="bp-card-title">Performance</h3>
+          <p class="bp-card-description">Predictive scaling keeps your systems fast before the spike hits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       FORMS
+       ===================================================================== -->
+  <section class="sc-section" id="forms">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Forms</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 720px;">
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+        <div class="bp-form-group">
+          <label class="bp-label">Text input</label>
+          <input type="text" class="bp-input" placeholder="Placeholder text">
+        </div>
+
+        <div class="bp-form-group">
+          <label class="bp-label">With hint</label>
+          <input type="text" class="bp-input" value="Filled value">
+          <p class="bp-form-hint">Helper text below the input.</p>
+        </div>
+
+        <div class="bp-form-group">
+          <label class="bp-label">Error state</label>
+          <input type="text" class="bp-input bp-input-error" value="Invalid value">
+          <p class="bp-form-error">This field is required.</p>
+        </div>
+
+        <div class="bp-form-group">
+          <label class="bp-label">Disabled</label>
+          <input type="text" class="bp-input" value="Disabled input" disabled>
+        </div>
+
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+        <div class="bp-form-group">
+          <label class="bp-label">Select</label>
+          <select class="bp-select">
+            <option>Choose an option</option>
+            <option>Option one</option>
+            <option>Option two</option>
+          </select>
+        </div>
+
+        <div class="bp-form-group">
+          <label class="bp-label">Textarea</label>
+          <textarea class="bp-textarea" placeholder="Enter a longer message..."></textarea>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.625rem;">
+          <label class="bp-checkbox">
+            <input type="checkbox" checked>
+            <span class="bp-checkbox-label">Checkbox checked</span>
+          </label>
+          <label class="bp-checkbox">
+            <input type="checkbox">
+            <span class="bp-checkbox-label">Checkbox unchecked</span>
+          </label>
+          <label class="bp-radio">
+            <input type="radio" name="demo" checked>
+            <span class="bp-radio-label">Radio selected</span>
+          </label>
+          <label class="bp-radio">
+            <input type="radio" name="demo">
+            <span class="bp-radio-label">Radio unselected</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       NAVIGATION
+       ===================================================================== -->
+  <section class="sc-section" id="nav-component">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Navigation</div>
+
+    <div class="sc-surface" style="padding: 0; overflow: hidden;">
+      <nav style="width: 100%; background-color: var(--color-bg); border-bottom: 1px solid var(--color-border);">
+        <div style="display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 2rem; padding: 0 1.5rem;">
+          <a href="#" class="bp-nav-brand">Brand</a>
+          <ul class="bp-nav-links">
+            <li><a href="#" class="bp-nav-link active">Active</a></li>
+            <li><a href="#" class="bp-nav-link">Product</a></li>
+            <li><a href="#" class="bp-nav-link">Pricing</a></li>
+            <li><a href="#" class="bp-nav-link">Docs</a></li>
+          </ul>
+          <div class="bp-nav-actions">
+            <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm">Sign in</a>
+            <a href="#" class="bp-btn bp-btn-primary bp-btn-sm">Get started</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       HERO
+       ===================================================================== -->
+  <section class="sc-section" id="hero-component">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Hero</div>
+
+    <div class="sc-surface">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 3rem 2rem;">
+        <div class="bp-hero-eyebrow">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+          Eyebrow label
+        </div>
+        <h1 class="bp-hero-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">
+          Hero title with a <span class="bp-text-gradient">gradient word</span>
+        </h1>
+        <p class="bp-hero-subtitle" style="font-size: 1rem;">
+          Supporting subtitle text that describes the product or service in a sentence or two.
+        </p>
+        <div class="bp-hero-actions">
+          <a href="#" class="bp-btn bp-btn-primary bp-btn-lg">Primary CTA</a>
+          <a href="#" class="bp-btn bp-btn-secondary bp-btn-lg">Secondary CTA</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-label">Section header</div>
+    <div class="sc-surface">
+      <div class="bp-section-header" style="margin-bottom: 0;">
+        <span class="bp-section-label">Section label</span>
+        <h2 class="bp-section-title">Section heading text</h2>
+        <p class="bp-section-subtitle">Optional supporting subtitle that provides context for the section below.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       PRICING
+       ===================================================================== -->
+  <section class="sc-section" id="pricing">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Pricing Cards</div>
+
+    <div class="bp-grid bp-grid-3">
+      <div class="bp-pricing-card">
+        <div>
+          <div class="bp-pricing-plan">Starter</div>
+          <div class="bp-pricing-price">
+            <span class="bp-pricing-amount">$0</span>
+            <span class="bp-pricing-period">/ mo</span>
+          </div>
+          <p class="bp-pricing-description">For individuals getting started.</p>
+        </div>
+        <ul class="bp-pricing-features">
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            3 projects
+          </li>
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Community support
+          </li>
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-x" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span style="color: var(--color-text-muted)">Advanced features</span>
+          </li>
+        </ul>
+        <a href="#" class="bp-btn bp-btn-secondary bp-w-full">Get started free</a>
+      </div>
+
+      <div class="bp-pricing-card bp-pricing-card-featured" style="position: relative;">
+        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%);">
+          <span class="bp-badge bp-badge-default">Most popular</span>
+        </div>
+        <div>
+          <div class="bp-pricing-plan">Pro</div>
+          <div class="bp-pricing-price">
+            <span class="bp-pricing-amount">$49</span>
+            <span class="bp-pricing-period">/ mo</span>
+          </div>
+          <p class="bp-pricing-description">For growing teams that need more.</p>
+        </div>
+        <ul class="bp-pricing-features">
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited projects
+          </li>
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Priority support
+          </li>
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Advanced features
+          </li>
+        </ul>
+        <a href="#" class="bp-btn bp-btn-primary bp-w-full">Start free trial</a>
+      </div>
+
+      <div class="bp-pricing-card">
+        <div>
+          <div class="bp-pricing-plan">Enterprise</div>
+          <div class="bp-pricing-price">
+            <span class="bp-pricing-amount">Custom</span>
+          </div>
+          <p class="bp-pricing-description">For large organizations with custom needs.</p>
+        </div>
+        <ul class="bp-pricing-features">
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Everything in Pro
+          </li>
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            SSO & audit logs
+          </li>
+          <li class="bp-pricing-feature">
+            <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            SLA & dedicated support
+          </li>
+        </ul>
+        <a href="#" class="bp-btn bp-btn-outline bp-w-full">Talk to sales</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       STATS
+       ===================================================================== -->
+  <section class="sc-section" id="stats">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Stats</div>
+
+    <div class="bp-grid bp-grid-4">
+      <div class="bp-card bp-bracket">
+        <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+          <span class="bp-mono-label">Uptime</span>
+          <span class="bp-badge bp-badge-success">↑ 0.01%</span>
+        </div>
+        <div class="bp-stat-value">99.98%</div>
+        <div class="bp-stat-change bp-stat-change-up bp-mt-2">Better than last month</div>
+      </div>
+      <div class="bp-card bp-bracket">
+        <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+          <span class="bp-mono-label">Revenue</span>
+          <span class="bp-badge bp-badge-success">+12%</span>
+        </div>
+        <div class="bp-stat-value">$84k</div>
+        <div class="bp-stat-change bp-stat-change-up bp-mt-2">↑ $9k from last month</div>
+      </div>
+      <div class="bp-card bp-bracket">
+        <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+          <span class="bp-mono-label">Errors</span>
+          <span class="bp-badge bp-badge-error">+3</span>
+        </div>
+        <div class="bp-stat-value">17</div>
+        <div class="bp-stat-change bp-stat-change-down bp-mt-2">↑ 3 from last week</div>
+      </div>
+      <div class="bp-card bp-bracket">
+        <div class="bp-flex bp-justify-between bp-items-start bp-mb-3">
+          <span class="bp-mono-label">Users</span>
+          <span class="bp-badge bp-badge-secondary">Stable</span>
+        </div>
+        <div class="bp-stat-value">2,841</div>
+        <div class="bp-stat-change bp-mt-2" style="color: var(--color-text-muted);">No change this week</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       TABLE
+       ===================================================================== -->
+  <section class="sc-section" id="table">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Table</div>
+
+    <div class="bp-table-wrapper">
+      <table class="bp-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Joined</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="bp-flex bp-items-center bp-gap-3">
+                <div class="bp-avatar bp-avatar-sm">SW</div>
+                <div>
+                  <div style="font-weight: 500; color: var(--color-text); font-size: 0.875rem;">Sarah Wu</div>
+                  <div style="font-size: 0.75rem; color: var(--color-text-muted);">sarah@company.com</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="bp-badge bp-badge-success">Active</span></td>
+            <td>Admin</td>
+            <td>Jan 2024</td>
+            <td><button class="bp-btn bp-btn-ghost bp-btn-xs">Edit</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="bp-flex bp-items-center bp-gap-3">
+                <div class="bp-avatar bp-avatar-sm">MR</div>
+                <div>
+                  <div style="font-weight: 500; color: var(--color-text); font-size: 0.875rem;">Marcus Reid</div>
+                  <div style="font-size: 0.75rem; color: var(--color-text-muted);">marcus@company.com</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="bp-badge bp-badge-success">Active</span></td>
+            <td>Member</td>
+            <td>Mar 2024</td>
+            <td><button class="bp-btn bp-btn-ghost bp-btn-xs">Edit</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="bp-flex bp-items-center bp-gap-3">
+                <div class="bp-avatar bp-avatar-sm">AK</div>
+                <div>
+                  <div style="font-weight: 500; color: var(--color-text); font-size: 0.875rem;">Amara Kone</div>
+                  <div style="font-size: 0.75rem; color: var(--color-text-muted);">amara@company.com</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="bp-badge bp-badge-warning">Invited</span></td>
+            <td>Member</td>
+            <td>Pending</td>
+            <td><button class="bp-btn bp-btn-ghost bp-btn-xs">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       AVATARS
+       ===================================================================== -->
+  <section class="sc-section" id="avatars">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Avatars</div>
+
+    <div class="sc-label">Sizes</div>
+    <div class="sc-row bp-items-center">
+      <div class="bp-avatar bp-avatar-sm">SM</div>
+      <div class="bp-avatar bp-avatar-md">MD</div>
+      <div class="bp-avatar bp-avatar-lg">LG</div>
+      <div class="bp-avatar bp-avatar-xl">XL</div>
+    </div>
+
+    <div class="sc-label">Group / stack</div>
+    <div style="display: flex;">
+      <div class="bp-avatar bp-avatar-md" style="margin-right: -10px; border: 2px solid var(--color-bg); z-index: 4; background: var(--color-primary-subtle); color: var(--color-primary);">SW</div>
+      <div class="bp-avatar bp-avatar-md" style="margin-right: -10px; border: 2px solid var(--color-bg); z-index: 3; background: var(--bp-success-subtle); color: var(--bp-success);">MR</div>
+      <div class="bp-avatar bp-avatar-md" style="margin-right: -10px; border: 2px solid var(--color-bg); z-index: 2; background: var(--bp-warning-subtle); color: var(--bp-warning);">AK</div>
+      <div class="bp-avatar bp-avatar-md" style="border: 2px solid var(--color-bg); z-index: 1; background: var(--color-surface); color: var(--color-text-muted); font-size: 0.75rem;">+8</div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       TESTIMONIAL
+       ===================================================================== -->
+  <section class="sc-section" id="testimonial">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Testimonial</div>
+
+    <div class="bp-grid bp-grid-3">
+      <div class="bp-testimonial">
+        <p class="bp-testimonial-quote">"This design system cut our UI build time in half. Every page feels consistent without us having to think about it."</p>
+        <div class="bp-testimonial-author">
+          <div class="bp-avatar bp-avatar-md">JD</div>
+          <div>
+            <div class="bp-testimonial-name">Jamie Dawson</div>
+            <div class="bp-testimonial-role">CTO · Beacon</div>
+          </div>
+        </div>
+      </div>
+      <div class="bp-testimonial">
+        <p class="bp-testimonial-quote">"The blueprint aesthetic is unlike anything else. Our product looks technical and intentional right out of the box."</p>
+        <div class="bp-testimonial-author">
+          <div class="bp-avatar bp-avatar-md">SR</div>
+          <div>
+            <div class="bp-testimonial-name">Sofia Reyes</div>
+            <div class="bp-testimonial-role">Designer · Flint</div>
+          </div>
+        </div>
+      </div>
+      <div class="bp-testimonial">
+        <p class="bp-testimonial-quote">"We dropped it into our Rails app, added five lines of brand CSS, and it looked like we'd hired a designer. Genuinely impressive."</p>
+        <div class="bp-testimonial-author">
+          <div class="bp-avatar bp-avatar-md">TN</div>
+          <div>
+            <div class="bp-testimonial-name">Tom Nguyen</div>
+            <div class="bp-testimonial-role">Founder · Drafted</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       DIVIDERS
+       ===================================================================== -->
+  <section class="sc-section" id="dividers">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Dividers</div>
+
+    <div class="sc-label">Text divider</div>
+    <div class="bp-divider" style="margin-bottom: 1.5rem;">or continue with</div>
+
+    <div class="sc-label">Plain divider</div>
+    <hr style="margin-bottom: 1.5rem;">
+
+    <div class="sc-label">Dotted connector</div>
+    <div class="bp-dotted-connector"></div>
+  </section>
+
+
+  <!-- =====================================================================
+       SKELETON
+       ===================================================================== -->
+  <section class="sc-section" id="skeleton">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Skeleton Loading</div>
+
+    <div class="bp-grid bp-grid-3">
+      <div class="bp-card">
+        <div class="bp-skeleton bp-skeleton-title"></div>
+        <div class="bp-skeleton bp-skeleton-text"></div>
+        <div class="bp-skeleton bp-skeleton-text" style="width: 75%;"></div>
+        <div class="bp-skeleton bp-skeleton-text" style="width: 50%; margin-top: 0.5rem;"></div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-flex bp-gap-3 bp-mb-4">
+          <div class="bp-skeleton bp-rounded-full" style="width: 40px; height: 40px; flex-shrink: 0;"></div>
+          <div style="flex: 1;">
+            <div class="bp-skeleton bp-skeleton-text" style="width: 60%; margin-bottom: 0.5rem;"></div>
+            <div class="bp-skeleton bp-skeleton-text" style="width: 40%;"></div>
+          </div>
+        </div>
+        <div class="bp-skeleton" style="height: 80px;"></div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-skeleton" style="height: 120px; margin-bottom: 1rem;"></div>
+        <div class="bp-skeleton bp-skeleton-title" style="width: 70%;"></div>
+        <div class="bp-skeleton bp-skeleton-text"></div>
+        <div class="bp-skeleton bp-skeleton-text" style="width: 80%;"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       SIDEBAR
+       ===================================================================== -->
+  <section class="sc-section" id="sidebar">
+    <div class="sc-section-title">Components</div>
+    <div class="sc-section-heading">Sidebar</div>
+
+    <div class="sc-surface" style="padding: 0; overflow: hidden; max-width: 260px;">
+      <div style="padding: 1.25rem; border-bottom: 1px solid var(--color-border);">
+        <span class="bp-nav-brand">Brand</span>
+      </div>
+      <nav style="padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 2px;">
+        <div class="bp-sidebar-label">Main</div>
+        <a href="#" class="bp-sidebar-item active">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Analytics
+        </a>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+          Projects
+        </a>
+        <div class="bp-sidebar-label" style="margin-top: 0.5rem;">Settings</div>
+        <a href="#" class="bp-sidebar-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          Account
+        </a>
+      </nav>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       BLUEPRINT DECORATIVES
+       ===================================================================== -->
+  <section class="sc-section" id="blueprint">
+    <div class="sc-section-title">Blueprint</div>
+    <div class="sc-section-heading">Decorative Utilities</div>
+
+    <div class="sc-label">bp-bracket — corner bracket decoration</div>
+    <div class="sc-row sc-row-start">
+      <div class="bp-card bp-bracket" style="max-width: 240px;">
+        <div class="bp-card-title">Bracket card</div>
+        <div class="bp-card-description">Corners accent with primary color brackets.</div>
+      </div>
+      <div style="padding: 2rem; border: 1px solid var(--color-border); border-radius: var(--bp-radius-lg); position: relative;" class="bp-bracket">
+        <span class="bp-mono-label">Any element</span>
+      </div>
+    </div>
+
+    <div class="sc-label">bp-mono-label — coordinate / reference style</div>
+    <div class="sc-row">
+      <span class="bp-mono-label">REF: AX-2.4.1</span>
+      <span class="bp-mono-label">BUILD: STABLE</span>
+      <span class="bp-mono-label">STEP 1 OF 4</span>
+      <span class="bp-mono-label">ALL SYSTEMS OPERATIONAL</span>
+    </div>
+
+    <div class="sc-label">bp-annotation — side-note with left border</div>
+    <div style="max-width: 400px;">
+      <p class="bp-annotation">
+        This is an annotation. Use it for side notes, technical references, or supporting context that sits alongside main content.
+      </p>
+    </div>
+
+    <div class="sc-label">bp-text-gradient — primary gradient text</div>
+    <div class="sc-row">
+      <h2 style="margin: 0;" class="bp-text-gradient">Gradient heading</h2>
+      <h4 style="margin: 0;" class="bp-text-gradient">Gradient sub-heading</h4>
+      <span class="bp-text-gradient" style="font-size: 1rem; font-weight: 600;">Gradient inline</span>
+    </div>
+
+    <div class="sc-label">bp-dotted-connector — dashed horizontal rule</div>
+    <div class="bp-dotted-connector" style="max-width: 300px;"></div>
+  </section>
+
+
+  <!-- =====================================================================
+       UTILITIES
+       ===================================================================== -->
+  <section class="sc-section" id="utilities">
+    <div class="sc-section-title">Utilities</div>
+    <div class="sc-section-heading">Interactive Helpers</div>
+
+    <div class="sc-label">bp-hover-lift</div>
+    <div class="sc-row">
+      <div class="bp-card bp-hover-lift" style="max-width: 180px; cursor: pointer;">
+        <div class="bp-card-title">Hover me</div>
+        <p class="bp-card-description">Lifts on hover.</p>
+      </div>
+    </div>
+
+    <div class="sc-label">bp-hover-glow</div>
+    <div class="sc-row">
+      <div class="bp-card bp-hover-glow" style="max-width: 180px; cursor: pointer;">
+        <div class="bp-card-title">Hover me</div>
+        <p class="bp-card-description">Glows on hover.</p>
+      </div>
+    </div>
+
+    <div class="sc-label">Shadow scale</div>
+    <div class="sc-row sc-row-start">
+      <div class="bp-card bp-shadow-none" style="max-width: 120px; text-align: center;"><p style="margin: 0; font-size: 0.75rem; color: var(--color-text-muted);">shadow-none</p></div>
+      <div class="bp-card bp-shadow-sm" style="max-width: 120px; text-align: center;"><p style="margin: 0; font-size: 0.75rem; color: var(--color-text-muted);">shadow-sm</p></div>
+      <div class="bp-card bp-shadow-md" style="max-width: 120px; text-align: center;"><p style="margin: 0; font-size: 0.75rem; color: var(--color-text-muted);">shadow-md</p></div>
+      <div class="bp-card bp-shadow-lg" style="max-width: 120px; text-align: center;"><p style="margin: 0; font-size: 0.75rem; color: var(--color-text-muted);">shadow-lg</p></div>
+      <div class="bp-card bp-shadow-glow" style="max-width: 120px; text-align: center;"><p style="margin: 0; font-size: 0.75rem; color: var(--color-text-muted);">shadow-glow</p></div>
+    </div>
+
+    <div class="sc-label">Border radius scale</div>
+    <div class="sc-row">
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-none);"></div>
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-sm);"></div>
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-md);"></div>
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-lg);"></div>
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-xl);"></div>
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-2xl);"></div>
+      <div style="width: 48px; height: 48px; background: var(--color-primary-subtle); border: 1px solid var(--color-primary); border-radius: var(--bp-radius-full);"></div>
+    </div>
+    <div class="sc-row">
+      <span class="bp-mono-label">none</span>
+      <span class="bp-mono-label" style="margin-left: 22px;">sm</span>
+      <span class="bp-mono-label" style="margin-left: 22px;">md</span>
+      <span class="bp-mono-label" style="margin-left: 22px;">lg</span>
+      <span class="bp-mono-label" style="margin-left: 24px;">xl</span>
+      <span class="bp-mono-label" style="margin-left: 22px;">2xl</span>
+      <span class="bp-mono-label" style="margin-left: 18px;">full</span>
+    </div>
+
+  </section>
+
+  <!-- bottom padding -->
+  <div style="height: 4rem;"></div>
+
+</body>
+</html>

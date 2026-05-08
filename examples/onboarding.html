@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grove — Get started</title>
+  <link rel="stylesheet" href="../index.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --color-primary:        #22c55e;
+      --color-primary-hover:  #16a34a;
+      --color-primary-subtle: rgba(34, 197, 94, 0.1);
+      --color-primary-glow:   rgba(34, 197, 94, 0.2);
+
+      --color-bg:           #030a05;
+      --color-bg-secondary: #071009;
+      --color-surface:      #0c1a10;
+      --color-border:       #1a3320;
+
+      --color-text:           #f0fff4;
+      --color-text-secondary: #86efac;
+      --color-text-muted:     #2d6a3f;
+
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+
+      --radius: var(--bp-radius-xl);
+
+      --bp-grid-color:      transparent;
+      --bp-grid-color-bold: transparent;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background:
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(34, 197, 94, 0.07), transparent),
+        radial-gradient(ellipse 50% 50% at 80% 20%, rgba(34, 197, 94, 0.05), transparent),
+        var(--color-bg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Progress bar */
+    .progress-bar-track {
+      height: 3px;
+      background: var(--color-border);
+      width: 100%;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--color-primary);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Top chrome */
+    .top-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .wordmark {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      color: var(--color-primary);
+    }
+
+    .step-indicator {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+    }
+
+    /* Main layout */
+    .wizard-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .wizard-layout { grid-template-columns: 1fr; }
+      .wizard-sidebar { display: none; }
+    }
+
+    /* Sidebar steps */
+    .wizard-sidebar {
+      border-right: 1px solid var(--color-border);
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.875rem 1rem;
+      border-radius: var(--bp-radius-lg);
+      cursor: pointer;
+      transition: var(--bp-transition-fast);
+    }
+
+    .step-item.active {
+      background: var(--color-primary-subtle);
+    }
+
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+      transition: var(--bp-transition-fast);
+    }
+
+    .step-item.active .step-dot {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #030a05;
+    }
+
+    .step-item.done .step-dot {
+      background: var(--color-primary-subtle);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .step-item.active .step-text { color: var(--color-text); font-weight: 600; }
+    .step-item.done .step-text { color: var(--color-text-secondary); }
+    .step-text { font-size: 0.875rem; color: var(--color-text-muted); }
+
+    .step-connector {
+      width: 1.5px;
+      height: 20px;
+      background: var(--color-border);
+      margin: 0 0 0 23px;
+    }
+
+    /* Step content */
+    .wizard-content {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .step-panel {
+      display: none;
+      flex: 1;
+      padding: 3rem;
+      max-width: 600px;
+    }
+
+    .step-panel.active { display: flex; flex-direction: column; }
+
+    .step-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .step-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      line-height: 1.1;
+      margin-bottom: 0.875rem;
+    }
+
+    .step-subtitle {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Option cards */
+    .option-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 500px) { .option-grid { grid-template-columns: 1fr; } }
+
+    .option-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      padding: 1.25rem;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--bp-transition-smooth);
+      user-select: none;
+    }
+
+    .option-card:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary-subtle);
+    }
+
+    .option-card.selected {
+      border-color: var(--color-primary);
+      background: var(--color-primary-subtle);
+      box-shadow: var(--bp-shadow-glow);
+    }
+
+    .option-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--bp-radius-lg);
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .option-label {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .option-desc {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Bottom nav */
+    .wizard-nav {
+      border-top: 1px solid var(--color-border);
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-track">
+    <div class="progress-bar-fill" id="progressFill" style="width: 25%;"></div>
+  </div>
+
+  <!-- TOP CHROME -->
+  <div class="top-chrome">
+    <span class="wordmark">grove</span>
+    <span class="step-indicator" id="stepIndicator">STEP 1 OF 4</span>
+    <a href="#" style="font-size: 0.8125rem; color: var(--color-text-muted);">Save & exit</a>
+  </div>
+
+  <!-- WIZARD LAYOUT -->
+  <div class="wizard-layout">
+
+    <!-- SIDEBAR -->
+    <div class="wizard-sidebar">
+      <div class="step-item active" onclick="goTo(1)">
+        <div class="step-dot">1</div>
+        <span class="step-text">About your work</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="sidebar-2" onclick="goTo(2)">
+        <div class="step-dot">2</div>
+        <span class="step-text">Your team</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="sidebar-3" onclick="goTo(3)">
+        <div class="step-dot">3</div>
+        <span class="step-text">Connect tools</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" id="sidebar-4" onclick="goTo(4)">
+        <div class="step-dot">4</div>
+        <span class="step-text">Set up workspace</span>
+      </div>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div class="wizard-content">
+
+      <!-- STEP 1 -->
+      <div class="step-panel active" id="step-1">
+        <span class="step-eyebrow">Step 1 of 4</span>
+        <h1 class="step-title">What kind of work<br>do you manage?</h1>
+        <p class="step-subtitle">We'll tailor Grove to fit how your team actually works.</p>
+
+        <div class="option-grid">
+          <div class="option-card selected" onclick="selectOption(this)">
+            <div class="option-icon">💻</div>
+            <span class="option-label">Software development</span>
+            <span class="option-desc">Sprints, bugs, releases, and roadmaps.</span>
+          </div>
+          <div class="option-card" onclick="selectOption(this)">
+            <div class="option-icon">🎨</div>
+            <span class="option-label">Design & creative</span>
+            <span class="option-desc">Projects, reviews, handoffs, and feedback.</span>
+          </div>
+          <div class="option-card" onclick="selectOption(this)">
+            <div class="option-icon">📣</div>
+            <span class="option-label">Marketing</span>
+            <span class="option-desc">Campaigns, content, launches, and analytics.</span>
+          </div>
+          <div class="option-card" onclick="selectOption(this)">
+            <div class="option-icon">⚙️</div>
+            <span class="option-label">Operations</span>
+            <span class="option-desc">Processes, workflows, and cross-team projects.</span>
+          </div>
+          <div class="option-card" onclick="selectOption(this)">
+            <div class="option-icon">📈</div>
+            <span class="option-label">Sales & revenue</span>
+            <span class="option-desc">Pipeline, deals, forecasting, and CRM.</span>
+          </div>
+          <div class="option-card" onclick="selectOption(this)">
+            <div class="option-icon">✨</div>
+            <span class="option-label">Something else</span>
+            <span class="option-desc">We'll keep it flexible and let you decide.</span>
+          </div>
+        </div>
+
+        <div class="wizard-nav" style="border-top: none; padding: 0; margin-top: auto;">
+          <span></span>
+          <button class="bp-btn bp-btn-primary bp-btn-lg" onclick="goTo(2)">
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-panel" id="step-2">
+        <span class="step-eyebrow">Step 2 of 4</span>
+        <h1 class="step-title">Tell us about<br>your team.</h1>
+        <p class="step-subtitle">This helps us set up the right defaults for permissions and notifications.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem;">
+          <div class="bp-form-group">
+            <label class="bp-label">Workspace name</label>
+            <input type="text" class="bp-input" placeholder="e.g. Acme Co, My Studio" style="height: 48px;">
+          </div>
+          <div class="bp-form-group">
+            <label class="bp-label">How large is your team? <span class="bp-label-hint">(approximately)</span></label>
+            <select class="bp-select" style="height: 48px;">
+              <option value="">Select team size</option>
+              <option>Just me</option>
+              <option>2–5 people</option>
+              <option>6–15 people</option>
+              <option>16–50 people</option>
+              <option>50+ people</option>
+            </select>
+          </div>
+          <div class="bp-form-group">
+            <label class="bp-label">Your role</label>
+            <select class="bp-select" style="height: 48px;">
+              <option value="">Select your role</option>
+              <option>Founder / CEO</option>
+              <option>Product Manager</option>
+              <option>Engineering Lead</option>
+              <option>Designer</option>
+              <option>Operations</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="wizard-nav" style="border-top: none; padding: 0; margin-top: auto;">
+          <button class="bp-btn bp-btn-ghost bp-btn-lg" onclick="goTo(1)">← Back</button>
+          <button class="bp-btn bp-btn-primary bp-btn-lg" onclick="goTo(3)">
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-panel" id="step-3">
+        <span class="step-eyebrow">Step 3 of 4</span>
+        <h1 class="step-title">Connect your<br>existing tools.</h1>
+        <p class="step-subtitle">Grove syncs with the tools you're already using. You can always add more later.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem;">
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--color-surface); border: 1.5px solid var(--color-border); border-radius: var(--radius); gap: 1rem;">
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <div style="width: 40px; height: 40px; background: #4a154b; border-radius: var(--bp-radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">💬</div>
+              <div>
+                <div style="font-size: 0.9375rem; font-weight: 600; color: var(--color-text);">Slack</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-secondary);">Send notifications & updates</div>
+              </div>
+            </div>
+            <button class="bp-btn bp-btn-primary bp-btn-sm">Connect</button>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--color-surface); border: 1.5px solid var(--color-border); border-radius: var(--radius); gap: 1rem;">
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <div style="width: 40px; height: 40px; background: #1a1a2e; border-radius: var(--bp-radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🐙</div>
+              <div>
+                <div style="font-size: 0.9375rem; font-weight: 600; color: var(--color-text);">GitHub</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-secondary);">Link PRs, commits & issues</div>
+              </div>
+            </div>
+            <button class="bp-btn bp-btn-primary bp-btn-sm">Connect</button>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--color-primary-subtle); border: 1.5px solid var(--color-primary); border-radius: var(--radius); gap: 1rem;">
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <div style="width: 40px; height: 40px; background: #0052cc; border-radius: var(--bp-radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">📋</div>
+              <div>
+                <div style="font-size: 0.9375rem; font-weight: 600; color: var(--color-text);">Jira</div>
+                <div style="font-size: 0.8rem; color: var(--color-primary);">Connected · 247 issues synced</div>
+              </div>
+            </div>
+            <span class="bp-badge bp-badge-success">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Done
+            </span>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background: var(--color-surface); border: 1.5px solid var(--color-border); border-radius: var(--radius); gap: 1rem;">
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <div style="width: 40px; height: 40px; background: #1da462; border-radius: var(--bp-radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🗂️</div>
+              <div>
+                <div style="font-size: 0.9375rem; font-weight: 600; color: var(--color-text);">Notion</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-secondary);">Embed docs & wikis</div>
+              </div>
+            </div>
+            <button class="bp-btn bp-btn-secondary bp-btn-sm">Connect</button>
+          </div>
+
+        </div>
+
+        <div class="wizard-nav" style="border-top: none; padding: 0; margin-top: auto;">
+          <button class="bp-btn bp-btn-ghost bp-btn-lg" onclick="goTo(2)">← Back</button>
+          <button class="bp-btn bp-btn-primary bp-btn-lg" onclick="goTo(4)">
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4 — completion -->
+      <div class="step-panel" id="step-4" style="align-items: center; justify-content: center; text-align: center;">
+        <div style="max-width: 440px; display: flex; flex-direction: column; align-items: center;">
+
+          <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--color-primary-subtle); border: 2px solid var(--color-primary); display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; box-shadow: var(--bp-shadow-glow);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+
+          <span class="step-eyebrow">Setup complete</span>
+          <h1 class="step-title" style="font-size: clamp(2rem, 4vw, 3rem);">You're all set, Jamie.</h1>
+          <p class="step-subtitle" style="max-width: 360px;">
+            Your workspace is ready. Your Jira issues are synced. Your first sprint is waiting.
+          </p>
+
+          <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 1.25rem; width: 100%; margin-bottom: 2rem; text-align: left; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="font-size: 0.875rem; color: var(--color-text-secondary);">Software development workspace configured</span>
+            </div>
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="font-size: 0.875rem; color: var(--color-text-secondary);">Team size: 6–15 people</span>
+            </div>
+            <div class="bp-flex bp-items-center bp-gap-3">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="font-size: 0.875rem; color: var(--color-text-secondary);">Jira connected · 247 issues imported</span>
+            </div>
+          </div>
+
+          <a href="#" class="bp-btn bp-btn-primary bp-btn-xl" style="width: 100%;">
+            Go to your workspace →
+          </a>
+          <a href="#" style="font-size: 0.875rem; color: var(--color-text-muted); margin-top: 1rem;">Invite teammates first</a>
+        </div>
+      </div>
+
+    </div><!-- end wizard-content -->
+  </div><!-- end wizard-layout -->
+
+  <!-- BOTTOM NAV BAR (visible on steps 1–3) -->
+  <div class="wizard-nav" id="bottomNav" style="display: none;">
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 4;
+    const progressMap = { 1: '25%', 2: '50%', 3: '75%', 4: '100%' };
+
+    function goTo(step) {
+      // Hide current panel
+      document.getElementById(`step-${currentStep}`).classList.remove('active');
+      // Update sidebar
+      const prev = document.getElementById(`sidebar-${currentStep}`);
+      if (prev) { prev.classList.remove('active'); prev.classList.add('done'); }
+
+      currentStep = step;
+
+      // Show new panel
+      document.getElementById(`step-${currentStep}`).classList.add('active');
+      // Update sidebar active
+      const next = document.getElementById(`sidebar-${currentStep}`);
+      if (next) { next.classList.add('active'); next.classList.remove('done'); }
+
+      // Update progress
+      document.getElementById('progressFill').style.width = progressMap[step];
+      document.getElementById('stepIndicator').textContent = `STEP ${step} OF ${totalSteps}`;
+    }
+
+    function selectOption(el) {
+      document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+  </script>
+
+</body>
+</html>

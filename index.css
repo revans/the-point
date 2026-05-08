@@ -1,0 +1,24 @@
+/* ==========================================================================
+   THE POINT — Entry Point
+   Import this single file to get the full design system.
+
+   Usage in any HTML file:
+     <link rel="stylesheet" href="path/to/the-point/index.css">
+     <link rel="stylesheet" href="path/to/your/brand.css">   ← optional
+
+   Usage in a React/Vite project:
+     import 'path/to/the-point/index.css'
+     import './brand.css'                                     ← optional
+
+   Usage in Rails:
+     *= require the-point/index
+     *= require brand                                         ← optional
+
+   Then set the theme on your html element:
+     <html data-bp-theme="dark">    ← deep navy blueprint
+     <html data-bp-theme="light">   ← drafting paper blueprint
+   ========================================================================== */
+
+@import './core/base.css';
+@import './core/components.css';
+@import './core/utilities.css';

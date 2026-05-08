@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal 2026 — The product conference</title>
+  <link rel="stylesheet" href="../index.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500&display=swap');
+
+    :root {
+      --color-primary:        #ef4444;
+      --color-primary-hover:  #dc2626;
+      --color-primary-subtle: rgba(239, 68, 68, 0.1);
+      --color-primary-glow:   rgba(239, 68, 68, 0.25);
+
+      --color-bg:           #0a0505;
+      --color-bg-secondary: #110808;
+      --color-surface:      #1a0e0e;
+      --color-border:       #3b1515;
+
+      --color-text:           #fff5f5;
+      --color-text-secondary: #d4a0a0;
+      --color-text-muted:     #6b3535;
+
+      --font-heading: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+
+      --radius: var(--bp-radius-sm);
+
+      --bp-grid-color:      transparent;
+      --bp-grid-color-bold: transparent;
+    }
+
+    /* Scanline texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .event-header {
+      border-bottom: 2px solid var(--color-primary);
+      padding: 1.25rem 0;
+    }
+
+    .event-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .event-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text);
+    }
+
+    .event-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* HERO */
+    .hero-block {
+      padding: 5rem 0 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .kicker {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .event-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(5rem, 14vw, 11rem);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 0.88;
+      color: var(--color-text);
+      margin-bottom: 2rem;
+    }
+
+    .event-title span {
+      -webkit-text-stroke: 2px var(--color-text);
+      color: transparent;
+    }
+
+    /* COUNTDOWN */
+    .countdown {
+      display: flex;
+      gap: 0;
+      margin-bottom: 3rem;
+      border: 1px solid var(--color-border);
+      width: fit-content;
+    }
+
+    .countdown-unit {
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--color-border);
+      min-width: 100px;
+    }
+
+    .countdown-unit:last-child { border-right: none; }
+
+    .countdown-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* SPEAKERS */
+    .speaker-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    @media (max-width: 768px) {
+      .speaker-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .speaker-card {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      transition: background 0.2s;
+    }
+
+    .speaker-card:hover { background: var(--color-surface); }
+    .speaker-card:nth-child(4n) { border-right: none; }
+
+    .speaker-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 0;
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .speaker-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .speaker-title {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* SCHEDULE */
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 600px) {
+      .schedule-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+
+    .schedule-time {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-primary);
+      padding-top: 2px;
+    }
+
+    .schedule-talk {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .schedule-speaker {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* TICKET SECTION */
+    .ticket-section {
+      background: var(--color-primary);
+      padding: 5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="event-header">
+    <div class="bp-container">
+      <div class="event-header-inner">
+        <span class="event-name">Signal / 2026</span>
+        <div class="bp-flex bp-gap-6" style="flex-wrap: wrap;">
+          <span class="event-meta">Oct 14–15 · San Francisco</span>
+          <a href="#" class="event-meta" style="color: var(--color-primary); text-decoration: none;">Schedule</a>
+          <a href="#" class="event-meta" style="color: var(--color-primary); text-decoration: none;">Speakers</a>
+          <a href="#" class="event-meta" style="color: var(--color-primary); text-decoration: none;">Venue</a>
+        </div>
+        <a href="#tickets" class="bp-btn bp-btn-primary bp-btn-sm" style="border-radius: 0;">Get tickets →</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-block">
+    <div class="bp-container">
+      <div class="kicker">The product conference · Oct 14–15 · Fort Mason, SF</div>
+      <h1 class="event-title">
+        The<br>
+        <span>future</span><br>
+        ships<br>
+        now.
+      </h1>
+
+      <div class="countdown" id="countdown">
+        <div class="countdown-unit">
+          <span class="countdown-num" id="days">162</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="hours">08</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="minutes">44</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="seconds">17</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <div class="bp-flex bp-gap-4">
+        <a href="#tickets" class="bp-btn bp-btn-primary bp-btn-xl" style="border-radius: 0; letter-spacing: 0.05em;">
+          Get tickets
+        </a>
+        <a href="#schedule" class="bp-btn bp-btn-secondary bp-btn-xl" style="border-radius: 0; letter-spacing: 0.05em;">
+          View schedule
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAKERS -->
+  <section id="speakers" style="border-top: 2px solid var(--color-primary); border-bottom: 1px solid var(--color-border);">
+    <div class="bp-container" style="padding-left: 0; padding-right: 0; max-width: 100%;">
+      <div style="padding: 3rem var(--bp-container-pad) 2rem;">
+        <div class="kicker">Speakers</div>
+        <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; color: var(--color-text); letter-spacing: -0.01em;">32 speakers. Zero filler.</h2>
+      </div>
+      <div class="speaker-grid" style="border-top: 1px solid var(--color-border);">
+        <div class="speaker-card">
+          <div class="speaker-avatar">SW</div>
+          <div class="speaker-name">Sarah Wu</div>
+          <div class="speaker-title">CPO · Linear</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">MR</div>
+          <div class="speaker-name">Marcus Reid</div>
+          <div class="speaker-title">Design · Vercel</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">AK</div>
+          <div class="speaker-name">Amara Kone</div>
+          <div class="speaker-title">Founder · Beam</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">JL</div>
+          <div class="speaker-name">Jake Liu</div>
+          <div class="speaker-title">Eng · Figma</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">TV</div>
+          <div class="speaker-name">Tara Voss</div>
+          <div class="speaker-title">PM · Stripe</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">DP</div>
+          <div class="speaker-name">Dev Patel</div>
+          <div class="speaker-title">CTO · Arc</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">LC</div>
+          <div class="speaker-name">Lena Cole</div>
+          <div class="speaker-title">Research · OpenAI</div>
+        </div>
+        <div class="speaker-card" style="border-right: none; background: var(--color-primary-subtle); cursor: pointer;">
+          <div class="speaker-avatar" style="border-color: var(--color-border); background: transparent;">+25</div>
+          <div class="speaker-name">More speakers</div>
+          <div class="speaker-title" style="color: var(--color-primary);">View full lineup →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule" style="padding: 4rem 0;">
+    <div class="bp-container">
+      <div class="kicker bp-mb-6">Day 1 · Oct 14</div>
+      <div>
+        <div class="schedule-row">
+          <span class="schedule-time">9:00 AM</span>
+          <div>
+            <div class="schedule-talk">Doors open + registration</div>
+          </div>
+          <span class="bp-badge bp-badge-secondary" style="border-radius: 0;">All</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">10:00 AM</span>
+          <div>
+            <div class="schedule-talk">The next 10 years of product</div>
+            <div class="schedule-speaker">Sarah Wu, CPO at Linear</div>
+          </div>
+          <span class="bp-badge bp-badge-default" style="border-radius: 0;">Keynote</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">11:15 AM</span>
+          <div>
+            <div class="schedule-talk">Designing for AI-first interfaces</div>
+            <div class="schedule-speaker">Marcus Reid, Vercel</div>
+          </div>
+          <span class="bp-badge bp-badge-secondary" style="border-radius: 0;">Design</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">12:30 PM</span>
+          <div>
+            <div class="schedule-talk">Lunch + open networking</div>
+          </div>
+          <span class="bp-badge bp-badge-secondary" style="border-radius: 0;">Break</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">2:00 PM</span>
+          <div>
+            <div class="schedule-talk">From 0 to $10M ARR without a sales team</div>
+            <div class="schedule-speaker">Amara Kone, Founder of Beam</div>
+          </div>
+          <span class="bp-badge bp-badge-secondary" style="border-radius: 0;">Growth</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">3:30 PM</span>
+          <div>
+            <div class="schedule-talk">Engineering taste: when to build vs. buy</div>
+            <div class="schedule-speaker">Dev Patel, CTO at Arc</div>
+          </div>
+          <span class="bp-badge bp-badge-secondary" style="border-radius: 0;">Engineering</span>
+        </div>
+      </div>
+      <a href="#" style="display: inline-block; margin-top: 1.5rem; font-size: 0.875rem; color: var(--color-primary);">View full 2-day schedule →</a>
+    </div>
+  </section>
+
+  <!-- TICKETS -->
+  <section id="tickets" class="ticket-section">
+    <div class="bp-container">
+      <div class="bp-flex bp-gap-12" style="align-items: center; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <h2 style="font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 900; text-transform: uppercase; color: #0a0505; line-height: 0.9; letter-spacing: -0.01em; margin-bottom: 1rem;">Get<br>your<br>ticket.</h2>
+          <p style="font-size: 1rem; color: rgba(10, 5, 5, 0.65); max-width: 360px; line-height: 1.6;">Early bird pricing ends July 1. 600 seats total. Last year sold out 3 weeks before the event.</p>
+        </div>
+        <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="background: rgba(10,5,5,0.12); border: 1px solid rgba(10,5,5,0.2); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #0a0505;">General</div>
+              <div style="font-size: 0.8125rem; color: rgba(10,5,5,0.55); font-family: var(--font-mono);">Both days · All sessions</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; color: #0a0505;">$349</div>
+              <div style="font-size: 0.75rem; color: rgba(10,5,5,0.5); font-family: var(--font-mono); text-decoration: line-through;">$499</div>
+            </div>
+          </div>
+          <div style="background: #0a0505; border: 2px solid #0a0505; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-primary);">VIP</div>
+              <div style="font-size: 0.8125rem; color: var(--color-text-muted); font-family: var(--font-mono);">+ Speaker dinner · Front rows</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; color: var(--color-text);">$749</div>
+            </div>
+          </div>
+          <a href="#" style="display: flex; align-items: center; justify-content: center; background: #0a0505; color: var(--color-primary); font-family: 'Barlow Condensed', sans-serif; font-size: 1.125rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; padding: 1.25rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+            Purchase tickets →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top: 2px solid var(--color-primary); padding: 2rem 0;">
+    <div class="bp-container">
+      <div class="bp-flex bp-justify-between bp-items-center" style="flex-wrap: wrap; gap: 1rem;">
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text);">Signal / 2026</span>
+        <span class="event-meta">Oct 14–15 · Fort Mason · San Francisco, CA</span>
+        <div class="bp-flex bp-gap-4">
+          <a href="#" class="event-meta" style="text-decoration: none; color: var(--color-text-muted);">Contact</a>
+          <a href="#" class="event-meta" style="text-decoration: none; color: var(--color-text-muted);">Press</a>
+          <a href="#" class="event-meta" style="text-decoration: none; color: var(--color-text-muted);">Sponsorship</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Live countdown to Oct 14 2026
+    const target = new Date('2026-10-14T09:00:00-07:00');
+    function update() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) return;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('days').textContent    = String(d).padStart(3,'0');
+      document.getElementById('hours').textContent   = String(h).padStart(2,'0');
+      document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+      document.getElementById('seconds').textContent = String(s).padStart(2,'0');
+    }
+    update();
+    setInterval(update, 1000);
+  </script>
+
+</body>
+</html>

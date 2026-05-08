@@ -1,0 +1,78 @@
+<%#
+  Blueprint Pricing Card Partial
+  ───────────────────────────────
+  Usage:
+    <%= render 'blueprint/pricing_card',
+          plan:        'Pro',
+          amount:      '$49',
+          period:      '/ mo',
+          description: 'For growing teams.',
+          featured:    true,
+          featured_label: 'Most popular',
+          cta_label:   'Start free trial',
+          cta_path:    signup_path,
+          cta_variant: :primary,
+          features: [
+            { label: 'Unlimited projects', included: true },
+            { label: 'Priority support',   included: true },
+            { label: 'SSO',                included: false },
+          ]
+    %>
+
+  Defaults:
+    featured:       false
+    featured_label: 'Most popular'
+    period:         '/ mo'
+    cta_variant:    :primary
+%>
+
+<%
+  featured       ||= false
+  featured_label ||= 'Most popular'
+  cta_variant    ||= :primary
+  features       ||= []
+%>
+
+<div class="bp-pricing-card <%= featured ? 'bp-pricing-card-featured' : '' %>"
+     style="position: relative;">
+
+  <% if featured %>
+    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%);">
+      <%= bp_badge featured_label, variant: :default %>
+    </div>
+  <% end %>
+
+  <div>
+    <div class="bp-pricing-plan"><%= plan %></div>
+    <div class="bp-pricing-price">
+      <span class="bp-pricing-amount"><%= amount %></span>
+      <% if defined?(period) && period.present? %>
+        <span class="bp-pricing-period"><%= period %></span>
+      <% end %>
+    </div>
+    <p class="bp-pricing-description"><%= description %></p>
+  </div>
+
+  <ul class="bp-pricing-features">
+    <% features.each do |feature| %>
+      <li class="bp-pricing-feature">
+        <% if feature[:included] %>
+          <svg class="bp-pricing-feature-check" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <%= feature[:label] %>
+        <% else %>
+          <svg class="bp-pricing-feature-x" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          <span style="color: var(--color-text-muted)"><%= feature[:label] %></span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= bp_button cta_label, variant: cta_variant, href: cta_path, full_width: true %>
+
+</div>
