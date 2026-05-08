@@ -2,17 +2,17 @@
 
 A CSS design system with a blueprint aesthetic. Use `bp-` classes in your markup, set one attribute on `<html>`, and you have a fully designed UI. Add a single brand file to make it yours.
 
-Works in React, Rails, Electron, plain HTML — anything that renders HTML.
+Works in React, Rails, Electron, and plain HTML. Any project that renders HTML works.
 
 ---
 
 ## The idea
 
-Most design systems make you choose between a blank slate (too much work) and an opinionated framework (too hard to escape). The Point is different: it has a strong default aesthetic — a technical blueprint look — that looks intentional and complete on its own. When you're ready to brand it, one small CSS file is all it takes.
+Most design systems make you choose between a blank slate (too much work) and an opinionated framework (too hard to escape). The Point takes a different approach: it has a strong default aesthetic (a technical blueprint style) that looks deliberate without any customization. When you're ready to brand it, one small CSS file is all it takes.
 
-**Without a brand file** → your site looks like a blueprint. Clean, structured, production-ready.
+**Without a brand file:** your site looks like a blueprint. Clean and structured.
 
-**With a brand file** → the blueprint structure stays, your brand sits on top. Change as much or as little as you want.
+**With a brand file:** the blueprint structure stays, your brand sits on top. Change as much or as little as you want.
 
 ---
 
@@ -89,7 +89,7 @@ Import it after the main library:
 <link rel="stylesheet" href="./brand.css">
 ```
 
-The minimum meaningful brand override is just `--color-primary` and `--color-primary-hover`. Everything — buttons, links, focus rings, badges, active states — flows from those two values.
+The minimum meaningful brand override is just `--color-primary` and `--color-primary-hover`. Buttons, links, focus rings, badges, and active states all inherit from those two values.
 
 ---
 
@@ -132,7 +132,7 @@ The brand file is a spectrum, not a switch:
 
 ## Mood library
 
-Six pre-built color directions that live between `index.css` and your `brand.css`. Drop one in to get 80% of a brand direction for free:
+Six pre-built color directions. Drop one in between `index.css` and your `brand.css` to get a full primary color family without writing one yourself:
 
 ```html
 <link rel="stylesheet" href="the-point/index.css">
@@ -162,7 +162,7 @@ brand-seasonal ← Campaign / seasonal overrides
 brand-state    ← Your brand.css (always wins)
 ```
 
-This means you can load a mood file AND a brand.css — the brand.css wins on any variable both files touch, without needing `!important` or higher specificity.
+This means you can load a mood file AND a brand.css. The brand.css wins on any variable both files touch, without needing `!important` or higher specificity.
 
 ### Runtime mood switching
 
@@ -189,8 +189,8 @@ the-point/
   ├── .claude-plugin/
   │   └── plugin.json        ← Claude Code plugin manifest
   ├── agents/
-  │   ├── blueprint.md       ← @blueprint — design interview + install
-  │   └── copy.md            ← @copy — fills placeholder text
+  │   ├── blueprint.md       ← @blueprint: design interview + install
+  │   └── copy.md            ← @copy: fills placeholder text
   ├── skills/
   │   ├── blueprint-taste.md       ← design taste enforcer
   │   └── blueprint-copywriter.md  ← copy interview framework
@@ -278,11 +278,11 @@ All components use `bp-` prefixed classes. A brief overview:
 `bp-bracket` `bp-mono-label` `bp-annotation` `bp-dotted-connector` `bp-text-gradient`
 
 **Motion**
-`bp-animate` — rescopes transitions to bounce curve within a container
-`bp-animate-draw` — draws component border clockwise on scroll entry
+`bp-animate` rescopes transitions to the bounce curve within a container
+`bp-animate-draw` draws the component border clockwise on scroll entry
 
 **Print**
-`bp-print-spec` — applied to any section, renders it as a formal specification document with auto-numbered `REQ-01` / `TIER-01` blocks. See [Print mode](#print-mode).
+`bp-print-spec` applied to any section, renders it as a formal specification document with auto-numbered `REQ-01` / `TIER-01` blocks. See [Print mode](#print-mode).
 
 For full HTML patterns for every component, see `llm.md`.
 
@@ -290,7 +290,7 @@ For full HTML patterns for every component, see `llm.md`.
 
 ## Examples
 
-The `examples/` directory has nine complete pages showing how different the same library can look:
+The `examples/` directory has eleven files. Nine show complete pages in different use cases. Two are templates: `starter.html` (blank starting point) and `showcase.html` (component reference).
 
 | File | Theme | Brand | Layout type |
 |---|---|---|---|
@@ -302,7 +302,7 @@ The `examples/` directory has nine complete pages showing how different the same
 | `link-bio.html` | Dark | Teal (Maya Chen) | Centered card, link-in-bio |
 | `event.html` | Dark | Red (Signal 2026) | Conference page, live countdown |
 | `onboarding.html` | Dark | Green (Grove) | 4-step interactive wizard |
-| `wireframe.html` | Light | None | Full skeleton wireframe — interactive layout blueprint and production loading state in one file |
+| `wireframe.html` | Light | None | Full skeleton wireframe: interactive layout blueprint and production loading state in one file |
 
 All examples are standalone HTML files. Open any of them directly in a browser.
 
@@ -316,36 +316,36 @@ All examples are standalone HTML files. Open any of them directly in a browser.
 2. Provide your `brand.css` (or describe the brand in 2–3 lines)
 3. Describe the page or component you want
 
-The LLM will use the library's classes and patterns rather than inventing its own styles. This keeps output consistent and dramatically reduces the amount of CSS the LLM needs to generate.
+The LLM will use the library's classes and patterns rather than inventing its own styles. This keeps output consistent and reduces the amount of CSS it needs to generate.
 
 ---
 
 ## Blueprint Agent
 
-The Point ships with a built-in AI design agent that interviews you (or reads a URL/screenshot) and generates a complete `brand.css` + HTML page — without producing the AI defaults everyone recognizes.
+The Point ships with a built-in AI design agent that interviews you (or reads a URL/screenshot) and generates a complete `brand.css` and HTML page.
 
-The agent lives in `.claude/agents/blueprint.md` and loads two skills:
+The agent lives in `agents/blueprint.md` and loads two skills:
 
-- **`blueprint-taste.md`** — fires before any design decision. Bans the AI startup palette (dark background + indigo/violet), Inter Bold at 72px, glowing orb hero graphics, glass morphism cards, six identical feature cards, and uniform spacing. Forces every choice to be justified for the specific audience.
-- **`blueprint-copywriter.md`** — fires after design decisions. Bans every generic landing page phrase ("Transform your workflow", "Effortlessly X", "Get started today"). Runs a two-branch interview to extract real signal from either customer quotes or founder frustration.
+- **`blueprint-taste.md`**: fires before any design decision. Bans the AI startup palette (dark background + indigo/violet), Inter Bold at 72px, glowing orb hero graphics, glass morphism cards, six identical feature cards, and uniform spacing. Forces every choice to be justified for the specific audience.
+- **`blueprint-copywriter.md`**: fires after design decisions. Bans every generic landing page phrase ("Transform your workflow", "Effortlessly X", "Get started today"). Runs a two-branch interview to extract real signal from either customer quotes or founder frustration.
 
 ### How to use @blueprint
 
-Four entry points — Blueprint detects which one applies:
+Four entry points. Blueprint detects which one applies:
 
 **Blank slate (full interview):**
 ```
 @blueprint
 ```
 
-Eight questions, none technical. Examples: "Who's making the decision — someone spending $50 or justifying $5,000 to their boss?" and "Should this feel like a glass office tower or a well-lit independent bookshop?"
+Eight questions, none technical. Examples: "Who's making the decision: someone spending $50 or justifying $5,000 to their boss?" and "Should this feel like a glass office tower or a well-lit independent bookshop?"
 
 **URL to extract style from:**
 ```
 @blueprint https://stripe.com
 ```
 
-Reads the visual language (palette, weight, spacing, corner radius) and asks 3–4 personalizing questions — the URL answers the visual questions.
+Reads the visual language (palette, weight, spacing, corner radius) and asks 3-4 personalizing questions. The URL answers the visual questions.
 
 **Image or screenshot:**
 Upload a screenshot or Dribbble image. Blueprint extracts the aesthetic and asks 3–4 questions.
@@ -356,13 +356,13 @@ Point it at a `brand.css` you already have. It reads which variables are set, as
 ### Output
 
 After the interview, Blueprint generates:
-- `brand.css` — only the variables that differ from defaults
+- `brand.css` with only the variables that differ from defaults
 - A complete HTML file using The Point component classes
 - All placeholder text marked with `[brackets]` for the copy agent
 
 It then hands off to `@copy`, which runs its own two-branch interview and fills all the text.
 
-### @copy — standalone use
+### @copy: standalone use
 
 Use `@copy` on any existing The Point HTML file to replace placeholder text with real copy:
 
@@ -376,7 +376,7 @@ The agent reads the file, lists every placeholder it found, runs the interview, 
 
 ## Print mode
 
-Add `class="bp-print-spec"` to any section to make it print as a formal specification document. No other class needed — `@media print` fires automatically on Ctrl+P.
+Add `class="bp-print-spec"` to any section to make it print as a formal specification document. No other class needed. `@media print` fires automatically on Ctrl+P.
 
 **What the print stylesheet does automatically:**
 - Forces white background with low-opacity navy grid (structural presence, not decorative)
@@ -387,7 +387,7 @@ Add `class="bp-print-spec"` to any section to make it print as a formal specific
 - Collapses `bp-stat` from large card numbers to compact labeled data rows
 - Injects page numbers into the footer via CSS `counter(page)`
 
-### `bp-print-spec` — formal specification mode
+### `bp-print-spec`: formal specification mode
 
 Apply to any `<section>`. Each `bp-card` inside auto-numbers as `REQ-01`, `REQ-02`, etc. Pricing cards use `TIER-01`.
 
@@ -404,7 +404,7 @@ Apply to any `<section>`. Each `bp-card` inside auto-numbers as `REQ-01`, `REQ-0
 </section>
 ```
 
-The counter labels (`REQ-`, `TIER-`) are injected via CSS — no changes to HTML needed.
+The counter labels (`REQ-`, `TIER-`) are injected via CSS. No changes to HTML needed.
 
 ---
 
@@ -418,7 +418,7 @@ Add `data-bp-motion="draw"` to your `<html>` element alongside the theme:
 <html data-bp-theme="dark" data-bp-motion="draw">
 ```
 
-A primary-colored line sweeps left-to-right across the top of the page, then the nav, hero, sections, and footer fade up in sequence — like a draftsman sketching the layout before filling it in. Automatically disabled for users with `prefers-reduced-motion` set in their OS.
+A primary-colored line sweeps left-to-right across the top of the page. Then the nav, hero, sections, and footer fade up in sequence, like a draftsman sketching the layout before filling it in. Automatically disabled for users with `prefers-reduced-motion` set in their OS.
 
 ### Bounce transitions
 
@@ -442,13 +442,13 @@ Add `bp-animate-draw` to any card or section to draw its border clockwise (top �
 <div class="bp-card bp-bracket bp-animate-draw">...</div>
 ```
 
-Uses animated `background-image` gradients — no pseudo-elements — so it's safe to combine with `bp-bracket`. Scroll-driven in Chrome/Edge via `animation-timeline: view()`. Falls back to a page-load animation in other browsers.
+Uses animated `background-image` gradients (no pseudo-elements), so it's safe to combine with `bp-bracket`. Scroll-driven via `animation-timeline: view()` in browsers that support it. Falls back to a page-load animation in others.
 
 ---
 
 ## Design decisions
 
-**Why a blueprint aesthetic?** It communicates structure — which is what a base library is showing you. It looks intentional without a brand file, which means you can ship earlier and add branding when you're ready.
+**Why a blueprint aesthetic?** It communicates structure, which is what a base library is showing you. It looks deliberate without a brand file, which means you can ship earlier and add branding when you're ready.
 
 **Why pure CSS, no framework dependency?** So it works everywhere. A Rails partial, a React component, an Electron window, and a plain HTML file all use the same classes. The library has no opinion about your stack.
 
