@@ -1,0 +1,716 @@
+/* ==========================================================================
+   MULINO DI SALE — Brand CSS
+   Sea salt operation, Stagnone Lagoon, Marsala, Sicily. Est. 1847.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:    airy  (--space-unit: 1.25rem) — the lagoon has space;
+               the label on a terracotta jar has breathing room between
+               each line. Not luxury-sparse, but nothing is crowded.
+
+   Weight:     light (300) — the pharmaceutical label from 1920 does not
+               shout. Engraved type at 300 weight reads as authority cut
+               into a surface, not bolted onto it.
+
+   Tracking:   wide (0.12em) — between "very-wide" (watch brand) and
+               "closed" (editorial). The Cetara Colatura label reads like
+               this: each letter given room, not performing theater.
+
+   Motion:     surgical (0.05s/0.1s/0.15s, ease, ease) — the page does
+               not perform. Salt dries in the sun at the pace it dries.
+               No draw animation on <html>.
+
+   Shape:      sharp (0px) — the salt pan has a right angle where water
+               meets stone. The terracotta jar has a flat rim. No rounding.
+
+   Depth:      flat (all shadows: none) — Sicilian limestone in afternoon
+               light has no shadow of its own. Surface color contrast
+               separates areas.
+
+   Theme:      light (data-bp-theme="light") — the Stagnone Lagoon at 2pm.
+               White pyramids, pink-tinted water, limestone walls. This
+               brand exists in direct Mediterranean light, not darkness.
+
+   Type:       display-serif (Cormorant Garamond 300) for all headings.
+               + geometric-sans body: 'Inter', sans-serif (default — omit).
+               The contrast between the engraved heading and the spare
+               body text is how the Cetara label works. It is not cute.
+
+   Tone:       precise — chefs and serious home cooks making a $30–80
+               informed purchase. Every sentence is provenance data or
+               it is removed.
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   light + display-serif → no conflict. Dark + display-serif is banned;
+                           light + display-serif is the engraved-label
+                           pattern. Cormorant hairlines read on light bg. ✓
+   flat + light + no-strong-primary → terracotta #B87850 is vivid enough
+                           to hold the page without shadows. ✓
+   airy + sharp → editorial precision. Not in conflict — architecture
+                           and pharmaceutical labels use this combination. ✓
+
+   PRIMARY COLOR
+   ─────────────
+   #B87850 — unglazed Sicilian terracotta in direct afternoon sun.
+   Not the fresh orange of new clay, not the brown of old fired pots —
+   the specific warm mid-tone of a terracotta jar that has been sitting
+   on a salt-bleached limestone shelf in western Sicily for some years.
+   This is the jar the salt is packed in. The one warm accent in a
+   page of pale limestone and near-white.
+
+   BACKGROUND COLOR
+   ────────────────
+   #F4F0E8 — sun-bleached limestone. The floors and walls of the
+   Stagnone Lagoon perimeter structures, the salt workers' buildings,
+   the windmill base. Warm, aged, mineral. Not cream (too soft), not
+   kraft (too craft-fair), not white (too clinical). The specific
+   near-white of stone that has been in the Sicilian sun for 150 years.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary brand color ──────────────────────────────────────────────── */
+    /* Unglazed Sicilian terracotta in direct afternoon sun — the jar           */
+    --color-primary:          #B87850;
+    --color-primary-hover:    #9A6038;
+    --color-primary-subtle:   rgba(184, 120, 80, 0.10);
+    --color-primary-glow:     rgba(184, 120, 80, 0.20);
+
+    /* ── Surfaces — sun-bleached Sicilian limestone ───────────────────────── */
+    /* #F4F0E8: limestone walls in afternoon light, the color of the salt pans'
+       stone channels before the water fills them                              */
+    --color-bg:               #F4F0E8;
+    /* #EDE8DA: same material, shaded — the interior of the windmill            */
+    --color-bg-secondary:     #EDE8DA;
+    /* Surface for any card or inset area — the salt pyramid platform stone    */
+    --color-surface:          #EAE4D4;
+    --color-surface-elevated: #E4DEC8;
+
+    /* ── Borders — limestone hairline ────────────────────────────────────── */
+    /* The crack between two limestone blocks, viewed from ten feet away       */
+    --color-border:           #D4CCBA;
+
+    /* ── Text ────────────────────────────────────────────────────────────── */
+    /* Near-black with warm undertone — iron-gall ink on a pharmaceutical label */
+    --color-text:             #1C1610;
+    --color-text-secondary:   #3A3028;
+    --color-text-muted:       #7A7060;
+    --color-text-accent:      #B87850;
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    /* Display-serif for marks and headings; body uses The Point default (Inter) */
+    --font-heading:           'Cormorant Garamond', 'Garamond', 'Didot', serif;
+    --font-mono:              'JetBrains Mono', 'Courier New', monospace;
+
+    /* Light weight — engraved, not pressed                                    */
+    --font-weight-heading:    300;
+    --font-weight-body:       400;
+
+    /* Wide tracking — pharmaceutical label, not fashion-wide                  */
+    --letter-spacing-heading: 0.12em;
+
+    /* Line height — generous, the label has room around each line             */
+    --line-height-base:       1.7;
+    --line-height-heading:    1.15;
+
+    /* ── Density: airy ───────────────────────────────────────────────────── */
+    --space-unit:             1.25rem;
+
+    /* ── Motion: surgical — the page does not perform ────────────────────── */
+    --duration-fast:          0.05s;
+    --duration-base:          0.1s;
+    --duration-slow:          0.15s;
+    --easing-bounce:          ease;
+    --easing-smooth:          ease;
+
+    /* ── Shape: sharp — no softening ─────────────────────────────────────── */
+    --radius:                 0px;
+
+    /* ── Depth: flat — surface contrast, not shadow ─────────────────────── */
+    --shadow-sm:              none;
+    --shadow-md:              none;
+    --shadow-lg:              none;
+
+    /* ── Grid: remove blueprint lines — limestone has no grid ────────────── */
+    --bp-grid-color:          transparent;
+    --bp-grid-color-bold:     transparent;
+
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────────
+     All .mds-* classes (mulino di sale) live here — inside @layer
+     brand-state, outside :root.
+     ──────────────────────────────────────────────────────────────────────── */
+
+
+  /* ── HEADER — minimal mark, no navigation ───────────────────────────── */
+
+  .mds-header {
+    padding: 3.5rem var(--bp-space-8) 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mds-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .mds-header-meta {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+
+  /* ── BLOCK 1 — MARK ──────────────────────────────────────────────────── */
+  /* The brand name centered. The lagoon fills the image behind it.         */
+
+  .mds-mark {
+    position: relative;
+    width: 100%;
+    height: 88vh;
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  /*
+   * Reference: Stagnone Lagoon, Marsala, Sicily — salt pans, flamingos,
+   *            pink-tinted shallow water, afternoon light
+   * Sources: stagnone di marsala photography, trapani saline sicilia,
+   *          mozia island salt road
+   * --- Color extraction ---
+   * Sky at 4pm (haze, Mediterranean):     #C8D4D8  (pale warm blue-grey)
+   * Water, pink-tinted by microalgae:     #D0A898  (dusty rose, not saturated)
+   * Water at copper transition:           #B87850  (terracotta — primary color)
+   * Salt pyramid (dry, white):            #EDE8DC  (warm near-white)
+   * Salt pan floor (wet pink clay):       #C09070  (ochre-pink under water)
+   * Far horizon stone (limestone ridge):  #A09080  (warm mid-grey)
+   * Near channel edge (dry limestone):    #C8BEA8  (bleached stone)
+   * Late afternoon water violet end:      #8A7888  (muted violet, far water)
+   */
+  .mds-mark-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://loremflickr.com/1600/900/stagnone,lagoon,sicily?lock=1');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* The light shimmer on water — a horizontal band of reflected brightness */
+  .mds-mark-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 12% at 50% 52%, rgba(242, 230, 210, 0.22) 0%, transparent 100%);
+  }
+
+  /* Scrim for text readability — very light, preserves landscape atmosphere */
+  .mds-mark-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(244, 240, 232, 0.05) 0%,
+        transparent 35%,
+        transparent 60%,
+        rgba(244, 240, 232, 0.35) 100%
+      );
+  }
+
+  /* The brand name — positioned lower on the image like a plaque on a wall */
+  .mds-mark-caption {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 2;
+    padding: 0 2rem;
+  }
+
+  .mds-mark-name {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 5rem);
+    letter-spacing: 0.22em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: #1C1610;
+    /* text-indent compensates for trailing tracking so the block centers truly */
+    text-indent: 0.22em;
+    margin: 0;
+  }
+
+  .mds-mark-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(28, 22, 16, 0.55);
+    margin-top: 1.25rem;
+  }
+
+
+  /* ── BLOCK 2 — ORIGIN (alternating: text left / image right) ─────────── */
+
+  .mds-origin {
+    display: grid;
+    grid-template-columns: 1fr 1.65fr;
+    min-height: 72vh;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mds-origin-text {
+    padding: 5.5rem 4rem 5.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-bg);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .mds-origin-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /*
+   * Reference: Stone windmill, Saline di Trapani, late afternoon
+   * Sources: saline di trapani windmill photography, molinelle stagnone
+   * --- Color extraction ---
+   * Limestone windmill tower (sunlit):    #D4C8A8  (warm pale stone)
+   * Limestone (shaded face):              #9A9080  (mid warm grey)
+   * Warm afternoon sky behind the mill:   #D8AA70  (golden amber-sky)
+   * Salt pyramid in mid-ground:           #EDE8DC  (warm near-white)
+   * Ground channel (dry limestone):       #C4B898  (bleached warm stone)
+   * Shadow base, windmill footing:        #5A5048  (deep warm shadow)
+   * Wooden sail arm (old, dark wood):     #3A2A1A  (charcoal dark brown)
+   */
+  .mds-origin-gradient {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to bottom, transparent 35%, rgba(28, 22, 16, 0.45) 100%),
+      url('https://loremflickr.com/900/700/windmill,saline,trapani?lock=2');
+    background-size: cover;
+    background-position: center;
+  }
+
+
+  /* ── BLOCK 3 — THE WATER (full-width image interlude) ───────────────── */
+  /* A single cinematic band — the pink-to-violet colour change of the water */
+
+  .mds-water {
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    min-height: 380px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /*
+   * Reference: Stagnone Lagoon at golden hour — water color progression
+   * The salt pans go from pink to copper to violet as light angle drops.
+   * This is the most specific visual fact about this place in the world.
+   * --- Color extraction ---
+   * Far water, near dusk (violet):        #8878A0  (muted violet, desaturated)
+   * Mid water, copper transition:         #B87850  (terracotta primary)
+   * Near water, pink (microalgae peak):   #D0A090  (dusty rose)
+   * Reflected sky band (pink-orange):     #D8986A  (warm amber-rose)
+   * Water edge, stone:                    #C8B898  (bleached limestone pale)
+   */
+  .mds-water-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://loremflickr.com/1600/700/saltpan,sicily,pink?lock=3');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* A reading scrim so the centered text stays legible */
+  .mds-water-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(28, 22, 16, 0.28);
+  }
+
+  .mds-water-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+    max-width: 52ch;
+  }
+
+  .mds-water-sentence {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1rem, 2.4vw, 1.5rem);
+    letter-spacing: 0.1em;
+    line-height: 1.55;
+    color: rgba(244, 240, 232, 0.90);
+  }
+
+
+  /* ── BLOCK 4 — THE SALT (alternating: image left / text right) ───────── */
+
+  .mds-salt {
+    display: grid;
+    grid-template-columns: 1.65fr 1fr;
+    min-height: 72vh;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mds-salt-image {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--color-border);
+  }
+
+  /*
+   * Reference: Hand-raking salt into pyramids, Trapani / Marsala saline
+   * Sources: saline di trapani pyramid harvest photography, slow food sicilia
+   * --- Color extraction ---
+   * Salt pyramid (direct sun, top):       #F0ECE4  (very warm near-white)
+   * Salt pyramid (mid shadow):            #D4C8B0  (warm pale grey)
+   * Salt surface (wet):                   #A8A098  (grey-neutral, slight warmth)
+   * Pan floor through water:              #B49878  (ochre showing through)
+   * Raker's shadow on salt:               #8A8078  (warm shadow grey)
+   * Deep pan channel (dry):               #7A7068  (warm dark grey)
+   * Horizon, late afternoon:              #D4A87A  (amber haze)
+   */
+  .mds-salt-gradient {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to bottom, transparent 40%, rgba(28, 22, 16, 0.40) 100%),
+      url('https://loremflickr.com/900/700/salt,harvest,trapani?lock=4');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .mds-salt-text {
+    padding: 5.5rem 5rem 5.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-bg);
+  }
+
+
+  /* ── BLOCK 5 — PROVENANCE — two-column data table ────────────────────── */
+  /* The entire page's argument in one block: label left, fact right.        */
+  /* Derived from the bp-fact-list pattern but custom-scaled.                */
+
+  .mds-provenance-section {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--bp-space-20) 0;
+  }
+
+  .mds-provenance-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 var(--bp-space-8);
+  }
+
+  .mds-provenance-header {
+    margin-bottom: var(--bp-space-12);
+  }
+
+
+  /* ── SHARED TEXT BLOCK STYLES ────────────────────────────────────────── */
+
+  .mds-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 1.75rem;
+  }
+
+  .mds-heading {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    letter-spacing: 0.12em;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0 0 1.75rem;
+  }
+
+  .mds-body {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    max-width: 40ch;
+  }
+
+  .mds-body + .mds-body {
+    margin-top: 1.25rem;
+  }
+
+  /* Fact list — label: value, hairline separator, mono label  */
+
+  .mds-fact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mds-fact {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--bp-space-6);
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+
+  .mds-fact-label {
+    font-family: var(--font-mono);
+    font-size: 0.575rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .mds-fact-value {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+
+
+  /* ── BLOCK 6 — THE JAR — centered product focal point ───────────────── */
+
+  .mds-jar-section {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-24) var(--bp-space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Terracotta jar — proportions 1:1.4, the classic Sicilian salt jar shape.
+   * A label band in the primary terracotta with a fine border; the body in
+   * a warm stone that reads as unglazed fired clay distinct from the bg.
+   *
+   * Legibility rule: --color-bg is #F4F0E8; the jar must read as a separate
+   * form. The body uses #D8C8A8 (warm mid-stone), which at luminance ~65%
+   * separates cleanly from bg at ~94%. The label band is vivid terracotta.  */
+  .mds-jar-image {
+    width: 100%;
+    max-width: 160px;
+    aspect-ratio: 1 / 1.4;
+
+    /* Label band: primary terracotta band at center-third of the jar */
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 28%,
+        rgba(184, 120, 80, 0.75) 30%,
+        rgba(184, 120, 80, 0.85) 36%,
+        rgba(154, 96, 56, 0.80) 46%,
+        rgba(154, 96, 56, 0.55) 52%,
+        transparent 54%
+      ),
+      /* Jar body — unglazed terracotta clay, lighter than bg */
+      linear-gradient(
+        to bottom,
+        #C4A880 0%,      /* shoulder, slightly lighter (clay before firing goes pale) */
+        #D8C8A8 12%,     /* upper body — warm pale clay */
+        #CEBC98 30%,     /* mid body */
+        #C8B490 55%,     /* body center, slight warm shadow */
+        #D0C0A0 78%,     /* lower body */
+        #BFAF8A 100%     /* base, slightly darker than body */
+      );
+    border: 1px solid rgba(184, 120, 80, 0.40);
+  }
+
+  .mds-jar-label-block {
+    margin-top: var(--bp-space-8);
+    text-align: center;
+  }
+
+  .mds-jar-name {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-indent: 0.2em;
+    margin: 0 0 var(--bp-space-3);
+  }
+
+  .mds-jar-meta {
+    font-family: var(--font-mono);
+    font-size: 0.575rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    line-height: 2.2;
+  }
+
+
+  /* ── CLOSE / FOOTER ──────────────────────────────────────────────────── */
+
+  .mds-close {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) var(--bp-space-6) var(--bp-space-16);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--bp-space-5);
+  }
+
+  /* A single horizontal rule in the primary color — the signature line */
+  .mds-close-rule {
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-primary);
+    opacity: 0.6;
+  }
+
+  .mds-close-address {
+    font-family: var(--font-mono);
+    font-size: 0.575rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    line-height: 2.1;
+    font-style: normal;
+  }
+
+  .mds-close-cta {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .mds-close-cta:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .mds-close-footnote {
+    font-family: var(--font-mono);
+    font-size: 0.525rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0.65;
+  }
+
+
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+
+  @media (max-width: 768px) {
+
+    .mds-header {
+      padding: 2rem var(--bp-space-5) 1.5rem;
+    }
+
+    /* Stack the two-column alternating sections to single column */
+    .mds-origin,
+    .mds-salt {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .mds-origin-image {
+      height: 55vw;
+      min-height: 260px;
+      order: 1;
+    }
+
+    .mds-origin-text {
+      order: 2;
+      border-right: none;
+      border-top: 1px solid var(--color-border);
+      padding: 3.5rem 2rem;
+    }
+
+    .mds-salt-image {
+      height: 55vw;
+      min-height: 260px;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .mds-salt-text {
+      padding: 3.5rem 2rem;
+    }
+
+    .mds-mark-name {
+      letter-spacing: 0.12em;
+      text-indent: 0.12em;
+    }
+
+    .mds-water-sentence {
+      font-size: 1rem;
+    }
+
+  }
+
+  @media (max-width: 480px) {
+
+    .mds-body {
+      max-width: none;
+    }
+
+    .mds-fact {
+      grid-template-columns: 1fr 1.5fr;
+    }
+
+  }
+
+} /* end @layer brand-state */

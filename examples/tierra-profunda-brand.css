@@ -1,0 +1,915 @@
+/* ==========================================================================
+   TIERRA PROFUNDA — Brand CSS
+   Small-batch mezcal, Sierra Sur mountains, Oaxaca. Espadin + Tobala.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:   compact (--space-unit: 0.825rem) — Bloomberg-signal from Q4.
+              Zero decoration, all signal. Information earns its place.
+              Compact density with credential layout = the spacing of a
+              laboratory report, not a marketing page.
+
+   Weight:    medium (500/400) — The authority is in the serif itself.
+              Medium weight at display scale on Cormorant Garamond reads
+              as substantial without aggression. Not light (watch brand).
+              Not heavy (shouting). The bottle doesn't shout.
+
+   Tracking:  open (0.06em) — Engraved, considered, earned. Conflict check:
+              wide (0.12em) was the first instinct, but compact density +
+              wide tracking = awkward headline wrapping at display sizes.
+              Open tracking is the correct resolution: engraved feel without
+              the headline inflation that wide tracking produces.
+
+   Motion:    surgical (0.05s/0.1s/0.15s, ease, ease) — "The page doesn't
+              perform for you." No draw animation. The interface updates;
+              it does not animate.
+
+   Shape:     sharp (0px) — Stone walls, packed earth. Zero softening.
+              A $200 conversation doesn't round its edges.
+
+   Depth:     flat (all shadows: none) — Dark theme; elevated shadow values
+              calibrated for light surfaces become invisible on dark. Surface
+              color contrast does the separation. No shadow values written.
+
+   Theme:     dark (data-bp-theme="dark") — The palenque floor at dusk.
+              The earth is the brand.
+
+   Type:      display-serif (Cormorant Garamond 400/500) for headings at
+              display scale (≥ 64px) only. Hairlines survive dark backgrounds
+              at those sizes. Body uses geometric-sans (Inter) — the learned
+              rule: display-serif body text on dark backgrounds fails at small
+              sizes. The contrast between display serif headings and clean
+              sans body IS part of the design.
+
+   Tone:      precise — "Every word matters. This is a $200 conversation."
+              Collector audience, slow rational decision. No casual language.
+              No superlatives. Specific or silent.
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   dark + display-serif → RESOLVED: display-serif at heading scale (≥64px)
+                          only; body uses geometric-sans (Inter). ✓
+   dark + elevated      → N/A: depth = flat. ✓
+   compact + open tracking → RESOLVED: open (0.06em) avoids headline
+                             inflation that wide (0.12em) causes at compact
+                             density + display-serif combination. ✓
+
+   PRIMARY COLOR DERIVATION
+   ────────────────────────
+   Tobala (Agave potatorum) is a highland wild agave, denser and smaller
+   than espadin. When pit-roasted, tobala piñas caramelize more deeply —
+   the flesh turns a darker amber-brown, like dark caramel rather than
+   bright orange honey. The Sierra Sur soil is redder than Sierra Juárez
+   volcanic earth — more iron clay, less basalt.
+
+   #B8732A — deep caramel amber: the roasted tobala piña at the moment it
+   is split. Darker and more brown-red than espadin amber (#E07B25 range).
+   The distinction matters: two agaves, two characters, one house.
+
+   BACKGROUND DERIVATION
+   ─────────────────────
+   Sierra Sur palenque: "stone walls, packed earth floors, open sky."
+   The floor is packed red-clay volcanic earth in shadow — the Sierra Sur
+   has more iron-red soil than the Sierra Juárez. Warmer, faintly reddish
+   near-black rather than pure warm black.
+
+   #0D0806 — the Sierra Sur earth floor in shadow. The faint red undertone
+   is invisible as a hue but legible as warmth distinct from a cold black.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary brand color ──────────────────────────────────────────────── */
+    /* Deep caramel amber — roasted tobala piña at the moment it is split      */
+    --color-primary:          #B8732A;
+    --color-primary-hover:    #9A5E1E;
+    --color-primary-subtle:   rgba(184, 115, 42, 0.10);
+    --color-primary-glow:     rgba(184, 115, 42, 0.20);
+
+    /* ── Surfaces — the Sierra Sur floor, stone walls in shadow ─────────── */
+    /* #0D0806: packed red-clay volcanic earth in shadow. Warm, faintly red.  */
+    --color-bg:               #0D0806;
+    /* #171009: one step up — stone wall interior, not the floor              */
+    --color-bg-secondary:     #171009;
+    /* #1D1309: card surfaces — the inside of a stone wall                    */
+    --color-surface:          #1D1309;
+    --color-surface-elevated: #231A0E;
+
+    /* ── Borders — faint amber hairline, the thinnest visible mark ────────── */
+    --color-border:           rgba(184, 115, 42, 0.14);
+
+    /* ── Text ────────────────────────────────────────────────────────────── */
+    --color-text:             #F0E8DC;
+    --color-text-secondary:   #BCA98E;
+    --color-text-muted:       #6E5C44;
+    --color-text-accent:      #B8732A;
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    /* Display-serif for marks and section titles at display scale;            */
+    /* geometric-sans (Inter) for all body and reading copy                   */
+    --font-heading:           'Cormorant Garamond', 'Georgia', serif;
+    --font-body:              'Inter', system-ui, sans-serif;
+    --font-mono:              'JetBrains Mono', 'Courier New', monospace;
+
+    /* Medium weight: authority through the serif form, not through weight    */
+    --font-weight-heading:    500;
+    --font-weight-body:       400;
+
+    /* 0.06em: engraved, considered — open but not luxury-watch-wide          */
+    --letter-spacing-heading: 0.06em;
+
+    /* ── Density: compact — all signal, zero decoration ────────────────────  */
+    --space-unit:             0.825rem;
+    --font-size-base:         15px;
+
+    /* ── Motion: surgical — the page updates, it does not perform ───────── */
+    --duration-fast:          0.05s;
+    --duration-base:          0.1s;
+    --duration-slow:          0.15s;
+    --easing-bounce:          ease;
+    --easing-smooth:          ease;
+
+    /* ── Shape: sharp — stone, earth, no softening ───────────────────────── */
+    --radius:                 0px;
+
+    /* ── Depth: flat — surface contrast on dark; no shadow values ────────── */
+    --shadow-sm:              none;
+    --shadow-md:              none;
+    --shadow-lg:              none;
+
+    /* ── Grid: amber grid on warm dark — barely visible, structural ──────── */
+    --bp-grid-color:          rgba(184, 115, 42, 0.03);
+    --bp-grid-color-bold:     rgba(184, 115, 42, 0.06);
+
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────────
+     All .tp-* classes live here — inside @layer brand-state, outside :root.
+     ──────────────────────────────────────────────────────────────────────── */
+
+
+  /* ── MARK — Full-viewport opening. Brand name, coordinates, silence. ── */
+
+  .tp-mark {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--bp-space-16) var(--bp-space-6);
+    text-align: center;
+    position: relative;
+    background-color: var(--color-bg);
+    overflow: hidden;
+  }
+
+  /* Faint background: the Sierra Sur terrain, a topographic texture.
+     A radial vignette from the center — the open sky above the palenque. */
+  .tp-mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      rgba(184, 115, 42, 0.04) 0%,
+      rgba(184, 115, 42, 0.02) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .tp-mark-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* The brand name — display serif, engraved, specific weight for legibility */
+  .tp-brand-name {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    line-height: 1.0;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0;
+    text-indent: 0.06em;
+  }
+
+  /* Geographic origin — one line, mono, very small */
+  .tp-brand-origin {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-top: var(--bp-space-6);
+  }
+
+  /* Two agave names — medium-weight, wider than body, above the separator */
+  .tp-brand-expressions {
+    display: flex;
+    align-items: center;
+    gap: var(--bp-space-4);
+    margin-top: var(--bp-space-4);
+    justify-content: center;
+  }
+
+  .tp-expression-name {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .tp-expression-separator {
+    width: 1px;
+    height: 0.75rem;
+    background-color: var(--color-border);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* Scroll indicator — very small, bottom-anchored */
+  .tp-scroll-hint {
+    position: absolute;
+    bottom: var(--bp-space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+
+  /* ── EXPRESSIONS — The two agaves side by side in a gatefold spread ─── */
+
+  .tp-expressions-section {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Gatefold: left (espadin) and right (tobala) with a hairline center divide */
+  .tp-expressions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .tp-expression-panel {
+    padding: var(--bp-space-16) var(--bp-space-10);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tp-expression-panel:first-child {
+    border-right: 1px solid var(--color-border);
+  }
+
+  /* Bottle placeholder — tall portrait ratio, dark glass with label band */
+  .tp-bottle-slot {
+    aspect-ratio: 1 / 3;
+    width: 100%;
+    max-width: 120px;
+    margin: 0 auto var(--bp-space-8);
+    border: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  /* Espadin bottle — slightly greener tint (espadin is milder, lighter agave) */
+  .tp-bottle-espadin {
+    background:
+      /* Label band center */
+      linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(184, 115, 42, 0.80) 32%,
+        rgba(160, 95, 28, 0.85) 43%,
+        rgba(140, 78, 18, 0.70) 50%,
+        transparent 52%
+      ),
+      /* Bottle body — dark glass, faintly amber */
+      linear-gradient(
+        to bottom,
+        #2E1C0C 0%,
+        #231408 20%,
+        #1A0E06 50%,
+        #231408 82%,
+        #110806 100%
+      );
+  }
+
+  /* Tobala bottle — slightly darker, denser (tobala is smaller, more complex) */
+  .tp-bottle-tobala {
+    background:
+      /* Label band center */
+      linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(184, 115, 42, 0.90) 32%,
+        rgba(148, 86, 20, 0.95) 43%,
+        rgba(120, 65, 12, 0.80) 50%,
+        transparent 52%
+      ),
+      /* Bottle body — slightly darker glass, denser spirit */
+      linear-gradient(
+        to bottom,
+        #281406 0%,
+        #1E0E04 20%,
+        #160A04 50%,
+        #1E0E04 82%,
+        #0E0604 100%
+      );
+  }
+
+  /* Expression heading — geometric-sans (below 48px threshold for display-serif on dark bg) */
+  .tp-expression-heading {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0 0 var(--bp-space-3);
+    text-indent: 0.06em;
+    text-align: center;
+  }
+
+  /* Agave species — small mono below the name */
+  .tp-expression-species {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin: 0 0 var(--bp-space-8);
+    font-style: italic;
+  }
+
+  /* Tasting data — fact-list style, label-left / value-right */
+  .tp-tasting-data {
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+  }
+
+  .tp-tasting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--bp-space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    gap: var(--bp-space-4);
+  }
+
+  .tp-tasting-label {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .tp-tasting-value {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .tp-tasting-value strong {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  /* Price — set apart, the number that ends the description */
+  .tp-expression-price {
+    margin-top: var(--bp-space-6);
+    padding-top: var(--bp-space-4);
+    text-align: center;
+  }
+
+  .tp-price-number {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    letter-spacing: 0.04em;
+    color: var(--color-primary);
+  }
+
+  .tp-price-range {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+    margin-top: var(--bp-space-1);
+  }
+
+
+  /* ── PRODUCTION — Process as credential. Not a story. A fact list. ─── */
+
+  .tp-production-section {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tp-production-header {
+    padding: 0 var(--bp-space-6) var(--bp-space-12);
+  }
+
+  .tp-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: var(--bp-space-3);
+  }
+
+  .tp-section-title {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0;
+    text-indent: 0.06em;
+  }
+
+  /* Photo strip — five square slots, each with a loremflickr photo */
+  .tp-process-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    min-width: 640px;
+  }
+
+  .tp-process-slot {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .tp-process-slot:last-child {
+    border-right: none;
+  }
+
+  /* Each photo slot — square */
+  .tp-process-image {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-color: #3A2A18; /* dominant warm mid-tone fallback */
+  }
+
+  /* Process step metadata below the image */
+  .tp-process-meta {
+    padding: var(--bp-space-4) var(--bp-space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tp-process-number {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: var(--bp-space-1);
+  }
+
+  .tp-process-name {
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: var(--bp-space-2);
+  }
+
+  .tp-process-note {
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+
+  /* ── PROVENANCE — Sierra Sur section. Photo + prose. ───────────────── */
+
+  .tp-provenance-section {
+    background-color: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tp-provenance-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 480px;
+  }
+
+  /* Left: landscape photo of the Sierra Sur highlands */
+  .tp-provenance-image {
+    position: relative;
+    overflow: hidden;
+    background-color: #4A3A28; /* dominant mid-tone from sierra sur research */
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(13, 8, 6, 0.65) 100%
+      ),
+      url('https://loremflickr.com/900/600/oaxaca,mountains,sierra?lock=7');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Right: coordinates + prose */
+  .tp-provenance-content {
+    padding: var(--bp-space-12) var(--bp-space-10);
+    border-left: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tp-provenance-coords {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    line-height: 2.2;
+    margin-bottom: var(--bp-space-8);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--bp-space-6);
+  }
+
+  .tp-provenance-body {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.85;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+
+  /* ── RETAILER FINDER — Find the bottle near you. ─────────────────────── */
+
+  .tp-retail-section {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tp-retail-header {
+    margin-bottom: var(--bp-space-12);
+  }
+
+  /* Two-column layout: state list left, retailer directory right */
+  .tp-retail-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border: 1px solid var(--color-border);
+  }
+
+  /* State/region filter column */
+  .tp-retail-regions {
+    border-right: 1px solid var(--color-border);
+    padding: var(--bp-space-4) 0;
+  }
+
+  .tp-region-item {
+    display: block;
+    padding: var(--bp-space-3) var(--bp-space-5);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color var(--duration-fast) var(--easing-smooth),
+                border-color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .tp-region-item:hover {
+    color: var(--color-text-secondary);
+    border-left-color: var(--color-border);
+  }
+
+  .tp-region-item.active {
+    color: var(--color-text);
+    border-left-color: var(--color-primary);
+    background-color: rgba(184, 115, 42, 0.05);
+  }
+
+  .tp-regions-label {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: var(--bp-space-3) var(--bp-space-5) var(--bp-space-2);
+    opacity: 0.6;
+    display: block;
+  }
+
+  /* Retailer listings column */
+  .tp-retailer-list {
+    padding: var(--bp-space-4) 0;
+  }
+
+  .tp-retailer-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--bp-space-4);
+    align-items: start;
+    padding: var(--bp-space-4) var(--bp-space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tp-retailer-entry:last-child {
+    border-bottom: none;
+  }
+
+  .tp-retailer-name {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0 0 var(--bp-space-1);
+  }
+
+  .tp-retailer-location {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .tp-retailer-chips {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bp-space-1);
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .tp-expression-chip {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    padding: 2px var(--bp-space-2);
+    white-space: nowrap;
+  }
+
+  /* "See all retailers" text link below the directory */
+  .tp-retail-more {
+    padding: var(--bp-space-6) var(--bp-space-6) var(--bp-space-2);
+    text-align: right;
+  }
+
+  .tp-retail-link {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .tp-retail-link:hover {
+    color: var(--color-primary-hover);
+  }
+
+
+  /* ── ALLOCATION — Contact for trade and allocation. ─────────────────── */
+
+  .tp-allocation-section {
+    background-color: var(--color-bg-secondary);
+    padding: var(--bp-space-20) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tp-allocation-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .tp-allocation-copy {
+    padding: var(--bp-space-10) var(--bp-space-10) var(--bp-space-10) 0;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .tp-allocation-form {
+    padding: var(--bp-space-10) 0 var(--bp-space-10) var(--bp-space-10);
+  }
+
+  .tp-allocation-title {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0 0 var(--bp-space-4);
+    text-indent: 0.06em;
+  }
+
+  .tp-allocation-body {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--bp-space-8);
+  }
+
+  .tp-allocation-note {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+
+  /* ── CLOSE — Footer. The last fact. ─────────────────────────────────── */
+
+  .tp-close {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-16) var(--bp-space-6);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--bp-space-5);
+  }
+
+  .tp-close-wordmark {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-indent: 0.2em;
+  }
+
+  .tp-close-address {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    line-height: 2.2;
+  }
+
+  .tp-close-divider {
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-border);
+    opacity: 0.6;
+  }
+
+  .tp-close-line {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0.5;
+  }
+
+
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+
+  @media (max-width: 900px) {
+    .tp-expressions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tp-expression-panel:first-child {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tp-provenance-split {
+      grid-template-columns: 1fr;
+    }
+
+    .tp-provenance-image {
+      height: 240px;
+      min-height: unset;
+    }
+
+    .tp-provenance-content {
+      border-left: none;
+      border-top: 1px solid var(--color-border);
+      padding: var(--bp-space-8) var(--bp-space-6);
+    }
+
+    .tp-retail-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .tp-retail-regions {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      flex-wrap: wrap;
+      padding: var(--bp-space-2);
+    }
+
+    .tp-region-item {
+      border-left: none;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tp-region-item.active {
+      border-left-color: transparent;
+      border-bottom-color: var(--color-primary);
+    }
+
+    .tp-allocation-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .tp-allocation-copy {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--bp-space-8) var(--bp-space-6);
+    }
+
+    .tp-allocation-form {
+      padding: var(--bp-space-8) var(--bp-space-6);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .tp-brand-name {
+      letter-spacing: 0.03em;
+      text-indent: 0.03em;
+    }
+
+    .tp-process-strip {
+      overflow-x: auto;
+    }
+
+    .tp-retailer-entry {
+      grid-template-columns: 1fr;
+    }
+
+    .tp-retailer-chips {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+} /* end @layer brand-state */

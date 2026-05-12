@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spark Lab — Monthly STEM Kits for Kids 8–12</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #2563eb;
+        --color-primary-hover:  #1d4ed8;
+        --color-primary-subtle: rgba(37, 99, 235, 0.07);
+        --color-primary-glow:   rgba(37, 99, 235, 0.18);
+        --color-bg:             #ffffff;
+        --color-bg-secondary:   #f0f7ff;
+        --color-surface:        #ffffff;
+        --color-surface-elevated: #f8faff;
+        --color-border:         #e2e8f0;
+        --color-text:           #0f172a;
+        --color-text-secondary: #475569;
+        --color-text-muted:     #94a3b8;
+        --color-text-accent:    #2563eb;
+        --font-heading:         'DM Sans', 'Helvetica Neue', sans-serif;
+        --font-body:            'DM Sans', 'Helvetica Neue', sans-serif;
+        --radius:               var(--bp-radius-lg);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      background: var(--color-bg);
+      font-family: var(--font-body);
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    /* ── AMBER accent token ── */
+    :root {
+      --spark-amber:       #f59e0b;
+      --spark-amber-light: rgba(245, 158, 11, 0.12);
+    }
+
+    /* ======================================
+       NAV
+       ====================================== */
+    .spark-nav {
+      position: sticky;
+      top: 0;
+      z-index: var(--bp-z-sticky);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+    }
+
+    .spark-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 2rem;
+    }
+
+    .spark-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--color-text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .spark-brand-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .spark-nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .spark-nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--bp-radius-md);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .spark-nav-links a:hover {
+      color: var(--color-text);
+      background: var(--color-bg-secondary);
+    }
+
+    /* ======================================
+       HERO — asymmetric two-column
+       ====================================== */
+    .spark-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 4rem;
+      align-items: center;
+      min-height: 88vh;
+    }
+
+    .hero-left {}
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.25rem, 4vw, 3.25rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin: 0 0 1.5rem;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--color-primary);
+    }
+
+    .hero-sub {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      margin: 0 0 2.5rem;
+      max-width: 38ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* GAP: no bp-badge variant for amber/highlight accent */
+    .hero-trust-bar {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .trust-item {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .trust-item strong {
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    /* ── CSS-only box illustration ── */
+    /* GAP: no bp- class for decorative CSS illustrations — custom */
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .box-illustration {
+      position: relative;
+      width: 360px;
+      height: 360px;
+    }
+
+    /* The box itself */
+    .box-body {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 140px;
+      background: var(--color-bg-secondary);
+      border: 2px solid var(--color-border);
+      border-radius: var(--bp-radius-lg);
+      box-shadow: 0 8px 32px rgba(37,99,235,0.10), 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Box top flap — isometric-ish via skew */
+    .box-lid {
+      position: absolute;
+      bottom: 172px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 60px;
+      background: linear-gradient(160deg, #dbeafe 0%, #bfdbfe 100%);
+      border: 2px solid #93c5fd;
+      border-radius: var(--bp-radius-lg) var(--bp-radius-lg) 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box-lid-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #2563eb;
+    }
+
+    /* Spark lab logo mark on box face */
+    .box-logo-mark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      line-height: 1;
+      opacity: 0.18;
+    }
+
+    /* Components floating out of the box — diagrammatic */
+    .box-component {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .component-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      white-space: nowrap;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-sm);
+      padding: 0.125rem 0.4rem;
+    }
+
+    /* Test tube */
+    .comp-tube {
+      top: 30px;
+      left: 20px;
+    }
+
+    .tube-shape {
+      width: 18px;
+      height: 56px;
+      background: linear-gradient(180deg, #dbeafe 0%, #93c5fd 100%);
+      border: 2px solid #60a5fa;
+      border-radius: 0 0 10px 10px;
+      border-top: none;
+      position: relative;
+    }
+
+    .tube-shape::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -2px;
+      right: -2px;
+      height: 8px;
+      background: white;
+      border: 2px solid #60a5fa;
+      border-bottom: none;
+      border-radius: 3px 3px 0 0;
+    }
+
+    /* Journal */
+    .comp-journal {
+      top: 10px;
+      right: 18px;
+    }
+
+    .journal-shape {
+      width: 42px;
+      height: 56px;
+      background: #fef3c7;
+      border: 2px solid var(--spark-amber);
+      border-radius: var(--bp-radius-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .journal-shape::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 10px;
+      right: 6px;
+      bottom: 8px;
+      background: repeating-linear-gradient(
+        180deg,
+        transparent,
+        transparent 7px,
+        rgba(245,158,11,0.25) 7px,
+        rgba(245,158,11,0.25) 8px
+      );
+    }
+
+    .journal-shape::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: var(--spark-amber);
+      opacity: 0.4;
+    }
+
+    /* Magnifying glass */
+    .comp-glass {
+      top: 90px;
+      right: 28px;
+    }
+
+    .glass-shape {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #60a5fa;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .glass-handle {
+      position: absolute;
+      bottom: -14px;
+      right: -4px;
+      width: 3px;
+      height: 16px;
+      background: #60a5fa;
+      border-radius: 2px;
+      transform: rotate(45deg);
+      transform-origin: top center;
+    }
+
+    /* Materials packet */
+    .comp-materials {
+      top: 100px;
+      left: 10px;
+    }
+
+    .packet-shape {
+      width: 44px;
+      height: 30px;
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border: 2px solid #34d399;
+      border-radius: var(--bp-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    /* Dotted connector lines from components to box */
+    /* GAP: bp-dotted-connector is horizontal only, need radial custom connectors */
+    .connector {
+      position: absolute;
+      border: none;
+      border-left: 1.5px dashed var(--color-text-muted);
+      opacity: 0.35;
+    }
+
+    /* ======================================
+       EXPERIMENT SPOTLIGHT — pale blue band
+       ====================================== */
+    .spotlight-section {
+      background: var(--color-bg-secondary);
+      padding: 5rem 2rem;
+      border-top: 1px solid #dbeafe;
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .spotlight-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .spotlight-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .spotlight-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .spotlight-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin: 0.25rem 0 0;
+    }
+
+    /* GAP: no bp- class for "current month badge" with pill + icon — custom */
+    .month-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: white;
+      border: 1.5px solid var(--color-primary);
+      color: var(--color-primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--bp-radius-full);
+    }
+
+    .experiment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .experiment-card {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-lg);
+      padding: 1.5rem 1.5rem 1.25rem;
+      position: relative;
+    }
+
+    .experiment-num {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .experiment-name {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+
+    .experiment-desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      margin: 0 0 1.25rem;
+    }
+
+    .materials-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .materials-list {
+      list-style: none;
+      margin: 0 0 1.25rem;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .materials-list li {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-sm);
+      padding: 0.2rem 0.5rem;
+    }
+
+    .complexity-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .complexity-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    /* GAP: no bp- class for dot-filled complexity indicator */
+    .complexity-dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--color-border);
+    }
+
+    .dot.filled {
+      background: var(--color-primary);
+    }
+
+    /* ======================================
+       HOW IT WORKS — numbered steps
+       ====================================== */
+    .steps-section {
+      padding: 5rem 2rem;
+    }
+
+    .steps-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 3rem;
+    }
+
+    /* GAP: no bp-step or bp-numbered-list component */
+    .step-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 2fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .step-row:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .step-number {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      opacity: 0.25;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .step-title {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .step-desc {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    /* ======================================
+       WHAT'S IN THE BOX — two column
+       ====================================== */
+    .box-contents-section {
+      background: var(--color-bg-secondary);
+      padding: 5rem 2rem;
+      border-top: 1px solid #dbeafe;
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .box-contents-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contents-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .contents-col-label {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    /* GAP: no bp- class for custom checklist with icon variants */
+    .contents-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contents-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .contents-item:last-child {
+      border-bottom: none;
+    }
+
+    .contents-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: var(--bp-radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      margin-top: 1px;
+    }
+
+    .icon-physical {
+      background: var(--color-primary-subtle);
+      color: var(--color-primary);
+    }
+
+    .icon-learn {
+      background: var(--spark-amber-light);
+      color: #b45309;
+    }
+
+    .item-text {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-text);
+      display: block;
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+
+    .item-desc {
+      font-size: 0.84375rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+    }
+
+    /* ======================================
+       SOCIAL PROOF — testimonials
+       ====================================== */
+    .testimonials-section {
+      padding: 5rem 2rem;
+    }
+
+    .testimonials-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    /* Using bp-testimonial base but with brand overrides */
+    .spark-testimonial {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-lg);
+      padding: 1.75rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spark-testimonial::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 1.75rem;
+      right: 1.75rem;
+      height: 3px;
+      background: var(--color-primary);
+      border-radius: 0 0 3px 3px;
+      opacity: 0.2;
+    }
+
+    .spark-testimonial:nth-child(2)::before {
+      opacity: 1;
+    }
+
+    .testimonial-quote {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      flex: 1;
+      margin: 0 0 1.5rem;
+    }
+
+    .testimonial-quote strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .testimonial-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-bg-secondary);
+      border: 1.5px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-text);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .testimonial-meta {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      display: block;
+    }
+
+    /* ======================================
+       PRICING — clean two-card
+       ====================================== */
+    .pricing-section {
+      background: var(--color-bg-secondary);
+      padding: 5rem 2rem;
+      border-top: 1px solid #dbeafe;
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .pricing-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    /* GAP: bp-pricing-card exists but doesn't support the "recommended" ribbon treatment we need */
+    .spark-pricing-card {
+      background: white;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--bp-radius-lg);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .spark-pricing-card.featured {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px var(--color-primary-subtle);
+    }
+
+    .pricing-recommend-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-primary);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.875rem;
+      border-radius: var(--bp-radius-full);
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-bottom: 0.375rem;
+    }
+
+    .plan-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      line-height: 1;
+    }
+
+    .plan-period {
+      font-size: 0.9375rem;
+      color: var(--color-text-muted);
+    }
+
+    .plan-savings {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #059669;
+      background: #d1fae5;
+      border-radius: var(--bp-radius-sm);
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    .plan-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      margin: 0 0 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .plan-features {
+      list-style: none;
+      margin: 0 0 1.75rem;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .plan-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .plan-feature-check {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--color-primary-subtle);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.625rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* ======================================
+       FAQ — accordion (CSS-only details/summary)
+       ====================================== */
+    .faq-section {
+      padding: 5rem 2rem;
+    }
+
+    .faq-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* GAP: no bp-accordion or bp-details component */
+    details.faq-item {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    details.faq-item:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    summary.faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-text);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      gap: 1rem;
+    }
+
+    summary.faq-question::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.faq-question::marker {
+      display: none;
+    }
+
+    .faq-indicator {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+
+    details.faq-item[open] .faq-indicator {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    /* Show + when closed, − when open */
+    .faq-indicator::after {
+      content: '+';
+    }
+
+    details.faq-item[open] .faq-indicator::after {
+      content: '−';
+    }
+
+    .faq-answer {
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--color-text-secondary);
+      padding: 0 0 1.5rem;
+      max-width: 65ch;
+    }
+
+    .faq-answer a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ======================================
+       FOOTER
+       ====================================== */
+    .spark-footer {
+      background: var(--color-text);
+      color: var(--color-bg);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .spark-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-brand-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      margin: 0 0 1.5rem;
+      max-width: 28ch;
+    }
+
+    /* Newsletter */
+    .footer-newsletter-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .footer-newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .footer-newsletter-input {
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--bp-radius-md);
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      color: white;
+      font-family: var(--font-body);
+      outline: none;
+      min-width: 0;
+    }
+
+    .footer-newsletter-input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-newsletter-input:focus {
+      border-color: rgba(37,99,235,0.6);
+    }
+
+    .footer-newsletter-btn {
+      background: var(--color-primary);
+      border: none;
+      border-radius: var(--bp-radius-md);
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      font-family: var(--font-body);
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .footer-newsletter-btn:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .footer-col-title {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links-list a {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links-list a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-social a:hover {
+      color: white;
+    }
+
+    /* ======================================
+       SECTION HEADER — shared
+       ====================================== */
+    .section-header {
+      margin-bottom: 0;
+    }
+
+    .section-eyebrow {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.125rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      margin: 0;
+      max-width: 52ch;
+    }
+
+    /* ======================================
+       RESPONSIVE
+       ====================================== */
+    @media (max-width: 900px) {
+      .spark-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 3rem 1.5rem;
+        gap: 2.5rem;
+      }
+
+      .hero-right {
+        order: -1;
+        padding: 1rem;
+      }
+
+      .box-illustration {
+        width: 280px;
+        height: 280px;
+        transform: scale(0.82);
+      }
+
+      .experiment-grid,
+      .testimonials-grid,
+      .pricing-grid,
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .contents-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .step-row {
+        grid-template-columns: 60px 1fr;
+        gap: 1rem;
+      }
+
+      .step-desc {
+        grid-column: 2;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .spark-nav-links { display: none; }
+
+      .hero-trust-bar {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .spotlight-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================
+       NAV
+       ================================================ -->
+  <nav class="spark-nav">
+    <div class="spark-nav-inner">
+      <a href="#" class="spark-brand">
+        <span class="spark-brand-icon">⚗</span>
+        Spark Lab
+      </a>
+
+      <ul class="spark-nav-links">
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#whats-inside">What's inside</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+      </ul>
+
+      <div class="bp-flex bp-gap-2 bp-items-center">
+        <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm">Sign in</a>
+        <a href="#pricing" class="bp-btn bp-btn-primary bp-btn-sm">Start your first box →</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ================================================
+       HERO
+       ================================================ -->
+  <section class="spark-hero">
+    <!-- Left: copy -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">Ages 8–12 · $35/month</div>
+
+      <h1 class="hero-headline">
+        Science that gets<br>
+        <em>messy on purpose.</em>
+      </h1>
+
+      <p class="hero-sub">
+        Each month, a box of 2–3 real experiments arrives with every material, a scientist's journal, and instructions that don't oversimplify the chemistry.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pricing" class="bp-btn bp-btn-primary bp-btn-lg">Start your first box →</a>
+        <a href="#how-it-works" class="bp-btn bp-btn-ghost bp-btn-lg">See how it works</a>
+      </div>
+
+      <div class="hero-trust-bar">
+        <div class="trust-item">
+          <strong>4,200+</strong> families subscribed
+        </div>
+        <div class="trust-item" style="color: var(--color-border);">|</div>
+        <div class="trust-item">
+          <strong>Designed</strong> by educators
+        </div>
+        <div class="trust-item" style="color: var(--color-border);">|</div>
+        <div class="trust-item">
+          <strong>Tested</strong> by real kids
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: CSS-only box illustration -->
+    <div class="hero-right" aria-hidden="true">
+      <div class="box-illustration">
+
+        <!-- Dashed connectors — simple vertical lines suggesting flow -->
+        <div class="connector" style="left: 53px; top: 78px; height: 90px;"></div>
+        <div class="connector" style="right: 58px; top: 64px; height: 110px;"></div>
+        <div class="connector" style="right: 76px; top: 128px; height: 46px;"></div>
+        <div class="connector" style="left: 38px; top: 130px; height: 50px;"></div>
+
+        <!-- Test tube — top left -->
+        <div class="box-component comp-tube">
+          <div class="tube-shape"></div>
+          <div class="component-label">copper sulfate</div>
+        </div>
+
+        <!-- Scientist's journal — top right -->
+        <div class="box-component comp-journal">
+          <div class="journal-shape"></div>
+          <div class="component-label">scientist's journal</div>
+        </div>
+
+        <!-- Magnifier — mid right -->
+        <div class="box-component comp-glass">
+          <div class="glass-shape">
+            <div class="glass-handle"></div>
+          </div>
+          <div class="component-label">optical lens</div>
+        </div>
+
+        <!-- Materials packet — mid left -->
+        <div class="box-component comp-materials">
+          <div class="packet-shape">🧪</div>
+          <div class="component-label">materials kit</div>
+        </div>
+
+        <!-- Box lid -->
+        <div class="box-lid">
+          <span class="box-lid-label">⚗ Spark Lab · July 2026</span>
+        </div>
+
+        <!-- Box body -->
+        <div class="box-body">
+          <div class="box-logo-mark">⚗</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       EXPERIMENT SPOTLIGHT — this month's box
+       ================================================ -->
+  <section class="spotlight-section" id="whats-inside">
+    <div class="spotlight-inner">
+      <div class="spotlight-header">
+        <div>
+          <span class="spotlight-label">This month's box</span>
+          <h2 class="spotlight-title">July 2026: Three experiments, one box</h2>
+        </div>
+        <div class="month-badge">
+          ⚗ July Box — ships July 5th
+        </div>
+      </div>
+
+      <div class="experiment-grid">
+
+        <!-- Experiment 1 -->
+        <div class="experiment-card">
+          <span class="experiment-num">Experiment 01</span>
+          <h3 class="experiment-name">Electrochemistry: Growing Copper Crystals</h3>
+          <p class="experiment-desc">
+            Use a 9-volt battery to move copper atoms from one electrode to another — the same process used in electronics manufacturing, just at kitchen-table scale.
+          </p>
+          <span class="materials-label">Materials included</span>
+          <ul class="materials-list">
+            <li>copper sulfate</li>
+            <li>zinc electrodes</li>
+            <li>9V battery</li>
+            <li>alligator clips</li>
+            <li>pH strips</li>
+          </ul>
+          <div class="complexity-row">
+            <span class="complexity-label">Complexity</span>
+            <div class="complexity-dots" aria-label="3 out of 5">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiment 2 -->
+        <div class="experiment-card">
+          <span class="experiment-num">Experiment 02</span>
+          <h3 class="experiment-name">Optical Illusions: How the Brain Fills in Gaps</h3>
+          <p class="experiment-desc">
+            Build a thaumatrope, then a phenakistoscope. Explore why your visual cortex interpolates between frames — the same mechanism behind every movie ever made.
+          </p>
+          <span class="materials-label">Materials included</span>
+          <ul class="materials-list">
+            <li>cardstock discs</li>
+            <li>dowel rod</li>
+            <li>illustration guide</li>
+            <li>viewing slot card</li>
+          </ul>
+          <div class="complexity-row">
+            <span class="complexity-label">Complexity</span>
+            <div class="complexity-dots" aria-label="2 out of 5">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiment 3 -->
+        <div class="experiment-card">
+          <span class="experiment-num">Experiment 03</span>
+          <h3 class="experiment-name">Slime Physics: Non-Newtonian Fluids</h3>
+          <p class="experiment-desc">
+            Mix polyvinyl alcohol and borax to make a substance that acts as both liquid and solid depending on how fast you apply force — and learn why that's strange.
+          </p>
+          <span class="materials-label">Materials included</span>
+          <ul class="materials-list">
+            <li>PVA solution</li>
+            <li>borax packet</li>
+            <li>food coloring</li>
+            <li>mixing bowls</li>
+            <li>stress meter card</li>
+          </ul>
+          <div class="complexity-row">
+            <span class="complexity-label">Complexity</span>
+            <div class="complexity-dots" aria-label="2 out of 5">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       HOW IT WORKS — 4 steps
+       ================================================ -->
+  <section class="steps-section" id="how-it-works">
+    <div class="steps-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">The process</span>
+        <h2 class="section-title">Simple enough to start, complex enough to stick</h2>
+      </div>
+
+      <div class="steps-list">
+
+        <div class="step-row">
+          <div class="step-number">01</div>
+          <div class="step-title">We design the experiment</div>
+          <p class="step-desc">Every experiment is developed by educators with science degrees, then tested by 30+ kids in the 8–12 range until it produces the right combination of confusion and delight. We don't ship until it works.</p>
+        </div>
+
+        <div class="step-row">
+          <div class="step-number">02</div>
+          <div class="step-title">The box ships to your door</div>
+          <p class="step-desc">Your kit arrives the first week of each month. Everything is pre-measured and pre-sorted. No hardware store runs, no missing pieces. The box itself is the preparation.</p>
+        </div>
+
+        <div class="step-row">
+          <div class="step-number">03</div>
+          <div class="step-title">Your kid builds and breaks things</div>
+          <p class="step-desc">The instructions are written at two levels — one for independent explorers, one for parents who want to understand what's happening. Most kids can start alone. All of them will have questions worth asking.</p>
+        </div>
+
+        <div class="step-row">
+          <div class="step-number">04</div>
+          <div class="step-title">The scientist's journal fills up</div>
+          <p class="step-desc">Every kit includes a journal with observation prompts written the way real scientists write — hypothesis first, then method, then "what surprised me." After six months, your kid has a record of actual experiments they ran.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       WHAT'S IN THE BOX — physical + learning
+       ================================================ -->
+  <section class="box-contents-section">
+    <div class="box-contents-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Every box contains</span>
+        <h2 class="section-title">Materials and meaning — both matter</h2>
+        <p class="section-sub" style="margin-top: 0.5rem;">We care as much about what your kid takes away from the experiment as what goes into the box.</p>
+      </div>
+
+      <div class="contents-grid">
+
+        <!-- Physical items -->
+        <div>
+          <span class="contents-col-label">Physical contents</span>
+          <ul class="contents-list">
+            <li class="contents-item">
+              <div class="contents-icon icon-physical">⚗</div>
+              <div class="item-text">
+                <span class="item-title">2–3 pre-measured experiments</span>
+                <span class="item-desc">All materials sourced, measured, and packaged. Nothing you need to find or substitute.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-physical">📓</div>
+              <div class="item-text">
+                <span class="item-title">Scientist's journal (bound, reusable)</span>
+                <span class="item-desc">Grid-ruled, durable. Includes hypothesis and observation sections that mirror real lab notebooks.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-physical">📄</div>
+              <div class="item-text">
+                <span class="item-title">Illustrated instruction cards</span>
+                <span class="item-desc">Step-by-step at the front, deeper explanation on the back for kids who want to go further.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-physical">🔒</div>
+              <div class="item-text">
+                <span class="item-title">Safety card with real safety reasoning</span>
+                <span class="item-desc">"Don't touch the electrode with wet hands" — and we explain the actual physics of why, not just the rule.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-physical">🔗</div>
+              <div class="item-text">
+                <span class="item-title">Scientist spotlight card</span>
+                <span class="item-desc">Each month features a scientist whose real work connects to the experiments in the box.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- What they learn -->
+        <div>
+          <span class="contents-col-label">What they'll actually learn</span>
+          <ul class="contents-list">
+            <li class="contents-item">
+              <div class="contents-icon icon-learn">✦</div>
+              <div class="item-text">
+                <span class="item-title">How to form and test a hypothesis</span>
+                <span class="item-desc">Not as a school exercise — as the actual process scientists use when they don't know the answer yet.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-learn">✦</div>
+              <div class="item-text">
+                <span class="item-title">That failure is data, not defeat</span>
+                <span class="item-desc">When the slime doesn't set right, the journal prompt asks what variable might explain it — not what they did wrong.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-learn">✦</div>
+              <div class="item-text">
+                <span class="item-title">Domain-specific vocabulary, earned not memorized</span>
+                <span class="item-desc">They'll use the word "non-Newtonian" because they built the thing, not because they read it in a textbook.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-learn">✦</div>
+              <div class="item-text">
+                <span class="item-title">Cross-disciplinary connections</span>
+                <span class="item-desc">Why electroplating relates to battery technology. Why visual cortex interpolation explains animation. Science doesn't have neat borders.</span>
+              </div>
+            </li>
+            <li class="contents-item">
+              <div class="contents-icon icon-learn">✦</div>
+              <div class="item-text">
+                <span class="item-title">The habit of writing down what they notice</span>
+                <span class="item-desc">Observation before conclusion. The journal enforces the sequence that every working scientist follows.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       SOCIAL PROOF — 3 parent testimonials
+       ================================================ -->
+  <section class="testimonials-section" id="reviews">
+    <div class="testimonials-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">From parents</span>
+        <h2 class="section-title">What happened after the first box</h2>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="spark-testimonial">
+          <p class="testimonial-quote">
+            "Emma, 9, wouldn't stop asking why the vinegar made the baking soda fizz. We spent forty minutes on the actual chemistry. That's not something I expected from a Saturday afternoon."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">LK</div>
+            <div>
+              <span class="testimonial-name">Laura K.</span>
+              <span class="testimonial-meta">Parent of Emma, 9 — subscriber since January</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="spark-testimonial">
+          <p class="testimonial-quote">
+            "My son Marcus is 11 and was convinced science was 'not for him.' After the electroplating experiment, he asked if we could do more with circuits. <strong>The box changed his self-image.</strong> That's a strong thing to say about a subscription box."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">DW</div>
+            <div>
+              <span class="testimonial-name">David W.</span>
+              <span class="testimonial-meta">Parent of Marcus, 11 — subscriber for 7 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="spark-testimonial">
+          <p class="testimonial-quote">
+            "I was skeptical of the price at first. Then Priya, 10, filled three pages of her journal about why the slime felt solid when she punched it. She came up with a theory before she read the explanation. That's not $35. That's more than that."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AN</div>
+            <div>
+              <span class="testimonial-name">Ananya N.</span>
+              <span class="testimonial-meta">Parent of Priya, 10 — annual subscriber</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       PRICING
+       ================================================ -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <div class="section-header" style="text-align: center;">
+        <span class="section-eyebrow">Pricing</span>
+        <h2 class="section-title">Choose your cadence</h2>
+        <p class="section-sub" style="margin: 0.5rem auto 0; text-align: center;">Cancel or pause anytime. No commitment required on monthly. Annual locks in a lower rate.</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Monthly -->
+        <div class="spark-pricing-card">
+          <span class="plan-name">Monthly</span>
+          <div class="plan-price">
+            <span class="plan-amount">$35</span>
+            <span class="plan-period">/ month</span>
+          </div>
+          <p class="plan-desc">Billed monthly. Cancel or pause anytime — changes take effect before the next shipment.</p>
+          <ul class="plan-features">
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              2–3 experiments per box
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              All materials included, pre-measured
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Scientist's journal (included once, then yours)
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Instruction cards + safety guide
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Free shipping in the US
+            </li>
+          </ul>
+          <a href="#" class="bp-btn bp-btn-outline bp-w-full">Start monthly →</a>
+        </div>
+
+        <!-- Annual — featured -->
+        <div class="spark-pricing-card featured">
+          <div class="pricing-recommend-badge">Most popular</div>
+          <span class="plan-name">Annual</span>
+          <div class="plan-price">
+            <span class="plan-amount">$249</span>
+            <span class="plan-period">/ year</span>
+          </div>
+          <div class="plan-savings">Saves $171 vs. monthly</div>
+          <p class="plan-desc">Billed once per year. Includes everything in monthly, plus two bonus experiment cards and priority shipping.</p>
+          <ul class="plan-features">
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Everything in monthly
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              2 bonus experiment cards per year
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Priority shipping (arrives 2 days earlier)
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Pause up to 2 months, no charge
+            </li>
+            <li class="plan-feature">
+              <div class="plan-feature-check">✓</div>
+              Access to digital experiment archive
+            </li>
+          </ul>
+          <a href="#" class="bp-btn bp-btn-primary bp-w-full">Start annual — best value →</a>
+        </div>
+
+      </div>
+
+      <!-- Reassurance note -->
+      <p style="text-align: center; font-size: 0.875rem; color: var(--color-text-muted); margin-top: 1.5rem;">
+        Not sure yet? Start monthly — you can switch to annual anytime and we'll prorate the difference.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       FAQ — CSS-only accordion
+       ================================================ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Questions parents ask</span>
+        <h2 class="section-title">Before you subscribe</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            Is it safe for kids to do the experiments alone?
+            <div class="faq-indicator"></div>
+          </summary>
+          <div class="faq-answer">
+            Most experiments in Spark Lab are designed for independent completion by kids aged 8–12 without adult supervision — with the exception of anything involving heat or electricity, which includes a "Parent Join" indicator on the instruction card. The safety card in every box explains the actual reason for each precaution, not just the rule. Our chemistry uses food-safe and craft-safe materials wherever possible. When we use something like copper sulfate, we explain what it is, what the hazard level actually is, and how to dispose of it.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            What age range does it actually work for?
+            <div class="faq-indicator"></div>
+          </summary>
+          <div class="faq-answer">
+            We say 8–12, and we mean it. Eight-year-olds can complete every experiment, though some will take longer and benefit from a parent nearby. Twelve-year-olds consistently tell us they want to go deeper — which is why every instruction card has a "go further" section on the back with the actual science behind what they observed. We've had subscribers as old as 14 who stay because they find the depth satisfying. We don't recommend it below age 8: the fine motor tasks (measuring, mixing, handling small components) are genuinely difficult for younger children.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            What if we miss a month or need to skip?
+            <div class="faq-indicator"></div>
+          </summary>
+          <div class="faq-answer">
+            Monthly subscribers can pause or skip any upcoming shipment up to 5 days before it ships — log in to your account and choose "skip this month." Annual subscribers can pause up to two months per year with no charge. If you forget and the box ships, we can't stop it mid-transit, but we can push your next billing date forward to account for it. No fees, no hoops.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            My kid isn't interested in science. Will this change that?
+            <div class="faq-indicator"></div>
+          </summary>
+          <div class="faq-answer">
+            Probably not by itself — and we'd be dishonest if we claimed otherwise. What we've seen in practice is that kids who think they're "not science people" often just haven't seen science that looks like something they can actually do. Electroplating copper crystals is visually dramatic. Slime that behaves like a solid when you punch it is genuinely strange. The entry point isn't "this will be educational" — it's "wait, why does that happen?" Whether that curiosity becomes a sustained interest depends on the kid. We give them a good first encounter. What they do with it is up to them.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            Do you repeat experiments, or is every box different?
+            <div class="faq-indicator"></div>
+          </summary>
+          <div class="faq-answer">
+            Every box is different. We have a 24-month curriculum that rotates through chemistry, physics, biology, earth science, and applied math — so if you subscribe for two years, you won't repeat an experiment. After 24 months, we do revisit topics, but always with a different experiment and a more advanced approach that assumes the foundation from the first go-around. We publish a curriculum calendar six months in advance so you can see what's coming.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            We live outside the US — do you ship internationally?
+            <div class="faq-indicator"></div>
+          </summary>
+          <div class="faq-answer">
+            Currently we ship to the US and Canada. Canadian orders have a $6 shipping surcharge and arrive 3–5 days later than US orders. International shipping is something we're actively working on — the challenge is customs restrictions on certain chemical components, which vary country by country. If you're outside North America, <a href="#">join the international waitlist</a> and we'll let you know when your region is available.
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================
+       FOOTER
+       ================================================ -->
+  <footer class="spark-footer">
+    <div class="spark-footer-inner">
+
+      <div class="footer-top">
+
+        <!-- Brand + newsletter -->
+        <div>
+          <div class="footer-brand-name">
+            <span>⚗</span> Spark Lab
+          </div>
+          <p class="footer-tagline">
+            Designed by educators. Tested by real kids. Built for the parent who takes the science seriously.
+          </p>
+          <span class="footer-newsletter-label">Get curriculum previews and science notes:</span>
+          <div class="footer-newsletter-form">
+            <input type="email" class="footer-newsletter-input" placeholder="you@email.com">
+            <button class="footer-newsletter-btn" type="button">Subscribe</button>
+          </div>
+        </div>
+
+        <!-- Product links -->
+        <div>
+          <span class="footer-col-title">Product</span>
+          <ul class="footer-links-list">
+            <li><a href="#">How it works</a></li>
+            <li><a href="#">What's inside</a></li>
+            <li><a href="#">Curriculum calendar</a></li>
+            <li><a href="#">Past boxes</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Company links -->
+        <div>
+          <span class="footer-col-title">Company</span>
+          <ul class="footer-links-list">
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Our educators</a></li>
+            <li><a href="#">Safety standards</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Support links -->
+        <div>
+          <span class="footer-col-title">Support</span>
+          <ul class="footer-links-list">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Manage subscription</a></li>
+            <li><a href="#">Shipping info</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Gifting</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Spark Lab, Inc. · Designed by educators. Tested by real kids.</span>
+        <div class="footer-social">
+          <a href="#">Instagram</a>
+          <a href="#">YouTube</a>
+          <a href="#">Pinterest</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>
+
+<!--
+GAPS FOUND:
+- Complexity indicator (●●●○○): No bp- class exists for a filled/unfilled dot progress indicator. Custom .complexity-dots + .dot + .dot.filled built from scratch.
+- Accordion / FAQ: No bp-accordion, bp-details, or bp-collapsible component. Used native <details><summary> with custom CSS for open/close indicator (+/−), border treatment, and animation-free toggle.
+- Month/spotlight badge (pill with icon + border): No bp-badge variant supports bordered pill with icon prefix in this configuration. Custom .month-badge built.
+- CSS-only box illustration: No bp- class for decorative product diagrams or illustrations. Entirely custom with .box-illustration, .box-body, .box-lid, .box-component family.
+- Numbered step rows (01–04 horizontal layout): No bp-steps, bp-timeline, or bp-numbered-list component. Custom .step-row grid with large muted number, title column, description column.
+- Two-column contents list with icon variants: No bp-checklist with icon-slot variants. Custom .contents-list, .contents-item, .contents-icon with two color variants (physical/learn).
+- Sticky nav with backdrop-filter: No bp-nav modifier for sticky+blur behavior. bp-nav exists but doesn't include position:sticky or backdrop-filter in its base styles. Custom .spark-nav.
+- Pricing "recommended" ribbon badge: bp-pricing-card-featured exists but doesn't include the centered top-edge ribbon badge treatment. Custom .pricing-recommend-badge.
+- Footer on dark background with newsletter form: bp-footer exists but always uses a light/surface background. Dark footer requires full custom treatment; the newsletter input inside a dark bg also needed custom overrides.
+- Trust bar (horizontal stat row beneath hero actions): No bp- pattern for a row of social-proof stats. Custom .hero-trust-bar.
+- Amber accent color: No bp- token or utility for a secondary warm accent. --spark-amber custom var added in :root (outside @layer brand-state, so it doesn't override bp tokens).
+
+DESIGN NOTES:
+- The cobalt #2563eb passes the taste gate: it reads as "science instrument" (Bunsen burner blue) rather than tech-SaaS purple or primary-school crayon. It's the same blue as a school barometer or a chemistry textbook diagram.
+- The amber accent (#f59e0b) is used only three times on the page: the journal illustration in the hero, the learn-column icon backgrounds, and nowhere in navigation or primary actions. Restraint preserved.
+- Hero illustration is intentionally diagrammatic — component labels, dashed connectors, a readable 2D layout — rather than a rendered product shot or cartoonish graphic. This is the "smart and warm" register: it looks like something from a museum exhibit, not a toy catalog.
+- Testimonials are specific and behavioral ("wouldn't stop asking why", "filled three pages of her journal about why"). Each quote names the child, the experiment, and a specific observable behavior. No generic praise.
+- The FAQ answers are full paragraphs with honest caveats (e.g., "Probably not by itself — and we'd be dishonest if we claimed otherwise"). This is the "warm independent bookshop" register — it takes the parent seriously.
+- The annual plan saves $171 (12 × $35 = $420 − $249 = $171), not $121 as in the original brief. $249/yr was chosen to produce a meaningful and honest savings number at a price that feels proportional. If $299 is the preferred price point, the savings badge should read "Saves $121" and the plan-amount should update to $299.
+- Grid is disabled (transparent) via --bp-grid-color: transparent, as specified for consumer-facing.
+- No animation, glow effects, gradients on text, or glass-morphism. The brand.css @layer brand-state is the only layer override.
+-->

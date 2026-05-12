@@ -83,12 +83,16 @@ Copy `brand-template.css` into your project. It wraps in `@layer brand-state` au
 
 **All overridable semantic variables:**
 
+### Colors
+
+Setting `--color-primary` is sufficient. The system automatically derives `--color-primary-hover` (darker), `--color-primary-subtle` (12% alpha tint), and `--color-primary-glow` (25% alpha tint) using CSS `color-mix()` and relative color syntax. Override any derived value explicitly only when the auto-derivation doesn't suit your color.
+
 | Variable | Role |
 |---|---|
-| `--color-primary` | Buttons, links, focus rings, active states |
-| `--color-primary-hover` | Hover state of primary |
-| `--color-primary-subtle` | Light tint backgrounds (badges, card hover) |
-| `--color-primary-glow` | Glow shadows |
+| `--color-primary` | Buttons, links, focus rings, active states — **set this, the rest derive** |
+| `--color-primary-hover` | Hover state — auto-derived as 25% darker via `color-mix(in oklch)` |
+| `--color-primary-subtle` | 12% alpha tint — auto-derived via `oklch(... / 0.12)` |
+| `--color-primary-glow` | 25% alpha tint — auto-derived via `oklch(... / 0.25)` |
 | `--color-bg` | Page background |
 | `--color-bg-secondary` | Section alternating background |
 | `--color-surface` | Card / component background |
@@ -100,12 +104,69 @@ Copy `brand-template.css` into your project. It wraps in `@layer brand-state` au
 | `--color-text-accent` | Highlighted / accent text |
 | `--color-code-bg` | Inline `code` background |
 | `--color-code-text` | Inline `code` text color |
-| `--font-heading` | Heading font-family |
-| `--font-body` | Body font-family |
-| `--font-mono` | Monospace font-family |
-| `--radius` | Default border radius (use `var(--bp-radius-*)` values) |
-| `--bp-grid-color` | Blueprint grid line opacity — set to `transparent` to remove |
-| `--bp-grid-color-bold` | Bold grid lines — set to `transparent` to remove |
+
+### State colors
+
+| Variable | Role |
+|---|---|
+| `--color-success` | Success badges, alerts, checkmarks |
+| `--color-warning` | Warning badges, alerts |
+| `--color-error` | Error badges, alerts, destructive states |
+| `--color-success-subtle` | Success tint backgrounds |
+| `--color-warning-subtle` | Warning tint backgrounds |
+| `--color-error-subtle` | Error tint backgrounds |
+
+### Typography
+
+| Variable | Role | Example values |
+|---|---|---|
+| `--font-heading` | Heading font-family | `'Playfair Display', serif` |
+| `--font-body` | Body font-family | `Georgia, serif` |
+| `--font-mono` | Monospace font-family | `'JetBrains Mono', monospace` |
+| `--font-size-base` | Root font size — scales all `rem` values | `13px` = dense · `16px` = default · `19px` = airy |
+| `--font-weight-heading` | Heading weight | `300` = luxury · `600` = default · `700` = bold |
+| `--font-weight-body` | Body weight | `300` = editorial · `400` = default · `500` = strong |
+| `--line-height-base` | Body line height | `1.3` = dense · `1.5` = default · `1.75` = spacious |
+| `--line-height-heading` | Heading line height | `1.05` = tight display · `1.25` = default |
+| `--letter-spacing-heading` | Heading letter spacing | `-0.04em` = tight · `0em` = normal · `0.12em` = luxury wide |
+
+### Motion
+
+All `transition:` properties in the system use `--bp-transition-*`, which in turn reference these tokens. Changing a duration or easing token cascades to every button, card, nav link, input, and modal in the system.
+
+| Variable | Role | Example values |
+|---|---|---|
+| `--duration-fast` | Hover/focus/micro transitions | `0.05s` = surgical · `0.15s` = default · `0.4s` = theatrical |
+| `--duration-base` | Standard transitions | `0.1s` = fast · `0.2s` = default · `0.5s` = slow |
+| `--duration-slow` | Smooth/enter transitions | `0.2s` = quick · `0.3s` = default · `0.8s` = dramatic |
+| `--easing-smooth` | Standard easing curve | `cubic-bezier(0.4, 0, 0.2, 1)` = material · `ease` = simple |
+| `--easing-bounce` | Playful overshoot curve (also used by `bp-animate`) | `cubic-bezier(0.34, 1.56, 0.64, 1)` = default · `ease` = clinical |
+
+### Shadows
+
+| Variable | Role |
+|---|---|
+| `--shadow-sm` | Cards at rest, inputs |
+| `--shadow-md` | Elevated cards, dropdowns |
+| `--shadow-lg` | Modals, overlays |
+| `--shadow-glow` | Primary-colored glow on hover/focus |
+
+Set to `none` for flat design. Use `var(--bp-shadow-*)` values as references.
+
+### Layout & density
+
+| Variable | Role | Example values |
+|---|---|---|
+| `--space-unit` | Master density dial — scales card padding, section padding, and grid gap simultaneously | `0.625rem` = dense · `1rem` = default · `1.5rem` = airy |
+| `--grid-gap` | Gap between grid columns/rows and split panels | `var(--bp-space-4)` = tight · `var(--bp-space-6)` = default · `var(--bp-space-10)` = open |
+| `--sidebar-width` | Left panel width in app layouts | `64px` = icon rail · `256px` = default · `320px` = data-heavy |
+| `--nav-height` | Top navigation bar height | `48px` = minimal · `64px` = default · `80px` = prominent |
+| `--split-ratio` | Column ratio for `.bp-split` without a modifier class | `1fr 1fr` = equal · `1fr 3fr` = narrow label · `3fr 1fr` = wide content |
+| `--radius` | Default border radius | `var(--bp-radius-none)` = sharp · `var(--bp-radius-md)` = default · `var(--bp-radius-xl)` = soft |
+| `--bp-grid-color` | Blueprint grid line opacity | `transparent` = remove grid |
+| `--bp-grid-color-bold` | Bold grid lines | `transparent` = remove |
+
+`--space-unit` is the highest-leverage single token: setting it to `0.75rem` compacts cards, sections, and grids simultaneously — like changing the grid pitch on graph paper. Setting it to `1.5rem` creates the breathing room of an editorial magazine layout.
 
 **Border radius tokens:** `--bp-radius-none` `--bp-radius-sm` `--bp-radius-md` `--bp-radius-lg` `--bp-radius-xl` `--bp-radius-2xl` `--bp-radius-full`
 
@@ -124,18 +185,88 @@ Copy `brand-template.css` into your project. It wraps in `@layer brand-state` au
 
 ### Section
 ```html
-<section class="bp-section">     <!-- py-20 (80px) -->
-<section class="bp-section-sm">  <!-- py-12 (48px) -->
-<section class="bp-section-lg">  <!-- py-32 (128px) -->
+<section class="bp-section">        <!-- py-20 (80px) -->
+<section class="bp-section-sm">     <!-- py-12 (48px) -->
+<section class="bp-section-lg">     <!-- py-32 (128px) -->
+<section class="bp-section-xl">     <!-- py-40 (160px) — landmark / hero-adjacent sections -->
+<section class="bp-section-dark">   <!-- inverted: dark bg, light text; use for contrast bands -->
 ```
+
+`bp-section-dark` re-maps text and card tokens inside the band — no extra overrides needed. Combine with `bp-section-lg` for a full interlude.
+
+### Full-Bleed Hero (100vh)
+```html
+<section class="bp-hero-full">
+  <!-- background: image, CSS gradient, or fixed SVG illustration -->
+  <img src="..." class="bp-hero-full-bg" alt="">          <!-- optional bg image -->
+
+  <!-- caption anchored bottom-left — optional -->
+  <div class="bp-hero-full-caption">
+    <h1>Headline</h1>
+    <p>Supporting text</p>
+    <a href="#" class="bp-btn bp-btn-primary">CTA</a>
+  </div>
+</section>
+```
+- `bp-hero-full` fills `100svh`, `overflow: hidden`
+- `bp-hero-full-bg` is `position: absolute; inset: 0; object-fit: cover`
+- `bp-hero-full-caption` is `position: absolute; bottom: 2.5rem; left: 2.5rem`
+- Caption collapses to full-width at mobile
+
+### Cover Section (background image + scrim)
+```html
+<section class="bp-section bp-section-cover">
+  <img src="photo.jpg" class="bp-section-cover-bg" alt="">
+  <div class="bp-section-cover-overlay"></div>   <!-- 50% dark scrim -->
+
+  <!-- everything below is in normal flow, stacks above the scrim -->
+  <div class="bp-container">
+    <h2>Headline over the image</h2>
+    <p>Supporting text is readable because of the overlay.</p>
+  </div>
+</section>
+```
+- `bp-section-cover-bg` is `position: absolute; inset: 0; object-fit: cover` (z-index: 0)
+- `bp-section-cover-overlay` is `position: absolute; inset: 0; background: rgba(0,0,0,0.5)` (z-index: 1)
+- All other direct children are automatically `position: relative; z-index: 2`
+- Adjust overlay opacity with an inline style or brand.css override
 
 ### Grid
 ```html
 <div class="bp-grid bp-grid-2">  <!-- 2 columns -->
 <div class="bp-grid bp-grid-3">  <!-- 3 columns -->
 <div class="bp-grid bp-grid-4">  <!-- 4 columns -->
+<div class="bp-grid bp-grid-5">  <!-- 5 columns (→ 3-col at 1024px, 2-col at 640px) -->
+<div class="bp-grid bp-grid-6">  <!-- 6 columns (→ 3-col at 1024px, 2-col at 640px) -->
 ```
-All grids collapse to 1 column on mobile. 3- and 4-col go to 2-col at 1024px.
+All grids collapse to 1 column on mobile (except bp-grid-5/6 which go to 2-col).
+
+### Asymmetric Splits
+Two-column grids with intentional ratios — for hero splits, editorial layouts, sidebar+content pairs.
+All collapse to single column at 768px.
+
+```html
+<div class="bp-split bp-split-40-60">   <!-- 2fr / 3fr -->
+<div class="bp-split bp-split-60-40">   <!-- 3fr / 2fr -->
+<div class="bp-split bp-split-33-67">   <!-- 1fr / 2fr — sidebar + content -->
+<div class="bp-split bp-split-67-33">   <!-- 2fr / 1fr — content + sidebar -->
+<div class="bp-split bp-split-25-75">   <!-- 1fr / 3fr — narrow label + wide body -->
+<div class="bp-split bp-split-75-25">   <!-- 3fr / 1fr — wide body + narrow aside -->
+```
+
+### Gatefold Spread
+Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, generous inner padding. Models the structure of a record sleeve, newspaper spread, or physical fold: the wide center is the narrative axis; the two flanks carry supporting material.
+
+```html
+<div class="bp-spread-3">
+  <div><!-- left flank: credits, metadata --></div>
+  <div><!-- center: main content, liner notes --></div>
+  <div><!-- right flank: catalog, callouts --></div>
+</div>
+```
+- Collapses to `1fr 2fr` at ≤ 1024px (third panel becomes full-width row)
+- Collapses to single column at ≤ 640px
+- Each panel has `padding: var(--bp-space-12)` — do not add a bp-container inside
 
 ### App Layout (sidebar)
 ```html
@@ -256,7 +387,48 @@ All grids collapse to 1 column on mobile. 3- and 4-col go to 2-col at 1024px.
     <p class="bp-card-description">Description text.</p>
   </div>
 </div>
+
+<!-- Media card — image/video/SVG flush to top edge -->
+<div class="bp-card bp-card-hover bp-card-media">
+  <div class="bp-media bp-media-16-9">
+    <img src="photo.jpg" alt="Description">
+  </div>
+  <div class="bp-card-header">
+    <div class="bp-card-title">Title</div>
+    <div class="bp-card-description">Meta or subtitle</div>
+  </div>
+  <div class="bp-card-footer">
+    <a href="#" class="bp-btn bp-btn-primary bp-btn-sm">Action</a>
+  </div>
+</div>
 ```
+
+---
+
+## Media
+
+Aspect-ratio-locked wrapper for `<img>`, `<video>`, and `<svg>`. Think of it as a picture frame: you choose the frame shape, and the content scales to fill it — cropping edges rather than leaving gaps.
+
+**Ratios:** `bp-media-16-9` `bp-media-4-3` `bp-media-3-2` `bp-media-1-1` `bp-media-3-4` `bp-media-2-3` `bp-media-21-9`
+
+```html
+<!-- Landscape photo in a 16:9 frame -->
+<div class="bp-media bp-media-16-9">
+  <img src="photo.jpg" alt="...">
+</div>
+
+<!-- Portrait product shot in a 3:4 frame -->
+<div class="bp-media bp-media-3-4">
+  <img src="product.jpg" alt="...">
+</div>
+
+<!-- SVG illustration treated like a photo -->
+<div class="bp-media bp-media-4-3">
+  <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">...</svg>
+</div>
+```
+- Inner element gets `width: 100%; height: 100%; object-fit: cover` automatically
+- `preserveAspectRatio="xMidYMid slice"` on SVG mirrors `object-fit: cover` behavior
 
 ---
 
@@ -311,6 +483,52 @@ Pass `error: true` to force error state, `error: false` to suppress it.
 
 ---
 
+## Input Compose
+
+A flex shell for a grow-in-place textarea paired with a send/submit action button. The textarea grows as the user types (requires 2 lines of JS); the action button stays vertically centered at all heights. Used for chat inputs, comment boxes, and any compose-and-send pattern.
+
+```html
+<div class="bp-input-compose">
+  <textarea
+    class="bp-input-compose-field"
+    placeholder="Write a comment…"
+    rows="1"
+    id="composeField"
+  ></textarea>
+  <button class="bp-input-compose-action" disabled id="composeBtn">
+    <svg .../>  <!-- send arrow icon -->
+  </button>
+</div>
+```
+
+**Required JS (copy-paste):**
+```js
+const field = document.getElementById('composeField');
+const btn   = document.getElementById('composeBtn');
+
+field.addEventListener('input', () => {
+  field.style.height = 'auto';
+  field.style.height = Math.min(field.scrollHeight, 200) + 'px';
+  btn.disabled = field.value.trim() === '';
+});
+
+field.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (!btn.disabled) btn.click();
+  }
+});
+```
+
+**Behavior:**
+- Action button starts at `opacity: 0.3` (disabled) → `opacity: 1` (enabled) — controlled by the `disabled` attribute
+- Focus-within: border goes primary, 3px ring appears via `box-shadow`
+- Textarea grows up to `max-height: 200px` then scrolls
+- Shift+Enter inserts a newline; Enter submits (add this in your JS as shown above)
+- `bp-input-compose-field` is a bare `<textarea>` — do not also apply `bp-textarea` (they conflict)
+
+---
+
 ## Badges
 
 **Variants:** `bp-badge-default` `bp-badge-secondary` `bp-badge-success` `bp-badge-warning` `bp-badge-error` `bp-badge-outline`
@@ -330,6 +548,82 @@ Pass `error: true` to force error state, `error: false` to suppress it.
 <%= bp_badge "Live", variant: :success, icon: "●", icon_position: :append %>
 <%= bp_badge "Active", variant: :success, icon: false %>  <%# suppress icon %>
 ```
+
+---
+
+## Chips / Tags
+
+Inline pill labels for attributes, categories, flavors, status, or any small metadata that belongs in-line with text or inside a card. Smaller and lighter than badges — no icon implied.
+
+**Variants:** `bp-chip` (base, primary tint) `bp-chip-outline` `bp-chip-muted` `bp-chip-success` `bp-chip-warning` `bp-chip-danger`
+
+```html
+<span class="bp-chip">Spicy</span>
+<span class="bp-chip bp-chip-outline">Gluten-free</span>
+<span class="bp-chip bp-chip-muted">Archived</span>
+<span class="bp-chip bp-chip-success">In stock</span>
+<span class="bp-chip bp-chip-warning">Low stock</span>
+<span class="bp-chip bp-chip-danger">Discontinued</span>
+
+<!-- Chip group — wrapping row with consistent gap -->
+<div class="bp-chip-group">
+  <span class="bp-chip">Tag one</span>
+  <span class="bp-chip bp-chip-muted">Tag two</span>
+</div>
+```
+
+---
+
+## Steps
+
+Numbered process steps with large background numerals. Use `data-step` on each `.bp-step` to set the numeral content (CSS reads it via `attr(data-step)`).
+
+**Column variants:** `bp-steps-3` `bp-steps-4` (collapse to 1-col at 768px)
+
+```html
+<div class="bp-steps bp-steps-3">
+  <div class="bp-step" data-step="01">
+    <div class="bp-step-number">Step 01</div>
+    <div class="bp-step-title">Step title</div>
+    <p class="bp-step-body">What happens in this step and why it matters.</p>
+  </div>
+  <div class="bp-step" data-step="02">...</div>
+  <div class="bp-step" data-step="03">...</div>
+</div>
+```
+
+---
+
+## Fact List
+
+Label-left / value-right rows with hairline separators. Use for studio credentials, product specs, film credits, structured key-value data that shouldn't feel like a table.
+
+**Modifiers:** `bp-fact-list-sm` (compact rows) `bp-fact-list-wide-label` (2fr/3fr instead of 1fr/2fr)
+
+```html
+<dl class="bp-fact-list">
+  <div class="bp-fact">
+    <dt class="bp-fact-label">Founded</dt>
+    <dd class="bp-fact-value">2009, Oslo</dd>
+  </div>
+  <div class="bp-fact">
+    <dt class="bp-fact-label">Staff</dt>
+    <dd class="bp-fact-value">12 people</dd>
+  </div>
+  <div class="bp-fact">
+    <dt class="bp-fact-label">Specialty</dt>
+    <dd class="bp-fact-value">Heritage restoration, adaptive reuse</dd>
+  </div>
+</dl>
+
+<!-- Compact variant -->
+<dl class="bp-fact-list bp-fact-list-sm">...</dl>
+
+<!-- Wide label column -->
+<dl class="bp-fact-list bp-fact-list-wide-label">...</dl>
+```
+
+At narrow viewports (≤ 480px) each fact stacks label above value.
 
 ---
 
@@ -578,6 +872,26 @@ bp-uppercase  bp-lowercase  bp-capitalize
 bp-truncate  bp-italic
 ```
 
+### Typography Voices
+Named typographic registers — answer "what role is this text playing?" not "how big is it?". Combine with `bp-text-{size}` to control scale independently of voice.
+
+```html
+<!-- Functional label — mono, caps, wide tracking; field labels, spec metadata -->
+<span class="bp-text-label">Material</span>
+
+<!-- Editorial voice — serif italic; pull quotes, liner notes, long-form captions -->
+<p class="bp-text-editorial">The record began not with a composition but a question.</p>
+
+<!-- Identity voice — bold display, tight tracking; wordmarks, hero numerals -->
+<h1 class="bp-text-identity bp-text-6xl">VOLTA.</h1>
+```
+
+| Class | Font | Style | Use for |
+|---|---|---|---|
+| `bp-text-label` | mono | caps, xs, widest tracking | Labels, credits, metadata |
+| `bp-text-editorial` | heading (serif) | italic, relaxed leading | Long-form prose, captions |
+| `bp-text-identity` | heading | bold, tight tracking | Wordmarks, large callouts |
+
 ### Colors
 ```
 bp-text-primary   bp-text-secondary   bp-text-muted   bp-text-accent
@@ -762,23 +1076,208 @@ Add `bp-print-spec` to any `<section>`. Each `bp-card` inside becomes a numbered
 <section class="bp-section">                                                          <!-- white again -->
 ```
 
+### Dark contrast band
+```html
+<section class="bp-section-lg bp-section-dark">
+  <div class="bp-container">
+    <!-- text and bp-card tokens invert automatically inside bp-section-dark -->
+  </div>
+</section>
+```
+
+### Full-bleed photographic hero + editorial intro
+```html
+<section class="bp-hero-full">
+  <img src="hero.jpg" class="bp-hero-full-bg" alt="">
+  <div class="bp-hero-full-caption">
+    <h1 style="font-size: var(--bp-text-4xl); color: #fff;">Headline</h1>
+    <p style="color: rgba(255,255,255,0.8);">Supporting text.</p>
+  </div>
+</section>
+<section class="bp-section">
+  <div class="bp-container">
+    <div class="bp-split bp-split-40-60">
+      <div><!-- intro heading --></div>
+      <div><!-- body paragraph --></div>
+    </div>
+  </div>
+</section>
+```
+
 ---
 
 ## CSS Variables Available Everywhere
 
-These are always accessible for inline styles or custom CSS:
+Two layers of tokens are always accessible. **Prefer semantic aliases** — they respond to brand overrides. Use `--bp-*` raw tokens only when you need a value that must never shift with branding.
 
-```
-Spacing:   var(--bp-space-{1|2|3|4|5|6|8|10|12|16|20|24|32})
-Colors:    var(--bp-success)  var(--bp-warning)  var(--bp-error)
-           var(--bp-success-subtle)  var(--bp-warning-subtle)  var(--bp-error-subtle)
-Shadows:   var(--bp-shadow-sm)  var(--bp-shadow-md)  var(--bp-shadow-lg)  var(--bp-shadow-glow)
-Radius:    var(--bp-radius-{none|sm|md|lg|xl|2xl|full})
-Motion:    var(--bp-transition-fast)  var(--bp-transition-base)  var(--bp-transition-smooth)  var(--bp-transition-bounce)
-Z-index:   var(--bp-z-{base|raised|dropdown|sticky|overlay|modal|toast})
-Fonts:     var(--bp-font-sans)  var(--bp-font-mono)
-Blue:      var(--bp-blue-{50|100|200|300|400|500|600|700|800|900})
-```
+### Semantic aliases (brand-responsive — prefer these)
+
+    Colors — primary
+      --color-primary           Main accent (default: blueprint blue)
+      --color-primary-hover     Darkened primary for hover states
+      --color-primary-subtle    12% opacity tint of primary
+      --color-primary-glow      25% opacity tint for glows
+      --color-on-primary        Text on primary backgrounds (default: #fff)
+
+    Colors — secondary accent
+      --color-secondary         Second brand color (default: muted text)
+      --color-secondary-hover   Hover variant of secondary
+      --color-secondary-subtle  12% tint of secondary
+
+    Colors — surface & background
+      --color-bg                Page background
+      --color-bg-secondary      Slightly elevated background
+      --color-surface           Card / panel surface
+      --color-surface-elevated  Elevated surface (modals, popovers)
+      --color-border            Default border color
+
+    Colors — text
+      --color-text              Primary readable text
+      --color-text-secondary    Subdued label text
+      --color-text-muted        Placeholder / hint text
+      --color-text-accent       Highlighted / link text
+
+    Colors — state
+      --color-success  --color-warning  --color-error
+      --color-success-subtle  --color-warning-subtle  --color-error-subtle
+
+    Colors — overlay
+      --overlay-bg              Dark overlay behind modals (default: rgba(0,0,0,0.6))
+      --overlay-scrim           Scrim behind drawers (default: rgba(0,0,0,0.5))
+
+    Typography
+      --font-heading            Heading font family
+      --font-body               Body font family
+      --font-mono               Monospace font family
+      --font-size-base          Root font size (default: 16px)
+      --font-weight-heading     Heading weight (default: 600)
+      --font-weight-body        Body weight (default: 400)
+      --line-height-base        Body line height (default: 1.5)
+      --line-height-heading     Heading line height (default: 1.25)
+      --letter-spacing-heading  Heading tracking (default: -0.025em)
+
+    Layout & structure
+      --radius                  Base border radius (default: 0.375rem)
+      --space-unit              Base spacing unit (default: 1rem)
+      --grid-gap                Gap between grid columns (default: 1.5rem)
+      --sidebar-width           Dashboard sidebar width (default: 256px)
+      --nav-height              Top navigation bar height (default: 64px)
+      --split-ratio             Two-column grid template (default: 1fr 1fr)
+      --content-width           Readable prose column max-width (default: 65ch)
+
+    Border
+      --border-width            Border thickness (default: 1px)
+      --border-style            Border style (default: solid)
+
+    Focus ring — do not remove, accessibility requirement
+      --focus-ring-color        Focus outline color (default: --color-primary)
+      --focus-ring-width        Focus outline thickness (default: 2px)
+      --focus-ring-offset       Focus outline offset (default: 2px)
+
+    Blur / glass
+      --blur-sm                 Subtle blur (default: 4px)
+      --blur-md                 Mid blur for nav glass (default: 12px)
+      --blur-lg                 Heavy frosted glass (default: 20px)
+
+    Interactive feedback
+      --lift-distance           Card hover lift height (default: 2px)
+      --opacity-disabled        Disabled element opacity (default: 0.4)
+      --opacity-idle            Idle / resting opacity (default: 0.3)
+      --bracket-size            Corner bracket decoration size (default: 12px)
+
+    Motion
+      --motion-scale      Animation personality dial: 0=instant, 0.5=snappy, 1=default, 2=expressive
+                          All transition durations multiply by this value. 0 silences every animation.
+      --duration-fast     calc(0.15s × --motion-scale)
+      --duration-base     calc(0.20s × --motion-scale)
+      --duration-slow     calc(0.30s × --motion-scale)
+      --duration-bounce   calc(0.40s × --motion-scale)
+      --easing-smooth     cubic-bezier(0.4, 0, 0.2, 1)
+      --easing-bounce     cubic-bezier(0.34, 1.56, 0.64, 1)
+
+    Shadows (semantic)
+      --shadow-sm  --shadow-md  --shadow-lg  --shadow-glow
+
+    Component sizing
+      --card-padding            Card internal padding (default: 1.5rem)
+      --btn-height-xs  28px  --btn-height-sm  34px  --btn-height-md  40px
+      --btn-height-lg  48px  --btn-height-xl  56px
+      --input-height            Single-line input height (default: 40px)
+      --textarea-min-height     Textarea minimum height (default: 100px)
+      --modal-max-width  520px  --modal-max-height  90vh
+      --toast-max-width  380px
+      --hero-title-max-width      800px
+      --hero-subtitle-max-width   600px
+      --section-header-max-width  640px
+
+### Component tokens (per-component tuning dials)
+
+These are scoped to a component root. Set them on `.bp-nav`, `.bp-btn`, `.bp-card`, etc. in `brand.css` to override just that component without touching any global token. They fall back to the global semantic aliases by default.
+
+    Nav
+      --nav-bg            Base color under the frosted glass (default: --color-bg)
+      --nav-blur          Backdrop blur intensity (default: --blur-md = 12px)
+      --nav-border        Bottom divider color (default: --color-border)
+      --nav-link-color    Resting nav link text color (default: --color-text-secondary)
+
+    Button
+      --btn-radius        Border radius — pill (9999px) vs rounded vs sharp (0) (default: --radius)
+      --btn-font          Font family for button labels (default: --font-body)
+      --btn-font-weight   Font weight for button labels (default: 500)
+
+    Card
+      --card-bg           Card background (default: --color-surface)
+      --card-radius       Card corner radius (default: --bp-radius-lg = 0.5rem)
+      --card-border-color Card border color (default: --color-border)
+      --card-shadow       Card resting shadow (default: --bp-shadow-sm)
+
+    Badge
+      --badge-radius      Badge corner radius — pill vs square (default: --bp-radius-sm = 0.25rem)
+
+    Chip
+      --chip-radius       Chip corner radius — default is full pill (9999px)
+
+    Sidebar
+      --sidebar-bg        Sidebar panel background (default: --color-bg-secondary)
+      --sidebar-border    Right edge divider (default: --color-border)
+
+    Inputs (bp-input, bp-textarea, bp-select)
+      --input-bg          Input field background (default: --color-surface)
+      --input-radius      Input corner radius (default: --radius)
+      --input-border      Input resting border color (default: --color-border)
+
+    Footer
+      --footer-bg         Footer background — transparent by default (inherits page bg)
+      --footer-border     Top divider color (default: --color-border)
+
+    Overlay & Modal
+      --overlay-blur      Backdrop blur behind modals (default: --blur-sm = 4px)
+      --modal-bg          Modal panel background (default: --color-surface)
+      --modal-radius      Modal corner radius (default: --bp-radius-xl = 0.75rem)
+
+Example brand.css — pill buttons, square cards, dark footer, sharp modals:
+
+    .bp-btn    { --btn-radius: 9999px; }
+    .bp-card   { --card-radius: 0; --card-bg: var(--color-bg); }
+    .bp-footer { --footer-bg: var(--color-bg); }
+    .bp-modal  { --modal-radius: 0; --overlay-blur: 0px; }
+
+### Raw blueprint tokens (not affected by brand overrides)
+
+    Spacing:  var(--bp-space-{1|2|3|4|5|6|8|10|12|16|20|24|32})
+    Shadows:  var(--bp-shadow-sm)  var(--bp-shadow-md)  var(--bp-shadow-lg)  var(--bp-shadow-glow)
+    Radius:   var(--bp-radius-{none|sm|md|lg|xl|2xl|full})
+    Motion:   var(--bp-transition-fast)  var(--bp-transition-base)  var(--bp-transition-smooth)  var(--bp-transition-bounce)
+    Z-index:  var(--bp-z-{base|raised|dropdown|sticky|overlay|modal|toast})
+    Fonts:    var(--bp-font-sans)  var(--bp-font-mono)
+    Text:     var(--bp-text-{xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl})
+    Weight:   var(--bp-font-{light|normal|medium|semibold|bold})
+    Leading:  var(--bp-leading-{tight|snug|normal|relaxed})
+    Tracking: var(--bp-tracking-{tight|normal|wide|wider|widest})
+    Blue:     var(--bp-blue-{50|100|200|300|400|500|600|700|800|900})
+    State:    var(--bp-success)  var(--bp-warning)  var(--bp-error)
+              var(--bp-success-subtle)  var(--bp-warning-subtle)  var(--bp-error-subtle)
+    Container: var(--bp-container-{sm|md|lg|xl|2xl})
 
 ---
 

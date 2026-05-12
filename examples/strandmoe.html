@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strand &amp; Moe Arkitekter — Oslo</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Jost:wght@200;300&display=swap" rel="stylesheet">
+
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #1a1918;
+        --color-primary-hover:  #000000;
+        --color-primary-subtle: rgba(26,25,24,0.04);
+        --color-bg:             #f8f7f5;
+        --color-bg-secondary:   #f2f0ed;
+        --color-surface:        #f8f7f5;
+        --color-border:         #e8e5e0;
+        --color-text:           #1a1918;
+        --color-text-secondary: #6b6966;
+        --color-text-muted:     #9b9895;
+        --font-heading:         'Cormorant Garamond', 'Georgia', serif;
+        --font-body:            'Jost', 'Helvetica Neue', sans-serif;
+        --font-mono:            'Jost', monospace;
+        --radius:               var(--bp-radius-none);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    /* ─────────────────────────────
+       NAV
+    ───────────────────────────── */
+    .sm-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2.25rem 4rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
+    }
+
+    .sm-nav-brand {
+      text-decoration: none;
+    }
+
+    .sm-brand-name {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      font-variant: small-caps;
+    }
+
+    .sm-brand-sub {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--color-text-secondary);
+      margin-top: 0.3rem;
+    }
+
+    .sm-nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      padding-top: 0.15rem;
+    }
+
+    .sm-nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.4s ease;
+    }
+
+    .sm-nav-links a:hover {
+      color: var(--color-text);
+    }
+
+    /* ─────────────────────────────
+       HERO — Full viewport, project photograph
+    ───────────────────────────── */
+    .sm-hero {
+      position: relative;
+      height: 100vh;
+      /* GAP: no bp- class for full-viewport-height sectioned heroes with image fills */
+      overflow: hidden;
+    }
+
+    /* CSS-only architectural photography: Bergen Public Library
+       Concrete facade, diffused Nordic light, geometric window grid */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      background:
+        /* Vignette */
+        radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(26,25,24,0.35) 100%),
+        /* Window grid: vertical bands of light suggesting glazing */
+        repeating-linear-gradient(
+          90deg,
+          transparent 0%,
+          transparent calc(8% - 1px),
+          rgba(248,247,245,0.035) calc(8% - 1px),
+          rgba(248,247,245,0.035) 8%
+        ),
+        /* Horizontal floor lines */
+        repeating-linear-gradient(
+          0deg,
+          transparent 0%,
+          transparent calc(12.5% - 1px),
+          rgba(26,25,24,0.04) calc(12.5% - 1px),
+          rgba(26,25,24,0.04) 12.5%
+        ),
+        /* Main tonal field: concrete in diffused winter light */
+        linear-gradient(
+          175deg,
+          #ccc9c4 0%,
+          #b8b5b0 18%,
+          #d0cdc8 38%,
+          #a8a5a0 55%,
+          #bebbb6 72%,
+          #c8c5c0 85%,
+          #a0a09a 100%
+        );
+      box-shadow: inset 0 0 120px rgba(26,25,24,0.2);
+    }
+
+    /* Light shaft — high Nordic window, geometric angle */
+    .hero-photo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 30%;
+      width: 22%;
+      height: 65%;
+      background: linear-gradient(
+        180deg,
+        rgba(248,247,245,0.18) 0%,
+        rgba(248,247,245,0.06) 60%,
+        transparent 100%
+      );
+      clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* Shadow mass — heavy concrete column, left */
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 22%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(26,25,24,0.28) 0%,
+        rgba(26,25,24,0.10) 70%,
+        transparent 100%
+      );
+    }
+
+    /* Project caption: bottom-left, over the image */
+    .hero-caption {
+      position: absolute;
+      bottom: 4.5rem;
+      left: 4rem;
+      z-index: 10;
+    }
+
+    /* Thin horizontal rule above caption */
+    .hero-rule {
+      width: 2.5rem;
+      height: 1px;
+      background: rgba(248,247,245,0.6);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      line-height: 1.05;
+      color: #f8f7f5;
+      letter-spacing: 0.01em;
+      margin: 0 0 1rem;
+      text-shadow: 0 2px 24px rgba(26,25,24,0.3);
+    }
+
+    .hero-project-meta {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(248,247,245,0.7);
+    }
+
+    /* Project index: top-right corner */
+    .hero-index {
+      position: absolute;
+      top: 7.5rem;
+      right: 4rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(248,247,245,0.4);
+    }
+
+    /* ─────────────────────────────
+       SELECTED WORK
+    ───────────────────────────── */
+    .sm-work {
+      padding: 8rem 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 3.5rem;
+    }
+
+    /* GAP: no bp- class for a 2-column architectural project grid (not a card grid) */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .project-item {
+      border-top: 1px solid var(--color-border);
+      padding: 2.5rem 2.5rem 3rem 0;
+    }
+
+    .project-item:nth-child(even) {
+      padding-left: 3rem;
+      padding-right: 0;
+      border-left: 1px solid var(--color-border);
+    }
+
+    .project-item:nth-child(n+3) {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .project-photo {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      margin-bottom: 1.75rem;
+      display: block;
+    }
+
+    /* Project metadata */
+    .project-typology {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.6rem;
+    }
+
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.5rem;
+      color: var(--color-text);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-year {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--color-text-secondary);
+    }
+
+    /* ─────────────────────────────
+       STUDIO / PRACTICE
+    ───────────────────────────── */
+    .sm-studio {
+      padding: 8rem 4rem;
+      display: grid;
+      /* GAP: no bp- class for a 40/60 asymmetric two-column layout */
+      grid-template-columns: 40fr 60fr;
+      gap: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .studio-left {
+      padding-right: 5rem;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .studio-right {
+      padding-left: 5rem;
+    }
+
+    .studio-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 2.5rem;
+    }
+
+    .studio-philosophy {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      line-height: 1.45;
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    /* GAP: no bp- class for a typographic definition list styled left-label / right-value */
+    .studio-facts {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .studio-fact {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .studio-fact:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .fact-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+
+    .fact-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      color: var(--color-text);
+      text-align: right;
+    }
+
+    /* ─────────────────────────────
+       PROCESS
+    ───────────────────────────── */
+    .sm-process {
+      padding: 8rem 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .process-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 4rem;
+    }
+
+    /* GAP: no bp- class for a horizontal three-phase process with hairline vertical rules */
+    .process-phases {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .process-phase {
+      padding: 0 3rem;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .process-phase:first-child {
+      padding-left: 0;
+    }
+
+    .process-phase:last-child {
+      border-right: none;
+    }
+
+    .phase-number {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .phase-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.8rem;
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .phase-description {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.8rem;
+      line-height: 1.85;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    /* ─────────────────────────────
+       CONTACT
+    ───────────────────────────── */
+    .sm-contact {
+      padding: 10rem 4rem 9rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* GAP: no bp- class for a centered contact statement in large italic serif */
+    .contact-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      color: var(--color-text);
+      margin: 0 0 5rem;
+      line-height: 1.1;
+    }
+
+    .contact-details {
+      display: flex;
+      gap: 6rem;
+      align-items: flex-start;
+    }
+
+    .contact-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .contact-block-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-block-value {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    a.contact-block-value {
+      transition: color 0.4s ease;
+    }
+
+    a.contact-block-value:hover {
+      color: var(--color-text-secondary);
+    }
+
+    /* ─────────────────────────────
+       FOOTER
+    ───────────────────────────── */
+    .sm-footer {
+      padding: 1.75rem 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="sm-nav">
+    <a href="#" class="sm-nav-brand">
+      <span class="sm-brand-name">Strand &amp; Moe</span>
+      <span class="sm-brand-sub">Oslo · Architecture</span>
+    </a>
+    <ul class="sm-nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO: Featured project ── -->
+  <!-- GAP: no bp- class for a full-viewport hero with CSS-only photograph and bottom-left caption overlay -->
+  <section class="sm-hero" aria-label="Featured project: Deichmanske filial, Bergen">
+    <div class="hero-photo" aria-hidden="true"></div>
+    <div class="hero-index">Featured project &nbsp;·&nbsp; 01 / 06</div>
+    <div class="hero-caption">
+      <div class="hero-rule"></div>
+      <h1 class="hero-project-name">Deichmanske<br>filial Bergen</h1>
+      <p class="hero-project-meta">Public Library &nbsp;·&nbsp; Bergen &nbsp;·&nbsp; 2019</p>
+    </div>
+  </section>
+
+  <!-- ── SELECTED WORK ── -->
+  <section class="sm-work" id="work">
+    <div class="section-eyebrow">Selected Work</div>
+    <div class="project-grid">
+
+      <div class="project-item">
+        <img src="https://picsum.photos/seed/strandmoe-bergen/800/560?grayscale" alt="Deichmanske filial Bergen — overcast Nordic light" class="project-photo" loading="lazy">
+        <div class="project-typology">Cultural</div>
+        <div class="project-name">Deichmanske filial Bergen</div>
+        <div class="project-year">2019</div>
+      </div>
+
+      <div class="project-item">
+        <img src="https://picsum.photos/seed/strandmoe-holmen/800/560?grayscale" alt="Bolig Holmenkollen — interior stair volume" class="project-photo" loading="lazy">
+        <div class="project-typology">Residential</div>
+        <div class="project-name">Bolig Holmenkollen</div>
+        <div class="project-year">2021</div>
+      </div>
+
+      <div class="project-item">
+        <img src="https://picsum.photos/seed/strandmoe-kulturhus/800/560?grayscale" alt="Grünerløkka Kulturhus — street facade in brick and glass" class="project-photo" loading="lazy">
+        <div class="project-typology">Civic</div>
+        <div class="project-name">Grünerløkka Kulturhus</div>
+        <div class="project-year">2023</div>
+      </div>
+
+      <div class="project-item">
+        <img src="https://picsum.photos/seed/strandmoe-bygdoy/800/560?grayscale" alt="Bolig Bygdøy — afternoon shadow geometry" class="project-photo" loading="lazy">
+        <div class="project-typology">Residential</div>
+        <div class="project-name">Bolig Bygdøy</div>
+        <div class="project-year">2024</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── STUDIO / THE PRACTICE ── -->
+  <section class="sm-studio" id="studio">
+    <div class="studio-left">
+      <div class="studio-label">The Practice</div>
+      <p class="studio-philosophy">
+        We believe buildings reveal their character through the quality of their silence. Our work begins where the brief ends — in the questions a client has not yet thought to ask.
+      </p>
+    </div>
+
+    <div class="studio-right">
+      <ul class="studio-facts">
+        <li class="studio-fact">
+          <span class="fact-label">Founded</span>
+          <span class="fact-value">1987</span>
+        </li>
+        <li class="studio-fact">
+          <span class="fact-label">Location</span>
+          <span class="fact-value">Oslo, Norway</span>
+        </li>
+        <li class="studio-fact">
+          <span class="fact-label">Studio</span>
+          <span class="fact-value">12 architects · 4 technical staff</span>
+        </li>
+        <li class="studio-fact">
+          <span class="fact-label">Current projects</span>
+          <span class="fact-value">7 active</span>
+        </li>
+        <li class="studio-fact">
+          <span class="fact-label">Recognised</span>
+          <span class="fact-value">Statens Byggeskikkpris 2020</span>
+        </li>
+        <li class="studio-fact">
+          <span class="fact-label">Work type</span>
+          <span class="fact-value">Residential · Cultural · Civic</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── PROCESS ── -->
+  <section class="sm-process">
+    <div class="process-eyebrow">How we work</div>
+    <div class="process-phases">
+
+      <div class="process-phase">
+        <div class="phase-number">01</div>
+        <div class="phase-name">Analysis</div>
+        <p class="phase-description">We spend the first months listening — to the site, to the brief, and to what the client has not said. Every material decision later traces back to something discovered here.</p>
+      </div>
+
+      <div class="process-phase">
+        <div class="phase-number">02</div>
+        <div class="phase-name">Design</div>
+        <p class="phase-description">Form follows structure, structure follows use. We develop the project through physical models before drawings, because scale is a thing you feel before you measure it.</p>
+      </div>
+
+      <div class="process-phase">
+        <div class="phase-number">03</div>
+        <div class="phase-name">Delivery</div>
+        <p class="phase-description">We remain on site through construction. Not to supervise — to make decisions. A drawing is a proposal; a building is an agreement between the design and what the materials are willing to do.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="sm-contact" id="contact">
+    <p class="contact-statement">Begin a conversation.</p>
+    <div class="contact-details">
+      <div class="contact-block">
+        <span class="contact-block-label">Visit</span>
+        <span class="contact-block-value">Bygdøy allé 34<br>0265 Oslo, Norway</span>
+      </div>
+      <div class="contact-block">
+        <span class="contact-block-label">Write</span>
+        <a href="mailto:post@strandmoe.no" class="contact-block-value">post@strandmoe.no</a>
+      </div>
+      <div class="contact-block">
+        <span class="contact-block-label">Call</span>
+        <a href="tel:+4722440000" class="contact-block-value">+47 22 44 00 00</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="sm-footer">
+    <span class="footer-copy">Strand &amp; Moe Arkitekter AS &nbsp;&middot;&nbsp; Registered in Norway &nbsp;&middot;&nbsp; &copy; 2026</span>
+  </footer>
+
+</body>
+</html>
+
+<!--
+GAPS FOUND:
+- No bp- class for a full-viewport hero with a CSS-only photograph background and bottom-left caption overlay. The hero pattern (bp-hero) centers text and uses container padding — it does not handle full-bleed fixed-height sections where the headline sits in the bottom-left corner over an image.
+- No bp- class for an asymmetric 40/60 two-column layout. bp-grid only does equal columns (2, 3, 4). A grid-template-columns: 40fr 60fr with a hairline vertical divider between them is fully custom.
+- No bp- class for a horizontal process / phase display with hairline vertical rules between columns. The existing bp-grid-3 produces equal gapped columns, not zero-gap columned sections with border-right dividers.
+- No bp- class for a definition list styled as label-left / value-right rows with hairline border-bottom separators. A "studio facts" or "spec list" pattern — common in architecture, legal, finance, and real estate sites — would be a useful addition (something like bp-dl-row or bp-fact-list).
+- No bp- class for a project grid where items have border-top dividers and alternating left-padding for even columns, rather than gap-separated cards. The architectural "ruled list" layout (border instead of gap) is a distinct pattern from bp-grid with bp-card-hover.
+- No bp- class for a contact section with no form — just an italic serif statement + inline address/contact details in a horizontal row. The existing contact patterns all involve forms or buttons.
+- The bp-section-lg provides 128px vertical padding. For this brand, 8rem (128px) to 10rem (160px) padding was needed — bp-section-lg covers the lower range but there is no bp-section-xl for 10rem+ contexts.
+
+DESIGN NOTES:
+- The Point handled: brand token overrides cleanly (--color-bg, --color-border, --color-text-secondary all respected throughout); the grid-color transparency eliminating the blueprint grid entirely; radius: bp-radius-none giving the sharp corners that architecture requires; the @layer brand-state system kept overrides contained without leaking.
+- The Point struggled with: anything that breaks the centered-container paradigm. This entire page runs edge-to-edge with internal horizontal rules rather than container-padded sections — the bp-container class was not used at all because Strand & Moe's layout lives in the full page width with controlled internal padding.
+- The bp-nav component was not usable here because it is designed around a centered container with a CTA button slot. The fixed-position nav with absolute left/right brand vs. links layout required a full custom implementation.
+- The bp-hero component is not usable for full-bleed image-over-text heroes. It centers content and uses the container — a portfolio firm's hero is fundamentally different in structure.
+- Photography simulation via CSS gradients (repeating-linear-gradient for window grids, clip-path for light shafts, radial-gradient for vignettes) worked well as a technique. Each of the four project photographs reads as a distinctly different lighting condition and material, which is the target for placeholder states in an architecture portfolio.
+- The restraint test: nothing was added to the contact section beyond the statement and three contact facts. The impulse to add a CTA button or a map embed was resisted. The impulse to add navigation arrows to the hero was resisted. The impulse to add hover animations to the project grid was resisted. The resulting page has seven sections and no decorative elements — the whitespace and typography do all the work.
+-->

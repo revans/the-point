@@ -23,18 +23,112 @@
 .bp-container-2xl { max-width: var(--bp-container-2xl); }
 
 .bp-section {
-  padding-top: var(--bp-space-20);
-  padding-bottom: var(--bp-space-20);
+  padding-top: calc(var(--space-unit) * 5);
+  padding-bottom: calc(var(--space-unit) * 5);
 }
 
 .bp-section-sm {
-  padding-top: var(--bp-space-12);
-  padding-bottom: var(--bp-space-12);
+  padding-top: calc(var(--space-unit) * 3);
+  padding-bottom: calc(var(--space-unit) * 3);
 }
 
 .bp-section-lg {
-  padding-top: var(--bp-space-32);
-  padding-bottom: var(--bp-space-32);
+  padding-top: calc(var(--space-unit) * 8);
+  padding-bottom: calc(var(--space-unit) * 8);
+}
+
+.bp-section-xl {
+  padding-top: var(--bp-space-40);
+  padding-bottom: var(--bp-space-40);
+}
+
+/* Dark-background band — inverts surface tokens so the section reads as a
+   contrasting interlude without requiring a separate brand.css override.
+   Text and border tokens are re-mapped inside the band only. */
+.bp-section-dark {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+.bp-section-dark .bp-text-muted,
+.bp-section-dark [class*="text-muted"] {
+  color: color-mix(in srgb, var(--color-bg) 70%, transparent);
+}
+.bp-section-dark .bp-card {
+  background-color: color-mix(in srgb, var(--color-bg) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-bg) 20%, transparent);
+}
+
+/* Full-bleed 100vh hero — fills the viewport and positions a caption overlay
+   in the bottom-left corner. Content sits above a background (image or CSS)
+   via z-index stacking. The caption overlay is optional: add
+   .bp-hero-full-caption as a direct child for the corner treatment. */
+.bp-hero-full {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bp-hero-full-caption {
+  position: absolute;
+  bottom: var(--bp-space-10);
+  left: var(--bp-space-10);
+  z-index: 1;
+  max-width: 40ch;
+}
+
+.bp-hero-full-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  .bp-hero-full-caption {
+    bottom: var(--bp-space-6);
+    left: var(--bp-space-6);
+    right: var(--bp-space-6);
+    max-width: none;
+  }
+}
+
+/* Cover section — a section with a full-bleed background image and a
+   semi-transparent overlay scrim for text readability. Text content stays in
+   normal flow; only the image and overlay are absolutely positioned.
+
+   Required children (in order):
+     .bp-section-cover-bg      — <img> that fills and crops to the section
+     .bp-section-cover-overlay — dark scrim; set opacity via inline style or brand.css
+   All other direct children stack above automatically (z-index: 2). */
+.bp-section-cover {
+  position: relative;
+  overflow: hidden;
+}
+
+.bp-section-cover-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.bp-section-cover-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--overlay-scrim);
+}
+
+.bp-section-cover > :not(.bp-section-cover-bg):not(.bp-section-cover-overlay) {
+  position: relative;
+  z-index: 2;
 }
 
 /* --------------------------------------------------------------------------
@@ -42,22 +136,26 @@
    -------------------------------------------------------------------------- */
 
 .bp-nav {
+  --nav-bg:         var(--color-bg);
+  --nav-blur:       var(--blur-md);
+  --nav-border:     var(--color-border);
+  --nav-link-color: var(--color-text-secondary);
+
   position: sticky;
   top: 0;
   z-index: var(--bp-z-sticky);
   width: 100%;
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  background-color: color-mix(in srgb, var(--nav-bg) 85%, transparent);
+  border-bottom: var(--border-width) var(--border-style) var(--nav-border);
+  backdrop-filter: blur(var(--nav-blur));
+  -webkit-backdrop-filter: blur(var(--nav-blur));
 }
 
 .bp-nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: var(--nav-height, 64px);
   gap: var(--bp-space-8);
 }
 
@@ -84,7 +182,7 @@
 .bp-nav-link {
   font-size: var(--bp-text-sm);
   font-weight: var(--bp-font-medium);
-  color: var(--color-text-secondary);
+  color: var(--nav-link-color);
   padding: var(--bp-space-2) var(--bp-space-3);
   border-radius: var(--radius);
   transition: var(--bp-transition-fast);
@@ -112,17 +210,21 @@
    -------------------------------------------------------------------------- */
 
 .bp-btn {
+  --btn-radius:      var(--radius);
+  --btn-font:        var(--font-body);
+  --btn-font-weight: var(--bp-font-medium);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--bp-space-2);
-  font-family: var(--font-body);
+  font-family: var(--btn-font);
   font-size: var(--bp-text-sm);
-  font-weight: var(--bp-font-medium);
+  font-weight: var(--btn-font-weight);
   line-height: 1;
   white-space: nowrap;
-  border: 1px solid transparent;
-  border-radius: var(--radius);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--btn-radius);
   cursor: pointer;
   transition: var(--bp-transition-smooth);
   text-decoration: none;
@@ -130,24 +232,24 @@
   user-select: none;
 
   /* Default size */
-  height: 40px;
+  height: var(--btn-height-md);
   padding: 0 var(--bp-space-5);
 }
 
 .bp-btn:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .bp-btn:disabled {
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 
 /* Primary */
 .bp-btn-primary {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   border-color: var(--color-primary);
 }
 
@@ -156,7 +258,7 @@
   border-color: var(--color-primary-hover);
   box-shadow: var(--bp-shadow-glow);
   transform: translateY(-1px);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 .bp-btn-primary:active {
@@ -204,37 +306,37 @@
 /* Destructive */
 .bp-btn-destructive {
   background-color: var(--bp-error);
-  color: #ffffff;
+  color: var(--color-on-primary);
   border-color: var(--bp-error);
 }
 
 .bp-btn-destructive:hover {
   background-color: color-mix(in srgb, var(--bp-error) 85%, black);
   transform: translateY(-1px);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 /* Sizes */
 .bp-btn-xs {
-  height: 28px;
+  height: var(--btn-height-xs);
   padding: 0 var(--bp-space-3);
   font-size: var(--bp-text-xs);
 }
 
 .bp-btn-sm {
-  height: 34px;
+  height: var(--btn-height-sm);
   padding: 0 var(--bp-space-4);
   font-size: var(--bp-text-sm);
 }
 
 .bp-btn-lg {
-  height: 48px;
+  height: var(--btn-height-lg);
   padding: 0 var(--bp-space-8);
   font-size: var(--bp-text-base);
 }
 
 .bp-btn-xl {
-  height: 56px;
+  height: var(--btn-height-xl);
   padding: 0 var(--bp-space-10);
   font-size: var(--bp-text-lg);
   font-weight: var(--bp-font-semibold);
@@ -253,13 +355,17 @@
    -------------------------------------------------------------------------- */
 
 .bp-card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--bp-radius-lg);
-  padding: var(--bp-space-6);
+  --card-bg:           var(--color-surface);
+  --card-radius:       var(--bp-radius-lg);
+  --card-border-color: var(--color-border);
+  --card-shadow:       var(--bp-shadow-sm);
+
+  background-color: var(--card-bg);
+  border: var(--border-width) var(--border-style) var(--card-border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
   transition: var(--bp-transition-smooth);
-  box-shadow: var(--bp-shadow-sm);
-  box-shadow: var(--bp-shadow-inset), var(--bp-shadow-sm);
+  box-shadow: var(--bp-shadow-inset), var(--card-shadow);
 }
 
 .bp-card-hover:hover {
@@ -294,7 +400,7 @@
 .bp-card-footer {
   margin-top: var(--bp-space-5);
   padding-top: var(--bp-space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: var(--border-width) var(--border-style) var(--color-border);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -315,11 +421,65 @@
   width: 48px;
   height: 48px;
   background-color: var(--color-primary-subtle);
-  border: 1px solid var(--color-primary);
+  border: var(--border-width) var(--border-style) var(--color-primary);
   border-radius: var(--bp-radius-lg);
   color: var(--color-primary);
   flex-shrink: 0;
 }
+
+/* Media card — card with an image/video/SVG flush to the top edge.
+   The media area inherits the card's border-radius at the top corners.
+   Content slots (header, body, footer) retain normal horizontal padding. */
+.bp-card-media {
+  padding: 0;
+  overflow: hidden;
+}
+
+.bp-card-media .bp-media {
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+
+.bp-card-media > .bp-card-header,
+.bp-card-media > .bp-card-body,
+.bp-card-media > .bp-card-footer {
+  padding-left: var(--bp-space-6);
+  padding-right: var(--bp-space-6);
+}
+
+.bp-card-media > .bp-card-header { padding-top: var(--bp-space-5); }
+.bp-card-media > .bp-card-footer { padding-bottom: var(--bp-space-5); }
+
+/* --------------------------------------------------------------------------
+   MEDIA
+   Aspect-ratio-locked wrapper for <img>, <video>, and <svg>.
+   Think of it as a picture frame: you pick the frame shape (aspect ratio),
+   and the content scales to fill it — cropping edges rather than leaving gaps.
+   Set the ratio class on the wrapper; put the <img> directly inside.
+   -------------------------------------------------------------------------- */
+
+.bp-media {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+
+.bp-media > img,
+.bp-media > video,
+.bp-media > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bp-media-16-9 { aspect-ratio: 16 / 9; }
+.bp-media-4-3  { aspect-ratio: 4 / 3; }
+.bp-media-3-2  { aspect-ratio: 3 / 2; }
+.bp-media-1-1  { aspect-ratio: 1 / 1; }
+.bp-media-3-4  { aspect-ratio: 3 / 4; }
+.bp-media-2-3  { aspect-ratio: 2 / 3; }
+.bp-media-21-9 { aspect-ratio: 21 / 9; }
 
 /* --------------------------------------------------------------------------
    HERO
@@ -348,7 +508,7 @@
   text-transform: uppercase;
   color: var(--color-primary);
   background-color: var(--color-primary-subtle);
-  border: 1px solid var(--color-primary);
+  border: var(--border-width) var(--border-style) var(--color-primary);
   border-radius: var(--bp-radius-full);
   padding: var(--bp-space-1) var(--bp-space-4);
   margin-bottom: var(--bp-space-6);
@@ -360,7 +520,7 @@
   letter-spacing: var(--bp-tracking-tight);
   line-height: 1.1;
   color: var(--color-text);
-  max-width: 800px;
+  max-width: var(--hero-title-max-width);
   margin-bottom: var(--bp-space-6);
 }
 
@@ -368,7 +528,7 @@
   font-size: clamp(var(--bp-text-base), 2vw, var(--bp-text-xl));
   color: var(--color-text-secondary);
   line-height: var(--bp-leading-relaxed);
-  max-width: 600px;
+  max-width: var(--hero-subtitle-max-width);
   margin-bottom: var(--bp-space-10);
 }
 
@@ -394,7 +554,7 @@
 
 .bp-section-header {
   text-align: center;
-  max-width: 640px;
+  max-width: var(--section-header-max-width);
   margin: 0 auto var(--bp-space-16);
 }
 
@@ -428,22 +588,90 @@
 
 .bp-grid {
   display: grid;
-  gap: var(--bp-space-6);
+  gap: var(--grid-gap);
 }
 
 .bp-grid-2 { grid-template-columns: repeat(2, 1fr); }
 .bp-grid-3 { grid-template-columns: repeat(3, 1fr); }
 .bp-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.bp-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.bp-grid-6 { grid-template-columns: repeat(6, 1fr); }
 
 @media (max-width: 1024px) {
   .bp-grid-4 { grid-template-columns: repeat(2, 1fr); }
   .bp-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .bp-grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .bp-grid-6 { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 640px) {
   .bp-grid-2,
   .bp-grid-3,
   .bp-grid-4 { grid-template-columns: 1fr; }
+  .bp-grid-5,
+  .bp-grid-6 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Asymmetric split layouts — two-column grids with intentional ratio
+   These cover the layouts that equal-column grids cannot: hero splits,
+   editorial 40/60, sidebar+content, and portrait-format media pairs.
+   At mobile all splits collapse to a single column. */
+
+.bp-split        { display: grid; gap: var(--grid-gap); grid-template-columns: var(--split-ratio, 1fr 1fr); }
+.bp-split-40-60  { grid-template-columns: 2fr 3fr; }
+.bp-split-60-40  { grid-template-columns: 3fr 2fr; }
+.bp-split-33-67  { grid-template-columns: 1fr 2fr; }
+.bp-split-67-33  { grid-template-columns: 2fr 1fr; }
+.bp-split-25-75  { grid-template-columns: 1fr 3fr; }
+.bp-split-75-25  { grid-template-columns: 3fr 1fr; }
+
+@media (max-width: 768px) {
+  .bp-split-40-60,
+  .bp-split-60-40,
+  .bp-split-33-67,
+  .bp-split-67-33,
+  .bp-split-25-75,
+  .bp-split-75-25 { grid-template-columns: 1fr; }
+}
+
+/* Gatefold spread — three panels in a 28 : 44 : 28 ratio, separated by
+   hairline borders with zero gap. Models the structure of a record sleeve,
+   a newspaper spread, or a physical fold: the wide center panel is the
+   narrative axis; the two flanks carry supporting material.
+   Panels have generous internal padding; border provides the visual gutter. */
+.bp-spread-3 {
+  display: grid;
+  grid-template-columns: 28fr 44fr 28fr;
+  gap: 0;
+}
+
+.bp-spread-3 > * {
+  padding: var(--bp-space-12);
+}
+
+.bp-spread-3 > *:not(:last-child) {
+  border-right: var(--border-width) var(--border-style) var(--color-border);
+}
+
+@media (max-width: 1024px) {
+  .bp-spread-3 { grid-template-columns: 1fr 2fr; }
+  .bp-spread-3 > *:last-child {
+    grid-column: 1 / -1;
+    border-top: var(--border-width) var(--border-style) var(--color-border);
+    border-right: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .bp-spread-3 { grid-template-columns: 1fr; }
+  .bp-spread-3 > *:not(:last-child) {
+    border-right: none;
+    border-bottom: var(--border-width) var(--border-style) var(--color-border);
+  }
+  .bp-spread-3 > *:last-child {
+    grid-column: auto;
+    border-top: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -472,10 +700,14 @@
 .bp-input,
 .bp-textarea,
 .bp-select {
+  --input-bg:     var(--color-surface);
+  --input-radius: var(--radius);
+  --input-border: var(--color-border);
+
   width: 100%;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  background-color: var(--input-bg);
+  border: var(--border-width) var(--border-style) var(--input-border);
+  border-radius: var(--input-radius);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: var(--bp-text-sm);
@@ -485,7 +717,7 @@
 
 .bp-input,
 .bp-select {
-  height: 40px;
+  height: var(--input-height);
   padding: 0 var(--bp-space-3);
 }
 
@@ -534,7 +766,7 @@
 .bp-textarea {
   padding: var(--bp-space-3);
   resize: vertical;
-  min-height: 100px;
+  min-height: var(--textarea-min-height);
   line-height: var(--bp-leading-relaxed);
 }
 
@@ -553,7 +785,7 @@
 .bp-input:disabled,
 .bp-textarea:disabled,
 .bp-select:disabled {
-  opacity: 0.5;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
@@ -602,10 +834,101 @@
 }
 
 /* --------------------------------------------------------------------------
+   INPUT COMPOSE
+   Flex shell for a grow-in-place textarea + send action button.
+   Used for chat inputs, comment boxes, and any "compose and submit" pattern.
+
+   Structure:
+     .bp-input-compose              — outer shell (border, shadow, radius)
+     .bp-input-compose-field       — bare textarea (no own border or bg)
+     .bp-input-compose-action      — send/submit button (dim until enabled)
+
+   Auto-resize (2 lines of JS, copy-paste into your script):
+     field.addEventListener('input', () => {
+       field.style.height = 'auto';
+       field.style.height = Math.min(field.scrollHeight, 200) + 'px';
+     });
+   The field grows upward while the action button stays vertically centered.
+   -------------------------------------------------------------------------- */
+
+.bp-input-compose {
+  display: flex;
+  align-items: center;
+  gap: var(--bp-space-2);
+  background-color: var(--color-surface);
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-radius: var(--bp-radius-2xl);
+  padding: var(--bp-space-3) var(--bp-space-3) var(--bp-space-3) var(--bp-space-4);
+  box-shadow: var(--bp-shadow-sm);
+  transition: var(--bp-transition-fast);
+}
+
+.bp-input-compose:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: var(--bp-shadow-sm), 0 0 0 3px var(--color-primary-subtle);
+}
+
+.bp-input-compose-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--bp-text-sm);
+  line-height: var(--bp-leading-relaxed);
+  resize: none;
+  min-height: 22px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.bp-input-compose-field::placeholder {
+  color: var(--color-text-muted);
+}
+
+.bp-input-compose-action {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--bp-radius-lg);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: var(--bp-transition-fast);
+  opacity: var(--opacity-idle);
+}
+
+.bp-input-compose-action:not(:disabled) {
+  opacity: 1;
+}
+
+.bp-input-compose-action:not(:disabled):hover {
+  transform: scale(1.08);
+  box-shadow: var(--bp-shadow-glow);
+}
+
+.bp-input-compose-action:not(:disabled):active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+.bp-input-compose-action:disabled {
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
    BADGES
    -------------------------------------------------------------------------- */
 
 .bp-badge {
+  --badge-radius: var(--bp-radius-sm);
+
   display: inline-flex;
   align-items: center;
   gap: var(--bp-space-1);
@@ -614,9 +937,9 @@
   font-weight: var(--bp-font-medium);
   letter-spacing: var(--bp-tracking-wide);
   padding: var(--bp-space-1) var(--bp-space-2);
-  border-radius: var(--bp-radius-sm);
+  border-radius: var(--badge-radius);
   white-space: nowrap;
-  border: 1px solid transparent;
+  border: var(--border-width) solid transparent;
 }
 
 .bp-badge-default {
@@ -664,7 +987,7 @@
   gap: var(--bp-space-3);
   padding: var(--bp-space-4);
   border-radius: var(--bp-radius-lg);
-  border: 1px solid;
+  border: var(--border-width) var(--border-style);
   font-size: var(--bp-text-sm);
   line-height: var(--bp-leading-relaxed);
 }
@@ -714,7 +1037,7 @@
 .bp-pricing-card {
   position: relative;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--bp-radius-xl);
   padding: var(--bp-space-8);
   display: flex;
@@ -830,7 +1153,7 @@
   font-size: var(--bp-text-sm);
   overflow: hidden;
   flex-shrink: 0;
-  border: 1px solid var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-border);
 }
 
 .bp-avatar-sm  { width: 32px;  height: 32px;  font-size: var(--bp-text-xs); }
@@ -884,7 +1207,7 @@
 .bp-table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border: 1px solid var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--bp-radius-lg);
 }
 
@@ -896,7 +1219,7 @@
 
 .bp-table thead tr {
   background-color: var(--bp-bg-elevated);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: var(--border-width) var(--border-style) var(--color-border);
 }
 
 .bp-table th {
@@ -914,7 +1237,7 @@
 .bp-table td {
   padding: var(--bp-space-3) var(--bp-space-4);
   color: var(--color-text-secondary);
-  border-bottom: 1px solid var(--bp-border-subtle);
+  border-bottom: var(--border-width) var(--border-style) var(--bp-border-subtle);
 }
 
 .bp-table tbody tr:last-child td {
@@ -931,7 +1254,7 @@
 
 .bp-testimonial {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--bp-radius-xl);
   padding: var(--bp-space-6);
   display: flex;
@@ -970,10 +1293,13 @@
    -------------------------------------------------------------------------- */
 
 .bp-overlay {
+  --overlay-blur: var(--blur-sm);
+
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background-color: var(--overlay-bg);
+  backdrop-filter: blur(var(--overlay-blur));
+  -webkit-backdrop-filter: blur(var(--overlay-blur));
   z-index: var(--bp-z-overlay);
   display: flex;
   align-items: center;
@@ -982,13 +1308,16 @@
 }
 
 .bp-modal {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--bp-radius-xl);
+  --modal-bg:     var(--color-surface);
+  --modal-radius: var(--bp-radius-xl);
+
+  background-color: var(--modal-bg);
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-radius: var(--modal-radius);
   box-shadow: var(--bp-shadow-lg);
   width: 100%;
-  max-width: 520px;
-  max-height: 90vh;
+  max-width: var(--modal-max-width);
+  max-height: var(--modal-max-height);
   overflow-y: auto;
   z-index: var(--bp-z-modal);
 }
@@ -998,7 +1327,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--bp-space-5) var(--bp-space-6);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: var(--border-width) var(--border-style) var(--color-border);
 }
 
 .bp-modal-title {
@@ -1013,7 +1342,7 @@
 
 .bp-modal-footer {
   padding: var(--bp-space-4) var(--bp-space-6);
-  border-top: 1px solid var(--color-border);
+  border-top: var(--border-width) var(--border-style) var(--color-border);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -1032,7 +1361,7 @@
   flex-direction: column;
   gap: var(--bp-space-3);
   z-index: var(--bp-z-toast);
-  max-width: 380px;
+  max-width: var(--toast-max-width);
   width: 100%;
 }
 
@@ -1041,7 +1370,7 @@
   align-items: flex-start;
   gap: var(--bp-space-3);
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--bp-radius-lg);
   padding: var(--bp-space-4);
   box-shadow: var(--bp-shadow-lg);
@@ -1057,7 +1386,11 @@
    -------------------------------------------------------------------------- */
 
 .bp-footer {
-  border-top: 1px solid var(--color-border);
+  --footer-bg:     transparent;
+  --footer-border: var(--color-border);
+
+  background-color: var(--footer-bg);
+  border-top: var(--border-width) var(--border-style) var(--footer-border);
   padding: var(--bp-space-12) 0 var(--bp-space-8);
   margin-top: auto;
 }
@@ -1126,7 +1459,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: var(--bp-space-8);
-  border-top: 1px solid var(--color-border);
+  border-top: var(--border-width) var(--border-style) var(--color-border);
   gap: var(--bp-space-4);
   flex-wrap: wrap;
 }
@@ -1147,10 +1480,13 @@
 }
 
 .bp-sidebar {
-  width: 256px;
+  --sidebar-bg:     var(--color-bg-secondary);
+  --sidebar-border: var(--color-border);
+
+  width: var(--sidebar-width, 256px);
   flex-shrink: 0;
-  background-color: var(--bp-bg-secondary);
-  border-right: 1px solid var(--color-border);
+  background-color: var(--sidebar-bg);
+  border-right: var(--border-width) var(--border-style) var(--sidebar-border);
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -1161,7 +1497,7 @@
 
 .bp-sidebar-header {
   padding: var(--bp-space-5) var(--bp-space-5) var(--bp-space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: var(--border-width) var(--border-style) var(--color-border);
 }
 
 .bp-sidebar-nav {
@@ -1193,7 +1529,7 @@
   transition: var(--bp-transition-fast);
   cursor: pointer;
   text-decoration: none;
-  border: 1px solid transparent;
+  border: var(--border-width) solid transparent;
 }
 
 .bp-sidebar-item:hover {
@@ -1224,9 +1560,227 @@
    Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
 */
 .bp-animate {
-  --bp-transition-fast:   all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  --bp-transition-base:   all 0.3s  cubic-bezier(0.34, 1.56, 0.64, 1);
-  --bp-transition-smooth: all 0.4s  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bp-transition-fast:   all 0.25s var(--easing-bounce);
+  --bp-transition-base:   all 0.3s  var(--easing-bounce);
+  --bp-transition-smooth: all 0.4s  var(--easing-bounce);
+}
+
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY VOICES
+   Three named typographic registers that go beyond size. They answer the
+   question "what role is this text playing?" — not "how big is it?"
+   Combine with bp-text-{size} utilities to set scale independently of voice.
+   -------------------------------------------------------------------------- */
+
+/* Functional label — monospace, caps, wide tracking.
+   Use for field labels, section headers in dense panels, spec metadata.
+   Reads like a blueprint annotation or a film credit. */
+.bp-text-label {
+  font-family: var(--font-mono);
+  font-size: var(--bp-text-xs);
+  font-weight: var(--bp-font-medium);
+  letter-spacing: var(--bp-tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Editorial voice — serif italic.
+   Use for pull quotes, liner notes, long-form captions, or any narrative
+   text that needs to feel like it was set in print rather than on screen. */
+.bp-text-editorial {
+  font-family: var(--font-heading);
+  font-style: italic;
+  line-height: var(--bp-leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+/* Identity voice — bold display, tight tracking.
+   Use for brand wordmarks, large callouts, and hero numerals that anchor
+   a composition. This is the voice that owns the most visual weight. */
+.bp-text-identity {
+  font-family: var(--font-heading);
+  font-weight: var(--bp-font-bold);
+  letter-spacing: var(--bp-tracking-tight);
+  line-height: 1.1;
+  color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   CHIPS / TAGS
+   Inline pill labels for attributes, categories, flavors, status, or any
+   small piece of metadata that belongs in-line with text or inside a card.
+   Use bp-chip as the base; add semantic modifier classes for color variants.
+   -------------------------------------------------------------------------- */
+
+.bp-chip {
+  --chip-radius: var(--bp-radius-full);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bp-space-1);
+  padding: var(--bp-space-1) var(--bp-space-3);
+  border-radius: var(--chip-radius);
+  font-size: var(--bp-text-xs);
+  font-weight: var(--bp-font-medium);
+  letter-spacing: var(--bp-tracking-wide);
+  line-height: 1;
+  white-space: nowrap;
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  border: var(--border-width) solid transparent;
+}
+
+.bp-chip-outline {
+  background-color: transparent;
+  border-color: currentColor;
+}
+
+.bp-chip-muted {
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
+}
+
+.bp-chip-success {
+  background-color: var(--color-success-subtle, color-mix(in srgb, var(--color-success) 12%, transparent));
+  color: var(--color-success);
+}
+
+.bp-chip-warning {
+  background-color: var(--color-warning-subtle, color-mix(in srgb, var(--color-warning) 12%, transparent));
+  color: var(--color-warning);
+}
+
+.bp-chip-danger {
+  background-color: var(--color-danger-subtle, color-mix(in srgb, var(--color-danger) 12%, transparent));
+  color: var(--color-danger);
+}
+
+/* Chip group — wrapping row of chips with consistent gap */
+.bp-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bp-space-2);
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   STEPS
+   Numbered process steps. Large background numerals create visual rhythm;
+   content floats above them. Works for 2–6 steps. At mobile, collapses to
+   a single-column stacked list.
+   -------------------------------------------------------------------------- */
+
+.bp-steps {
+  display: grid;
+  gap: var(--bp-space-8);
+}
+
+.bp-steps-3 { grid-template-columns: repeat(3, 1fr); }
+.bp-steps-4 { grid-template-columns: repeat(4, 1fr); }
+
+.bp-step {
+  position: relative;
+  padding-top: var(--bp-space-10);
+  border-top: 2px solid var(--color-primary);
+}
+
+/* Large background numeral — pure CSS, no extra markup */
+.bp-step::before {
+  content: attr(data-step);
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: var(--bp-font-bold);
+  font-family: var(--font-heading);
+  line-height: 1;
+  color: var(--color-primary);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+
+.bp-step-number {
+  font-size: var(--bp-text-xs);
+  font-family: var(--font-mono);
+  letter-spacing: var(--bp-tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--bp-space-3);
+}
+
+.bp-step-title {
+  font-size: var(--bp-text-lg);
+  font-weight: var(--bp-font-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--bp-space-2);
+}
+
+.bp-step-body {
+  font-size: var(--bp-text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--bp-leading-relaxed);
+}
+
+@media (max-width: 768px) {
+  .bp-steps-3,
+  .bp-steps-4 { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   FACT LIST
+   Label-left / value-right rows separated by hairline rules.
+   Used for studio credentials, product specs, film credits, legal disclosures —
+   any tightly structured key-value information that shouldn't look like a table.
+   -------------------------------------------------------------------------- */
+
+.bp-fact-list {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--border-width) var(--border-style) var(--color-border);
+}
+
+.bp-fact {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--bp-space-4);
+  padding: var(--bp-space-3) 0;
+  border-bottom: var(--border-width) var(--border-style) var(--color-border);
+  align-items: baseline;
+}
+
+.bp-fact-label {
+  font-size: var(--bp-text-xs);
+  font-family: var(--font-mono);
+  letter-spacing: var(--bp-tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.bp-fact-value {
+  font-size: var(--bp-text-sm);
+  color: var(--color-text);
+}
+
+/* Compact variant — tighter rows for dense specs panels */
+.bp-fact-list-sm .bp-fact {
+  padding: var(--bp-space-2) 0;
+}
+.bp-fact-list-sm .bp-fact-value {
+  font-size: var(--bp-text-xs);
+}
+
+/* Wider label column for long labels (default 1fr 2fr → becomes 2fr 3fr) */
+.bp-fact-list-wide-label .bp-fact {
+  grid-template-columns: 2fr 3fr;
+}
+
+@media (max-width: 480px) {
+  .bp-fact {
+    grid-template-columns: 1fr;
+    gap: var(--bp-space-1);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1275,7 +1829,7 @@
    Apply bp-skeleton to inner children for the shimmer effect. */
 .bp-skeleton-card {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--bp-radius-lg);
   padding: var(--bp-space-6);
   box-shadow: var(--bp-shadow-inset), var(--bp-shadow-sm);

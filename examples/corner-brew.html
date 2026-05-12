@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light" data-bp-motion="draw">
+<!--
+  CORNER BREW — Landing Page
+  A warm minimalist coffee shop in Brooklyn. The antidote to Starbucks.
+  Built on The Point design system + corner-brew-brand.css
+
+  Layout word: journal-sequential
+  Image strategy: photograph
+    Hero:       coffee,brooklyn,cafe — seed 1
+    The Space:  coffee,interior,minimalist — seed 2
+    The Drinks: espresso,cortado,barista — seed 3
+    Find Us:    brooklyn,street,morning — seed 4
+
+  Page structure:
+  Nav      — brand name left, 3 text links right (no CTA button — this is a café)
+  Hero     — full-bleed Brooklyn café photograph, caption bottom-left
+  Intro    — centered narrow text: the shop's reason for being
+  Space    — full-width interior photo interlude
+  Drinks   — image left / menu text right (the journal-sequential pair)
+  Find Us  — full-bleed street photo with address anchored bottom-left
+  Footer   — brand, hours, copyright
+
+  No feature grid. No pricing section. No "get started" CTA.
+  The page is an invitation to walk in.
+
+  Mood file suggestion: amber.css — closest mood to this direction.
+  Load it between index.css and corner-brew-brand.css if you want
+  a pre-built amber primary as a starting point (brand.css overrides it).
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corner Brew — Brooklyn Coffee</title>
+  <meta name="description" content="[Meta: one sentence about Corner Brew — what it is and where it is in Brooklyn]">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./corner-brew-brand.css">
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       NAV — Minimal sticky. Brand name left. Three neighborhood links right.
+       No CTA button — people don't "sign up" to visit a coffee shop.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <nav class="cb-nav" aria-label="Site navigation">
+    <a href="#" class="cb-nav-brand">Corner Brew</a>
+    <ul class="cb-nav-links">
+      <li><a href="#drinks" class="cb-nav-link">[Nav: menu]</a></li>
+      <li><a href="#space" class="cb-nav-link">[Nav: the space]</a></li>
+      <li><a href="#find-us" class="cb-nav-link">[Nav: find us]</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       HERO — Full-bleed Brooklyn café photograph.
+       The caption sits at the bottom-left like a sign on a door.
+       Photo: coffee,brooklyn,cafe — seed 1
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="cb-hero" aria-label="Corner Brew coffee shop, Brooklyn">
+
+    <div class="cb-hero-image" role="img" aria-label="Inside Corner Brew — morning light through the windows"></div>
+
+    <div class="cb-hero-caption">
+      <span class="cb-hero-eyebrow">[Eyebrow: neighborhood · Brooklyn]</span>
+      <h1 class="cb-hero-title">[Hero headline]</h1>
+      <p class="cb-hero-sub">[Hero subtitle — one sentence, conversational, what kind of morning this place makes possible]</p>
+      <a href="#find-us" class="bp-btn bp-btn-primary bp-btn-lg">[CTA: find us]</a>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       INTRO — Centered narrow text. The shop's reason for existing.
+       This is the journal-sequential text block after the first image.
+       Not a mission statement — a feeling, in two short paragraphs.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="cb-intro" aria-label="About Corner Brew">
+    <div class="cb-intro-inner">
+      <span class="cb-section-label">[Eyebrow label: the short version]</span>
+      <h2 class="cb-section-heading">[Section title — what this place is about, not a tagline]</h2>
+      <p class="cb-section-body">[First paragraph — what Corner Brew is and why it exists. Two to three sentences. Specific. No "community" or "craft." Something true about this particular corner of Brooklyn.]</p>
+      <p class="cb-section-body">[Second paragraph — optional. What a regular morning here looks like. Make the person reading it feel the light.]</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       THE SPACE — Full-width interior photograph.
+       The image tells the story; no text needed over it.
+       Photo: coffee,interior,minimalist — seed 2
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section id="space" class="cb-space-photo" aria-label="The Corner Brew interior">
+    <div class="cb-space-photo-image" role="img" aria-label="The Corner Brew space — warm light, light wood, white walls"></div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       THE DRINKS — Image left / menu text right.
+       This is the journal-sequential second pair: image introduces the
+       section, text follows on the right with a short menu list.
+       Photo: espresso,cortado,barista — seed 3
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section id="drinks" class="cb-drinks" aria-label="The drinks menu">
+
+    <!-- Left: photograph of the drinks -->
+    <div class="cb-drinks-image" role="img" aria-label="An espresso cortado on a ceramic saucer">
+      <div class="cb-drinks-image-bg"></div>
+    </div>
+
+    <!-- Right: the drink list -->
+    <div class="cb-drinks-text">
+      <span class="cb-section-label">[Eyebrow label: on the board]</span>
+      <h2 class="cb-section-heading">[Section title — what we make here, in plain language]</h2>
+      <p class="cb-section-body">[One short sentence: the coffee philosophy. Origin of beans or roasting approach — one specific fact, not a category.]</p>
+
+      <ul class="cb-drinks-list" aria-label="Menu">
+        <li class="cb-drinks-item">
+          <span>[Drink 1 name]</span>
+          <span class="cb-drinks-item-price">[price]</span>
+        </li>
+        <li class="cb-drinks-item">
+          <span>[Drink 2 name]</span>
+          <span class="cb-drinks-item-price">[price]</span>
+        </li>
+        <li class="cb-drinks-item">
+          <span>[Drink 3 name]</span>
+          <span class="cb-drinks-item-price">[price]</span>
+        </li>
+        <li class="cb-drinks-item">
+          <span>[Drink 4 name]</span>
+          <span class="cb-drinks-item-price">[price]</span>
+        </li>
+        <li class="cb-drinks-item">
+          <span>[Drink 5 name]</span>
+          <span class="cb-drinks-item-price">[price]</span>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       FIND US — Full-bleed Brooklyn street photograph.
+       The address is anchored bottom-left — the same position as the hero
+       caption, creating a visual echo: first you saw inside, now you
+       see outside.
+       Photo: brooklyn,street,morning — seed 4
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section id="find-us" class="cb-find-us" aria-label="Find Corner Brew in Brooklyn">
+
+    <div class="cb-find-us-image" role="img" aria-label="[Street name and neighborhood, Brooklyn] on a quiet morning"></div>
+
+    <div class="cb-find-us-block">
+      <h2 class="cb-address-name">Corner Brew</h2>
+      <address class="cb-address-detail">
+        [Street address]<br>
+        Brooklyn, NY [zip]
+      </address>
+      <address class="cb-address-detail">
+        [Hours: weekdays]<br>
+        [Hours: weekends]
+      </address>
+      <a href="[maps link]" class="bp-btn bp-btn-outline bp-btn-sm" target="_blank" rel="noopener">
+        [CTA: get directions]
+      </a>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       FOOTER — Brand name left. Hours + tagline right.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <footer class="cb-footer" aria-label="Footer">
+    <div>
+      <div class="cb-footer-brand">Corner Brew</div>
+    </div>
+    <div class="cb-footer-meta">
+      <div>[Hours summary — two lines]</div>
+      <div class="cb-footer-tagline">[Footer tagline — one line, the neighborhood voice, not a slogan]</div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<!--
+  MULINO DI SALE — Landing Page
+  Sea salt operation, Stagnone Lagoon, Marsala, Sicily. Est. 1847.
+  Built on The Point design system + mulino-di-sale-brand.css
+
+  Layout word: editorial-alternating
+  Image strategy: photograph (gradient placeholders, Stagnone/Sicily keywords)
+
+  Page structure:
+  Header   — wordmark left, coordinates right
+  Block 1  — MARK: full-bleed lagoon image, brand name at base
+  Block 2  — ORIGIN: text left / windmill image right (alt 1)
+  Block 3  — WATER: full-width cinematic band, the color change sentence
+  Block 4  — SALT: harvest image left / text right (alt 2)
+  Block 5  — PROVENANCE: centered fact list — the complete specification
+  Block 6  — THE JAR: centered product, lot data
+  Close    — address, inquiry link, production note
+
+  No nav bar. No feature grid. One text-link CTA at the close.
+  Every sentence is a fact.
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mulino di Sale — Stagnone Lagoon, Marsala, Sicily</title>
+  <meta name="description" content="Sea salt from the Stagnone Lagoon, Marsala, Sicily. Hand-raked, sun-dried, packed in terracotta. Family operation since 1847.">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./mulino-di-sale-brand.css">
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       HEADER — Wordmark left. Coordinates right.
+       No navigation. No button. This is not a site you scroll through
+       looking for a pricing page.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <header class="mds-header">
+    <a href="#" class="mds-wordmark">Mulino di Sale</a>
+    <span class="mds-header-meta">37°51′N 12°25′E &nbsp;·&nbsp; Est. 1847</span>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 1 — MARK
+       The full-bleed lagoon. The brand name reads like a label applied
+       to the landscape. Pink salt pans going copper in afternoon light.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="mds-mark" aria-label="Stagnone Lagoon, the salt pans">
+
+    <div class="mds-mark-image"></div>
+
+    <div class="mds-mark-caption">
+      <h1 class="mds-mark-name">Mulino di Sale</h1>
+      <p class="mds-mark-subtitle">
+        Stagnone Lagoon &nbsp;·&nbsp; Marsala, Sicily &nbsp;·&nbsp; Since 1847
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 2 — ORIGIN (editorial-alternating: text left / image right)
+       The facts about the place. Two short paragraphs. No superlatives.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="mds-origin" aria-label="The windmill and the lagoon">
+
+    <!-- Text column — left -->
+    <div class="mds-origin-text">
+      <span class="mds-eyebrow">Origin</span>
+
+      <h2 class="mds-heading">[Origin heading]</h2>
+
+      <p class="mds-body">
+        [The Stagnone Lagoon paragraph — physical facts about the location:
+        the shallow depth that concentrates salt, the microalgae that color
+        the water pink-rose, the flamingos. Declarative. No adjective that
+        could appear in a Morton's press release.]
+      </p>
+
+      <p class="mds-body">
+        [The windmill paragraph — the 1700s stone windmills that still pump
+        water between pans. One sentence about how that system works.
+        One sentence about what that means for the salt.]
+      </p>
+    </div>
+
+    <!-- Image column — right: windmill in afternoon light -->
+    <div class="mds-origin-image" aria-hidden="true">
+      <div class="mds-origin-gradient"></div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 3 — THE WATER
+       A full-width cinematic band. The single most specific visual fact
+       about this place: the water goes from pink to copper to violet.
+       One sentence. No headline. No label.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="mds-water" aria-label="The lagoon at late afternoon">
+
+    <div class="mds-water-image"></div>
+
+    <div class="mds-water-text">
+      <p class="mds-water-sentence">
+        [The one specific sentence about the afternoon light — pink to copper
+        to violet. What the water looks like at 5pm. Written the way you
+        would say it to a person who has never been to Sicily but should
+        understand exactly why the salt is different.]
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 4 — THE SALT (editorial-alternating: image left / text right)
+       What the harvest actually is. Hand-raked. Sun-dried pyramids.
+       The image shows the salt and the pan. The text explains the work.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="mds-salt" aria-label="The salt harvest">
+
+    <!-- Image column — left: salt pyramids being raked -->
+    <div class="mds-salt-image" aria-hidden="true">
+      <div class="mds-salt-gradient"></div>
+    </div>
+
+    <!-- Text column — right -->
+    <div class="mds-salt-text">
+      <span class="mds-eyebrow">The Salt</span>
+
+      <h2 class="mds-heading">[Salt heading]</h2>
+
+      <p class="mds-body">
+        [The raking paragraph — the hand-raking process, the timing, when
+        the crust is ready, how the pyramids form. The fact that this is
+        timed by reading the pan, not by calendar. Specific.]
+      </p>
+
+      <p class="mds-body">
+        [The drying paragraph — how sun-drying changes the mineral structure
+        versus kiln-drying. One concrete claim about what that means for
+        a cook using it on a finished dish. Not "lovingly crafted" — a
+        specific mineral fact that explains why this costs more than Morton's.]
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 5 — PROVENANCE
+       The complete specification. Every fact the buyer needs to know.
+       Presented the way a pharmaceutical label presents its facts: label
+       left, value right, no decoration, no narrative.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="mds-provenance-section" aria-label="Product specification">
+
+    <div class="mds-provenance-inner">
+
+      <div class="mds-provenance-header">
+        <span class="mds-eyebrow">Specification</span>
+        <h2 class="mds-heading" style="max-width: 26ch;">[Provenance heading — something like "What it is, exactly"]</h2>
+      </div>
+
+      <ul class="mds-fact-list">
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Origin</span>
+          <span class="mds-fact-value">Stagnone Lagoon, Marsala, Province of Trapani, Sicily</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Method</span>
+          <span class="mds-fact-value">Solar evaporation. Hand-raked. No mechanical processing.</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Harvest</span>
+          <span class="mds-fact-value">July–September, when evaporation outpaces replenishment</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Mineral content</span>
+          <span class="mds-fact-value">[Specific mineral composition — magnesium, calcium, etc. Exact figures.]</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Crystal size</span>
+          <span class="mds-fact-value">[Specific: medium-coarse finishing salt, 2–4mm crystals, or whatever is accurate]</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Container</span>
+          <span class="mds-fact-value">Unglazed terracotta, thrown locally. 250g, 500g, 1kg</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">No additives</span>
+          <span class="mds-fact-value">No anti-caking agents. No iodine added. Nothing added.</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Family</span>
+          <span class="mds-fact-value">[Family name — the specific people who have operated this since 1847]</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Production</span>
+          <span class="mds-fact-value">[Annual production figure — quantity that limits availability]</span>
+        </li>
+
+        <li class="mds-fact">
+          <span class="mds-fact-label">Certification</span>
+          <span class="mds-fact-value">[Slow Food Presidium, DOP status, or relevant certification — leave blank if none]</span>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 6 — THE JAR
+       The product isolated. The terracotta jar centered on the page.
+       Lot number. Size. Nothing else.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="mds-jar-section" aria-label="The terracotta jar">
+
+    <div class="mds-jar-image" role="img" aria-label="Unglazed terracotta jar, 500g"></div>
+
+    <div class="mds-jar-label-block">
+      <h2 class="mds-jar-name">Sale Marino</h2>
+      <div class="mds-jar-meta">
+        <span class="bp-block">Raccolta 2025 &nbsp;·&nbsp; Stagnone di Marsala</span>
+        <span class="bp-block">Terracotta non smaltata &nbsp;·&nbsp; 500g</span>
+        <span class="bp-block">[Available in 250g · 500g · 1kg]</span>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       CLOSE
+       Address. One inquiry link. A single production note — the last
+       thing the reader sees is the scarcest fact.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <footer class="mds-close">
+
+    <div class="mds-close-rule"></div>
+
+    <address class="mds-close-address">
+      Mulino di Sale<br>
+      Contrada Ettore Infersa<br>
+      Marsala (TP), Sicilia, Italia
+    </address>
+
+    <a href="mailto:[contact email]" class="mds-close-cta">
+      [Inquiry CTA — something like "Inquire about availability"] &nbsp;→
+    </a>
+
+    <p class="mds-close-footnote">
+      [Production note — annual tonnage or jar quantity, whatever is the most
+      reductive true fact about availability]
+    </p>
+
+  </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,316 @@
+/* ==========================================================================
+   HELIOCENE — Brand CSS
+   Architectural visualization films for luxury real estate development.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:   airy (--space-unit: 1.25rem) — credentials site, not a dashboard;
+              generous whitespace signals confidence, not desperation.
+
+   Weight:    light (300/300) — display-serif faces read as authoritative at 300;
+              heavier weights coarsen the letterforms. Body at 300 matches the
+              calm, considered register of the decision-maker reading it.
+
+   Tracking:  closed (-0.02em) — serifs need slightly tighter tracking at display
+              sizes to read as intentional rather than accidental.
+
+   Motion:    responsive (0.12s / 0.2s / 0.25s + cubic-bezier bounce) — fast
+              enough to feel engineered, the subtle bounce provides the warmth
+              the brief explicitly named. data-bp-motion="draw" omitted (not
+              theatrical; B2B rational decision-maker, not consumer).
+
+   Shape:     precise (--bp-radius-sm = 0.25rem) — not sharp (harsh), not
+              balanced (SaaS-generic). Precise reads like a drafting standard.
+
+   Depth:     elevated — light theme, warm cream bg; shadows are visible and
+              add the physical quality that luxury residential context earns.
+
+   Theme:     light — deliberate counter-positioning against every peer studio
+              running dark cinematic sites. The warm cream is the differentiation.
+              The override below replaces the cold blueprint blue-white with a
+              color temperature pulled from the films themselves.
+
+   Type:      display-serif (Cormorant Garamond) for hero headings only;
+              DM Serif Display for section titles (≥32px, stays readable at
+              lighter weights); Plus Jakarta Sans for all body copy (humanist
+              warmth at reading size, better than geometric for long paragraphs).
+
+   Tone:      precise — B2B decision-maker, $50–200K project, slow rational
+              comparison. Warmth is textural (color, serif) not vocal.
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   light + display-serif      → headings kept at display sizes (≥48px hero,
+                                 ≥32px section). Body uses humanist-sans. ✓
+   light + elevated           → shadows visible on cream. ✓
+   responsive + precise       → no conflict. ✓
+   light (300) + display-serif → 300 is the minimum for display-serif. ✓
+   airy + closed              → no conflict. ✓
+
+   PRIMARY COLOR
+   ─────────────
+   #8a6b47 — warm bronze, pulled from the color temperature of ARRI film stocks:
+   the amber-brown that warm halogen light casts on marble and travertine.
+   Not gold (too precious), not orange (too energetic), not tan (too neutral).
+   Bronze sits at the intersection of warmth and authority — it IS the color
+   of the interiors the camera is capturing.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary brand color ──────────────────────────────────────────────── */
+    /* ARRI film stock warmth: the color of halogen on marble and travertine   */
+    --color-primary:        #8a6b47;
+    --color-primary-hover:  #6e5237;
+    --color-primary-subtle: rgba(138, 107, 71, 0.08);
+    --color-primary-glow:   rgba(138, 107, 71, 0.18);
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    --font-heading:         'Cormorant Garamond', 'Georgia', serif;
+    --font-body:            'Plus Jakarta Sans', system-ui, sans-serif;
+
+    --font-weight-heading:  300;
+    --font-weight-body:     300;
+    --letter-spacing-heading: -0.02em;
+
+    /* ── Surfaces — warm cream, not cold blueprint blue-white ────────────── */
+    --color-bg:               #faf7f2;
+    --color-bg-secondary:     #f3ede4;
+    --color-surface:          #fffefb;
+    --color-surface-elevated: #f7f1e8;
+    --color-border:           #e2d8cc;
+
+    /* ── Text ────────────────────────────────────────────────────────────── */
+    --color-text:             #1a160f;
+    --color-text-secondary:   #4a3f33;
+    --color-text-muted:       #9c8c7a;
+    --color-text-accent:      #8a6b47;
+
+    /* ── Shape: precise ──────────────────────────────────────────────────── */
+    --radius:                 var(--bp-radius-sm);
+
+    /* ── Density: airy ───────────────────────────────────────────────────── */
+    --space-unit:             1.25rem;
+
+    /* ── Motion: responsive ──────────────────────────────────────────────── */
+    --duration-fast:          0.12s;
+    --duration-base:          0.2s;
+    --duration-slow:          0.25s;
+    --easing-bounce:          cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* ── Shadows: elevated (light mode, warm-tinted) ─────────────────────── */
+    --shadow-sm:   0 1px 3px rgba(26, 22, 15, 0.08), 0 1px 2px rgba(26, 22, 15, 0.05);
+    --shadow-md:   0 4px 16px rgba(26, 22, 15, 0.10), 0 2px 6px rgba(26, 22, 15, 0.06);
+    --shadow-lg:   0 8px 32px rgba(26, 22, 15, 0.12), 0 4px 12px rgba(26, 22, 15, 0.08);
+
+    /* ── Grid: suppress the blueprint grid on the warm cream background ──── */
+    /* A faint warm hairline instead of the cold blue grid */
+    --bp-grid-color:       rgba(138, 107, 71, 0.04);
+    --bp-grid-color-bold:  rgba(138, 107, 71, 0.08);
+
+    /* ── Brand-specific additions ─────────────────────────────────────────── */
+    /* Section heading font: DM Serif Display for non-hero display headings   */
+    --brand-font-display:  'DM Serif Display', 'Georgia', serif;
+
+    /* Film-reel aspect ratio for portfolio thumbnails */
+    --brand-film-ratio:    16 / 9;
+
+    /* Hairline border treatment used throughout */
+    --brand-border-hairline: 1px solid var(--color-border);
+
+    /* Serif italic color — warmer on the cream background */
+    --brand-serif-italic:  var(--color-primary);
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────── */
+
+  /* Hero headline — Cormorant Garamond at display weight */
+  .heli-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(3rem, 6.5vw, 6.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .heli-hero-title em {
+    font-style: italic;
+    color: var(--brand-serif-italic);
+  }
+
+  /* Section display titles — DM Serif Display */
+  .heli-display-title {
+    font-family: var(--brand-font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .heli-display-title em {
+    font-style: italic;
+    color: var(--brand-serif-italic);
+  }
+
+  /* Process step number labels */
+  .heli-step-number {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: var(--bp-text-xs);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    margin-bottom: var(--bp-space-4);
+  }
+
+  /* Film card — portfolio thumbnail */
+  .heli-film-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-base) var(--easing-smooth),
+                transform var(--duration-base) var(--easing-smooth);
+  }
+
+  .heli-film-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .heli-film-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--color-bg-secondary);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .heli-film-thumb-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heli-film-caption {
+    padding: var(--bp-space-5) var(--bp-space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .heli-film-title {
+    font-family: var(--brand-font-display);
+    font-size: var(--bp-text-xl);
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--bp-space-1);
+  }
+
+  .heli-film-meta {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: var(--bp-text-xs);
+    color: var(--color-text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Stat numerals — display-serif at oversized scale */
+  .heli-stat-value {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+  }
+
+  .heli-stat-label {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: var(--bp-text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-top: var(--bp-space-2);
+  }
+
+  /* Editorial hairline rule with label */
+  .heli-rule {
+    display: flex;
+    align-items: center;
+    gap: var(--bp-space-4);
+    margin-bottom: var(--bp-space-12);
+  }
+
+  .heli-rule::before {
+    content: '';
+    flex: 0 0 40px;
+    height: 1px;
+    background-color: var(--color-primary);
+  }
+
+  .heli-rule-label {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: var(--bp-text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  /* Process steps — left-border editorial treatment */
+  .heli-process-step {
+    padding: var(--bp-space-8);
+    border-left: 1px solid var(--color-border);
+    transition: border-color var(--duration-base) var(--easing-smooth);
+  }
+
+  .heli-process-step:hover {
+    border-left-color: var(--color-primary);
+  }
+
+  /* CTA section — dark band using --color-text as background */
+  .heli-cta-band {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+  }
+
+  .heli-cta-band .heli-display-title {
+    color: var(--color-bg);
+  }
+
+  .heli-cta-band .heli-display-title em {
+    color: var(--color-bg-secondary);
+  }
+
+  .heli-cta-band p {
+    color: rgba(250, 247, 242, 0.7);
+  }
+
+  /* Film thumbnail placeholder gradients — warm tones, marble and halogen light */
+  .film-bg-tower    { background: linear-gradient(160deg, #c9b99a 0%, #e8d8bf 40%, #bfad94 100%); }
+  .film-bg-residence{ background: linear-gradient(160deg, #b8a88a 0%, #d4c4a8 45%, #a89878 100%); }
+  .film-bg-pavilion { background: linear-gradient(160deg, #d4c0a2 0%, #ecdcc4 50%, #c8b494 100%); }
+  .film-bg-atelier  { background: linear-gradient(160deg, #c0a882 0%, #d8c4a4 45%, #b49878 100%); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .heli-nav-links { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .heli-film-grid  { grid-template-columns: 1fr; }
+    .heli-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+} /* end @layer brand-state */

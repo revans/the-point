@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KONSTRUKT — Blueprint Example</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Han+Sans&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #ff2200;
+        --color-primary-hover:  #cc1a00;
+        --color-primary-subtle: rgba(255,34,0,0.08);
+        --color-bg:             #f5f500;
+        --color-bg-secondary:   #eeee00;
+        --color-surface:        #ffffff;
+        --color-border:         #0a0a0a;
+        --color-text:           #0a0a0a;
+        --color-text-secondary: #1a1a1a;
+        --color-text-muted:     #3a3a3a;
+        --font-heading:         'Bebas Neue', 'Impact', sans-serif;
+        --font-body:            'Space Mono', 'Courier New', monospace;
+        --font-mono:            'Space Mono', monospace;
+        --radius:               var(--bp-radius-none);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    body {
+      background: #f5f500;
+      overflow-x: hidden;
+    }
+
+    /* ── Brutalist nav: full-width black bar ── */
+    .brut-nav {
+      background: #0a0a0a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      height: 56px;
+      border-bottom: 4px solid #ff2200;
+    }
+
+    .brut-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+      color: #f5f500;
+      text-decoration: none;
+    }
+
+    .brut-nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .brut-nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #f5f500;
+      text-decoration: none;
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      border-left: 1px solid #333;
+      transition: background 0.1s;
+    }
+
+    .brut-nav-links a:hover {
+      background: #ff2200;
+      color: #fff;
+    }
+
+    /* ── HERO: oversized broken type ── */
+    .brut-hero {
+      position: relative;
+      min-height: 85vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 3rem;
+      border-bottom: 6px solid #0a0a0a;
+    }
+
+    /* Big black block behind hero content */
+    .brut-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      background: #0a0a0a;
+      z-index: 0;
+    }
+
+    .hero-big-num {
+      position: absolute;
+      top: -2rem;
+      left: -1rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(12rem, 30vw, 26rem);
+      line-height: 0.85;
+      color: rgba(0,0,0,0.06);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: end;
+    }
+
+    .hero-left {
+      padding-right: 3rem;
+    }
+
+    .hero-tagline {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #ff2200;
+      margin-bottom: 1rem;
+      border-left: 4px solid #ff2200;
+      padding-left: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 14vw, 12rem);
+      line-height: 0.88;
+      color: #0a0a0a;
+      letter-spacing: 0.02em;
+      margin: 0 0 1.5rem;
+    }
+
+    .hero-title span.invert {
+      display: inline-block;
+      background: #ff2200;
+      color: #f5f500;
+      padding: 0 0.1em;
+      transform: rotate(-1.5deg);
+      margin-left: -0.05em;
+    }
+
+    .hero-body {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: #0a0a0a;
+      max-width: 38ch;
+      border-top: 2px solid #0a0a0a;
+      padding-top: 1rem;
+    }
+
+    .hero-right {
+      padding-left: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-cta-big {
+      display: block;
+      background: #f5f500;
+      color: #0a0a0a;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border: 3px solid #f5f500;
+      text-align: center;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .hero-cta-big:hover {
+      background: #ff2200;
+      border-color: #ff2200;
+      color: #fff;
+    }
+
+    .hero-cta-secondary {
+      display: block;
+      background: transparent;
+      color: #f5f500;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.75rem 2rem;
+      border: 1px solid #444;
+      text-align: center;
+      transition: border-color 0.1s, color 0.1s;
+    }
+
+    .hero-cta-secondary:hover {
+      border-color: #f5f500;
+    }
+
+    .hero-stat-row {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: #f5f500;
+    }
+
+    .hero-stat-l {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    /* ── TICKER: scrolling text bar ── */
+    .ticker-bar {
+      background: #ff2200;
+      overflow: hidden;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      border-top: 2px solid #0a0a0a;
+      border-bottom: 4px solid #0a0a0a;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      animation: ticker 22s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #f5f500;
+      padding: 0 2rem;
+      flex-shrink: 0;
+    }
+
+    .ticker-sep {
+      color: #0a0a0a;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── WORK grid: asymmetric project showcase ── */
+    .work-section {
+      padding: 0;
+      border-bottom: 6px solid #0a0a0a;
+    }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-bottom: 3px solid #0a0a0a;
+      background: #0a0a0a;
+    }
+
+    .work-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      letter-spacing: 0.1em;
+      color: #f5f500;
+      margin: 0;
+    }
+
+    .work-header-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: auto auto;
+    }
+
+    .work-item {
+      border-right: 3px solid #0a0a0a;
+      border-bottom: 3px solid #0a0a0a;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-item:last-child,
+    .work-item:nth-child(2) {
+      border-right: none;
+    }
+
+    .work-item-full {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .work-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 6rem;
+      line-height: 1;
+      color: rgba(0,0,0,0.06);
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      pointer-events: none;
+    }
+
+    .work-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      background: #ff2200;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .work-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      letter-spacing: 0.05em;
+      color: #0a0a0a;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .work-desc {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      line-height: 1.7;
+      color: #3a3a3a;
+      max-width: 30ch;
+    }
+
+    .work-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 1.5rem;
+    }
+
+    .work-item-dark {
+      background: #0a0a0a;
+    }
+
+    .work-item-dark .work-name { color: #f5f500; }
+    .work-item-dark .work-desc { color: #888; }
+    .work-item-dark .work-num  { color: rgba(245,245,0,0.06); }
+    .work-item-dark .work-year { color: #444; }
+
+    /* ── MANIFESTO: big centered statement ── */
+    .manifesto {
+      padding: 6rem 3rem;
+      text-align: center;
+      border-bottom: 6px solid #0a0a0a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto::before {
+      content: 'NO';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40vw;
+      color: rgba(0,0,0,0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .manifesto h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 1.0;
+      color: #0a0a0a;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .manifesto h2 .red { color: #ff2200; }
+
+    .manifesto-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: #3a3a3a;
+      max-width: 52ch;
+      margin: 2rem auto 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CONTACT: two-column call to action ── */
+    .contact-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-left {
+      background: #0a0a0a;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-left h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      line-height: 0.9;
+      color: #f5f500;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-left p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      line-height: 1.8;
+      color: #666;
+      max-width: 32ch;
+    }
+
+    .contact-email {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: #ff2200;
+      text-decoration: none;
+    }
+
+    .contact-right {
+      background: #ff2200;
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-cta {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      letter-spacing: 0.1em;
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      border: 4px solid rgba(255,255,255,0.3);
+      padding: 1rem 2rem;
+      transition: background 0.1s, border-color 0.1s;
+    }
+
+    .contact-cta:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+
+    /* ── Footer ── */
+    .brut-footer {
+      background: #0a0a0a;
+      padding: 1rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 4px solid #ff2200;
+    }
+
+    .brut-footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      color: #f5f500;
+    }
+
+    .brut-footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="brut-nav">
+    <a href="#" class="brut-brand">KONSTRUKT</a>
+    <ul class="brut-nav-links">
+      <li><a href="#">Work</a></li>
+      <li><a href="#">Studio</a></li>
+      <li><a href="#">Process</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="brut-hero">
+    <div class="hero-big-num">01</div>
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-tagline">Design studio — est. 2019 — Berlin</div>
+        <h1 class="hero-title">
+          BRUTAL<br>
+          <span class="invert">LY</span><br>
+          HONEST
+        </h1>
+        <p class="hero-body">
+          We make things that communicate, not things that decorate. If a client cannot tell you what their work is for, we cannot help them. If we cannot make it better by removing something, it is not finished.
+        </p>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-stat-row">
+          <div class="hero-stat">
+            <div class="hero-stat-n">47</div>
+            <div class="hero-stat-l">Projects</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-n">6</div>
+            <div class="hero-stat-l">Countries</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-n">12</div>
+            <div class="hero-stat-l">Years exp.</div>
+          </div>
+        </div>
+        <a href="#" class="hero-cta-big">START A PROJECT</a>
+        <a href="#" class="hero-cta-secondary">See our work &#8594;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-track">
+      <span class="ticker-item">IDENTITY</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">SYSTEMS</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">EDITORIAL</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">PRINT</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">DIGITAL</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">TYPE</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">MOTION</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">PACKAGING</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">IDENTITY</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">SYSTEMS</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">EDITORIAL</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">PRINT</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">DIGITAL</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">TYPE</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">MOTION</span><span class="ticker-item ticker-sep">&#9632;</span>
+      <span class="ticker-item">PACKAGING</span><span class="ticker-item ticker-sep">&#9632;</span>
+    </div>
+  </div>
+
+  <!-- WORK GRID -->
+  <section class="work-section">
+    <div class="work-header">
+      <h2>SELECTED WORK</h2>
+      <div class="work-header-meta">2022 — 2026 &nbsp;·&nbsp; 12 projects shown</div>
+    </div>
+
+    <div class="work-grid">
+      <!-- Featured project -->
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div class="work-type">Identity System</div>
+        <div class="work-name">VOLLMOND<br>RECORDS</div>
+        <div class="work-desc">Complete brand identity for an independent electronic music label. Designed to work at 4pt in liner notes and 40 feet on a festival backdrop.</div>
+        <div class="work-year">2025</div>
+      </div>
+
+      <div class="work-item work-item-dark">
+        <div class="work-num">02</div>
+        <div class="work-type" style="background: #f5f500; color: #0a0a0a;">Editorial</div>
+        <div class="work-name">TERRAIN<br>MAGAZINE</div>
+        <div class="work-desc">Quarterly print. No grid. Every issue has a different structural logic.</div>
+        <div class="work-year">2024</div>
+      </div>
+
+      <!-- Full-width secondary project -->
+      <div class="work-item work-item-full">
+        <div style="padding-right: 2.5rem; border-right: 3px solid #0a0a0a;">
+          <div class="work-num" style="font-size: 10rem;">03</div>
+          <div class="work-type">Packaging + Print</div>
+          <div class="work-name" style="font-size: 4rem;">GARTEN<br>SPIRITS</div>
+          <div class="work-desc">Botanical distillery in Bavaria. Identity draws from 1920s German seed catalogs. Every label is letterpress printed on cotton paper.</div>
+          <div class="work-year">2024</div>
+        </div>
+        <div style="padding-left: 2.5rem; display: flex; flex-direction: column; justify-content: flex-end;">
+          <div style="background: #ff2200; padding: 2rem; margin-bottom: 1.5rem;">
+            <div class="work-type" style="background: #0a0a0a; margin-bottom: 0.75rem;">Digital</div>
+            <div class="work-name" style="color: #fff; font-size: 2.5rem;">SIGNAL<br>EXCHANGE</div>
+            <div class="work-desc" style="color: rgba(255,255,255,0.7);">Real-time commodity trading platform. Reduced cognitive load during peak volatility by 60%.</div>
+            <div class="work-year" style="color: rgba(255,255,255,0.4);">2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <h2>
+      WE DO NOT MAKE<br>
+      <span class="red">BEAUTIFUL</span> THINGS.<br>
+      WE MAKE THINGS<br>
+      THAT <span class="red">WORK</span>.
+    </h2>
+    <p class="manifesto-sub">
+      Beautiful is a side effect of precision. You cannot aim at it directly. Aim at clarity, honesty, and necessity. Beauty follows — or it does not. Either way, the work holds.
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="contact-left">
+      <h3>LET'S<br>WORK<br>TOGETHER.</h3>
+      <div>
+        <p>We take 4 projects per quarter. We do not take projects we cannot improve. We bill fixed price, not hourly. We deliver on the date we quote.</p>
+        <a href="mailto:hello@konstrukt.de" class="contact-email">HELLO@KONSTRUKT.DE</a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <a href="#" class="contact-cta">BRIEF<br>US NOW</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="brut-footer">
+    <span class="brut-footer-brand">KONSTRUKT STUDIO</span>
+    <span class="brut-footer-copy">Berlin, Germany &nbsp;·&nbsp; 2019&ndash;2026 &nbsp;·&nbsp; All work reserved</span>
+  </footer>
+
+</body>
+</html>

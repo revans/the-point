@@ -1,0 +1,480 @@
+/* ==========================================================================
+   MAUNE — Brand CSS
+   Luxury womenswear. Eleven pieces per season.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:   sparse (--space-unit: 1.5rem) — eleven pieces, eleven decisions.
+              The product is the whitespace between choices. "Quieter than
+              Notion" means a page that doesn't press.
+
+   Weight:    light (300/300) — display-serif at 300 is authoritative, not
+              decorative. Heavier weights coarsen Cormorant's proportions;
+              lighter than 300 is technically unsupported. 300 is the answer.
+              Body at 300 matches the research-document register.
+
+   Tracking:  very-wide (0.2em) — "Type that looks like it was measured, not
+              placed." Very-wide is the engraved quality; the brand name at
+              extreme scale with 0.2em tracking IS the design. Wide on body
+              labels (0.2em), open on body text (0em, default).
+
+   Motion:    surgical (0.05s/0.1s/0.15s / ease) — "responds but never
+              performs." The site acknowledges interaction the way a well-made
+              door acknowledges being opened. --easing-smooth: ease per rules.
+              data-bp-motion="draw" NEVER added (surgical = no entrance anims).
+
+   Shape:     sharp (0px) — "Research lab." Sharp says nothing here needs to
+              be softened. Rounded corners are consumer-product reassurance;
+              MAUNE doesn't reassure.
+
+   Depth:     flat (shadow-sm/md/lg: none) — resolved against the flat/no-
+              primary conflict rule: extreme typographic scale with very-wide
+              tracking on off-white ground qualifies as "strong primary."
+              The contrast IS the design signal.
+
+   Theme:     light — Q5 explicitly counter-positions. Everyone runs dark
+              backgrounds. The light ground is the differentiation.
+
+   Type:      display-serif (Cormorant Garamond) for headings.
+              Inter (geometric-sans) for body — the research-document register.
+              Body at geometric-sans = precision, not warmth.
+
+   Tone:      precise — surgical + sharp + Q7 "three words wrong and she's
+              gone." Fashion-precise register: declarative nouns, fragments
+              are grammar, no superlatives.
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   light (300) + display-serif        → 300 is the minimum; CSS falls back
+                                         silently if font doesn't support it. ✓
+   very-wide + sparse                 → no conflict (tension only at dense). ✓
+   flat + no bright primary           → resolved: extreme typographic scale
+                                         (brand name at 12–18rem, 0.2em track)
+                                         is the strong primary. ✓
+   surgical + sharp                   → no conflict. ✓
+   light + flat                       → flat reads correct on off-white ground
+                                         with near-black type. ✓
+   dark + display-serif               → not applicable (theme = light). ✓
+
+   PRIMARY COLOR
+   ─────────────
+   #1C1A17 — charcoal pencil on drafting paper. The color a pattern-maker's
+   soft lead leaves on the pattern block before the fabric is cut. Not ink-
+   black (too digital), not warm brown (too textile). The pencil line that
+   makes the garment. Used at extreme scale on #FAFAF8, it is louder than any
+   tinted accent color could be. The charcoal IS the accent.
+
+   Background #FAFAF8: one step warmer than pure white — heavyweight cotton-rag
+   paper. Not cream (editorial cliché), not cold white (clinical).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary brand color ──────────────────────────────────────────────── */
+    /* Charcoal pencil on pattern paper — the line that makes the garment      */
+    --color-primary:          #1C1A17;
+    --color-primary-hover:    #000000;
+    --color-primary-subtle:   rgba(28, 26, 23, 0.05);
+    --color-primary-glow:     rgba(28, 26, 23, 0.12);
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    --font-heading:           'Cormorant Garamond', 'Georgia', serif;
+    --font-body:              'Inter', system-ui, -apple-system, sans-serif;
+
+    --font-weight-heading:    300;
+    --font-weight-body:       300;
+    --letter-spacing-heading: 0.2em;
+
+    /* ── Surfaces — cotton-rag paper, not clinical white ─────────────────── */
+    --color-bg:               #FAFAF8;
+    --color-bg-secondary:     #F4F3F0;
+    --color-surface:          #FAFAF8;
+    --color-surface-elevated: #F0EFEC;
+    --color-border:           #D4D0CA;
+
+    /* ── Text ────────────────────────────────────────────────────────────── */
+    --color-text:             #1C1A17;
+    --color-text-secondary:   #5A5650;
+    --color-text-muted:       #9E9A94;
+    --color-text-accent:      #1C1A17;
+
+    /* ── Shape: sharp ────────────────────────────────────────────────────── */
+    --radius:                 0px;
+
+    /* ── Density: sparse ─────────────────────────────────────────────────── */
+    --space-unit:             1.5rem;
+
+    /* ── Motion: surgical ────────────────────────────────────────────────── */
+    --duration-fast:          0.05s;
+    --duration-base:          0.1s;
+    --duration-slow:          0.15s;
+    --easing-smooth:          ease;
+
+    /* ── Shadows: flat ───────────────────────────────────────────────────── */
+    /* Resolved: extreme typographic scale is the strong primary.             */
+    --shadow-sm:              none;
+    --shadow-md:              none;
+    --shadow-lg:              none;
+
+    /* ── Suppress blueprint grid — this is paper, not a drafting board ───── */
+    --bp-grid-color:          rgba(28, 26, 23, 0.025);
+    --bp-grid-color-bold:     rgba(28, 26, 23, 0.04);
+
+    /* ── Brand-specific additions ─────────────────────────────────────────── */
+    /* Hairline — 0.5px to feel like a pencil rule                           */
+    --maune-hairline:         0.5px solid var(--color-border);
+
+    /* Garment image portrait ratio — 3:4 */
+    --maune-garment-ratio:    3 / 4;
+
+    /* Label tracking — very-wide for all caps labels                        */
+    --maune-label-tracking:   0.2em;
+
+    /* Nav height — tighter than default for architectural restraint          */
+    --nav-height:             56px;
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────── */
+
+  /* ─ Nav ─────────────────────────────────────────────────────────────── */
+
+  .maune-nav {
+    background-color: var(--color-bg);
+    border-bottom: var(--maune-hairline);
+    /* Remove backdrop-filter — sharp = nothing softened                     */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .maune-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: opacity var(--duration-base) ease;
+  }
+
+  .maune-wordmark:hover {
+    color: var(--color-text);
+    opacity: 0.55;
+  }
+
+  .maune-nav-link {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: var(--bp-space-2) var(--bp-space-3);
+    transition: color var(--duration-base) ease;
+  }
+
+  .maune-nav-link:hover {
+    color: var(--color-text);
+  }
+
+  /* ─ Hero ─────────────────────────────────────────────────────────────── */
+
+  .maune-hero {
+    padding-top: calc(var(--space-unit) * 6);
+    padding-bottom: calc(var(--space-unit) * 7);
+    border-bottom: var(--maune-hairline);
+  }
+
+  /* Brand name at extreme scale — this IS the design */
+  .maune-logotype {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(5rem, 18vw, 18rem);
+    line-height: 0.9;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    display: block;
+    margin-bottom: calc(var(--space-unit) * 1.5);
+  }
+
+  .maune-hero-tagline {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 300;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+  }
+
+  /* ─ Section label — hairline + uppercase identifier ──────────────────── */
+
+  .maune-section-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: calc(var(--space-unit) * 2);
+    padding-bottom: var(--bp-space-4);
+    border-bottom: var(--maune-hairline);
+  }
+
+  /* ─ Section heading ──────────────────────────────────────────────────── */
+
+  .maune-section-heading {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    color: var(--color-text);
+    text-transform: uppercase;
+  }
+
+  /* ─ Collection grid ──────────────────────────────────────────────────── */
+
+  .maune-collection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--bp-space-8);
+  }
+
+  .maune-garment-image {
+    width: 100%;
+    aspect-ratio: var(--maune-garment-ratio);
+    overflow: hidden;
+    margin-bottom: var(--bp-space-5);
+    /* No border-radius — sharp                                              */
+  }
+
+  .maune-garment-name {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-bottom: var(--bp-space-4);
+    display: block;
+  }
+
+  .maune-garment-identifier {
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+  }
+
+  /* ─ Manifesto ─────────────────────────────────────────────────────────  */
+
+  .maune-manifesto {
+    max-width: 560px;
+  }
+
+  .maune-manifesto p {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+    font-style: italic;
+    line-height: 1.75;
+    color: var(--color-text);
+    margin-bottom: var(--bp-space-8);
+  }
+
+  .maune-manifesto p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ─ Stockists ────────────────────────────────────────────────────────── */
+
+  .maune-stockist-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .maune-stockist-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: var(--bp-space-8);
+    padding: var(--bp-space-4) 0;
+    border-bottom: var(--maune-hairline);
+    align-items: baseline;
+  }
+
+  .maune-stockist-item:first-child {
+    border-top: var(--maune-hairline);
+  }
+
+  .maune-stockist-city {
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .maune-stockist-name {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.0625rem;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+  }
+
+  /* ─ CTA links — no button shape, just text with hairline underline ───── */
+
+  .maune-cta-link {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: var(--maune-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 0.5px solid var(--color-text);
+    transition: opacity var(--duration-base) ease;
+    display: inline-block;
+  }
+
+  .maune-cta-link:hover {
+    color: var(--color-text);
+    opacity: 0.5;
+  }
+
+  .maune-cta-link + .maune-cta-link {
+    margin-left: var(--bp-space-8);
+  }
+
+  /* ─ Footer ───────────────────────────────────────────────────────────── */
+
+  .maune-footer {
+    border-top: var(--maune-hairline);
+    padding-top: calc(var(--space-unit) * 2.5);
+    padding-bottom: calc(var(--space-unit) * 2.5);
+  }
+
+  .maune-footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--bp-space-8);
+  }
+
+  .maune-footer-address {
+    font-family: var(--font-body);
+    font-size: 0.625rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .maune-footer-address a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-base) ease;
+  }
+
+  .maune-footer-address a:hover {
+    color: var(--color-text);
+  }
+
+  .maune-footer-tagline {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─ Piece description paragraph — italic Cormorant at reading size ─────── */
+
+  .maune-piece-desc {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+  }
+
+  /* ─ Stockists aside note ─────────────────────────────────────────────── */
+
+  .maune-stockist-note {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    max-width: 200px;
+  }
+
+  /* ─ Garment placeholder gradients — warm neutrals, no saturated tones ── */
+  /* Think: undyed linen, chalk, plaster, pressed cotton                    */
+  .maune-garment-i    { background: linear-gradient(170deg, #E8E4DE 0%, #D8D4CD 40%, #CCCAC4 100%); }
+  .maune-garment-ii   { background: linear-gradient(170deg, #DDD8D0 0%, #EAE7E1 50%, #D0CCC4 100%); }
+  .maune-garment-iii  { background: linear-gradient(170deg, #E4E1DC 0%, #CFCBC4 45%, #E0DDD8 100%); }
+  .maune-garment-iv   { background: linear-gradient(170deg, #D6D2CA 0%, #E6E3DE 50%, #C8C4BC 100%); }
+
+  /* ─ Responsive ───────────────────────────────────────────────────────── */
+
+  @media (max-width: 1024px) {
+    .maune-collection-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--bp-space-6);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .maune-logotype {
+      font-size: clamp(4rem, 22vw, 8rem);
+    }
+
+    .maune-collection-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--bp-space-5);
+    }
+
+    .maune-stockist-item {
+      grid-template-columns: 100px 1fr;
+      gap: var(--bp-space-5);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .maune-collection-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--bp-space-4);
+    }
+
+    .maune-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--bp-space-6);
+    }
+  }
+
+} /* end @layer brand-state */

@@ -1,0 +1,57 @@
+{
+  "_comment": "Performance index for Blueprint layout decisions. Updated by @review after each build where outcome signals are available. Blueprint reads this in Step 5 before committing to a layout pattern. Signal values: high / medium / low. Confidence: high (N≥10), medium (N≥3), low (N<3). Do not fabricate signals — only record observations from real deployments or strong qualitative evidence.",
+
+  "observations": [
+    {
+      "id": "kakurega-2026-05",
+      "product_type": "heritage-craft",
+      "layout_pattern": "journal-sequential",
+      "audience": "professional-inquiry",
+      "compositional_mode": "atmospheric",
+      "image_strategy": "photograph",
+      "outcome_proxy": "form-completion",
+      "signal": "medium",
+      "confidence": "low",
+      "sample_count": 1,
+      "notes": "Kakurega wholesale inquiry page — qualitative only. Journal-sequential created appropriate friction for a professional B2B context; no casual conversion pressure. Fit matched the 'every word matters' tone from Q7."
+    }
+  ],
+
+  "recommendations": {
+    "journal-sequential": {
+      "best_for": ["professional-inquiry", "heritage-craft", "editorial", "hospitality-premium"],
+      "avoid_for": ["saas-product", "developer-tool", "consumer-ecommerce"],
+      "notes": "Full-width image / narrow text rhythm reads as editorial confidence. Wrong for any context where speed of comprehension matters more than quality of attention."
+    },
+    "editorial-alternating": {
+      "best_for": ["saas-product", "agency", "service-business", "product-landing"],
+      "avoid_for": ["document", "professional-inquiry", "single-product"],
+      "notes": "The alternating rhythm implies multiple distinct things to show. Wrong when the brand has one strong product or one strong idea — journal-sequential handles that better."
+    },
+    "cinematic": {
+      "best_for": ["consumer-product", "entertainment", "launch-moment", "high-emotional-stakes"],
+      "avoid_for": ["professional-inquiry", "compliance", "b2b-complex-sale"],
+      "notes": "Full-bleed 80-100vh sections generate attention; wrong when the audience needs to think rather than feel."
+    },
+    "data-dense": {
+      "best_for": ["developer-tool", "dashboard", "observability", "analytics"],
+      "avoid_for": ["consumer-product", "heritage-craft", "hospitality"],
+      "notes": "Density signals that the builder trusts the reader. Wrong when warmth or discovery is part of the product promise."
+    },
+    "credential": {
+      "best_for": ["law-firm", "financial-advisory", "medical-practice", "single-specialist"],
+      "avoid_for": ["saas-product", "ecommerce", "developer-tool"],
+      "notes": "One focal element per viewport says 'I am enough.' Wrong when the product needs to explain itself across multiple feature dimensions."
+    },
+    "document": {
+      "best_for": ["open-source-project", "documentation", "research-publication", "changelog"],
+      "avoid_for": ["marketing-landing", "consumer-product"],
+      "notes": "Reads as written, not designed — intentional for technical audiences who distrust marketing."
+    },
+    "gallery": {
+      "best_for": ["photography-portfolio", "product-catalog", "food-menu", "fashion"],
+      "avoid_for": ["saas-product", "professional-inquiry", "data-dense"],
+      "notes": "Image grid as primary content works when the product IS the visual. Wrong when the visual illustrates a service or idea."
+    }
+  }
+}

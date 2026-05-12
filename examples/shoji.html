@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoji — Blueprint Example</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #9b2335;
+        --color-primary-hover:  #7a1c29;
+        --color-primary-subtle: rgba(155, 35, 53, 0.06);
+        --color-bg:             #faf8f5;
+        --color-bg-secondary:   #f3f0eb;
+        --color-surface:        #ffffff;
+        --color-border:         #e0dbd3;
+        --color-text:           #1a1a1a;
+        --color-text-secondary: #4a4a4a;
+        --color-text-muted:     #9a9a9a;
+        --font-heading:         'Cormorant Garamond', 'Noto Serif JP', serif;
+        --font-body:            'Noto Sans JP', 'Helvetica Neue', sans-serif;
+        --font-mono:            'JetBrains Mono', monospace;
+        --radius:               var(--bp-radius-none);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--color-bg);
+      min-height: 100vh;
+    }
+
+    /* ── Vertical writing ornament ── */
+    .vertical-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+      position: fixed;
+      right: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      user-select: none;
+    }
+
+    /* ── Minimal nav ── */
+    .shoji-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2.5rem 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .shoji-brand {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 1.1rem;
+      letter-spacing: 0.4em;
+      color: var(--color-text);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .shoji-nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .shoji-nav-links a {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .shoji-nav-links a:hover {
+      color: var(--color-text);
+    }
+
+    /* ── Hero: extreme whitespace ── */
+    .shoji-hero {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      min-height: 80vh;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hero-side {
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem 3rem;
+    }
+
+    .hero-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+      margin-bottom: 6rem;
+    }
+
+    .hero-kanji {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-kanji-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 6rem 4rem 5rem;
+    }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      color: var(--color-text);
+      margin: 0 0 2.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-primary);
+    }
+
+    .hero-body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 200;
+      font-size: 0.85rem;
+      line-height: 2;
+      color: var(--color-text-secondary);
+      max-width: 36ch;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-text);
+      padding-bottom: 0.5rem;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .hero-cta:hover {
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    /* ── Product grid ── */
+    .product-section {
+      padding: 6rem 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2.5rem;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+
+    /* Product items: asymmetric, not cards */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 0;
+    }
+
+    .product-item {
+      padding: 2rem;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .product-item:last-child {
+      border-right: none;
+    }
+
+    .product-item:first-child {
+      padding-left: 0;
+    }
+
+    .product-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-swatch {
+      height: 200px;
+      background: var(--color-bg-secondary);
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-swatch-sm {
+      height: 120px;
+    }
+
+    .swatch-accent {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40%;
+      height: 40%;
+      background: var(--color-primary);
+      opacity: 0.15;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 200;
+      font-size: 0.72rem;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* ── Philosophy section ── */
+    .philosophy-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .philosophy-text {
+      padding: 6rem 5rem 6rem 4rem;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.3;
+      color: var(--color-text);
+      margin: 0 0 2rem;
+    }
+
+    .philosophy-attribution {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .philosophy-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      background: var(--color-bg-secondary);
+    }
+
+    /* Geometric composition */
+    .geo-composition {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .geo-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+    }
+
+    .geo-rect {
+      position: absolute;
+      border: 1px solid var(--color-text-muted);
+    }
+
+    .geo-dot {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    .geo-line {
+      position: absolute;
+      background: var(--color-border);
+    }
+
+    /* ── Footer ── */
+    .shoji-footer {
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-links a {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+    }
+
+    /* ── Sakura background ── */
+    .sakura-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .shoji-nav,
+    .shoji-hero,
+    .product-section,
+    .philosophy-section,
+    .shoji-footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .vertical-text { z-index: 2; }
+
+    @keyframes petal-drift-a {
+      0%   { transform: translate(0, 0) rotate(30deg);        opacity: 0;    }
+      12%  { opacity: 0.07; }
+      88%  { opacity: 0.05; }
+      100% { transform: translate(-28px, 75px) rotate(62deg); opacity: 0;    }
+    }
+    @keyframes petal-drift-b {
+      0%   { transform: translate(0, 0) rotate(-45deg);       opacity: 0;    }
+      15%  { opacity: 0.06; }
+      85%  { opacity: 0.05; }
+      100% { transform: translate(20px, 58px) rotate(-18deg); opacity: 0;    }
+    }
+
+    .pd-a { animation: petal-drift-a 14s ease-in-out infinite; }
+    .pd-b { animation: petal-drift-b 11s ease-in-out 3.5s infinite; }
+    .pd-c { animation: petal-drift-a 17s ease-in-out 8s  infinite; }
+  </style>
+</head>
+<body>
+
+  <!-- Cherry blossom branch — sumi-e ink on washi, fixed behind all content -->
+  <div class="sakura-bg" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+      <defs>
+        <!-- Reusable 5-petal sakura forms, centered at (0,0) -->
+        <g id="bl">
+          <ellipse cx="0" cy="-13" rx="5.5" ry="13" fill="rgba(155,35,53,0.09)"/>
+          <ellipse cx="0" cy="-13" rx="5.5" ry="13" transform="rotate(72)"  fill="rgba(155,35,53,0.09)"/>
+          <ellipse cx="0" cy="-13" rx="5.5" ry="13" transform="rotate(144)" fill="rgba(155,35,53,0.09)"/>
+          <ellipse cx="0" cy="-13" rx="5.5" ry="13" transform="rotate(216)" fill="rgba(155,35,53,0.09)"/>
+          <ellipse cx="0" cy="-13" rx="5.5" ry="13" transform="rotate(288)" fill="rgba(155,35,53,0.09)"/>
+          <circle  cx="0" cy="0"   r="3.5"            fill="rgba(155,35,53,0.14)"/>
+        </g>
+        <g id="bm">
+          <ellipse cx="0" cy="-8"  rx="3.5" ry="8"  fill="rgba(155,35,53,0.08)"/>
+          <ellipse cx="0" cy="-8"  rx="3.5" ry="8"  transform="rotate(72)"  fill="rgba(155,35,53,0.08)"/>
+          <ellipse cx="0" cy="-8"  rx="3.5" ry="8"  transform="rotate(144)" fill="rgba(155,35,53,0.08)"/>
+          <ellipse cx="0" cy="-8"  rx="3.5" ry="8"  transform="rotate(216)" fill="rgba(155,35,53,0.08)"/>
+          <ellipse cx="0" cy="-8"  rx="3.5" ry="8"  transform="rotate(288)" fill="rgba(155,35,53,0.08)"/>
+          <circle  cx="0" cy="0"   r="2.5"            fill="rgba(155,35,53,0.13)"/>
+        </g>
+        <g id="bs">
+          <ellipse cx="0" cy="-5"  rx="2.5" ry="5"  fill="rgba(155,35,53,0.07)"/>
+          <ellipse cx="0" cy="-5"  rx="2.5" ry="5"  transform="rotate(72)"  fill="rgba(155,35,53,0.07)"/>
+          <ellipse cx="0" cy="-5"  rx="2.5" ry="5"  transform="rotate(144)" fill="rgba(155,35,53,0.07)"/>
+          <ellipse cx="0" cy="-5"  rx="2.5" ry="5"  transform="rotate(216)" fill="rgba(155,35,53,0.07)"/>
+          <ellipse cx="0" cy="-5"  rx="2.5" ry="5"  transform="rotate(288)" fill="rgba(155,35,53,0.07)"/>
+        </g>
+      </defs>
+
+      <!-- Branch structure: main arm sweeps upper-right → lower-left (ikebana diagonal) -->
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Main trunk -->
+        <path d="M 1480 -50 C 1300 70, 1100 160, 880 290 C 730 375, 590 465, 460 570 C 370 635, 260 688, 110 762"
+              stroke="rgba(45,31,26,0.10)" stroke-width="3.5"/>
+        <!-- Sub-branch: 880,290 → upper-left 645,118 -->
+        <path d="M 880 290 C 815 228, 735 172, 645 118"
+              stroke="rgba(45,31,26,0.09)" stroke-width="2.5"/>
+        <!-- Twig: 645,118 → tip 575,44 -->
+        <path d="M 645 118 C 626 90, 603 66, 575 44"
+              stroke="rgba(45,31,26,0.08)" stroke-width="1.8"/>
+        <!-- Sub-branch: 880,290 → upper-right 1090,188 -->
+        <path d="M 880 290 C 942 243, 1015 208, 1090 188"
+              stroke="rgba(45,31,26,0.09)" stroke-width="2"/>
+        <!-- Twig: 1090,188 → tip 1235,142 -->
+        <path d="M 1090 188 C 1135 168, 1188 152, 1235 142"
+              stroke="rgba(45,31,26,0.07)" stroke-width="1.5"/>
+        <!-- Branch from 590,465 rising upward → 508,328 -->
+        <path d="M 590 465 C 564 418, 535 373, 508 328"
+              stroke="rgba(45,31,26,0.08)" stroke-width="2"/>
+        <!-- Branch from 590,465 curving lower-right → 682,584 -->
+        <path d="M 590 465 C 628 503, 655 548, 682 584"
+              stroke="rgba(45,31,26,0.07)" stroke-width="1.5"/>
+        <!-- Branch from 460,570 lower-right → 558,696 -->
+        <path d="M 460 570 C 498 612, 530 658, 558 696"
+              stroke="rgba(45,31,26,0.07)" stroke-width="1.5"/>
+        <!-- Short twig from 260,688 leftward → 170,640 -->
+        <path d="M 260 688 C 232 664, 200 648, 170 640"
+              stroke="rgba(45,31,26,0.07)" stroke-width="1.5"/>
+      </g>
+
+      <!-- Blossoms — clustered at tips, sparse along arms (ma: leave room) -->
+      <use href="#bl" transform="translate(575 44)"/>
+      <use href="#bs" transform="translate(600 63) rotate(22)"/>
+      <use href="#bm" transform="translate(645 118) rotate(-8)"/>
+      <use href="#bl" transform="translate(1235 142) rotate(12)"/>
+      <use href="#bs" transform="translate(1207 157) rotate(-28)"/>
+      <use href="#bm" transform="translate(1090 188) rotate(6)"/>
+      <use href="#bl" transform="translate(880 290) rotate(-10)"/>
+      <use href="#bl" transform="translate(508 328) rotate(8)"/>
+      <use href="#bs" transform="translate(538 350) rotate(-18)"/>
+      <use href="#bm" transform="translate(682 584) rotate(20)"/>
+      <use href="#bm" transform="translate(558 696) rotate(-6)"/>
+      <use href="#bl" transform="translate(110 762) rotate(14)"/>
+      <use href="#bm" transform="translate(170 640) rotate(-14)"/>
+
+      <!-- Scattered static petals — mid-air, frozen -->
+      <ellipse cx="760" cy="312" rx="4.5" ry="7.5" transform="rotate(38 760 312)"  fill="rgba(155,35,53,0.055)"/>
+      <ellipse cx="432" cy="412" rx="4"   ry="6.5" transform="rotate(-55 432 412)" fill="rgba(155,35,53,0.050)"/>
+      <ellipse cx="342" cy="522" rx="4"   ry="7"   transform="rotate(65 342 522)"  fill="rgba(155,35,53,0.048)"/>
+      <ellipse cx="852" cy="492" rx="3.5" ry="6"   transform="rotate(-30 852 492)" fill="rgba(155,35,53,0.045)"/>
+      <ellipse cx="558" cy="208" rx="4"   ry="7"   transform="rotate(-62 558 208)" fill="rgba(155,35,53,0.055)"/>
+
+      <!-- Animated drifting petals — each floats at a different cadence -->
+      <g class="pd-a"><ellipse cx="702" cy="262" rx="4.5" ry="7.5" fill="rgba(155,35,53,0.06)"/></g>
+      <g class="pd-b"><ellipse cx="948" cy="432" rx="4"   ry="6.5" fill="rgba(155,35,53,0.055)"/></g>
+      <g class="pd-c"><ellipse cx="382" cy="488" rx="3.5" ry="6"   fill="rgba(155,35,53,0.050)"/></g>
+    </svg>
+  </div>
+
+  <!-- Vertical ornament text -->
+  <div class="vertical-text">間 &nbsp;·&nbsp; MA &nbsp;·&nbsp; NEGATIVE SPACE</div>
+
+  <!-- NAV -->
+  <nav class="shoji-nav">
+    <a href="#" class="shoji-brand">障子</a>
+    <ul class="shoji-nav-links">
+      <li><a href="#">Collection</a></li>
+      <li><a href="#">Philosophy</a></li>
+      <li><a href="#">Craft</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="shoji-hero">
+    <div class="hero-side">
+      <div class="hero-year">MMXXVI &nbsp;·&nbsp; Collection No. 07</div>
+      <div>
+        <div class="hero-kanji">間</div>
+        <div class="hero-kanji-label">Ma — negative space</div>
+      </div>
+    </div>
+    <div class="hero-main">
+      <div class="hero-label">Spring Capsule 2026</div>
+      <h1 class="hero-title">
+        Objects made with<br>
+        <em>deliberate absence.</em>
+      </h1>
+      <p class="hero-body">
+        Each piece begins not with what to add, but what to withhold. The silence between notes is where music lives. The space between walls is where a room becomes habitable.
+      </p>
+      <a href="#" class="hero-cta">
+        View collection
+        <span>&#8594;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PRODUCT GRID -->
+  <section class="product-section">
+    <div class="section-header-row">
+      <span class="section-label">Collection No. 07</span>
+      <h2 class="section-title">Selected objects</h2>
+      <a href="#" style="font-family: 'Noto Sans JP', sans-serif; font-weight: 200; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-text-muted); text-decoration: none;">View all &#8594;</a>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-item">
+        <span class="product-number">001</span>
+        <div class="product-swatch">
+          <div class="swatch-accent"></div>
+        </div>
+        <div class="product-name">Tsuki Vessel</div>
+        <div class="product-desc">Wheel-thrown stoneware. Unglazed exterior, celadon interior. Each piece fired once at 1280°C, never corrected.</div>
+        <div class="product-price">¥42,000</div>
+      </div>
+
+      <div class="product-item">
+        <span class="product-number">002</span>
+        <div class="product-swatch product-swatch-sm" style="background: #e8e4dc;">
+          <div class="swatch-accent" style="width: 60%; height: 60%; opacity: 0.1;"></div>
+        </div>
+        <div style="height: 0.75rem;"></div>
+        <div class="product-name">Hako Tray</div>
+        <div class="product-desc">White oak, hand-planed. No finish. The grain is the surface.</div>
+        <div class="product-price">¥18,500</div>
+      </div>
+
+      <div class="product-item">
+        <span class="product-number">003</span>
+        <div class="product-swatch product-swatch-sm" style="background: #1a1a1a;">
+          <div class="swatch-accent" style="background: #faf8f5; opacity: 0.05;"></div>
+        </div>
+        <div style="height: 0.75rem;"></div>
+        <div class="product-name">Kage Lamp</div>
+        <div class="product-desc">Cast iron body. Rice paper shade. The shadow is the design.</div>
+        <div class="product-price">¥67,000</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy-section">
+    <div class="philosophy-text">
+      <div class="section-label" style="margin-bottom: 3rem;">On making</div>
+      <blockquote class="philosophy-quote">
+        "The craftsman does not impose form on material. The craftsman listens until the material speaks."
+      </blockquote>
+      <div class="philosophy-attribution">Yanagi Soetsu &nbsp;·&nbsp; The Unknown Craftsman, 1972</div>
+
+      <div style="margin-top: 4rem; font-family: 'Noto Sans JP', sans-serif; font-weight: 200; font-size: 0.78rem; line-height: 2.2; color: var(--color-text-secondary); max-width: 42ch;">
+        <p>Every object in this collection was made by a single hand. No division of labor. The same person who chose the clay threw the form, loaded the kiln, and decided when it was finished.</p>
+        <p style="margin-top: 1rem;">We do not make more than we can make well.</p>
+      </div>
+    </div>
+
+    <div class="philosophy-visual">
+      <!-- Geometric composition: a study in ma (negative space) -->
+      <div class="geo-composition">
+        <!-- Outer circle -->
+        <div class="geo-circle" style="width: 180px; height: 180px; top: 10px; left: 10px;"></div>
+        <!-- Inner rect -->
+        <div class="geo-rect" style="width: 80px; height: 80px; top: 60px; left: 60px;"></div>
+        <!-- Horizontal line -->
+        <div class="geo-line" style="width: 200px; height: 1px; top: 100px; left: 0;"></div>
+        <!-- Vertical line -->
+        <div class="geo-line" style="width: 1px; height: 200px; top: 0; left: 100px;"></div>
+        <!-- Accent dot at golden ratio point -->
+        <div class="geo-dot" style="top: 62px; left: 62px;"></div>
+        <!-- Small circle -->
+        <div class="geo-circle" style="width: 20px; height: 20px; top: 140px; left: 140px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="shoji-footer">
+    <span class="footer-brand">障子 Shoji</span>
+    <ul class="footer-links">
+      <li><a href="#">Stockists</a></li>
+      <li><a href="#">Care</a></li>
+      <li><a href="#">Studio</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

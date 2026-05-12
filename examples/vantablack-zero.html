@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark" data-bp-motion="draw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VANTABLACK ZERO — Cyberpunk Tactical RPG</title>
+  <meta name="description" content="[Meta: squad-based tactical RPG. Intelligence. Infiltration. Extraction. Steam wishlist now open.]">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./vantablack-zero-brand.css">
+</head>
+<body>
+
+  <!-- ── FLOATING NAV ───────────────────────────────────────────────────────── -->
+  <nav class="vzero-nav" aria-label="Site navigation">
+    <a href="#" class="vzero-nav-brand">VANTABLACK ZERO</a>
+    <ul class="vzero-nav-links">
+      <li><a href="#operatives" class="vzero-nav-link">Operatives</a></li>
+      <li><a href="#intel" class="vzero-nav-link">Intel</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ── SCENE 1: ENTRY ─────────────────────────────────────────────────────── -->
+  <!--
+    Full-viewport atmospheric hero. Dark radial gradient: near-black (#0A0A0F) at edges,
+    deep void-blue (#0F0F2A) at center — surveillance satellite, city at night.
+    Scanline texture applied via ::before in brand.css.
+  -->
+  <section class="vzero-scene vzero-scene-entry" aria-labelledby="game-title">
+
+    <div class="vzero-entry-inner">
+
+      <h1 class="vzero-title" id="game-title">
+        VANTABLACK<br>
+        <span class="vzero-title-accent">ZERO</span>
+      </h1>
+
+      <p class="vzero-tagline">
+        [Tagline: intelligence. infiltration. extraction.]
+      </p>
+
+      <div class="vzero-hero-actions">
+        <a href="#" class="vzero-btn-primary">
+          Wishlist on Steam
+        </a>
+        <a href="#" class="vzero-btn-secondary">
+          Request Beta Access
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ── SCENE 2: OPERATIVES ────────────────────────────────────────────────── -->
+  <!--
+    Four character portrait cards, aspect-ratio 3/4.
+    Dark atmospheric gradient placeholders — one per operative hue:
+    teal / amber / electric cyan / red. All intentional art, not empty boxes.
+    No card shadows (dark + shadow = invisible) — separation via 1px border lines.
+  -->
+  <section class="vzero-scene-operatives bp-section" id="operatives">
+    <div class="bp-container">
+
+      <p class="vzero-section-pre">Fireteam — Active Operatives</p>
+
+      <div class="vzero-operatives-grid">
+
+        <!-- Operative 1: teal -->
+        <div class="vzero-operative-card bp-animate-draw">
+          <div class="vzero-operative-portrait vzero-operative-portrait-teal"
+               role="img" aria-label="[Operative portrait: Ghost — spectral silhouette against teal-black void]">
+          </div>
+          <div class="vzero-operative-info">
+            <p class="vzero-operative-name">[GHOST]</p>
+            <span class="vzero-operative-class">[Class: Recon / Ghost Protocol]</span>
+          </div>
+        </div>
+
+        <!-- Operative 2: amber -->
+        <div class="vzero-operative-card bp-animate-draw">
+          <div class="vzero-operative-portrait vzero-operative-portrait-amber"
+               role="img" aria-label="[Operative portrait: Ember — silhouette against smoldering amber dark]">
+          </div>
+          <div class="vzero-operative-info">
+            <p class="vzero-operative-name">[EMBER]</p>
+            <span class="vzero-operative-class">[Class: Demo / Thermal Systems]</span>
+          </div>
+        </div>
+
+        <!-- Operative 3: electric cyan -->
+        <div class="vzero-operative-card bp-animate-draw">
+          <div class="vzero-operative-portrait vzero-operative-portrait-cyan"
+               role="img" aria-label="[Operative portrait: Cipher — silhouette in deep electric cyan dark]">
+          </div>
+          <div class="vzero-operative-info">
+            <p class="vzero-operative-name">[CIPHER]</p>
+            <span class="vzero-operative-class">[Class: Hacker / Neural Interface]</span>
+          </div>
+        </div>
+
+        <!-- Operative 4: red -->
+        <div class="vzero-operative-card bp-animate-draw">
+          <div class="vzero-operative-portrait vzero-operative-portrait-red"
+               role="img" aria-label="[Operative portrait: Null — silhouette against near-black crimson void]">
+          </div>
+          <div class="vzero-operative-info">
+            <p class="vzero-operative-name">[NULL]</p>
+            <span class="vzero-operative-class">[Class: Combat / Suppression]</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SCENE 3: INTELLIGENCE ──────────────────────────────────────────────── -->
+  <!--
+    Three gameplay mechanics.
+    Layout: left mono number + 2px accent border line | mechanic name + description.
+    No icons. No cards. Text with left-border precision treatment.
+  -->
+  <section class="vzero-scene-intel" id="intel" aria-labelledby="intel-heading">
+    <div class="bp-container bp-container-lg">
+
+      <p class="vzero-section-pre" id="intel-heading">Gameplay — Mission Architecture</p>
+
+      <div class="vzero-mechanic-list">
+
+        <!-- Mechanic 01: Intelligence -->
+        <div class="vzero-mechanic">
+          <div class="vzero-mechanic-left">
+            <span class="vzero-mechanic-accent" aria-hidden="true"></span>
+            <span class="vzero-mechanic-number">01</span>
+          </div>
+          <div class="vzero-mechanic-body">
+            <h3 class="vzero-mechanic-name">[Intelligence Phase]</h3>
+            <p class="vzero-mechanic-desc">
+              [Mechanic description: Every operation begins with data collection — drone sweeps, network taps, informant networks. What you know before the drop determines whether your team comes back.]
+            </p>
+          </div>
+        </div>
+
+        <!-- Mechanic 02: Infiltration -->
+        <div class="vzero-mechanic">
+          <div class="vzero-mechanic-left">
+            <span class="vzero-mechanic-accent" aria-hidden="true"></span>
+            <span class="vzero-mechanic-number">02</span>
+          </div>
+          <div class="vzero-mechanic-body">
+            <h3 class="vzero-mechanic-name">[Infiltration Phase]</h3>
+            <p class="vzero-mechanic-desc">
+              [Mechanic description: Squad-level tactical movement through procedurally hostile environments. Cover, noise discipline, sight lines. Your augmentations are tools, not weapons — until they have to be.]
+            </p>
+          </div>
+        </div>
+
+        <!-- Mechanic 03: Extraction -->
+        <div class="vzero-mechanic">
+          <div class="vzero-mechanic-left">
+            <span class="vzero-mechanic-accent" aria-hidden="true"></span>
+            <span class="vzero-mechanic-number">03</span>
+          </div>
+          <div class="vzero-mechanic-body">
+            <h3 class="vzero-mechanic-name">[Extraction Phase]</h3>
+            <p class="vzero-mechanic-desc">
+              [Mechanic description: The city is waking up. Whatever happened in there is already on the network. You have a window — and it is closing in real time. Casualties have consequences that persist across campaigns.]
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SCENE 4: TRANSMISSION ──────────────────────────────────────────────── -->
+  <!--
+    CTA band. Elevated background (--color-surface) — distinct from the surrounding void.
+    Pulsing dot on "Beta window closes." — live signal indicator.
+    Email input + submit inside a precision border shell.
+  -->
+  <section class="vzero-scene-transmission">
+    <div class="bp-container bp-container-sm">
+
+      <p class="vzero-section-pre bp-justify-center" style="justify-content: center;">
+        Transmission — Restricted Access
+      </p>
+
+      <h2 class="vzero-transmission-headline">
+        Beta window closes<span class="vzero-transmission-dot" aria-hidden="true">.</span>
+      </h2>
+
+      <p class="vzero-transmission-sub">
+        [Sub: Request access. First squads deploy when the window opens.]
+      </p>
+
+      <form class="vzero-email-form" action="#" method="post" aria-label="Beta access request">
+        <input
+          type="email"
+          class="vzero-email-input"
+          placeholder="CALLSIGN@DOMAIN.EXEC"
+          aria-label="Email address"
+          autocomplete="email"
+          required
+        >
+        <button type="submit" class="vzero-email-submit">Request Access</button>
+      </form>
+
+    </div>
+  </section>
+
+
+  <!-- ── SCENE 5: FOOTER ────────────────────────────────────────────────────── -->
+  <!--
+    Minimal. Studio name. Copyright. Three social text-link placeholders.
+    Nothing else belongs here.
+  -->
+  <footer class="vzero-footer" role="contentinfo">
+    <div class="bp-container">
+      <div class="vzero-footer-inner">
+
+        <span class="vzero-footer-studio">[Studio Name]</span>
+
+        <span class="vzero-footer-copy">© 2026 [Studio Name]. All rights reserved.</span>
+
+        <div class="vzero-footer-socials">
+          <a href="#" class="vzero-social-link" aria-label="Twitter">[Twitter]</a>
+          <a href="#" class="vzero-social-link" aria-label="Discord">[Discord]</a>
+          <a href="#" class="vzero-social-link" aria-label="Steam">[Steam]</a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+</html>

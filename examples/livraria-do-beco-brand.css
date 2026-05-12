@@ -1,0 +1,660 @@
+/* ==========================================================================
+   LIVRARIA DO BECO — Brand CSS
+   Used bookshop, narrow alley off Rua do Carmo, Lisbon.
+   4m wide, 18m deep. Dark oak shelves, azulejo tile floor, candle at noon.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:    airy  (--space-unit: 1.25rem) — the shop is narrow but the
+               experience is unhurried. A sentence has room around it.
+               Nothing in a good bookshop feels crammed.
+
+   Weight:     light (300) — the owner reads while you browse; the page
+               does not raise its voice. Text set in lead type before
+               computers were rarely bold. Conviction lives in the sentence,
+               not in the weight.
+
+   Tracking:   wide (0.12em) — old Portuguese typesetting: letters given
+               air. Not a fashion label's very-wide, not editorial tight.
+               The specific spacing of a hand-composed title page, 1910.
+
+   Motion:     surgical (0.05s/0.1s/0.15s, ease, ease) — the shop does
+               not animate. You walk in; your eyes adjust; you begin to
+               wander. No performance. No draw animation on <html>.
+
+   Shape:      sharp (0px) — azulejo tile has a right angle. The shelves
+               have a right angle. Portuguese woodwork of this period has
+               no radius. Sharp is not aggressive here — it is how things
+               were made before corner-rounding was a software default.
+
+   Depth:      flat (all shadows: none) — candle and afternoon light from
+               a narrow alley. Surfaces are defined by surface color, not
+               lift. A shadow would look like a design choice; flat looks
+               like how the shop actually is.
+
+   Theme:      light (data-bp-theme="light") — aged book pages, worn
+               plaster, afternoon light through a narrow beco. This brand
+               exists in warm, dim, natural light — not darkness.
+
+   Type:       display-serif (Cormorant Garamond 300) for headings —
+               the oldest surviving category of type for text about books.
+               Body: IM Fell English for body/prose passages — a digitized
+               version of a 17th-century Oxford University Press typeface.
+               This is type that was set before Gutenberg's compositors
+               retired. It looks like it.
+
+   Image       photograph — a physical place (Lisbon alley, bookshop,
+   Strategy:   azulejo tile, oak shelving). LoremFlickr URLs per section.
+
+   Layout:     journal-sequential — full-width image band, then centered
+               narrow text block, then another image band. The page scrolls
+               the way you walk through a narrow shop: forward, pausing,
+               forward again.
+
+   Comp mode:  atmospheric — image dominant, text at edge or in small
+               centered block, no hero button. The suppression list applies:
+               no CTA in hero, no eyebrow spans, no subtitle paragraphs
+               competing with the image. One focal thing per section.
+
+   Tone:       precise-warm — owner-voice. Every sentence is a considered
+               recommendation. Nothing is hustled; nothing is obvious.
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   light + display-serif → no conflict. Cormorant hairlines read on light
+                           backgrounds; this is the canonical combination. ✓
+   flat + light + strong-primary → #6B4C2A on #F2EBD9 is clear, warm,
+                           and sufficient — no shadow needed to separate. ✓
+   sharp + airy → the combination of precision form and generous space
+                           is exactly how a 19th-century Portuguese interior
+                           reads. Not fighting — composing. ✓
+   atmospheric + surgical → the page exists, it does not perform.
+                           A user who enters wanders at their own pace. ✓
+
+   PRIMARY COLOR
+   ─────────────
+   #6B4C2A — dark oak shelves aged to the color of strong tea.
+   Not the fresh honey of new oak. Not espresso-dark. The specific
+   warm mid-brown of Portuguese dark oak that has spent 150 years
+   in a shop with no direct sunlight. The dominant 90% of the
+   shelf surface — not the reddish grain highlight at its edge.
+
+   BACKGROUND COLOR
+   ────────────────
+   #F2EBD9 — aged book page, warm ecru.
+   The walls of a Lisbon loja are aged plaster, the color of a
+   page that has been in a warm room for forty years. Not cream
+   (too new), not kraft (too deliberate), not white (too clinical).
+   The specific warm near-white that comes from paper and plaster
+   ageing together in a building that was built before 1900.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=IM+Fell+English:ital@0;1&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary brand color ──────────────────────────────────────────────── */
+    /* Dark oak shelves, aged to strong tea — the dominant surface of the shop  */
+    --color-primary:          #6B4C2A;
+    --color-primary-hover:    #4E3419;
+    --color-primary-subtle:   rgba(107, 76, 42, 0.10);
+    --color-primary-glow:     rgba(107, 76, 42, 0.20);
+
+    /* ── Surfaces — aged Lisbon plaster and page ─────────────────────────── */
+    /* #F2EBD9: the warm near-white of aged plaster and old book pages         */
+    --color-bg:               #F2EBD9;
+    /* #EAE2CC: same surface, slightly more aged — interior alcove light       */
+    --color-bg-secondary:     #EAE2CC;
+    /* #E4DAC4: a shelf surface in shadow, slightly deeper than the wall       */
+    --color-surface:          #E4DAC4;
+    /* #DDD0B4: the deepest interior surface — the back of the shop            */
+    --color-surface-elevated: #DDD0B4;
+
+    /* ── Borders — hairline, the gap between two tiles ───────────────────── */
+    /* The grout line between azulejo tiles, seen from standing distance       */
+    --color-border:           #C8BC9E;
+
+    /* ── Text ────────────────────────────────────────────────────────────── */
+    /* Iron-gall ink on aged paper — near-black with warm brown undertone      */
+    --color-text:             #1A1208;
+    --color-text-secondary:   #3A2C16;
+    --color-text-muted:       #7A6A4A;
+    --color-text-accent:      #6B4C2A;
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    /* Cormorant Garamond: display headings — 16th-century French type revival */
+    /* IM Fell English: body prose — digitized 1670s Oxford University Press   */
+    --font-heading:           'Cormorant Garamond', 'Garamond', 'Didot', serif;
+    --font-body:              'IM Fell English', 'Garamond', 'Georgia', serif;
+
+    /* Light — type cut into a surface, not pressed onto it                    */
+    --font-weight-heading:    300;
+    --font-weight-body:       400;
+
+    /* Wide tracking — Portuguese compositor's hand spacing, not fashion       */
+    --letter-spacing-heading: 0.12em;
+
+    /* Generous line height — the owner reads aloud slowly                     */
+    --line-height-base:       1.8;
+    --line-height-heading:    1.15;
+
+    /* ── Density: airy ───────────────────────────────────────────────────── */
+    --space-unit:             1.25rem;
+
+    /* ── Motion: surgical — the shop does not perform ────────────────────── */
+    --duration-fast:          0.05s;
+    --duration-base:          0.1s;
+    --duration-slow:          0.15s;
+    --easing-bounce:          ease;
+    --easing-smooth:          ease;
+
+    /* ── Shape: sharp — azulejo has a right angle ────────────────────────── */
+    --radius:                 0px;
+
+    /* ── Depth: flat — candlelight does not create lift ─────────────────── */
+    --shadow-sm:              none;
+    --shadow-md:              none;
+    --shadow-lg:              none;
+
+    /* ── Grid: remove blueprint lines — the azulejo IS the grid ─────────── */
+    --bp-grid-color:          transparent;
+    --bp-grid-color-bold:     transparent;
+
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────────
+     All .ldb-* classes (livraria do beco) live here — inside @layer
+     brand-state, outside :root.
+     ──────────────────────────────────────────────────────────────────────── */
+
+
+  /* ── HEADER — wordmark only. No navigation. ─────────────────────────── */
+  /* A bookshop doesn't have a nav bar. It has a name above the door.       */
+
+  .ldb-header {
+    padding: 3rem var(--bp-space-8) 2rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .ldb-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    text-indent: 0.32em;
+  }
+
+  .ldb-header-address {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+
+  /* ── BLOCK 1 — MARK ──────────────────────────────────────────────────── */
+  /*
+   * The full shop facade or the beco entrance. The brand name reads
+   * like lettering above the door — not a hero, a threshold.
+   *
+   * Reference: Narrow alleys in Bairro Alto / Chiado, Lisbon — cobblestone,
+   *            19th-century building facades, azulejo tile panels,
+   *            afternoon light filtering from above
+   * Keywords: bookshop,lisbon,alley
+   * Seed: 1
+   *
+   * Color extraction from Lisbon beco + bookshop photography:
+   * Cobblestone (calcada portuguesa):   #8A8278  (warm mid grey)
+   * Aged plaster facade (sunlit):       #E8DCBC  (warm pale ochre)
+   * Azulejo tile (blue):                #3A6EA0  (medium stone blue)
+   * Azulejo tile (white):               #E8E4D8  (aged white)
+   * Oak door (old, unvarnished):        #5A3C18  (warm dark brown)
+   * Shadow in alley (coolish dark):     #282018  (near-black, brown-cast)
+   * Afternoon sky above alley:          #B0C4D8  (pale hazy blue)
+   * Painted iron signage bracket:       #3A3028  (very dark warm brown)
+   * Section wrapper bg: dominant shadow tone of beco = #3A2C1A
+   */
+
+  .ldb-mark {
+    position: relative;
+    width: 100%;
+    height: 92vh;
+    min-height: 560px;
+    overflow: hidden;
+    background-color: #3A2C1A;
+  }
+
+  .ldb-mark-image {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(26, 18, 8, 0.10) 0%,
+        transparent 30%,
+        transparent 55%,
+        rgba(26, 18, 8, 0.60) 100%
+      ),
+      url('https://loremflickr.com/1600/900/bookshop,interior,shelves?lock=1');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .ldb-mark-caption {
+    position: absolute;
+    bottom: 4rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 2;
+    padding: 0 2rem;
+  }
+
+  .ldb-mark-name {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.8rem, 5vw, 4.5rem);
+    letter-spacing: 0.28em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: rgba(242, 235, 217, 0.92);
+    text-indent: 0.28em;
+    margin: 0;
+  }
+
+  .ldb-mark-sub {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: rgba(242, 235, 217, 0.55);
+    margin-top: 1.5rem;
+    display: block;
+  }
+
+
+  /* ── BLOCK 2 — TEXT INTERLUDE: the opening sentence ─────────────────── */
+  /* Centered narrow block. One sentence. The first recommendation.         */
+
+  .ldb-interlude {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) var(--bp-space-6);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+  }
+
+  .ldb-interlude-inner {
+    max-width: 52ch;
+    text-align: center;
+  }
+
+  .ldb-eyebrow {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-style: italic;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    text-transform: none;
+  }
+
+  .ldb-pull {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.8vw, 2.1rem);
+    letter-spacing: 0.06em;
+    line-height: 1.55;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+
+  /* ── BLOCK 3 — THE SHELVES (full-width image) ───────────────────────── */
+  /*
+   * Reference: Used bookshop interior — wooden shelves, stacked books, bicycle
+   * Keywords: books,wooden,shelves
+   * Seed: 4
+   *
+   * Color extraction from used bookshop photography:
+   * Wooden shelf face (warm pine):      #9B7A50  (warm mid-brown wood)
+   * Book spines (dominant, varied):     #6B5038  (warm mixed-brown average)
+   * Stacked horizontal books (light):   #C4B490  (pale warm tan)
+   * Shelf shadow (inner):               #3A2810  (deep warm dark)
+   * Background wall (dark):             #28180A  (very deep warm dark)
+   * Section wrapper bg: darkest shadow tone = #28180A
+   * Seed 4 chosen: returns chaotic used bookshop with wooden shelves and stacked
+   * books. Original seed 2 (bookshelf,old,books) returned a library card catalog.
+   */
+
+  .ldb-shelves {
+    position: relative;
+    width: 100%;
+    height: 72vh;
+    min-height: 400px;
+    overflow: hidden;
+    background-color: #28180A;
+  }
+
+  .ldb-shelves-image {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to right,
+        rgba(26, 18, 8, 0.52) 0%,
+        transparent 45%,
+        transparent 55%,
+        rgba(26, 18, 8, 0.52) 100%
+      ),
+      url('https://loremflickr.com/1600/800/books,wooden,shelves?lock=4');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .ldb-shelves-caption {
+    position: absolute;
+    bottom: 3rem;
+    left: 4rem;
+    z-index: 2;
+    max-width: 32ch;
+  }
+
+  .ldb-shelves-text {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+    line-height: 1.75;
+    color: rgba(242, 235, 217, 0.80);
+    margin: 0;
+  }
+
+
+  /* ── BLOCK 4 — TEXT INTERLUDE: the organization ─────────────────────── */
+  /* "The books are organized by mood, not subject." This earns its own page. */
+
+  .ldb-moods {
+    background-color: var(--color-bg-secondary);
+    padding: var(--bp-space-20) var(--bp-space-6);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+  }
+
+  .ldb-moods-inner {
+    max-width: 48ch;
+    text-align: center;
+  }
+
+  .ldb-moods-heading {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 3.2vw, 2.8rem);
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-indent: 0.14em;
+    margin: 0 0 2.5rem;
+  }
+
+  .ldb-moods-body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* Mood list — inline labels for the emotional categories */
+
+  .ldb-mood-list {
+    list-style: none;
+    padding: 0;
+    margin: 3rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 1.4rem;
+  }
+
+  .ldb-mood-item {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.15rem;
+  }
+
+
+  /* ── BLOCK 5 — THE TILE (azulejo detail, full-width) ─────────────────── */
+  /*
+   * Reference: São Bento station, Porto — floor-to-ceiling blue-and-white
+   *            azulejo murals, 19th-century Portuguese tilework
+   * Keywords: portuguese,tiles,blue
+   * Seed: 6
+   *
+   * Color extraction from São Bento azulejo photography:
+   * Deep cobalt blue (mural field):     #1E4A7A  (Portuguese cobalt — dominant)
+   * Aged white tile body:               #E8E0CC  (warm yellowed white ground)
+   * Stone arch / building frame:        #9A9080  (warm grey stone)
+   * Grout line shadow:                  #3A4A6A  (blue-grey grout)
+   * Deep blue shadow under arch:        #162E52  (shadow in recessed tile)
+   * Section wrapper bg: dominant dark blue tone = #162E52
+   * Seed 6 chosen: returns São Bento station with authentic large-scale azulejo
+   * murals. Original seed 3 (azulejo,lisbon,tile) returned an art gallery triptych
+   * whose grid-patterned paintings Flickr had tagged with tile-related terms.
+   */
+
+  .ldb-tile-band {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    min-height: 320px;
+    overflow: hidden;
+    background-color: #162E52;
+  }
+
+  .ldb-tile-image {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(16, 20, 28, 0.55) 100%
+      ),
+      url('https://loremflickr.com/1600/700/portuguese,tiles,blue?lock=6');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .ldb-tile-caption {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 4rem;
+    z-index: 2;
+    text-align: right;
+    max-width: 28ch;
+  }
+
+  .ldb-tile-text {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    color: rgba(242, 235, 217, 0.72);
+    margin: 0;
+  }
+
+
+  /* ── BLOCK 6 — VISIT (closing text + address) ────────────────────────── */
+  /* One centered block. The shop's address, and the invitation to come.     */
+
+  .ldb-visit {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-24) var(--bp-space-6) var(--bp-space-20);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--bp-space-8);
+  }
+
+  /* The candle rule — the signature. One thin horizontal line, warm. */
+  .ldb-candle-rule {
+    width: 36px;
+    height: 1px;
+    background-color: var(--color-primary);
+    opacity: 0.55;
+  }
+
+  .ldb-visit-heading {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.2rem, 2.6vw, 2.2rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-indent: 0.16em;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+  }
+
+  .ldb-visit-body {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-style: italic;
+    line-height: 1.9;
+    color: var(--color-text-secondary);
+    text-align: center;
+    max-width: 42ch;
+    margin: 0;
+  }
+
+  .ldb-address {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-style: normal;
+    letter-spacing: 0.10em;
+    line-height: 2.2;
+    color: var(--color-text-muted);
+    text-align: center;
+    font-style: normal;
+  }
+
+  .ldb-visit-hours {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-style: italic;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 2;
+  }
+
+  .ldb-visit-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(107, 76, 42, 0.35);
+    padding-bottom: 0.15rem;
+    transition: color var(--duration-fast) var(--easing-smooth),
+                border-color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .ldb-visit-link:hover {
+    color: var(--color-primary-hover);
+    border-color: rgba(78, 52, 25, 0.55);
+  }
+
+
+  /* ── SHARED HEADING UTILITY ──────────────────────────────────────────── */
+
+  .ldb-section-heading {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-indent: 0.12em;
+    margin: 0 0 2rem;
+  }
+
+  .ldb-section-body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--color-text-secondary);
+  }
+
+  .ldb-section-body + .ldb-section-body {
+    margin-top: 1.25rem;
+  }
+
+
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+
+  @media (max-width: 768px) {
+
+    .ldb-header {
+      padding: 2rem var(--bp-space-5) 1.5rem;
+    }
+
+    .ldb-mark-name {
+      letter-spacing: 0.16em;
+      text-indent: 0.16em;
+    }
+
+    .ldb-shelves-caption {
+      left: 2rem;
+      bottom: 2rem;
+    }
+
+    .ldb-tile-caption {
+      right: 2rem;
+      bottom: 2rem;
+    }
+
+  }
+
+  @media (max-width: 480px) {
+
+    .ldb-mood-list {
+      gap: 0.5rem 1rem;
+    }
+
+    .ldb-moods-inner,
+    .ldb-interlude-inner {
+      max-width: none;
+    }
+
+  }
+
+} /* end @layer brand-state */

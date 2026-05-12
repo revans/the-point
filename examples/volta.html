@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volta Records — VLT-047 · Below the Thermocline</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── BRAND TOKEN OVERRIDES ── */
+    @layer brand-state {
+      :root {
+        --color-primary:        #e63329;
+        --color-primary-hover:  #c42820;
+        --color-primary-subtle: rgba(230, 51, 41, 0.08);
+        --color-bg:             #f7f5f0;
+        --color-bg-secondary:   #eeece6;
+        --color-surface:        #f0ede7;
+        --color-border:         rgba(17, 17, 17, 0.18);
+        --color-text:           #111111;
+        --color-text-secondary: #2a2a2a;
+        --color-text-muted:     #666666;
+        --font-heading:         'Space Grotesk', 'Helvetica Neue', sans-serif;
+        --font-body:            'Lora', 'Georgia', serif;
+        --font-mono:            'SF Mono', 'JetBrains Mono', 'Courier New', monospace;
+        --radius:               var(--bp-radius-none);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: #f7f5f0;
+      color: #111111;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ─────────────────────────────────────────────
+       1. SPINE BAR
+    ───────────────────────────────────────────── */
+    .spine-bar {
+      background: #111111;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+    }
+
+    .spine-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+    }
+
+    .spine-label .spine-dot {
+      color: #e63329;
+    }
+
+    .spine-catalog {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+    }
+
+    .spine-location {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.3);
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    /* ─────────────────────────────────────────────
+       2. FEATURED RELEASE — GATEFOLD FRONT
+    ───────────────────────────────────────────── */
+    .featured-release {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 0;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+    }
+
+    /* LEFT — vinyl record CSS art */
+    .vinyl-jacket {
+      background: #0d0d0d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 520px;
+      border-right: 1px solid rgba(17, 17, 17, 0.2);
+    }
+
+    .vinyl-disc {
+      width: 78%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      position: relative;
+      background: radial-gradient(circle at 50% 50%,
+        #c04020 0%, #9a2012 24%,
+        #1a1a1a 25%,
+        rgba(255,255,255,0.035) 25.5%,
+        #1a1a1a 26%,
+        rgba(255,255,255,0.025) 28%,
+        #1a1a1a 28.5%,
+        rgba(255,255,255,0.02) 31%,
+        #1a1a1a 31.5%,
+        rgba(255,255,255,0.02) 35%,
+        #1a1a1a 35.5%,
+        rgba(255,255,255,0.018) 39%,
+        #1a1a1a 39.5%,
+        rgba(255,255,255,0.015) 44%,
+        #1a1a1a 44.5%,
+        rgba(255,255,255,0.012) 49%,
+        #1a1a1a 49.5%,
+        rgba(255,255,255,0.010) 54%,
+        #1a1a1a 54.5%,
+        rgba(255,255,255,0.008) 59%,
+        #1a1a1a 59.5%,
+        rgba(255,255,255,0.007) 64%,
+        #1a1a1a 64.5%,
+        rgba(255,255,255,0.006) 69%,
+        #1a1a1a 69.5%,
+        rgba(255,255,255,0.005) 74%,
+        #1a1a1a 74.5%,
+        rgba(255,255,255,0.004) 80%,
+        #1a1a1a 80.5%,
+        rgba(255,255,255,0.003) 86%,
+        #1a1a1a 100%
+      );
+      box-shadow: 0 12px 48px rgba(0,0,0,0.8), inset 0 0 60px rgba(0,0,0,0.4);
+    }
+
+    /* Light glare overlay on vinyl */
+    .vinyl-disc::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(
+        ellipse 55% 55% at 32% 28%,
+        rgba(255,255,255,0.06) 0%,
+        transparent 65%
+      );
+      pointer-events: none;
+    }
+
+    .vinyl-center-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 46%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #c04020;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 1rem;
+      gap: 0.2rem;
+    }
+
+    .vinyl-spindle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2.5%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #000;
+      z-index: 2;
+    }
+
+    .vcl-catalog {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      color: #ffffff;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .vcl-artist {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.6rem;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .vcl-title {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.55rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.3;
+    }
+
+    .vcl-side {
+      font-family: var(--font-mono);
+      font-size: 0.45rem;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    /* RIGHT — release details */
+    .release-details {
+      padding: 2.75rem 2.5rem 2.75rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .release-cat-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: #e63329;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .release-artist {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #111111;
+      margin: 0 0 0.2em;
+    }
+
+    .release-title {
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      color: #444444;
+      margin: 0 0 1.5rem;
+      line-height: 1.2;
+    }
+
+    .release-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .release-meta-rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(17, 17, 17, 0.15);
+    }
+
+    .release-meta-text {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888;
+      white-space: nowrap;
+    }
+
+    /* Tracklist */
+    .tracklist {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.75rem;
+    }
+
+    .tracklist-side-label {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #e63329;
+      padding: 0.5rem 0 0.3rem;
+      display: block;
+    }
+
+    .tracklist li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.07);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.875rem;
+      color: #333;
+    }
+
+    .tracklist li:last-child {
+      border-bottom: none;
+    }
+
+    .track-num {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: #aaa;
+      min-width: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .track-name {
+      flex: 1;
+    }
+
+    .track-bpm {
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      color: #bbb;
+      letter-spacing: 0.08em;
+    }
+
+    /* CTAs */
+    .release-ctas {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ─────────────────────────────────────────────
+       3. GATEFOLD INTERIOR
+    ───────────────────────────────────────────── */
+    .gatefold-interior {
+      background: #f0ede6;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+    }
+
+    .gatefold-grid {
+      display: grid;
+      grid-template-columns: 28fr 44fr 28fr;
+      gap: 0;
+    }
+
+    .gatefold-col {
+      padding: 3rem;
+    }
+
+    .gatefold-col:not(:last-child) {
+      border-right: 1px solid rgba(17, 17, 17, 0.16);
+    }
+
+    /* Personnel column */
+    .credits-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .credits-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .credits-label {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #888;
+      display: block;
+      margin-bottom: 0.4rem;
+      font-variant: small-caps;
+    }
+
+    .credits-content {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+    }
+
+    .credits-content em {
+      font-style: normal;
+      color: #111;
+    }
+
+    /* Liner notes column */
+    .liner-notes {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.875rem;
+      line-height: 1.75;
+      color: #2a2a2a;
+      text-align: justify;
+    }
+
+    .liner-notes p {
+      margin: 0 0 1.25em;
+    }
+
+    .liner-notes p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Label info + catalog column */
+    .label-info-section {
+      margin-bottom: 2rem;
+    }
+
+    .label-info-label {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #888;
+      display: block;
+      margin-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+      padding-bottom: 0.4rem;
+    }
+
+    .label-info-text {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.8rem;
+      line-height: 1.65;
+      color: #444;
+      margin: 0 0 0.75em;
+    }
+
+    .label-info-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .also-on-volta {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .also-on-volta li {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.05em;
+      color: #666;
+      line-height: 1.8;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.07);
+      padding: 0.15rem 0;
+    }
+
+    .also-on-volta li:first-child {
+      border-top: 1px solid rgba(17, 17, 17, 0.07);
+    }
+
+    /* ─────────────────────────────────────────────
+       4. PRESS / BACK SLEEVE
+    ───────────────────────────────────────────── */
+    .back-sleeve {
+      background: #1a1a1a;
+    }
+
+    .back-sleeve-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    /* Left — press quotes */
+    .press-col {
+      padding: 3.5rem 3rem 3.5rem 3rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .press-quote {
+      margin-bottom: 2.75rem;
+    }
+
+    .press-quote:last-child {
+      margin-bottom: 0;
+    }
+
+    .press-mark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 0.8;
+      color: #e63329;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .press-text {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.82);
+      margin: 0 0 0.6rem;
+    }
+
+    .press-source {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* Right — label statement */
+    .label-col {
+      padding: 3.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .label-statement {
+      text-align: center;
+    }
+
+    .label-wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .label-wordmark .wm-dot {
+      color: #e63329;
+    }
+
+    .label-catalog-range {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Barcode */
+    .barcode-wrapper {
+      text-align: center;
+    }
+
+    .barcode {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 1.5px;
+      background: #ffffff;
+      padding: 6px 8px 8px;
+      margin-bottom: 0.35rem;
+    }
+
+    .barcode-bar {
+      background: #000000;
+      display: block;
+    }
+
+    .barcode-text {
+      font-family: var(--font-mono);
+      font-size: 0.42rem;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.3);
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    /* ─────────────────────────────────────────────
+       5. FOOTER
+    ───────────────────────────────────────────── */
+    .volta-footer {
+      border-top: 1px solid rgba(17, 17, 17, 0.2);
+      background: #f7f5f0;
+    }
+
+    .volta-footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 2.5rem;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: -0.01em;
+      color: #111;
+      flex-shrink: 0;
+    }
+
+    .footer-brand .red { color: #e63329; }
+
+    .footer-address {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: #888;
+      text-align: center;
+      flex: 1;
+    }
+
+    .footer-indie {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #aaa;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    /* ─────────────────────────────────────────────
+       MOBILE BREAKPOINTS
+    ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .spine-bar {
+        padding: 0 1.25rem;
+        height: auto;
+        min-height: 52px;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .spine-catalog {
+        display: none;
+      }
+
+      .featured-release {
+        grid-template-columns: 1fr;
+      }
+
+      .vinyl-jacket {
+        border-right: none;
+        border-bottom: 1px solid rgba(17, 17, 17, 0.2);
+        min-height: 360px;
+      }
+
+      .release-details {
+        padding: 2rem 1.5rem;
+      }
+
+      .gatefold-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gatefold-col {
+        padding: 2rem 1.5rem;
+      }
+
+      .gatefold-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+      }
+
+      .back-sleeve-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .press-col {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 2.5rem 1.5rem;
+      }
+
+      .label-col {
+        padding: 2.5rem 1.5rem;
+        gap: 2rem;
+      }
+
+      .volta-footer-inner {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 0.5rem;
+      }
+
+      .footer-indie {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── 1. SPINE BAR ── -->
+  <div class="spine-bar">
+    <span class="spine-label">VOLTA<span class="spine-dot">.</span></span>
+    <span class="spine-catalog">VLT-047 &nbsp;·&nbsp; BELOW THE THERMOCLINE &nbsp;·&nbsp; MARA OSEI-MENSAH</span>
+    <span class="spine-location">BROOKLYN &nbsp;·&nbsp; INDEPENDENT &nbsp;·&nbsp; 2026</span>
+  </div>
+
+  <!-- ── 2. FEATURED RELEASE ── -->
+  <section class="featured-release">
+
+    <!-- LEFT: Vinyl record CSS art -->
+    <div class="vinyl-jacket">
+      <div class="vinyl-disc">
+        <div class="vinyl-center-label">
+          <span class="vcl-catalog">VLT-047</span>
+          <span class="vcl-artist">MARA<br>OSEI-MENSAH</span>
+          <span class="vcl-title">Below the Thermocline</span>
+          <span class="vcl-side">Side A ◆ 33&#8531; RPM</span>
+        </div>
+        <div class="vinyl-spindle"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Release details -->
+    <div class="release-details">
+      <div>
+        <div class="release-cat-num">VLT-047</div>
+        <h1 class="release-artist">Mara Osei-Mensah</h1>
+        <p class="release-title">Below the Thermocline</p>
+
+        <div class="release-meta-line">
+          <div class="release-meta-rule"></div>
+          <span class="release-meta-text">Available on vinyl and digital &mdash; May 2026</span>
+        </div>
+
+        <ol class="tracklist">
+          <li><span class="tracklist-side-label">SIDE A</span></li>
+          <li>
+            <span class="track-num">A1</span>
+            <span class="track-name">Thermohaline</span>
+            <span class="track-bpm">94 BPM</span>
+          </li>
+          <li>
+            <span class="track-num">A2</span>
+            <span class="track-name">Drift Current</span>
+            <span class="track-bpm">72 BPM</span>
+          </li>
+          <li>
+            <span class="track-num">A3</span>
+            <span class="track-name">Abyssal Plain</span>
+            <span class="track-bpm">60 BPM</span>
+          </li>
+          <li><span class="tracklist-side-label">SIDE B</span></li>
+          <li>
+            <span class="track-num">B1</span>
+            <span class="track-name">Bioluminescence (Suite)</span>
+            <span class="track-bpm">110 BPM</span>
+          </li>
+          <li>
+            <span class="track-num">B2</span>
+            <span class="track-name">Cold Seep</span>
+            <span class="track-bpm">88 BPM</span>
+          </li>
+          <li>
+            <span class="track-num">B3</span>
+            <span class="track-name">Surface Tension</span>
+            <span class="track-bpm">126 BPM</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="release-ctas">
+        <a href="#" class="bp-btn bp-btn-primary bp-btn-sm">&#9654; Listen</a>
+        <a href="#" class="bp-btn bp-btn-outline bp-btn-sm">Buy Vinyl &mdash; $28</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── 3. GATEFOLD INTERIOR ── -->
+  <section class="gatefold-interior">
+    <div class="gatefold-grid">
+
+      <!-- LEFT: Personnel credits -->
+      <div class="gatefold-col">
+
+        <div class="credits-section">
+          <span class="credits-label">Personnel</span>
+          <p class="credits-content">
+            <em>Mara Osei-Mensah</em> &mdash; piano, synthesizer, Rhodes<br>
+            <em>Kwame Asante</em> &mdash; double bass<br>
+            <em>Yuki Tanaka</em> &mdash; drums, percussion<br>
+            <em>Fatoumata Coulibaly</em> &mdash; alto saxophone, flute
+          </p>
+        </div>
+
+        <div class="credits-section">
+          <span class="credits-label">Recorded at</span>
+          <p class="credits-content">
+            Volta Studio &mdash; Bushwick, Brooklyn<br>
+            September &ndash; November 2025
+          </p>
+        </div>
+
+        <div class="credits-section">
+          <span class="credits-label">Produced by</span>
+          <p class="credits-content">Mara Osei-Mensah</p>
+        </div>
+
+        <div class="credits-section">
+          <span class="credits-label">Mixed by</span>
+          <p class="credits-content">Lars Eklund</p>
+        </div>
+
+        <div class="credits-section">
+          <span class="credits-label">Mastered at</span>
+          <p class="credits-content">Calyx, Berlin</p>
+        </div>
+
+      </div>
+
+      <!-- CENTER: Liner notes -->
+      <div class="gatefold-col">
+        <div class="liner-notes">
+          <p>Below the Thermocline began not with a composition but with a question: what does pressure feel like when it becomes permanent? Osei-Mensah spent three weeks at the Scripps Institution of Oceanography in San Diego before a note was written, sitting in on hydroacoustic research sessions and reading about deep ocean current systems. The thermocline &mdash; the boundary layer where warm surface water meets cold deep water &mdash; became the album's governing metaphor.</p>
+
+          <p>The result is the most patient record Volta has released. Where <em>Fallow Ground</em> (2022) moved in long harmonic arcs, <em>Thermocline</em> moves in strata: each track sits at a different depth, a different pressure, a different temperature. The Rhodes on &ldquo;Drift Current&rdquo; (A2) is tuned slightly flat and treated with a long plate reverb that makes it sound as if it is rising from below you rather than coming from the speakers.</p>
+
+          <p>Tanaka's percussion was recorded in a detuned practice room with microphones positioned at floor level, catching the low-frequency resonance of the kit more than its attack. The result is drums that feel like something a sonar would register rather than something a drummer would play. Coulibaly's alto appears only on &ldquo;Bioluminescence (Suite)&rdquo; and &ldquo;Cold Seep&rdquo; &mdash; in both cases arriving late, as if from a distance, and leaving before resolution.</p>
+
+          <p>Osei-Mensah has said she wanted to make a record you could listen to in a dark room without worrying where it was going. <em>Below the Thermocline</em> earns that patience in full.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Label info + also on Volta -->
+      <div class="gatefold-col">
+
+        <div class="label-info-section">
+          <span class="label-info-label">About Volta</span>
+          <p class="label-info-text">Volta Records is an independent label based in Bushwick, Brooklyn. We have been releasing jazz-inflected electronic music on vinyl and digital since 2014.</p>
+          <p class="label-info-text">Eight to twelve releases a year, chosen because we cannot imagine not putting them out. No algorithm decides our catalog. No quarterly targets shape our roster.</p>
+          <p class="label-info-text">We are artist-owned, artist-run, and answerable only to the music.</p>
+        </div>
+
+        <div class="label-info-section">
+          <span class="label-info-label">Also on Volta</span>
+          <ul class="also-on-volta">
+            <li>VLT-046 &mdash; Kofi Anan Quartet &middot; Accra Modal</li>
+            <li>VLT-045 &mdash; Sela Novak &middot; Rewired for Silence</li>
+            <li>VLT-044 &mdash; The Vashti Ensemble &middot; Harmonic Distress</li>
+            <li>VLT-043 &mdash; Ryo Takahashi &middot; The Drift / The Return</li>
+            <li>VLT-042 &mdash; Desta &amp; Felman &middot; Copper Room Sessions</li>
+            <li>VLT-041 &mdash; Mara Osei-Mensah &middot; Fallow Ground</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 4. PRESS / BACK SLEEVE ── -->
+  <section class="back-sleeve">
+    <div class="back-sleeve-inner">
+
+      <!-- LEFT: Press quotes -->
+      <div class="press-col">
+
+        <div class="press-quote">
+          <span class="press-mark">&ldquo;</span>
+          <p class="press-text">One of the most vital labels operating today. Each release feels like a deliberate argument about what jazz can do when it stops caring about genre.</p>
+          <span class="press-source">Pitchfork &nbsp;&middot;&nbsp; Label of the Year, 2025</span>
+        </div>
+
+        <div class="press-quote">
+          <span class="press-mark">&ldquo;</span>
+          <p class="press-text">Required listening. Volta have a curatorial ear that most labels abandoned when streaming made everything available. The restraint is the point.</p>
+          <span class="press-source">Resident Advisor &nbsp;&middot;&nbsp; Editors&rsquo; Pick</span>
+        </div>
+
+        <div class="press-quote">
+          <span class="press-mark">&ldquo;</span>
+          <p class="press-text">The label that figured out where electronic music and jazz intersect &mdash; not as novelty, but as necessity. Forty-seven releases and not one filler.</p>
+          <span class="press-source">The Wire &nbsp;&middot;&nbsp; Recommended Label</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Label statement + barcode -->
+      <div class="label-col">
+
+        <div class="label-statement">
+          <div class="label-wordmark">VOLTA<span class="wm-dot">.</span></div>
+          <span class="label-catalog-range">Catalog VLT-001 through VLT-047</span>
+        </div>
+
+        <div class="barcode-wrapper">
+          <div class="barcode" aria-hidden="true">
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:3px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:5px;height:44px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:3px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:4px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:3px;height:44px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:5px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:3px;height:38px"></div>
+            <div class="barcode-bar" style="width:4px;height:44px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:3px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:5px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:44px"></div>
+            <div class="barcode-bar" style="width:4px;height:38px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+            <div class="barcode-bar" style="width:3px;height:38px"></div>
+            <div class="barcode-bar" style="width:5px;height:44px"></div>
+            <div class="barcode-bar" style="width:2px;height:38px"></div>
+          </div>
+          <span class="barcode-text">© 2026 Volta Records &nbsp;·&nbsp; Brooklyn, NY &nbsp;·&nbsp; All rights reserved</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 5. FOOTER ── -->
+  <footer class="volta-footer">
+    <div class="volta-footer-inner">
+      <div class="footer-brand">VOLTA<span class="red">.</span></div>
+      <div class="footer-address">
+        85 Scott Avenue, Studio 4B &nbsp;·&nbsp; Bushwick, Brooklyn, NY 11237 &nbsp;·&nbsp; hello@voltarecs.com
+      </div>
+      <div class="footer-indie">Independent since 2014</div>
+    </div>
+  </footer>
+
+</body>
+</html>
+<!--
+DESIGN NOTES:
+
+CONCEPT: The page IS a gatefold vinyl record sleeve — not a website about a record, but the artifact itself,
+rendered in HTML. The five sections map directly to the physical object:
+  1. Spine bar: the narrow strip you read on the shelf (dark, catalog, label)
+  2. Front panel: album art (vinyl disc CSS) + release info (the outside cover faces)
+  3. Gatefold interior: three-column personnel + liner notes + label info (the inside spread)
+  4. Back sleeve: dark, press quotes + label identity + barcode (the back cover)
+  5. Footer: label address strip
+
+VINYL DISC CSS:
+The radial-gradient technique simulates actual vinyl grooves by alternating dark bands with near-transparent
+highlight slivers. Each highlight is 0.5% wide and drops in opacity as it moves outward — from 0.035 at the
+inner groove to 0.003 at the edge — mimicking how a groove's reflectivity diminishes with width. The center
+label is a red circle with its own sub-elements (text, spindle hole) positioned absolutely inside the disc.
+
+TYPOGRAPHIC HIERARCHY:
+- Center column liner notes use Lora italic justified — the exact typesetting convention of actual liner note
+  booklets (ECM Records does this; so does the Criterion Collection). Justified text reads as authoritative
+  in narrow columns.
+- Personnel credits use a pattern borrowed from classical record sleeves: label in tiny monospace all-caps,
+  content in Lora at 0.8rem, tight line-height. Reading it feels like opening a sleeve and tilting it toward
+  the light.
+- "Also on Volta" is pure monospace text with no art, no cards — exactly as it would appear as a catalog
+  listing on the back of an ECM or Blue Note record. The plainness is the point.
+
+COLOR DISCIPLINE:
+- Red (#e63329) appears in exactly four roles: spine dot, catalog number, side labels in tracklist, press
+  quotation marks. This is the same scarcity principle as the original file but now the red reads as a
+  physical property of the sleeve — like a Volta label color, not a brand accent.
+- The gatefold interior uses #f0ede6 (slightly warmer/darker than the page #f7f5f0) to simulate the
+  slightly different paper stock used for the inner spread of a gatefold sleeve.
+
+WHAT WAS REMOVED:
+- Events table (was overlapping with event.html)
+- Artist roster grid with profile cards
+- Newsletter signup form
+- 6-column catalog art card grid
+- Ticker bar
+- Masthead / wordmark hero (replaced by spine bar)
+- Label stats section (47 releases, 12 years, etc.)
+
+GAPS FROM BLUEPRINT (custom, no bp- class covers these):
+- Vinyl disc radial-gradient groove simulation
+- Gatefold three-column grid with hairline dividers and no gap
+- Barcode element (hand-coded div bars at varying widths/heights)
+- Liner notes justified italic typeset column
+- Spine bar (full-width, 52px, dark, three-zone flex)
+- Press quotes on dark background (different geometry from bp-testimonial)
+- CSS center label inside the vinyl disc (absolutely positioned sub-elements)
+-->

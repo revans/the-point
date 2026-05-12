@@ -28,16 +28,21 @@
 
   /* -------------------------------------------------------------------------
      BRAND COLOR
-     The single most impactful change. Everything —buttons, links, focus rings,
-     badges, borders on active states — flows from these two values.
+     Setting --color-primary is all you need. The system automatically derives:
+       --color-primary-hover  (darker, same hue — for button/link hover states)
+       --color-primary-subtle (12% alpha tint — for badge backgrounds, card hover)
+       --color-primary-glow   (25% alpha tint — for focus rings, glow shadows)
+
+     Override any of the derived values below only if the auto-derivation
+     isn't right for your specific color (e.g. a very light primary on dark bg).
      ---------------------------------------------------------------------- */
 
   /* --color-primary:        #your-brand-color; */
-  /* --color-primary-hover:  #your-brand-color-darker; */
 
-  /* Optional: fine-tune how the primary color shows in subtle contexts */
-  /* --color-primary-subtle: rgba(your-rgb-values, 0.1); */
-  /* --color-primary-glow:   rgba(your-rgb-values, 0.2); */
+  /* Override derived values only if needed: */
+  /* --color-primary-hover:  #your-brand-color-darker; */
+  /* --color-primary-subtle: color-mix(in srgb, var(--color-primary) 12%, transparent); */
+  /* --color-primary-glow:   color-mix(in srgb, var(--color-primary) 25%, transparent); */
 
 
   /* -------------------------------------------------------------------------

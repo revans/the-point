@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meridian — Blueprint Example</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+SC:wght@300;400;500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #c9a84c;
+        --color-primary-hover:  #b8973b;
+        --color-primary-subtle: rgba(201, 168, 76, 0.08);
+        --color-primary-glow:   rgba(201, 168, 76, 0.15);
+        --color-bg:             #0e0e0e;
+        --color-bg-secondary:   #121212;
+        --color-surface:        #181818;
+        --color-surface-hover:  #1e1e1e;
+        --color-border:         #262626;
+        --color-text:           #f0ece4;
+        --color-text-secondary: #b0a898;
+        --color-text-muted:     #5a5550;
+        --font-heading:         'Cormorant Garamond', 'Georgia', serif;
+        --font-body:            'Jost', 'Helvetica Neue', sans-serif;
+        --font-mono:            'Cormorant SC', serif;
+        --radius:               var(--bp-radius-none);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    body {
+      background: #0e0e0e;
+    }
+
+    /* ── Header rule ── */
+    .gold-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+    }
+
+    /* ── NAV: ultra-minimal ── */
+    .meridian-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 4rem;
+    }
+
+    .meridian-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.55rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .brand-name {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 300;
+      font-size: 1.5rem;
+      letter-spacing: 0.4em;
+      color: var(--color-text);
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .meridian-nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .meridian-nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .meridian-nav-links a:hover {
+      color: var(--color-primary);
+    }
+
+    .nav-contact-btn {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      padding: 0.6rem 1.5rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-contact-btn:hover {
+      background: var(--color-primary);
+      color: #0e0e0e;
+    }
+
+    /* ── HERO: full-bleed statement ── */
+    .meridian-hero {
+      position: relative;
+      min-height: 82vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+
+    /* Subtle radial gold glow at center */
+    .meridian-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-superscript {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .hero-superscript::before,
+    .hero-superscript::after {
+      content: '—';
+      margin: 0 1rem;
+      opacity: 0.4;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 1.05;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+      margin: 0 0 2rem;
+      max-width: 18ch;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-primary);
+    }
+
+    .hero-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--color-primary);
+      margin: 0 auto 2rem;
+    }
+
+    .hero-body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.85rem;
+      line-height: 2;
+      color: var(--color-text-muted);
+      max-width: 46ch;
+      letter-spacing: 0.05em;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-cta-pair {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .cta-primary {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #0e0e0e;
+      background: var(--color-primary);
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .cta-primary:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .cta-secondary {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 0.15rem;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .cta-secondary:hover {
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    /* ── Metrics band ── */
+    .metrics-band {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .metric {
+      padding: 2.5rem;
+      text-align: center;
+      border-right: 1px solid var(--color-border);
+    }
+
+    .metric:last-child {
+      border-right: none;
+    }
+
+    .metric-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 3rem;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* ── Featured listings ── */
+    .listings-section {
+      padding: 5rem 4rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .listings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .listings-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2.5rem;
+      color: var(--color-text);
+      letter-spacing: 0.05em;
+    }
+
+    .listings-view-all {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    /* Property cards: no images, color-block aesthetic */
+    .property-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2px;
+    }
+
+    .property-card {
+      background: var(--color-surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-visual {
+      height: 220px;
+      background: var(--color-bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-visual-sm {
+      height: 160px;
+    }
+
+    /* Abstract geometric composition per property */
+    .prop-geo {
+      position: absolute;
+      inset: 0;
+    }
+
+    .property-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      background: var(--color-primary);
+      color: #0e0e0e;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .property-info {
+      padding: 1.5rem;
+    }
+
+    .property-location {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .property-location::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background: var(--color-primary);
+    }
+
+    .property-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .property-detail {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .property-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.6rem;
+      color: var(--color-primary);
+    }
+
+    .property-price-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 0.1rem;
+    }
+
+    /* ── Testimonial / Philosophy ── */
+    .testimonial-section {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .test-left {
+      border-right: 1px solid var(--color-border);
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .test-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .test-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.7rem;
+      line-height: 1.4;
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+    }
+
+    .test-attribution {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .test-right {
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .service-item {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .service-num {
+      font-family: 'Cormorant SC', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--color-primary);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .service-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.72rem;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+    }
+
+    /* ── Footer ── */
+    .meridian-footer {
+      padding: 3rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .footer-col-title {
+      font-family: 'Cormorant SC', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-links-list a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-address {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      line-height: 1.9;
+      color: var(--color-text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .meridian-footer-bottom {
+      padding: 1.25rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gold-rule"></div>
+
+  <!-- NAV -->
+  <nav class="meridian-nav">
+    <ul class="meridian-nav-links">
+      <li><a href="#">Properties</a></li>
+      <li><a href="#">Portfolio</a></li>
+    </ul>
+
+    <a href="#" class="meridian-brand">
+      <span class="brand-eyebrow">Est. 1987</span>
+      <span class="brand-name">Meridian</span>
+      <span class="brand-sub">Luxury Real Estate</span>
+    </a>
+
+    <div style="display: flex; align-items: center; gap: 2.5rem;">
+      <ul class="meridian-nav-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Journal</a></li>
+      </ul>
+      <a href="#" class="nav-contact-btn">Enquire</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="meridian-hero">
+    <div class="hero-superscript">Private Collection 2026</div>
+    <h1 class="hero-title">
+      Residences of<br>
+      <em>singular</em><br>
+      distinction
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-body">
+      For nearly four decades, Meridian has represented properties that resist easy classification. Each represents a specific moment of architectural ambition, offered to those who understand that rarity is not a price point.
+    </p>
+    <div class="hero-cta-pair">
+      <a href="#" class="cta-primary">View current listings</a>
+      <a href="#" class="cta-secondary">Request private briefing &#8594;</a>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <div class="metrics-band">
+    <div class="metric">
+      <div class="metric-value">38</div>
+      <div class="metric-label">Years in market</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">$4.2B</div>
+      <div class="metric-label">Transactions closed</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">14</div>
+      <div class="metric-label">Markets served</div>
+    </div>
+    <div class="metric">
+      <div class="metric-value">97%</div>
+      <div class="metric-label">Asking price achieved</div>
+    </div>
+  </div>
+
+  <!-- LISTINGS -->
+  <section class="listings-section">
+    <div class="listings-header">
+      <h2 class="listings-title">Featured Residences</h2>
+      <a href="#" class="listings-view-all">View all listings &#8594;</a>
+    </div>
+
+    <div class="property-grid">
+      <!-- Featured: large card -->
+      <div class="property-card">
+        <div class="property-visual">
+          <!-- Architectural abstraction: concrete geometry -->
+          <div class="prop-geo" style="background: linear-gradient(160deg, #1c1c1c 0%, #111 50%, #0e0e0e 100%);">
+            <div style="position: absolute; top: 30%; left: 20%; width: 60%; height: 1px; background: rgba(201,168,76,0.3);"></div>
+            <div style="position: absolute; top: 0; left: 40%; width: 1px; height: 100%; background: rgba(201,168,76,0.1);"></div>
+            <div style="position: absolute; bottom: 0; right: 0; width: 45%; height: 45%; background: rgba(201,168,76,0.04); border-top: 1px solid rgba(201,168,76,0.2); border-left: 1px solid rgba(201,168,76,0.2);"></div>
+          </div>
+          <div class="property-badge">New listing</div>
+        </div>
+        <div class="property-info">
+          <div class="property-location">Zürich, Switzerland &nbsp;·&nbsp; Seefeld district</div>
+          <div class="property-name">Villa Kronenhügel</div>
+          <div class="property-detail">7 bedrooms &nbsp;·&nbsp; 920 m² &nbsp;·&nbsp; Lake frontage &nbsp;·&nbsp; 1962, restored 2021</div>
+          <div class="property-price">CHF 18,400,000</div>
+          <div class="property-price-label">Private offering</div>
+        </div>
+      </div>
+
+      <!-- Two smaller cards -->
+      <div class="property-card">
+        <div class="property-visual property-visual-sm">
+          <div class="prop-geo" style="background: #141414;">
+            <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(201,168,76,0.2);"></div>
+            <div style="position: absolute; top: 20%; right: 20%; width: 40%; height: 60%; border: 1px solid rgba(201,168,76,0.1);"></div>
+          </div>
+        </div>
+        <div class="property-info">
+          <div class="property-location">Kyoto, Japan</div>
+          <div class="property-name">Higashiyama<br>Residence</div>
+          <div class="property-detail">4 rooms &nbsp;·&nbsp; Machiya &nbsp;·&nbsp; 1908</div>
+          <div class="property-price">¥480,000,000</div>
+          <div class="property-price-label">On application</div>
+        </div>
+      </div>
+
+      <div class="property-card">
+        <div class="property-visual property-visual-sm">
+          <div class="prop-geo" style="background: linear-gradient(45deg, #0a0a0a, #1a1818);">
+            <div style="position: absolute; bottom: 30%; left: 15%; right: 15%; height: 1px; background: rgba(201,168,76,0.25);"></div>
+            <div style="position: absolute; top: 15%; left: 50%; width: 1px; height: 70%; background: rgba(201,168,76,0.1);"></div>
+          </div>
+        </div>
+        <div class="property-info">
+          <div class="property-location">Amalfi Coast, Italy</div>
+          <div class="property-name">Torre<br>Bellavista</div>
+          <div class="property-detail">5 bedrooms &nbsp;·&nbsp; 14th c. tower</div>
+          <div class="property-price">€9,200,000</div>
+          <div class="property-price-label">Exclusive mandate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL + SERVICES -->
+  <section class="testimonial-section">
+    <div class="test-left">
+      <div class="test-label">Client remark</div>
+      <blockquote class="test-quote">
+        "Meridian did not show us properties. They showed us the one property. There is a meaningful difference."
+      </blockquote>
+      <div class="test-attribution">A.M. &nbsp;·&nbsp; Geneva &nbsp;·&nbsp; 2025</div>
+    </div>
+    <div class="test-right">
+      <div class="service-item">
+        <span class="service-num">I</span>
+        <div class="service-name">Acquisition</div>
+        <div class="service-desc">Discreet representation at every stage. Off-market access through 38 years of cultivated relationships in 14 markets.</div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">II</span>
+        <div class="service-name">Private Sale</div>
+        <div class="service-desc">Your property presented to the right audience, not the largest one. Pre-qualified buyers, no public listing required.</div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">III</span>
+        <div class="service-name">Portfolio Advisory</div>
+        <div class="service-desc">Long-term stewardship of residential portfolios across jurisdictions. Tax-neutral structuring where applicable.</div>
+      </div>
+      <div class="service-item">
+        <span class="service-num">IV</span>
+        <div class="service-name">Estate Management</div>
+        <div class="service-desc">Full-service management of unoccupied properties. Preservation, seasonal preparation, and staff oversight.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="meridian-footer">
+    <div>
+      <div class="footer-col-title">Properties</div>
+      <ul class="footer-links-list">
+        <li><a href="#">Current listings</a></li>
+        <li><a href="#">Off-market opportunities</a></li>
+        <li><a href="#">New developments</a></li>
+        <li><a href="#">Investment portfolio</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">The Firm</div>
+      <ul class="footer-links-list">
+        <li><a href="#">About Meridian</a></li>
+        <li><a href="#">Our advisors</a></li>
+        <li><a href="#">Closed transactions</a></li>
+        <li><a href="#">The Journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-address">
+        Meridian Real Estate Group<br>
+        Bahnhofstrasse 42, 8001 Zürich<br>
+        +41 44 000 0000<br>
+        enquiries@meridian.estate
+      </div>
+    </div>
+  </footer>
+
+  <div class="meridian-footer-bottom">
+    <span class="footer-copy">Meridian Real Estate Group &copy; 1987&ndash;2026</span>
+    <span class="footer-copy">Privacy &nbsp;·&nbsp; Legal &nbsp;·&nbsp; Regulatory</span>
+  </div>
+
+  <div class="gold-rule"></div>
+
+</body>
+</html>

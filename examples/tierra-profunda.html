@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<!--
+  TIERRA PROFUNDA — Landing Page
+  Small-batch mezcal, Sierra Sur, Oaxaca. Espadin + Tobala.
+  Built on The Point design system + tierra-profunda-brand.css
+
+  Page structure (credential, not marketing):
+  Block 1 — MARK          (full-viewport brand name. Two expressions named. Silence.)
+  Block 2 — EXPRESSIONS   (gatefold: espadin left, tobala right — tasting data)
+  Block 3 — PRODUCTION    (five process steps as photo strip + fact rows)
+  Block 4 — PROVENANCE    (Sierra Sur photo + coordinates + prose)
+  Block 5 — RETAILERS     (region-filtered directory with expression chips)
+  Block 6 — ALLOCATION    (contact form for trade / bartender inquiries)
+  Block 7 — CLOSE         (address, the final fact)
+
+  No hero CTA. No buy button. The bottle finds you.
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tierra Profunda — Mezcal Espadin · Tobala, Sierra Sur de Oaxaca</title>
+  <meta name="description" content="Tierra Profunda. Small-batch mezcal from Santos Reyes Nopala, Sierra Sur de Oaxaca. Espadin angustifolia and Tobala potatorum. Pit-roasted, tahona-ground, open-vat fermented. Limited production.">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./tierra-profunda-brand.css">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 1 — MARK
+       The brand name, full viewport. Two agave names below. Nothing else.
+       Compositional mode: minimal. Suppressed: buttons, eyebrows,
+       subtitles, anything that performs.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tp-mark">
+
+    <div class="tp-mark-inner">
+
+      <h1 class="tp-brand-name">Tierra Profunda</h1>
+
+      <p class="tp-brand-origin">
+        Santos Reyes Nopala &nbsp;·&nbsp; Sierra Sur, Oaxaca &nbsp;·&nbsp; 1,847 m
+      </p>
+
+      <div class="tp-brand-expressions">
+        <span class="tp-expression-name">Espadin</span>
+        <span class="tp-expression-separator"></span>
+        <span class="tp-expression-name">Tobala</span>
+      </div>
+
+    </div>
+
+    <p class="tp-scroll-hint">&#8595;</p>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 2 — EXPRESSIONS
+       Gatefold: two panels side by side. Each agave tells its own facts.
+       No prose, no arguments. The data is the argument.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tp-expressions-section">
+    <div class="tp-expressions-grid">
+
+      <!-- Left panel: Espadin -->
+      <div class="tp-expression-panel">
+
+        <div class="tp-bottle-slot tp-bottle-espadin"></div>
+
+        <h2 class="tp-expression-heading">Espadin</h2>
+        <p class="tp-expression-species">Agave angustifolia Haw.</p>
+
+        <div class="tp-tasting-data">
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Cosecha</span>
+            <span class="tp-tasting-value">2022</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Lote</span>
+            <span class="tp-tasting-value">E-2204 &nbsp;·&nbsp; 312 botellas</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">ABV</span>
+            <span class="tp-tasting-value">48.2% Alc./Vol.</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Nariz</span>
+            <span class="tp-tasting-value">Pine smoke, raw agave honey, wet ash. Green herb on the back.</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Paladar</span>
+            <span class="tp-tasting-value">Mineral, dried chile, restrained citrus. Firm body. Sweetness held back.</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Final</span>
+            <span class="tp-tasting-value">Long. 45 seconds. Smoke returns last, behind the earth.</span>
+          </div>
+
+        </div>
+
+        <div class="tp-expression-price">
+          <span class="tp-price-number">$155</span>
+          <span class="tp-price-range">750 ml &nbsp;·&nbsp; $145–170 at retail</span>
+        </div>
+
+      </div><!-- /.tp-expression-panel espadin -->
+
+      <!-- Right panel: Tobala -->
+      <div class="tp-expression-panel">
+
+        <div class="tp-bottle-slot tp-bottle-tobala"></div>
+
+        <h2 class="tp-expression-heading">Tobala</h2>
+        <p class="tp-expression-species">Agave potatorum Zucc.</p>
+
+        <div class="tp-tasting-data">
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Cosecha</span>
+            <span class="tp-tasting-value">2021</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Lote</span>
+            <span class="tp-tasting-value">T-2107 &nbsp;·&nbsp; 84 botellas</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">ABV</span>
+            <span class="tp-tasting-value">46.6% Alc./Vol.</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Nariz</span>
+            <span class="tp-tasting-value">Wild rose, volcanic stone, wet clay. Overripe fig and faint fennel beneath.</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Paladar</span>
+            <span class="tp-tasting-value">Dense. Bitter chocolate, ripe banana, mineral salt. Extended mid-palate weight.</span>
+          </div>
+
+          <div class="tp-tasting-row">
+            <span class="tp-tasting-label">Final</span>
+            <span class="tp-tasting-value">60+ seconds. Mountain earth, damp agave fiber. Does not fully resolve.</span>
+          </div>
+
+        </div>
+
+        <div class="tp-expression-price">
+          <span class="tp-price-number">$285</span>
+          <span class="tp-price-range">750 ml &nbsp;·&nbsp; $270–310 at retail</span>
+        </div>
+
+      </div><!-- /.tp-expression-panel tobala -->
+
+    </div><!-- /.tp-expressions-grid -->
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 3 — PRODUCTION
+       Five process steps in a horizontal strip. Photo on top, fact row
+       below. Research-lab density: the process credentials the brand.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tp-production-section">
+
+    <div class="bp-container">
+      <div class="tp-production-header">
+        <span class="tp-section-label">Process</span>
+        <h2 class="tp-section-title">Five steps, unchanged in three generations.</h2>
+      </div>
+    </div>
+
+    <!-- Strip scrolls horizontally on narrow viewports — never wraps to rows -->
+    <div class="tp-process-strip">
+
+      <!-- Step 01: Harvest -->
+      <div class="tp-process-slot">
+        <div
+          class="tp-process-image"
+          style="background-image: linear-gradient(to bottom, transparent 55%, rgba(13,8,6,0.6) 100%), url('https://loremflickr.com/600/600/agave,oaxaca,harvest?lock=11');"
+          role="img"
+          aria-label="Agave harvest"
+        ></div>
+        <div class="tp-process-meta">
+          <span class="tp-process-number">01</span>
+          <span class="tp-process-name">Cosecha</span>
+          <p class="tp-process-note">Espadin matures in 8 to 12 years at this altitude. Tobala takes 12 to 20. The jimador harvests by hand, reading the quiote and testing the core. No instrument confirms what he already knows.</p>
+        </div>
+      </div>
+
+      <!-- Step 02: Roasting -->
+      <div class="tp-process-slot">
+        <div
+          class="tp-process-image"
+          style="background-image: linear-gradient(to bottom, transparent 55%, rgba(13,8,6,0.6) 100%), url('https://loremflickr.com/600/600/agave,roasting,pit?lock=12');"
+          role="img"
+          aria-label="Pit roasting"
+        ></div>
+        <div class="tp-process-meta">
+          <span class="tp-process-number">02</span>
+          <span class="tp-process-name">Horneado</span>
+          <p class="tp-process-note">A stone-lined earthen pit, three meters across. Hardwood fire for six hours, then the piñas go in, covered with agave fiber and packed earth. Four to five days. The smoke from this fire is in the mezcal.</p>
+        </div>
+      </div>
+
+      <!-- Step 03: Crushing -->
+      <div class="tp-process-slot">
+        <div
+          class="tp-process-image"
+          style="background-image: linear-gradient(to bottom, transparent 55%, rgba(13,8,6,0.6) 100%), url('https://loremflickr.com/600/600/tahona,stone,wheel?lock=13');"
+          role="img"
+          aria-label="Tahona stone wheel"
+        ></div>
+        <div class="tp-process-meta">
+          <span class="tp-process-number">03</span>
+          <span class="tp-process-name">Molienda</span>
+          <p class="tp-process-note">A two-ton volcanic stone pulled by a horse. One revolution every four seconds. The tahona tears the roasted fiber slowly enough that the natural oils do not denature. A shredder is faster. It is not the same.</p>
+        </div>
+      </div>
+
+      <!-- Step 04: Fermentation -->
+      <div class="tp-process-slot">
+        <div
+          class="tp-process-image"
+          style="background-image: linear-gradient(to bottom, transparent 55%, rgba(13,8,6,0.6) 100%), url('https://loremflickr.com/600/600/fermentation,vat,wood?lock=14');"
+          role="img"
+          aria-label="Open pine fermentation vats"
+        ></div>
+        <div class="tp-process-meta">
+          <span class="tp-process-number">04</span>
+          <span class="tp-process-name">Fermentación</span>
+          <p class="tp-process-note">Open pine vats, sky overhead. Ambient yeast from this palenque only — no introduced cultures. Five to eight days depending on the season. No temperature control. No additives. The variability is the record.</p>
+        </div>
+      </div>
+
+      <!-- Step 05: Distillation -->
+      <div class="tp-process-slot">
+        <div
+          class="tp-process-image"
+          style="background-image: linear-gradient(to bottom, transparent 55%, rgba(13,8,6,0.6) 100%), url('https://loremflickr.com/600/600/distillation,mezcal,still?lock=15');"
+          role="img"
+          aria-label="Distillation"
+        ></div>
+        <div class="tp-process-meta">
+          <span class="tp-process-number">05</span>
+          <span class="tp-process-name">Destilación</span>
+          <p class="tp-process-note">Double-distilled in copper pot stills. The first pass concentrates; the second refines. The maestro cuts by taste and by feel — a thread of spirit on the back of the hand, a slow burn at the base of the throat.</p>
+        </div>
+      </div>
+
+    </div><!-- /.tp-process-strip -->
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 4 — PROVENANCE
+       Sierra Sur photograph left. Coordinates + provenance prose right.
+       The land before the brand.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tp-provenance-section">
+    <div class="tp-provenance-split">
+
+      <!-- Left: Sierra Sur landscape photograph -->
+      <div
+        class="tp-provenance-image"
+        role="img"
+        aria-label="Sierra Sur mountains, Oaxaca"
+      ></div>
+
+      <!-- Right: data + prose -->
+      <div class="tp-provenance-content">
+
+        <div class="tp-provenance-coords">
+          <span class="bp-block">16°22′14″N 96°48′37″W</span>
+          <span class="bp-block">1,847 m.s.n.m.</span>
+          <span class="bp-block">Santos Reyes Nopala, Oaxaca</span>
+          <span class="bp-block">Sierra Sur</span>
+          <span class="bp-block">Familia Vásquez Cruz — est. 1947</span>
+        </div>
+
+        <p class="tp-provenance-body">
+          The palenque sits on a ledge above the cloud line, where espadin grows wild between volcanic outcroppings and tobala colonizes the steeper hillsides no other agave survives. Stone walls. Packed earth floors. The roof open on one side to the mountain air. The Vásquez Cruz family has worked this ground since 1947 — four generations with no transfer of technique beyond the palenque itself, no written record beyond the memory held in the wood of the fermentation vats. The Sierra Sur is not the Valles Centrales. The altitude compresses the growing season, slows sugar accumulation in the agave core, and leaves less residual moisture in the roasted piña. The mezcal from this elevation is leaner, sharper, more mineral than lowland expressions. That is not a marketing distinction. It is a consequence of soil chemistry, ambient temperature, and the specific yeast population of this one palenque.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 5 — RETAILER DIRECTORY
+       Region filter left. Listings right. The bottle finds you.
+       No "buy now" — this is where to go.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tp-retail-section">
+
+    <div class="bp-container">
+
+      <div class="tp-retail-header">
+        <span class="tp-section-label">Find a bottle</span>
+        <h2 class="tp-section-title">Selected retail partners.</h2>
+      </div>
+
+      <div class="tp-retail-layout">
+
+        <!-- Region filter column -->
+        <div class="tp-retail-regions">
+          <span class="tp-regions-label">Region</span>
+          <a href="#" class="tp-region-item active">All regions</a>
+          <a href="#" class="tp-region-item">New York</a>
+          <a href="#" class="tp-region-item">California</a>
+          <a href="#" class="tp-region-item">Illinois</a>
+          <a href="#" class="tp-region-item">Texas</a>
+          <a href="#" class="tp-region-item">Florida</a>
+          <a href="#" class="tp-region-item">Pacific Northwest</a>
+        </div>
+
+        <!-- Retailer listings column -->
+        <div class="tp-retailer-list">
+
+          <div class="tp-retailer-entry">
+            <div>
+              <p class="tp-retailer-name">Amphora Fine Spirits</p>
+              <p class="tp-retailer-location">New York, NY &nbsp;·&nbsp; bottle shop</p>
+            </div>
+            <div class="tp-retailer-chips">
+              <span class="tp-expression-chip">Espadin</span>
+              <span class="tp-expression-chip">Tobala</span>
+            </div>
+          </div>
+
+          <div class="tp-retailer-entry">
+            <div>
+              <p class="tp-retailer-name">Pacific Spirits</p>
+              <p class="tp-retailer-location">San Francisco, CA &nbsp;·&nbsp; bottle shop</p>
+            </div>
+            <div class="tp-retailer-chips">
+              <span class="tp-expression-chip">Espadin</span>
+            </div>
+          </div>
+
+          <div class="tp-retailer-entry">
+            <div>
+              <p class="tp-retailer-name">Distrito Fine Spirits</p>
+              <p class="tp-retailer-location">Chicago, IL &nbsp;·&nbsp; specialty spirits</p>
+            </div>
+            <div class="tp-retailer-chips">
+              <span class="tp-expression-chip">Espadin</span>
+              <span class="tp-expression-chip">Tobala</span>
+            </div>
+          </div>
+
+          <div class="tp-retailer-entry">
+            <div>
+              <p class="tp-retailer-name">Terroir Wine & Spirits</p>
+              <p class="tp-retailer-location">Austin, TX &nbsp;·&nbsp; bottle shop</p>
+            </div>
+            <div class="tp-retailer-chips">
+              <span class="tp-expression-chip">Tobala</span>
+            </div>
+          </div>
+
+          <div class="tp-retailer-entry">
+            <div>
+              <p class="tp-retailer-name">Brickell Bottle Shop</p>
+              <p class="tp-retailer-location">Miami, FL &nbsp;·&nbsp; specialty spirits</p>
+            </div>
+            <div class="tp-retailer-chips">
+              <span class="tp-expression-chip">Espadin</span>
+              <span class="tp-expression-chip">Tobala</span>
+            </div>
+          </div>
+
+          <div class="tp-retail-more">
+            <a href="#" class="tp-retail-link">Full distributor list &nbsp;→</a>
+          </div>
+
+        </div><!-- /.tp-retailer-list -->
+
+      </div><!-- /.tp-retail-layout -->
+
+    </div><!-- /.bp-container -->
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 6 — ALLOCATION INQUIRY
+       Trade buyers, knowledgeable bartenders, serious collectors.
+       No "buy now" — contact for allocation.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tp-allocation-section">
+    <div class="bp-container">
+      <div class="tp-allocation-inner">
+
+        <!-- Left: copy -->
+        <div class="tp-allocation-copy">
+
+          <span class="tp-section-label">Allocation</span>
+          <h2 class="tp-allocation-title">Inquiries accepted for the 2025 allocation.</h2>
+
+          <p class="tp-allocation-body">
+            Annual production is fixed. The palenque does not scale. Espadin and tobala are allocated to a small number of retail partners and program accounts each year. Trade buyers — importers, bartenders, program directors — may submit an inquiry below. Collectors purchasing for personal cellar should begin with their nearest retail partner. Allocation is confirmed by our importer. Response time is typically two to three weeks.
+          </p>
+
+          <div class="tp-allocation-note">
+            <span class="bp-block">Espadin: 26 cases per year</span>
+            <span class="bp-block">Tobala: 7 cases per year</span>
+            <span class="bp-block">Distributed by Agave Collective, Los Angeles</span>
+          </div>
+
+        </div>
+
+        <!-- Right: contact form -->
+        <div class="tp-allocation-form">
+
+          <div class="bp-form-group">
+            <label class="bp-label">Name</label>
+            <input type="text" class="bp-input" placeholder="Your name">
+          </div>
+
+          <div class="bp-form-group">
+            <label class="bp-label">Email</label>
+            <input type="email" class="bp-input" placeholder="your@email.com">
+          </div>
+
+          <div class="bp-form-group">
+            <label class="bp-label">Account</label>
+            <input type="text" class="bp-input" placeholder="Restaurant, bar, bottle shop, or personal collection">
+          </div>
+
+          <div class="bp-form-group">
+            <label class="bp-label">Expression</label>
+            <select class="bp-select">
+              <option>Espadin ($155)</option>
+              <option>Tobala ($285)</option>
+              <option>Both expressions</option>
+            </select>
+          </div>
+
+          <div class="bp-form-group">
+            <label class="bp-label">Notes (optional)</label>
+            <textarea class="bp-textarea" rows="3" placeholder="Volume, program details, or questions about the allocation process."></textarea>
+          </div>
+
+          <button class="bp-btn bp-btn-outline bp-w-full" type="submit">
+            Submit inquiry
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 7 — CLOSE
+       The last thing someone reads. The fewest words. The hardest fact.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <footer class="tp-close">
+
+    <span class="tp-close-wordmark">Tierra Profunda</span>
+
+    <div class="tp-close-divider"></div>
+
+    <address class="tp-close-address" style="font-style: normal;">
+      Palenque Vásquez Cruz<br>
+      Camino al Monte s/n<br>
+      Santos Reyes Nopala, Oaxaca, México
+    </address>
+
+    <div class="tp-close-divider"></div>
+
+    <p class="tp-close-line">Production closed for the 2024 season. The 2025 espadin cosecha begins in March.</p>
+
+  </footer>
+
+
+</body>
+</html>

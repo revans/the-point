@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<!--
+  TLĀLOC NEGRO — Landing Page
+  Built on The Point design system + tlaloc-negro-brand.css
+
+  Page structure (document, not marketing site):
+  Block 1 — MARK        (full-viewport brand name, near nothing else)
+  Block 2 — PRODUCTION  (5 portrait-ratio stages, true horizontal strip)
+  Block 3 — BOTTLE      (single centered bottle, 200px max-width)
+  Block 4 — PROVENANCE  (two-column: data left, prose right)
+  Block 5 — CLOSE       (address, text-link CTA, final quantity line)
+
+  No nav bar. No section labels. No buttons. One text link at the end.
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLĀLOC NEGRO — Mezcal Espadin, Sierra Juárez</title>
+  <meta name="description" content="Small-batch mezcal espadin from the highlands of Oaxaca. Family palenque, est. 1952. 400 bottles per year.">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./tlaloc-negro-brand.css">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 1 — MARK
+       The brand name enormous and centered. Near nothing else.
+       The dark background IS the statement.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tln-mark">
+
+    <h1 class="tln-brand-name">Tlāloc Negro</h1>
+
+    <!-- One line: coordinates + elevation + year — document reference number feel -->
+    <p class="tln-brand-tagline">
+      17°04′N 96°22′W &nbsp;·&nbsp; 2,400 m &nbsp;·&nbsp; Est. 1952
+    </p>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 2 — PRODUCTION STAGES
+       Five portrait-ratio slots in a true horizontal row.
+       grid-template-columns: repeat(5, 1fr) — never collapses to 2 rows.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tln-stages-section">
+
+    <div class="tln-stages-strip">
+
+      <!-- Stage 01 — HARVEST -->
+      <div class="tln-stage-slot">
+        <div class="tln-stage-image tln-stage-harvest"></div>
+        <div class="tln-stage-meta">
+          <p class="tln-stage-number">01</p>
+          <p class="tln-stage-name">Harvest</p>
+          <p class="tln-stage-note">Wild agave espadin, 12–14 years mature, cut by hand at 2,400 meters. Each plant selected by the palenquero — no mechanical harvest.</p>
+        </div>
+      </div>
+
+      <!-- Stage 02 — ROASTING -->
+      <div class="tln-stage-slot">
+        <div class="tln-stage-image tln-stage-roasting"></div>
+        <div class="tln-stage-meta">
+          <p class="tln-stage-number">02</p>
+          <p class="tln-stage-name">Roasting</p>
+          <p class="tln-stage-note">Underground pit lined with river stones. Hardwood fire burns 72 hours. The smoke enters the piña — this is where the mezcal begins.</p>
+        </div>
+      </div>
+
+      <!-- Stage 03 — CRUSHING -->
+      <div class="tln-stage-slot">
+        <div class="tln-stage-image tln-stage-crushing"></div>
+        <div class="tln-stage-meta">
+          <p class="tln-stage-number">03</p>
+          <p class="tln-stage-name">Crushing</p>
+          <p class="tln-stage-note">Stone tahona wheel, mule-drawn, turns at the pace it turns. The fibers separate slowly. No mechanical shredder has been on this property.</p>
+        </div>
+      </div>
+
+      <!-- Stage 04 — FERMENTATION -->
+      <div class="tln-stage-slot">
+        <div class="tln-stage-image tln-stage-fermentation"></div>
+        <div class="tln-stage-meta">
+          <p class="tln-stage-number">04</p>
+          <p class="tln-stage-name">Fermentation</p>
+          <p class="tln-stage-note">Open wooden vats, ambient yeast only. Eight to twelve days, depending on temperature and phase of moon. No inoculants. No added enzymes.</p>
+        </div>
+      </div>
+
+      <!-- Stage 05 — DISTILLATION -->
+      <div class="tln-stage-slot">
+        <div class="tln-stage-image tln-stage-distillation"></div>
+        <div class="tln-stage-meta">
+          <p class="tln-stage-number">05</p>
+          <p class="tln-stage-name">Distillation</p>
+          <p class="tln-stage-note">Clay pot still, twice distilled. The heads and tails are cut by taste and smell, not by instrument. The cut has been the same since 1952.</p>
+        </div>
+      </div>
+
+    </div><!-- /.tln-stages-strip -->
+
+  </section><!-- /.tln-stages-section -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 3 — THE BOTTLE
+       Single centered column. Max-width 200px. Bottle isolated on dark.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tln-bottle-section">
+
+    <div style="max-width: 200px; width: 100%;">
+      <div class="tln-bottle-image"></div>
+    </div>
+
+    <div class="tln-bottle-label">
+      <h2 class="tln-bottle-name">Espadin</h2>
+      <div class="tln-bottle-meta">
+        <span class="bp-block">Cosecha 2024</span>
+        <span class="bp-block">Lote TN-24 &nbsp;·&nbsp; Botella 312 / 400</span>
+        <span class="bp-block">46% Alc./Vol.</span>
+      </div>
+    </div>
+
+  </section><!-- /.tln-bottle-section -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 4 — PROVENANCE
+       50/50 split. Left: technical data block (mono, no labels).
+       Right: dense paragraph about land and family.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <section class="tln-provenance-section">
+
+    <div class="bp-container tln-provenance-grid">
+
+      <!-- Left column — coordinates and data, no labels -->
+      <div class="tln-provenance-data">
+        <span class="tln-data-line">17°04′17″N 96°22′43″W</span>
+        <span class="tln-data-line">2,400 m.s.n.m.</span>
+        <span class="tln-data-line">San Baltazar Guelavila</span>
+        <span class="tln-data-line">Sierra Juárez, Oaxaca</span>
+        <span class="tln-data-line">Agave angustifolia Haw.</span>
+        <span class="tln-data-line">Est. 1952 — Familia Vásquez Cruz</span>
+        <span class="tln-data-line">400 botellas por cosecha</span>
+      </div>
+
+      <!-- Right column — the land and the family -->
+      <div class="tln-provenance-prose">
+        <p class="tln-provenance-body">
+          The palenque sits at the edge of a milpa that has been worked by the Vásquez Cruz family since before the current distillery was built. The agave here grows slowly. At 2,400 meters the nights are cold and the soil is thin — the plant stores more sugar because it has to work harder. Rogelio Vásquez Cruz learned the cut from his father, who learned it from his. There is no written recipe. The sensory knowledge is what passes down: when the smoke is enough, when the fermentation is ready, where to draw the line between the heart and the tail.
+
+          Each bottle carries a lot number and a hand-written sequence. When 400 are gone, they are gone. The next harvest begins when the agave says it is ready.
+        </p>
+      </div>
+
+    </div><!-- /.tln-provenance-grid -->
+
+  </section><!-- /.tln-provenance-section -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       BLOCK 5 — FOOTER / CLOSE
+       Centered. Very small. Address. One text link. Final quantity.
+       The last thing someone reads is the scarcest fact.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <footer class="tln-close">
+
+    <address class="tln-close-address" style="font-style: normal;">
+      Palenque Vásquez Cruz<br>
+      Camino al Cerro Prieto S/N<br>
+      San Baltazar Guelavila, Oaxaca, México
+    </address>
+
+    <a href="mailto:asignacion@tlaloc-negro.mx" class="tln-close-cta">
+      Inquire about allocation &nbsp;→
+    </a>
+
+    <p class="tln-close-quantity">400 bottles per year.</p>
+
+  </footer>
+
+
+</body>
+</html>

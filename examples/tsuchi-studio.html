@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<!--
+  Tsuchi Studio — ceramics, Higashiyama district, Kyoto
+  Built with The Point + tsuchi-studio-brand.css
+
+  Layout: journal-sequential
+  Compositional mode: minimal (suppression list active — no CTA in mark/hero,
+  no eyebrow labels, no subtitle paragraphs in image sections)
+  Image strategy: photograph (LoremFlickr, specific keywords, seeded)
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tsuchi Studio — Higashiyama, Kyoto</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./tsuchi-studio-brand.css">
+</head>
+<body>
+
+  <!-- ── HEADER — wordmark + location, no nav ─────────────────────────────── -->
+  <!-- Minimal nav treatment for journal-sequential: brand name left,          -->
+  <!-- a single provenance coordinate right. No button.                        -->
+
+  <header class="ts-header">
+    <a href="#" class="ts-wordmark">Tsuchi Studio</a>
+    <span class="ts-header-meta">Higashiyama &nbsp;·&nbsp; Kyoto</span>
+  </header>
+
+
+  <!-- ── MARK — full-width photograph, studio name anchored low ──────────── -->
+  <!-- Minimal suppression: no button, no eyebrow, no subtitle. Name only.    -->
+
+  <section class="ts-mark" aria-label="Tsuchi Studio, ceramics, anagama kiln">
+    <div class="ts-mark-image"></div>
+    <div class="ts-mark-caption">
+      <h1 class="ts-mark-name">Tsuchi Studio</h1>
+      <span class="ts-mark-location">Shigaraki clay &nbsp;·&nbsp; Wood-fired &nbsp;·&nbsp; Higashiyama, Kyoto</span>
+    </div>
+  </section>
+
+
+  <!-- ── INTRO — narrow centered text block ───────────────────────────────── -->
+  <!-- The image introduced; the fact stands alone.                            -->
+
+  <section class="ts-intro" aria-label="Studio introduction">
+    <div class="ts-intro-inner">
+      <h2 class="ts-heading">One potter. One clay source. One kiln.</h2>
+      <p class="ts-body">Every piece made at Tsuchi Studio begins as Shigaraki clay — iron-rich stoneware dug from Shiga Prefecture, 60 kilometers northeast of this studio. The clay is thrown by a single potter who has worked at the same wheel for 22 years in Higashiyama, Kyoto's oldest craft district. The work is functional: bowls, cups, small plates. Nothing is decorative.</p>
+      <p class="ts-body">Finished pieces are fired in an anagama — a single-chamber wood-burning kiln built into the hillside behind the studio. Each firing runs for four continuous days and cannot be stopped once begun. The ash from the pine fuel settles on the clay during firing, melting into the surface where it lands. No two pieces carry the same glaze. The kiln decides that.</p>
+    </div>
+  </section>
+
+
+  <!-- ── KILN — full-width image, the firing ──────────────────────────────── -->
+  <!-- Atmospheric mode: image 70vh, text is caption-scale only.              -->
+
+  <section class="ts-kiln" aria-label="The anagama kiln, wood-firing">
+    <div class="ts-kiln-image"></div>
+    <div class="ts-kiln-caption">
+      <p class="ts-kiln-fact">
+        Four days, continuous &nbsp;/&nbsp;
+        1,280°C peak &nbsp;/&nbsp;
+        Pine cordwood &nbsp;/&nbsp;
+        Cannot be interrupted
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ── CLAY — split: photograph left / origin text right ───────────────── -->
+  <!-- journal-sequential variation: the split provides the alternating        -->
+  <!-- rhythm while the photograph remains the primary voice.                  -->
+
+  <section class="ts-clay" aria-label="Shigaraki clay — origin">
+    <div class="ts-clay-image">
+      <div class="ts-clay-gradient"></div>
+    </div>
+    <div class="ts-clay-text">
+      <span class="ts-eyebrow">Material</span>
+      <h2 class="ts-heading">Shigaraki clay, Shiga Prefecture</h2>
+      <p class="ts-body">Shigaraki is one of Japan's six ancient kiln sites. The clay is coarse-grained, high in iron and feldspar, and fires at temperatures most ceramic bodies cannot tolerate. At 1,280°C it vitrifies — becomes dense, non-porous, and hard enough to hold water without any added glaze.</p>
+      <p class="ts-body">In the finished piece, the iron content appears as dark speckling through the clay body. Where ash from the kiln settles and melts, the surface shifts from the natural warm grey of the stone to streaks of green, amber, and grey-white — colors produced by the specific minerals in pine ash combining with the iron in Shigaraki clay. This surface cannot be replicated in an electric kiln.</p>
+    </div>
+  </section>
+
+
+  <!-- ── WORK — full-width photograph, the finished pieces ───────────────── -->
+  <!-- One sentence. The work earns its space without caption.                -->
+
+  <section class="ts-work" aria-label="Finished stoneware — bowls, cups, plates">
+    <div class="ts-work-image"></div>
+    <div class="ts-work-caption">
+      <p class="ts-work-sentence">You can name the person who made it, the mountain the clay came from, and the wood that fired it.</p>
+    </div>
+  </section>
+
+
+  <!-- ── PROVENANCE — label: fact table ───────────────────────────────────── -->
+  <!-- The full argument in one block. Every line is a specific fact.         -->
+
+  <section class="ts-provenance" aria-label="Studio provenance — specific facts">
+    <div class="ts-provenance-inner">
+
+      <div class="ts-provenance-header">
+        <span class="ts-eyebrow">Provenance</span>
+        <h2 class="ts-heading">The studio</h2>
+      </div>
+
+      <ul class="ts-fact-list" role="list">
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Potter</span>
+          <span class="ts-fact-value">Kenji Mori</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">District</span>
+          <span class="ts-fact-value">Higashiyama, Kyoto</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Years active</span>
+          <span class="ts-fact-value">22 years at the same wheel</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Clay source</span>
+          <span class="ts-fact-value">Shigaraki, Shiga Prefecture — 60 km northeast</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Kiln</span>
+          <span class="ts-fact-value">Anagama — wood-fired, behind the studio</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Firing duration</span>
+          <span class="ts-fact-value">Four days, continuous — cannot be interrupted</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Wood fuel</span>
+          <span class="ts-fact-value">Pine — ash settles on ware during firing, melting into the surface as natural glaze</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Work</span>
+          <span class="ts-fact-value">Functional — bowls, cups, small plates. Nothing decorative.</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Output</span>
+          <span class="ts-fact-value">Two firings per year — pieces available after each</span>
+        </li>
+
+        <li class="ts-fact">
+          <span class="ts-fact-label">Availability</span>
+          <span class="ts-fact-value">Direct from the studio — no dealers, no retail</span>
+        </li>
+
+      </ul>
+
+    </div>
+  </section>
+
+
+  <!-- ── CLOSE — address, single contact link ─────────────────────────────── -->
+  <!-- No CTA button. The studio does not say "get started."                   -->
+  <!-- One link to inquire. That is the entire conversion ask.                 -->
+
+  <footer class="ts-close" role="contentinfo" aria-label="Studio contact">
+
+    <div class="ts-close-rule" aria-hidden="true"></div>
+
+    <address class="ts-close-address">
+      3-chome, Higashiyama-ku<br>
+      Kyoto, 605-0000<br>
+      Japan
+    </address>
+
+    <a href="mailto:studio@tsuchi.jp" class="ts-close-cta">
+      Inquire about available work
+    </a>
+
+    <span class="ts-close-footnote">
+      2026 &nbsp;·&nbsp; Tsuchi Studio &nbsp;·&nbsp; Higashiyama
+    </span>
+
+  </footer>
+
+
+</body>
+</html>

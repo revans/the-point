@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slow Burn Co. — Small-Batch Hot Sauce · Charleston, SC</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #c04a1a;
+        --color-primary-hover:  #9a3a13;
+        --color-primary-subtle: rgba(192, 74, 26, 0.07);
+        --color-primary-glow:   rgba(192, 74, 26, 0.18);
+        --color-bg:             #faf4ec;
+        --color-bg-secondary:   #f3ebe0;
+        --color-surface:        #fffdf8;
+        --color-border:         #e4d9c8;
+        --color-text:           #1e140a;
+        --color-text-secondary: #4a3728;
+        --color-text-muted:     #9a8572;
+        --color-text-accent:    #c04a1a;
+        --font-heading:         'Playfair Display', 'Georgia', serif;
+        --font-body:            'Lora', 'Georgia', serif;
+        --font-mono:            'JetBrains Mono', 'Courier New', monospace;
+        --radius:               var(--bp-radius-sm);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+    }
+
+    /* ─────────────────────────────────────────
+       BOTANICAL BACKGROUND ILLUSTRATION
+       Pepper vine — enters bottom-left, winds
+       up the left side, curls along the top.
+       Same z-index pattern as shoji.html.
+    ───────────────────────────────────────── */
+    .botanical-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* All content sections sit above the illustration */
+    .slowburn-nav,
+    .hero-section,
+    .products-section,
+    .process-section,
+    .ingredients-section,
+    .markets-section,
+    .slowburn-footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────────── */
+    .slowburn-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem 3rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .brand-wordmark {
+      font-family: 'Playfair Display', serif;
+      font-variant: small-caps;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .brand-wordmark span {
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-primary);
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero-section {
+      padding: 5rem 3rem 4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      /* GAP: no bp-mono-label variant in Lora/warm-serif context */
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      border: 1px solid rgba(192, 74, 26, 0.3);
+      border-radius: var(--bp-radius-sm);
+      padding: 0.35rem 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.08;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      margin: 0 0 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--color-text-secondary);
+      max-width: 46ch;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+
+    /* ─────────────────────────────────────────
+       SAUCE SWATCH LINEUP
+       6 colored circles — the visual "palette"
+       of the sauce collection
+    ───────────────────────────────────────── */
+    .sauce-lineup {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .sauce-swatch-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sauce-circle {
+      /* GAP: no bp- color swatch circle component */
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12), inset 0 -2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+    }
+
+    .sauce-circle:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18), inset 0 -2px 6px rgba(0,0,0,0.08);
+    }
+
+    .sauce-name {
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      color: var(--color-text-muted);
+      text-align: center;
+      max-width: 80px;
+      line-height: 1.3;
+    }
+
+    /* Individual sauce colors */
+    .sauce-marsh    { background: radial-gradient(circle at 35% 35%, #8aab7c, #4a7c3f); }
+    .sauce-gullah   { background: radial-gradient(circle at 35% 35%, #e25c3a, #9a2012); }
+    .sauce-gold     { background: radial-gradient(circle at 35% 35%, #e8c44a, #c49418); }
+    .sauce-smoke    { background: radial-gradient(circle at 35% 35%, #b06040, #6b3318); }
+    .sauce-benne    { background: radial-gradient(circle at 35% 35%, #d4945e, #a05a28); }
+    .sauce-midnight { background: radial-gradient(circle at 35% 35%, #5c3a7a, #2e1845); }
+
+    /* ─────────────────────────────────────────
+       FEATURED PRODUCTS — Asymmetric 60/40
+    ───────────────────────────────────────── */
+    .products-section {
+      padding: 5rem 3rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .products-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .section-title-serif {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--color-text);
+      letter-spacing: 0.01em;
+    }
+
+    /* Asymmetric product grid: 3fr / 2fr */
+    .product-asymmetric {
+      /* GAP: no bp-grid variant for non-equal column ratios */
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2px;
+      background: var(--color-border);
+    }
+
+    .product-featured {
+      background: var(--color-surface);
+      padding: 2.5rem;
+    }
+
+    .product-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .product-secondary {
+      background: var(--color-surface);
+      padding: 2rem;
+      flex: 1;
+    }
+
+    /* Large sauce swatch inside product card */
+    .product-swatch-large {
+      /* GAP: no bp- product color swatch component */
+      width: 100%;
+      height: 200px;
+      border-radius: var(--bp-radius-sm);
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ::after overlay removed — SVG bottles handle all visual layering */
+
+    .product-swatch-sm {
+      width: 100%;
+      height: 100px;
+      border-radius: var(--bp-radius-sm);
+      margin-bottom: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* .product-swatch-sm::after removed — SVG bottles handle all visual layering */
+
+    .product-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-name-large {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .product-name-sm {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: 0.4rem;
+    }
+
+    .product-story {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .product-story-sm {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .flavor-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .flavor-tag {
+      /* GAP: no bp-badge variant for warm/food flavor taxonomy */
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.72rem;
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-sm);
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* Heat level: pepper icon row */
+    .heat-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .heat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .heat-peppers {
+      /* GAP: no bp- heat-level / rating component */
+      display: flex;
+      gap: 3px;
+    }
+
+    .heat-pip {
+      width: 14px;
+      height: 14px;
+    }
+
+    .heat-pip.active path {
+      fill: var(--color-primary);
+    }
+
+    .heat-pip.inactive path {
+      fill: var(--color-border);
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--color-primary);
+    }
+
+    /* ─────────────────────────────────────────
+       PROCESS / STORY — Alternating layout
+    ───────────────────────────────────────── */
+    .process-section {
+      padding: 5rem 3rem;
+      background: var(--color-bg-secondary);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .process-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .process-step {
+      /* GAP: no bp- alternating-step layout component */
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: start;
+      padding: 3rem 0;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .process-step:last-child {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .step-number {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--color-primary);
+      opacity: 0.18;
+      text-align: right;
+      padding-right: 0.5rem;
+    }
+
+    .step-content {
+      padding-top: 0.5rem;
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+    }
+
+    .step-body {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: var(--color-text-secondary);
+    }
+
+    /* ─────────────────────────────────────────
+       INGREDIENTS / TRANSPARENCY BAND
+    ───────────────────────────────────────── */
+    .ingredients-section {
+      padding: 4.5rem 3rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .ingredients-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .ingredients-statement {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.45;
+      color: var(--color-text);
+      margin-bottom: 2.5rem;
+    }
+
+    .ingredients-list {
+      /* GAP: no bp- ingredient / taxonomy display component */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .ingredient-item {
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      color: var(--color-text-secondary);
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-sm);
+      padding: 0.4rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .ingredient-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       WHERE TO FIND US
+    ───────────────────────────────────────── */
+    .markets-section {
+      padding: 5rem 3rem;
+      background: var(--color-bg-secondary);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .markets-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .markets-header {
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .slowburn-footer {
+      padding: 3rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand-block {
+      max-width: 260px;
+    }
+
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-variant: small-caps;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-address {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      line-height: 1.9;
+      color: var(--color-text-muted);
+    }
+
+    .footer-meta {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      margin-top: 0.75rem;
+    }
+
+    .footer-links-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-col-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links-col a {
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links-col a:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* ─────────────────────────────────────────
+       UTILITY
+    ───────────────────────────────────────── */
+    .view-all-link {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(192,74,26,0.3);
+      padding-bottom: 0.1rem;
+      transition: border-color 0.2s;
+    }
+
+    .view-all-link:hover {
+      border-color: var(--color-primary);
+    }
+
+    /* Responsive table wrapper already bp- */
+    .bp-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .bp-table td {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+    }
+
+    /* Market day badge — warm variant */
+    .market-day {
+      /* GAP: no bp-badge warm/terracotta color variant */
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(192,74,26,0.1);
+      color: var(--color-primary);
+      border-radius: var(--bp-radius-sm);
+      padding: 0.2rem 0.55rem;
+    }
+
+    @media (max-width: 768px) {
+      .slowburn-nav {
+        padding: 1.25rem 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .hero-section {
+        padding: 3rem 1.5rem;
+      }
+
+      .products-section,
+      .process-section,
+      .ingredients-section,
+      .markets-section {
+        padding: 3rem 1.5rem;
+      }
+
+      .product-asymmetric {
+        grid-template-columns: 1fr;
+      }
+
+      .process-step {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .step-number {
+        text-align: left;
+        font-size: 3rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ───────────────────────────────────────────────────
+       BOTANICAL BACKGROUND — Pepper vine
+       SVG at 0.4 opacity, fixed, z-index 0
+       Vine enters bottom-left, climbs the left
+       edge, then arches across the top of the page.
+       Colors: rgba(192,74,26,0.10) vine / stems
+                rgba(74,124,63,0.08) leaves
+  ─────────────────────────────────────────────────────── -->
+  <div class="botanical-bg" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" preserveAspectRatio="xMinYMax meet" width="100%" height="100%">
+      <defs>
+        <!-- Reusable leaf: simple ellipse + midrib -->
+        <g id="leaf-lg">
+          <ellipse cx="0" cy="0" rx="9" ry="22" fill="rgba(74,124,63,0.10)" transform="rotate(-15)"/>
+          <line x1="0" y1="-20" x2="0" y2="20" stroke="rgba(74,124,63,0.15)" stroke-width="0.8"/>
+        </g>
+        <g id="leaf-md">
+          <ellipse cx="0" cy="0" rx="6" ry="15" fill="rgba(74,124,63,0.09)" transform="rotate(-10)"/>
+          <line x1="0" y1="-13" x2="0" y2="13" stroke="rgba(74,124,63,0.14)" stroke-width="0.6"/>
+        </g>
+        <g id="leaf-sm">
+          <ellipse cx="0" cy="0" rx="4" ry="10" fill="rgba(74,124,63,0.08)"/>
+          <line x1="0" y1="-9" x2="0" y2="9" stroke="rgba(74,124,63,0.12)" stroke-width="0.5"/>
+        </g>
+        <!-- Pepper: elongated tapered shape with a tiny stem -->
+        <g id="pepper-lg">
+          <!-- Body: tapered ellipse, pointed at bottom -->
+          <path d="M 0,-28 C 7,-20 8,-4 5,10 C 3,18 0,24 0,24 C 0,24 -3,18 -5,10 C -8,-4 -7,-20 0,-28 Z"
+                fill="rgba(192,74,26,0.12)"/>
+          <!-- Stem -->
+          <line x1="0" y1="-28" x2="0" y2="-34" stroke="rgba(74,124,63,0.15)" stroke-width="1.2"/>
+          <!-- Highlight -->
+          <ellipse cx="-2" cy="-12" rx="1.5" ry="5" fill="rgba(255,255,255,0.08)"/>
+        </g>
+        <g id="pepper-md">
+          <path d="M 0,-20 C 5,-14 6,-3 4,7 C 2,13 0,18 0,18 C 0,18 -2,13 -4,7 C -6,-3 -5,-14 0,-20 Z"
+                fill="rgba(192,74,26,0.10)"/>
+          <line x1="0" y1="-20" x2="0" y2="-25" stroke="rgba(74,124,63,0.13)" stroke-width="1"/>
+        </g>
+        <g id="pepper-sm">
+          <path d="M 0,-14 C 4,-9 4,-2 3,5 C 1.5,9 0,12 0,12 C 0,12 -1.5,9 -3,5 C -4,-2 -4,-9 0,-14 Z"
+                fill="rgba(192,74,26,0.09)"/>
+          <line x1="0" y1="-14" x2="0" y2="-18" stroke="rgba(74,124,63,0.12)" stroke-width="0.8"/>
+        </g>
+        <!-- Botanical dot cluster (seed catalog detail) -->
+        <g id="dots">
+          <circle cx="0"  cy="0" r="1.2" fill="rgba(192,74,26,0.12)"/>
+          <circle cx="5"  cy="3" r="0.9" fill="rgba(192,74,26,0.09)"/>
+          <circle cx="-4" cy="4" r="0.8" fill="rgba(192,74,26,0.08)"/>
+          <circle cx="2"  cy="7" r="0.7" fill="rgba(74,124,63,0.10)"/>
+        </g>
+      </defs>
+
+      <!-- ── Main vine path ──
+           Starts at bottom-left (−20, 960), climbs
+           up the left edge with gentle S-curves,
+           then turns right and arches across the top. -->
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+
+        <!-- Primary vine trunk: bottom-left → top-left corner → across top -->
+        <path d="M -20,960
+                 C 20,880, 15,800, 30,720
+                 C 45,640, 25,570, 40,490
+                 C 55,415, 30,340, 45,265
+                 C 60,195, 35,125, 55,65
+                 C 70,15, 100,-10, 180,-20
+                 C 280,-35, 420,-20, 560,-28
+                 C 680,-38, 800,-22, 920,-30"
+              stroke="rgba(192,74,26,0.10)" stroke-width="2.5"/>
+
+        <!-- Secondary climbing tendril from ~y=600 to upper-right -->
+        <path d="M 38,580
+                 C 80,530, 110,480, 90,420
+                 C 75,375, 55,340, 80,300"
+              stroke="rgba(192,74,26,0.08)" stroke-width="1.8"/>
+
+        <!-- Short lateral branch at y≈350 going right -->
+        <path d="M 45,340
+                 C 90,320, 140,315, 175,308"
+              stroke="rgba(192,74,26,0.07)" stroke-width="1.5"/>
+
+        <!-- Top-edge tendril from ~x=400 dipping slightly -->
+        <path d="M 560,-28
+                 C 590,25, 570,55, 610,40"
+              stroke="rgba(192,74,26,0.07)" stroke-width="1.3"/>
+
+        <!-- Small curl off y≈720 going right -->
+        <path d="M 30,720
+                 C 65,700, 100,698, 125,690"
+              stroke="rgba(192,74,26,0.07)" stroke-width="1.3"/>
+
+        <!-- Vine along top continuing right edge -->
+        <path d="M 920,-30
+                 C 1020,-40, 1100,-25, 1180,-38
+                 C 1240,-48, 1310,-30, 1380,-45"
+              stroke="rgba(192,74,26,0.07)" stroke-width="1.8"/>
+
+        <!-- Short drop from top-right area -->
+        <path d="M 1180,-38
+                 C 1195,20, 1188,50, 1210,70"
+              stroke="rgba(192,74,26,0.06)" stroke-width="1.2"/>
+
+      </g>
+
+      <!-- ── Leaves along the vine ── -->
+      <!-- Left edge, climbing up -->
+      <use href="#leaf-lg" transform="translate(48, 880) rotate(160)"/>
+      <use href="#leaf-md" transform="translate(22, 840) rotate(-20)"/>
+      <use href="#leaf-lg" transform="translate(55, 780) rotate(145)"/>
+      <use href="#leaf-sm" transform="translate(18, 740) rotate(30)"/>
+      <use href="#leaf-md" transform="translate(60, 680) rotate(155)"/>
+      <use href="#leaf-lg" transform="translate(30, 620) rotate(-25)"/>
+      <use href="#leaf-sm" transform="translate(65, 560) rotate(140)"/>
+      <use href="#leaf-md" transform="translate(28, 490) rotate(25)"/>
+      <use href="#leaf-lg" transform="translate(58, 420) rotate(160)"/>
+      <use href="#leaf-sm" transform="translate(35, 370) rotate(-30)"/>
+      <use href="#leaf-md" transform="translate(62, 310) rotate(145)"/>
+      <use href="#leaf-sm" transform="translate(40, 255) rotate(20)"/>
+      <use href="#leaf-lg" transform="translate(55, 195) rotate(165)"/>
+      <use href="#leaf-md" transform="translate(30, 145) rotate(-15)"/>
+      <use href="#leaf-sm" transform="translate(65, 95) rotate(135)"/>
+
+      <!-- Top edge, going right -->
+      <use href="#leaf-md" transform="translate(130, 8) rotate(75)"/>
+      <use href="#leaf-lg" transform="translate(220, -5) rotate(80)"/>
+      <use href="#leaf-sm" transform="translate(320, 5) rotate(70)"/>
+      <use href="#leaf-md" transform="translate(420, -2) rotate(85)"/>
+      <use href="#leaf-lg" transform="translate(520, 8) rotate(75)"/>
+      <use href="#leaf-sm" transform="translate(640, -5) rotate(80)"/>
+      <use href="#leaf-md" transform="translate(740, 5) rotate(70)"/>
+      <use href="#leaf-sm" transform="translate(840, -3) rotate(82)"/>
+      <use href="#leaf-md" transform="translate(950, 6) rotate(78)"/>
+      <use href="#leaf-sm" transform="translate(1060, -4) rotate(74)"/>
+      <use href="#leaf-md" transform="translate(1160, 8) rotate(80)"/>
+      <use href="#leaf-sm" transform="translate(1280, -5) rotate(75)"/>
+      <use href="#leaf-lg" transform="translate(1370, 5) rotate(78)"/>
+
+      <!-- Lateral branch leaves at y≈340 -->
+      <use href="#leaf-md" transform="translate(100, 320) rotate(-85)"/>
+      <use href="#leaf-sm" transform="translate(148, 315) rotate(-80)"/>
+      <use href="#leaf-md" transform="translate(175, 308) rotate(-90)"/>
+
+      <!-- Lateral branch y≈720 -->
+      <use href="#leaf-sm" transform="translate(80, 695) rotate(-88)"/>
+      <use href="#leaf-md" transform="translate(115, 690) rotate(-82)"/>
+
+      <!-- ── Peppers — hanging from stems ── -->
+      <!-- Peppers along left side, clustered at branch points -->
+      <use href="#pepper-lg" transform="translate(35, 810) rotate(8)"/>
+      <use href="#pepper-md" transform="translate(55, 790) rotate(-12)"/>
+      <use href="#pepper-sm" transform="translate(22, 780) rotate(5)"/>
+
+      <use href="#pepper-lg" transform="translate(50, 640) rotate(-8)"/>
+      <use href="#pepper-md" transform="translate(28, 655) rotate(14)"/>
+
+      <use href="#pepper-lg" transform="translate(42, 430) rotate(10)"/>
+      <use href="#pepper-sm" transform="translate(60, 415) rotate(-8)"/>
+
+      <use href="#pepper-md" transform="translate(35, 245) rotate(-12)"/>
+      <use href="#pepper-sm" transform="translate(55, 230) rotate(6)"/>
+
+      <!-- Peppers along top, hanging down slightly -->
+      <use href="#pepper-lg" transform="translate(200, 22) rotate(180)"/>
+      <use href="#pepper-sm" transform="translate(240, 18) rotate(175)"/>
+      <use href="#pepper-md" transform="translate(400, 20) rotate(178)"/>
+      <use href="#pepper-lg" transform="translate(600, 25) rotate(182)"/>
+      <use href="#pepper-sm" transform="translate(660, 18) rotate(177)"/>
+      <use href="#pepper-md" transform="translate(820, 22) rotate(180)"/>
+      <use href="#pepper-lg" transform="translate(1000, 20) rotate(178)"/>
+      <use href="#pepper-sm" transform="translate(1060, 18) rotate(175)"/>
+      <use href="#pepper-md" transform="translate(1220, 25) rotate(182)"/>
+      <use href="#pepper-sm" transform="translate(1360, 20) rotate(178)"/>
+
+      <!-- Peppers on lateral branch y≈308 -->
+      <use href="#pepper-md" transform="translate(140, 328) rotate(180)"/>
+      <use href="#pepper-sm" transform="translate(170, 325) rotate(175)"/>
+
+      <!-- ── Botanical dot details ── -->
+      <use href="#dots" transform="translate(45, 500)"/>
+      <use href="#dots" transform="translate(30, 320)"/>
+      <use href="#dots" transform="translate(65, 175)"/>
+      <use href="#dots" transform="translate(360, 15)"/>
+      <use href="#dots" transform="translate(720, 18)"/>
+      <use href="#dots" transform="translate(1100, 22)"/>
+
+      <!-- Small curling tendrils (spiral-like path details) -->
+      <path d="M 42,510 C 55,505, 62,495, 55,490 C 48,485, 40,490, 44,498"
+            stroke="rgba(74,124,63,0.10)" stroke-width="0.9" fill="none"/>
+      <path d="M 35,290 C 50,285, 58,272, 50,268 C 42,264, 34,272, 38,282"
+            stroke="rgba(74,124,63,0.10)" stroke-width="0.9" fill="none"/>
+      <path d="M 480,5 C 490,18, 478,28, 470,22 C 462,16, 468,6, 478,10"
+            stroke="rgba(74,124,63,0.09)" stroke-width="0.8" fill="none"/>
+      <path d="M 900,8 C 912,22, 900,32, 890,26 C 880,20, 886,10, 898,14"
+            stroke="rgba(74,124,63,0.09)" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       NAVIGATION
+  ─────────────────────────────────────────── -->
+  <nav class="slowburn-nav">
+    <a href="#" class="brand-wordmark">Slow <span>Burn</span> Co.</a>
+    <ul class="nav-links">
+      <li><a href="#sauces">Our Sauces</a></li>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#markets">Find Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─────────────────────────────────────────
+       HERO
+  ─────────────────────────────────────────── -->
+  <section class="hero-section" id="sauces">
+    <div class="hero-badge">Charleston, SC &middot; Est. 2019 &middot; Small Batch</div>
+
+    <h1 class="hero-title">Made slow.<br>Eaten fast.</h1>
+
+    <p class="hero-subtitle">
+      Fermented hot sauces from peppers grown within 40 miles of Charleston. Hand-labeled. Seasonal. The kind of bottle you don't hide in the back of the fridge.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="bp-btn bp-btn-primary bp-btn-lg">Shop the collection &rarr;</a>
+      <a href="#story" class="bp-btn bp-btn-ghost bp-btn-lg">Read the story &rarr;</a>
+    </div>
+
+    <!-- Sauce swatch lineup -->
+    <div class="sauce-lineup">
+      <div class="sauce-swatch-item">
+        <div class="sauce-circle sauce-marsh"></div>
+        <div class="sauce-name">Marsh Grass Mash</div>
+      </div>
+      <div class="sauce-swatch-item">
+        <div class="sauce-circle sauce-gullah"></div>
+        <div class="sauce-name">Gullah Reaper</div>
+      </div>
+      <div class="sauce-swatch-item">
+        <div class="sauce-circle sauce-gold"></div>
+        <div class="sauce-name">Low Country Gold</div>
+      </div>
+      <div class="sauce-swatch-item">
+        <div class="sauce-circle sauce-smoke"></div>
+        <div class="sauce-name">Holy City Smoke</div>
+      </div>
+      <div class="sauce-swatch-item">
+        <div class="sauce-circle sauce-benne"></div>
+        <div class="sauce-name">Benne Street Heat</div>
+      </div>
+      <div class="sauce-swatch-item">
+        <div class="sauce-circle sauce-midnight"></div>
+        <div class="sauce-name">Midnight Morriston</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       FEATURED PRODUCTS — Asymmetric 3/2 grid
+  ─────────────────────────────────────────── -->
+  <section class="products-section">
+    <div class="products-inner">
+      <div class="products-header">
+        <span class="section-eyebrow">The Collection</span>
+        <h2 class="section-title-serif">Featured sauces</h2>
+        <a href="#" class="view-all-link">See all six &rarr;</a>
+      </div>
+
+      <!-- GAP: bp-grid has no 3fr/2fr asymmetric ratio option -->
+      <div class="product-asymmetric">
+
+        <!-- Featured: Gullah Reaper (60%) -->
+        <div class="product-featured">
+          <div class="product-swatch-large sauce-gullah">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+              <defs>
+                <clipPath id="sg1-clip">
+                  <path d="M 116,20 L 184,20 L 184,65 L 179,72 L 179,110 C 195,122 250,140 250,155 L 250,385 Q 250,398 225,400 L 75,400 Q 50,398 50,385 L 50,155 C 50,140 105,122 121,110 L 121,72 L 116,65 Z"/>
+                </clipPath>
+                <linearGradient id="sg1-sauce" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stop-color="#6a0f08"/>
+                  <stop offset="30%"  stop-color="#9a2012"/>
+                  <stop offset="60%"  stop-color="#c04030"/>
+                  <stop offset="100%" stop-color="#5a0d06"/>
+                </linearGradient>
+                <linearGradient id="sg1-glass" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stop-color="rgba(0,0,0,0.28)"/>
+                  <stop offset="18%"  stop-color="rgba(255,255,255,0.10)"/>
+                  <stop offset="35%"  stop-color="rgba(0,0,0,0.04)"/>
+                  <stop offset="75%"  stop-color="rgba(0,0,0,0.08)"/>
+                  <stop offset="100%" stop-color="rgba(0,0,0,0.30)"/>
+                </linearGradient>
+              </defs>
+              <!-- Background -->
+              <rect width="300" height="420" fill="#faf4ec"/>
+              <!-- Pepper decoration ellipses -->
+              <ellipse cx="62" cy="180" rx="28" ry="14" fill="rgba(192,74,26,0.07)" transform="rotate(-30,62,180)"/>
+              <ellipse cx="238" cy="340" rx="22" ry="11" fill="rgba(74,124,63,0.06)" transform="rotate(20,238,340)"/>
+              <!-- Bottle group clipped -->
+              <g clip-path="url(#sg1-clip)">
+                <!-- Sauce fill -->
+                <rect x="50" y="20" width="200" height="380" fill="url(#sg1-sauce)"/>
+                <!-- Glass overlay -->
+                <rect x="50" y="20" width="200" height="380" fill="url(#sg1-glass)"/>
+                <!-- Label area -->
+                <rect x="50" y="195" width="200" height="110" fill="rgba(250,244,236,0.93)"/>
+                <!-- Label rule top -->
+                <line x1="58" y1="200" x2="242" y2="200" stroke="rgba(30,20,10,0.18)" stroke-width="0.75"/>
+                <!-- Label rule bottom -->
+                <line x1="58" y1="300" x2="242" y2="300" stroke="rgba(30,20,10,0.18)" stroke-width="0.75"/>
+                <!-- Label text: brand -->
+                <text x="150" y="218" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7.5" letter-spacing="2.5" fill="rgba(30,20,10,0.55)">SLOW BURN CO.</text>
+                <!-- Label text: sauce name -->
+                <text x="150" y="248" text-anchor="middle" font-family="'Playfair Display', serif" font-weight="700" font-size="16" fill="#c04a1a">Gullah Reaper</text>
+                <!-- Label text: location -->
+                <text x="150" y="270" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6.5" letter-spacing="2" fill="rgba(30,20,10,0.45)">CHARLESTON · SC</text>
+                <!-- Label text: descriptor -->
+                <text x="150" y="286" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="5.5" letter-spacing="1.5" fill="rgba(30,20,10,0.38)">FERMENTED HOT SAUCE · 5 OZ</text>
+              </g>
+              <!-- Bottle outline -->
+              <path d="M 116,20 L 184,20 L 184,65 L 179,72 L 179,110 C 195,122 250,140 250,155 L 250,385 Q 250,398 225,400 L 75,400 Q 50,398 50,385 L 50,155 C 50,140 105,122 121,110 L 121,72 L 116,65 Z" fill="none" stroke="rgba(0,0,0,0.13)" stroke-width="1.2"/>
+              <!-- Cap -->
+              <path d="M 116,20 L 184,20 L 184,65 L 116,65 Z" fill="#1e140a"/>
+              <!-- Cap knurling -->
+              <line x1="126" y1="22" x2="126" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <line x1="136" y1="22" x2="136" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <line x1="146" y1="22" x2="146" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <line x1="156" y1="22" x2="156" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <line x1="166" y1="22" x2="166" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <line x1="176" y1="22" x2="176" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              <!-- Glass highlight -->
+              <polygon points="68,155 82,155 82,390 68,390" fill="rgba(255,255,255,0.09)"/>
+              <!-- Shoulder shadow -->
+              <path d="M 50,155 C 50,140 105,122 121,110 L 121,125 C 105,137 62,152 62,165 Z" fill="rgba(0,0,0,0.10)"/>
+            </svg>
+          </div>
+          <div class="product-label">Seasonal Release &middot; Fall 2025</div>
+          <div class="product-name-large">Gullah Reaper</div>
+          <p class="product-story">
+            The heat here comes in waves — you taste the ferment first, deep and lightly funky, then a slow building warmth that settles in the back of your throat and stays there. Made with Carolina Reapers from Toogoodoo Farms and fermented for 120 days minimum, this is the sauce that made us. Every bottle is still numbered by hand.
+          </p>
+          <div class="flavor-notes">
+            <span class="flavor-tag">cherry &amp; smoke</span>
+            <span class="flavor-tag">fermented depth</span>
+            <span class="flavor-tag">slow heat</span>
+            <span class="flavor-tag">vinegar bright</span>
+          </div>
+          <!-- Heat level: 4 out of 5 -->
+          <div class="heat-row">
+            <span class="heat-label">Heat</span>
+            <div class="heat-peppers" aria-label="4 out of 5 heat">
+              <!-- Active pepper pip (SVG inline) -->
+              <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/>
+              </svg>
+              <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/>
+              </svg>
+              <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/>
+              </svg>
+              <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/>
+              </svg>
+              <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="product-price">$28 &middot; 5 oz</div>
+          <div style="margin-top: 1.25rem;">
+            <a href="#" class="bp-btn bp-btn-primary">Add to cart &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Stack: two smaller sauces (40%) -->
+        <div class="product-stack">
+          <!-- Low Country Gold -->
+          <div class="product-secondary">
+            <div class="product-swatch-sm sauce-gold">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+                <defs>
+                  <clipPath id="sg2-clip">
+                    <path d="M 116,20 L 184,20 L 184,65 L 179,72 L 179,110 C 195,122 250,140 250,155 L 250,385 Q 250,398 225,400 L 75,400 Q 50,398 50,385 L 50,155 C 50,140 105,122 121,110 L 121,72 L 116,65 Z"/>
+                  </clipPath>
+                  <linearGradient id="sg2-sauce" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="#8a6408"/>
+                    <stop offset="30%"  stop-color="#c49418"/>
+                    <stop offset="60%"  stop-color="#e0b830"/>
+                    <stop offset="100%" stop-color="#7a5806"/>
+                  </linearGradient>
+                  <linearGradient id="sg2-glass" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="rgba(0,0,0,0.28)"/>
+                    <stop offset="18%"  stop-color="rgba(255,255,255,0.10)"/>
+                    <stop offset="35%"  stop-color="rgba(0,0,0,0.04)"/>
+                    <stop offset="75%"  stop-color="rgba(0,0,0,0.08)"/>
+                    <stop offset="100%" stop-color="rgba(0,0,0,0.30)"/>
+                  </linearGradient>
+                </defs>
+                <!-- Background -->
+                <rect width="300" height="420" fill="#faf4ec"/>
+                <!-- Pepper decoration ellipses -->
+                <ellipse cx="62" cy="180" rx="28" ry="14" fill="rgba(192,74,26,0.07)" transform="rotate(-30,62,180)"/>
+                <ellipse cx="238" cy="340" rx="22" ry="11" fill="rgba(74,124,63,0.06)" transform="rotate(20,238,340)"/>
+                <!-- Bottle group clipped -->
+                <g clip-path="url(#sg2-clip)">
+                  <!-- Sauce fill -->
+                  <rect x="50" y="20" width="200" height="380" fill="url(#sg2-sauce)"/>
+                  <!-- Glass overlay -->
+                  <rect x="50" y="20" width="200" height="380" fill="url(#sg2-glass)"/>
+                  <!-- Label area (adjusted for crop: y=152) -->
+                  <rect x="50" y="152" width="200" height="90" fill="rgba(250,244,236,0.93)"/>
+                  <!-- Label rule top -->
+                  <line x1="58" y1="157" x2="242" y2="157" stroke="rgba(30,20,10,0.18)" stroke-width="0.75"/>
+                  <!-- Label rule bottom -->
+                  <line x1="58" y1="237" x2="242" y2="237" stroke="rgba(30,20,10,0.18)" stroke-width="0.75"/>
+                  <!-- Label text: brand -->
+                  <text x="150" y="173" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7.5" letter-spacing="2.5" fill="rgba(30,20,10,0.55)">SLOW BURN CO.</text>
+                  <!-- Label text: sauce name -->
+                  <text x="150" y="198" text-anchor="middle" font-family="'Playfair Display', serif" font-weight="700" font-size="16" fill="#c04a1a">Low Country Gold</text>
+                  <!-- Label text: location -->
+                  <text x="150" y="218" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6.5" letter-spacing="2" fill="rgba(30,20,10,0.45)">CHARLESTON · SC</text>
+                  <!-- Label text: descriptor -->
+                  <text x="150" y="232" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="5.5" letter-spacing="1.5" fill="rgba(30,20,10,0.38)">FERMENTED HOT SAUCE · 5 OZ</text>
+                </g>
+                <!-- Bottle outline -->
+                <path d="M 116,20 L 184,20 L 184,65 L 179,72 L 179,110 C 195,122 250,140 250,155 L 250,385 Q 250,398 225,400 L 75,400 Q 50,398 50,385 L 50,155 C 50,140 105,122 121,110 L 121,72 L 116,65 Z" fill="none" stroke="rgba(0,0,0,0.13)" stroke-width="1.2"/>
+                <!-- Cap -->
+                <path d="M 116,20 L 184,20 L 184,65 L 116,65 Z" fill="#1e140a"/>
+                <!-- Cap knurling -->
+                <line x1="126" y1="22" x2="126" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="136" y1="22" x2="136" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="146" y1="22" x2="146" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="156" y1="22" x2="156" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="166" y1="22" x2="166" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="176" y1="22" x2="176" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <!-- Glass highlight -->
+                <polygon points="68,155 82,155 82,390 68,390" fill="rgba(255,255,255,0.09)"/>
+                <!-- Shoulder shadow -->
+                <path d="M 50,155 C 50,140 105,122 121,110 L 121,125 C 105,137 62,152 62,165 Z" fill="rgba(0,0,0,0.10)"/>
+              </svg>
+            </div>
+            <div class="product-label">Year-round</div>
+            <div class="product-name-sm">Low Country Gold</div>
+            <p class="product-story-sm">
+              Turmeric-yellow with a mango undercurrent. Habanero heat that opens bright, not brutal. The one our gift-buyers grab first.
+            </p>
+            <div class="flavor-notes">
+              <span class="flavor-tag">mango</span>
+              <span class="flavor-tag">turmeric</span>
+              <span class="flavor-tag">bright heat</span>
+            </div>
+            <!-- Heat: 2/5 -->
+            <div class="heat-row">
+              <span class="heat-label">Heat</span>
+              <div class="heat-peppers" aria-label="2 out of 5 heat">
+                <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+              </div>
+            </div>
+            <div class="product-price" style="font-size: 1rem; margin-bottom: 1rem;">$22 &middot; 5 oz</div>
+            <a href="#" class="bp-btn bp-btn-outline bp-btn-sm">Add to cart</a>
+          </div>
+
+          <!-- Holy City Smoke -->
+          <div class="product-secondary">
+            <div class="product-swatch-sm sauce-smoke">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;">
+                <defs>
+                  <clipPath id="sg3-clip">
+                    <path d="M 116,20 L 184,20 L 184,65 L 179,72 L 179,110 C 195,122 250,140 250,155 L 250,385 Q 250,398 225,400 L 75,400 Q 50,398 50,385 L 50,155 C 50,140 105,122 121,110 L 121,72 L 116,65 Z"/>
+                  </clipPath>
+                  <linearGradient id="sg3-sauce" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="#3a1808"/>
+                    <stop offset="30%"  stop-color="#6b3318"/>
+                    <stop offset="60%"  stop-color="#a05028"/>
+                    <stop offset="100%" stop-color="#301408"/>
+                  </linearGradient>
+                  <linearGradient id="sg3-glass" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="rgba(0,0,0,0.28)"/>
+                    <stop offset="18%"  stop-color="rgba(255,255,255,0.10)"/>
+                    <stop offset="35%"  stop-color="rgba(0,0,0,0.04)"/>
+                    <stop offset="75%"  stop-color="rgba(0,0,0,0.08)"/>
+                    <stop offset="100%" stop-color="rgba(0,0,0,0.30)"/>
+                  </linearGradient>
+                </defs>
+                <!-- Background -->
+                <rect width="300" height="420" fill="#faf4ec"/>
+                <!-- Pepper decoration ellipses -->
+                <ellipse cx="62" cy="180" rx="28" ry="14" fill="rgba(192,74,26,0.07)" transform="rotate(-30,62,180)"/>
+                <ellipse cx="238" cy="340" rx="22" ry="11" fill="rgba(74,124,63,0.06)" transform="rotate(20,238,340)"/>
+                <!-- Bottle group clipped -->
+                <g clip-path="url(#sg3-clip)">
+                  <!-- Sauce fill -->
+                  <rect x="50" y="20" width="200" height="380" fill="url(#sg3-sauce)"/>
+                  <!-- Glass overlay -->
+                  <rect x="50" y="20" width="200" height="380" fill="url(#sg3-glass)"/>
+                  <!-- Label area (adjusted for crop: y=152) -->
+                  <rect x="50" y="152" width="200" height="90" fill="rgba(250,244,236,0.93)"/>
+                  <!-- Label rule top -->
+                  <line x1="58" y1="157" x2="242" y2="157" stroke="rgba(30,20,10,0.18)" stroke-width="0.75"/>
+                  <!-- Label rule bottom -->
+                  <line x1="58" y1="237" x2="242" y2="237" stroke="rgba(30,20,10,0.18)" stroke-width="0.75"/>
+                  <!-- Label text: brand -->
+                  <text x="150" y="173" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7.5" letter-spacing="2.5" fill="rgba(30,20,10,0.55)">SLOW BURN CO.</text>
+                  <!-- Label text: sauce name -->
+                  <text x="150" y="198" text-anchor="middle" font-family="'Playfair Display', serif" font-weight="700" font-size="16" fill="#c04a1a">Holy City Smoke</text>
+                  <!-- Label text: location -->
+                  <text x="150" y="218" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="6.5" letter-spacing="2" fill="rgba(30,20,10,0.45)">CHARLESTON · SC</text>
+                  <!-- Label text: descriptor -->
+                  <text x="150" y="232" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="5.5" letter-spacing="1.5" fill="rgba(30,20,10,0.38)">FERMENTED HOT SAUCE · 5 OZ</text>
+                </g>
+                <!-- Bottle outline -->
+                <path d="M 116,20 L 184,20 L 184,65 L 179,72 L 179,110 C 195,122 250,140 250,155 L 250,385 Q 250,398 225,400 L 75,400 Q 50,398 50,385 L 50,155 C 50,140 105,122 121,110 L 121,72 L 116,65 Z" fill="none" stroke="rgba(0,0,0,0.13)" stroke-width="1.2"/>
+                <!-- Cap -->
+                <path d="M 116,20 L 184,20 L 184,65 L 116,65 Z" fill="#1e140a"/>
+                <!-- Cap knurling -->
+                <line x1="126" y1="22" x2="126" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="136" y1="22" x2="136" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="146" y1="22" x2="146" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="156" y1="22" x2="156" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="166" y1="22" x2="166" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <line x1="176" y1="22" x2="176" y2="63" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <!-- Glass highlight -->
+                <polygon points="68,155 82,155 82,390 68,390" fill="rgba(255,255,255,0.09)"/>
+                <!-- Shoulder shadow -->
+                <path d="M 50,155 C 50,140 105,122 121,110 L 121,125 C 105,137 62,152 62,165 Z" fill="rgba(0,0,0,0.10)"/>
+              </svg>
+            </div>
+            <div class="product-label">Limited &middot; Spring 2026</div>
+            <div class="product-name-sm">Holy City Smoke</div>
+            <p class="product-story-sm">
+              Pasilla and ancho peppers, slow-smoked over pecan wood before fermentation. Tastes like a Carolina barbecue and a Thursday afternoon.
+            </p>
+            <div class="flavor-notes">
+              <span class="flavor-tag">wood smoke</span>
+              <span class="flavor-tag">dark chocolate</span>
+              <span class="flavor-tag">low heat</span>
+            </div>
+            <!-- Heat: 1/5 -->
+            <div class="heat-row">
+              <span class="heat-label">Heat</span>
+              <div class="heat-peppers" aria-label="1 out of 5 heat">
+                <svg class="heat-pip active" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+                <svg class="heat-pip inactive" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 1 C9.5 1.5 11 4 10.5 7 C10 10 8.5 12.5 7 13 C5.5 12.5 4 10 3.5 7 C3 4 4.5 1.5 7 1Z"/></svg>
+              </div>
+            </div>
+            <div class="product-price" style="font-size: 1rem; margin-bottom: 1rem;">$26 &middot; 5 oz</div>
+            <a href="#" class="bp-btn bp-btn-outline bp-btn-sm">Add to cart</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       PROCESS / STORY
+  ─────────────────────────────────────────── -->
+  <section class="process-section" id="story">
+    <div class="process-inner">
+      <div class="process-header">
+        <span class="section-eyebrow" style="display: block; margin-bottom: 1rem;">How it's made</span>
+        <h2 class="section-title-serif">The slow part is the point.</h2>
+      </div>
+
+      <!-- GAP: no bp- alternating numbered step layout -->
+
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">We ferment for 90 days minimum.</div>
+          <p class="step-body">
+            Most commercial hot sauce is made in hours. Ours takes months. Fermentation builds lactic acid the same way a good sourdough does — slowly, converting the pepper's natural sugars into something complex, funky, alive. You can't rush it. The bacteria don't care about your shipping schedule. We put the peppers in the crock and we wait.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Peppers from farms within 40 miles.</div>
+          <p class="step-body">
+            We source every pepper from growers in the Lowcountry and ACE Basin. Toogoodoo Farm supplies our Reapers. Sandy Island Produce grows our habaneros in the same river plain they've worked for four generations. The terroir of the Carolina coast — the salt air, the black river water, the sandy loam — is in every bottle. That's not marketing. It's agriculture.
+          </p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Every bottle labeled by hand.</div>
+          <p class="step-body">
+            We print our labels on a letterpress in North Charleston. Each one gets applied by hand, each batch number written in pen. There's no barcode scanner doing this. If the label is slightly crooked, that's because a person put it there. We think that's a feature.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       INGREDIENTS / TRANSPARENCY
+  ─────────────────────────────────────────── -->
+  <section class="ingredients-section">
+    <div class="ingredients-inner">
+      <p class="ingredients-statement">
+        "No preservatives. No shortcuts.<br>Just peppers, salt, and time."
+      </p>
+      <p style="font-family: 'Lora', serif; font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 2rem;">
+        Every sauce in the collection uses the same three-ingredient foundation. What changes is which peppers, which farm, which season.
+      </p>
+
+      <!-- GAP: no bp- ingredient list / taxonomy display component -->
+      <ul class="ingredients-list">
+        <li class="ingredient-item"><span class="ingredient-dot"></span> Fresh fermented chiles</li>
+        <li class="ingredient-item"><span class="ingredient-dot"></span> Sea salt (Lowcountry)</li>
+        <li class="ingredient-item"><span class="ingredient-dot"></span> Apple cider vinegar</li>
+        <li class="ingredient-item"><span class="ingredient-dot"></span> Filtered water</li>
+        <li class="ingredient-item"><span class="ingredient-dot"></span> Garlic (seasonal additions)</li>
+        <li class="ingredient-item"><span class="ingredient-dot"></span> Seasonal aromatics</li>
+      </ul>
+
+      <p style="font-family: 'Lora', serif; font-style: italic; font-size: 0.78rem; color: var(--color-text-muted); margin-top: 1.75rem;">
+        That's it. Read the label. You'll recognize everything on it.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       WHERE TO FIND US
+  ─────────────────────────────────────────── -->
+  <section class="markets-section" id="markets">
+    <div class="markets-inner">
+      <div class="markets-header">
+        <span class="section-eyebrow" style="display: block; margin-bottom: 0.75rem;">Find us</span>
+        <h2 class="section-title-serif">Charleston &amp; beyond</h2>
+        <p style="font-family: 'Lora', serif; font-size: 0.88rem; color: var(--color-text-secondary); margin-top: 0.5rem;">
+          We're at the market most weekends. Come say hello.
+        </p>
+      </div>
+
+      <!-- GAP: no bp-table warm/food styling variant -->
+      <div class="bp-table-wrapper">
+        <table class="bp-table">
+          <thead>
+            <tr>
+              <th>Market / Retailer</th>
+              <th>Location</th>
+              <th>When</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Charleston Farmers Market</strong></td>
+              <td>Marion Square, Charleston</td>
+              <td><span class="market-day">Sat 8am–2pm</span></td>
+              <td>April – November</td>
+            </tr>
+            <tr>
+              <td><strong>Olde North Charleston Market</strong></td>
+              <td>North Charleston</td>
+              <td><span class="market-day">Sun 10am–3pm</span></td>
+              <td>Year-round</td>
+            </tr>
+            <tr>
+              <td><strong>WildFlour Pastry</strong></td>
+              <td>76 Cannon St, Charleston</td>
+              <td>Daily</td>
+              <td>Retail shelf, select SKUs</td>
+            </tr>
+            <tr>
+              <td><strong>The Grocery</strong></td>
+              <td>4 Cannon St, Charleston</td>
+              <td>Daily</td>
+              <td>Full collection</td>
+            </tr>
+            <tr>
+              <td><strong>Husk General Store</strong></td>
+              <td>76 Queen St, Charleston</td>
+              <td>Daily</td>
+              <td>Gift sets available</td>
+            </tr>
+            <tr>
+              <td><strong>Online — ships nationwide</strong></td>
+              <td>slowburnco.com</td>
+              <td>Always</td>
+              <td>Ships in 3–5 days, packed cold</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────
+       FOOTER
+  ─────────────────────────────────────────── -->
+  <footer class="slowburn-footer">
+    <div class="footer-inner">
+
+      <div class="footer-brand-block">
+        <div class="footer-brand-name">Slow Burn Co.</div>
+        <address class="footer-address" style="font-style: normal;">
+          18 Line St, Suite 4<br>
+          Charleston, SC 29403<br>
+          hello@slowburnco.com
+        </address>
+        <p class="footer-meta">
+          Made in small batches.<br>Ships in 3&ndash;5 days.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-label">Sauces</div>
+        <div class="footer-links-col">
+          <a href="#">Shop the collection</a>
+          <a href="#">Seasonal releases</a>
+          <a href="#">Gift sets</a>
+          <a href="#">Wholesale</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-label">Story</div>
+        <div class="footer-links-col">
+          <a href="#">How we ferment</a>
+          <a href="#">Our farms</a>
+          <a href="#">The process</a>
+          <a href="#">Press</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="footer-col-label">Follow along</div>
+        <div class="footer-links-col">
+          <a href="https://instagram.com/slowburnco" rel="noopener">@slowburnco on Instagram</a>
+          <a href="#">Newsletter</a>
+          <a href="#">Shipping &amp; returns</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Slow Burn Co., Charleston SC</span>
+      <span class="footer-copy">Fermented with patience &middot; Labeled by hand</span>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+<!--
+GAPS FOUND:
+- Asymmetric product grid (3fr / 2fr ratio): bp-grid only supports equal-column presets (2, 3, 4). Brand needed a 60/40 layout; custom CSS grid-template-columns used.
+- Product color swatch circle: no bp- component for CSS-drawn product color swatches (circles with radial gradients). Custom .sauce-circle class built.
+- Heat level / rating indicator: no bp- component for a 5-pip rating row (like star ratings, but with custom shapes). Custom SVG pepper pip + .heat-peppers built.
+- Flavor tag / food taxonomy badge: bp-badge variants are semantic (success/warning/error); no warm/food "flavor note" variant. Custom .flavor-tag built.
+- Botanical hero badge: bp-hero-eyebrow exists but this needed a bordered pill variant in monospace at a specific weight. Custom .hero-badge built.
+- Numbered process steps (alternating layout): no bp- component for the 01/02/03 large-numeral + text alternating section. Custom .process-step grid built.
+- Ingredient list display: no bp- component for an ingredient taxonomy / pill-list layout. Custom .ingredients-list / .ingredient-item built.
+- Market day badge (warm variant): bp-badge-default uses blueprint blue tint; brand needed a terracotta/primary-tinted badge. Custom .market-day built.
+- Warm footer address block: bp-footer-brand-desc exists but footer needed Lora serif body with address + meta sub-copy. Custom .footer-address / .footer-meta built.
+
+DESIGN NOTES:
+- The botanical SVG vine is the page's soul: it enters from the lower-left corner and winds up the left edge in gentle S-curves before arching across the top — exactly the path of a seed catalog engraving, not a clip-art vine. The pepper shapes use tapered paths (wider at the shoulder, pointed at the tip) rather than simple ellipses, which reads as illustrated rather than geometric.
+- The 0.4 container opacity on the fixed .botanical-bg div means the vine reads as parchment watermark — it's clearly there but disappears when you read. This passes the taste gate: swap this vine to a competitor's hot sauce page and it would be dissonant, not invisible.
+- Sauce swatch circles use radial gradients with a highlight offset to (35%, 35%) — the same way a product photographer would light a glossy bottle. The hover lift is a 4px translateY, which feels like picking up the bottle.
+- The hero title "Made slow. Eaten fast." is a line break contrast structure — two rhythmically opposed ideas, fast to say aloud. The italic Playfair Display at 400 weight (not bold) keeps it editorial, not poster.
+- The asymmetric 3/2 product grid deliberately gives the featured sauce 60% of the viewport width — it earns that space by having the story, the flavor notes, and the heat level display. The two secondary sauces are smaller because they are actually secondary; this is not six equal cards.
+- Heat level uses SVG pepper pips drawn at 14x14px — not emoji, not stars. The active color is the page primary (burnt sienna), inactive is the border color. At this size it reads as a rating system without ever saying "rating system."
+- The process section uses large italic Playfair Display numerals at 0.18 opacity as the visual anchor — they're decorative but not meaningless. The step number IS the information; the title and body expand on it. This is one place where letting a number be large is actually a design decision, not the Inter Bold 72px default.
+- Color palette check: #faf4ec (warm cream) + #c04a1a (burnt sienna) + #4a7c3f (sage) is the palette of a 1920s seed catalog or apothecary label — which is exactly where artisan hot sauce packaging draws its visual authority from. No purple appeared anywhere.
+-->

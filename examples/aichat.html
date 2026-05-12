@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blueprint AI</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @layer brand-state {
+      :root {
+        --font-heading: 'Space Grotesk', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { height: 100vh; overflow: hidden; background: var(--color-bg); }
+
+    /* ── Layout ──────────────────────────────────────────────── */
+    .app { display: flex; height: 100vh; }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--bp-bg-secondary, #0d1117);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 14px 12px;
+    }
+
+    .brand-mark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-mark-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      background: var(--color-primary-subtle);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .conv-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 8px;
+    }
+
+    .conv-list::-webkit-scrollbar { width: 4px; }
+    .conv-list::-webkit-scrollbar-track { background: transparent; }
+    .conv-list::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+    .conv-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      padding: 14px 8px 5px;
+    }
+
+    .conv-item {
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+
+    .conv-item:hover { background: color-mix(in srgb, var(--color-primary) 8%, transparent); color: var(--color-text); }
+    .conv-item.active { background: var(--color-primary-subtle); color: var(--color-primary); }
+
+    .sidebar-footer {
+      padding: 10px 8px 14px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .user-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+
+    .user-row:hover { background: color-mix(in srgb, var(--color-primary) 8%, transparent); }
+    .user-name { font-size: 13px; font-weight: 500; color: var(--color-text); flex: 1; }
+
+    /* ── Main ────────────────────────────────────────────────── */
+    .chat-main { flex: 1; display: flex; flex-direction: column; height: 100vh; min-width: 0; }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .model-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: transparent;
+    }
+
+    .model-pill:hover { border-color: var(--color-primary); color: var(--color-text); }
+    .model-pill svg { opacity: 0.5; }
+
+    /* ── Thread ──────────────────────────────────────────────── */
+    .chat-thread { flex: 1; overflow-y: auto; scroll-behavior: smooth; }
+    .chat-thread::-webkit-scrollbar { width: 5px; }
+    .chat-thread::-webkit-scrollbar-track { background: transparent; }
+    .chat-thread::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+    /* ── Empty state ─────────────────────────────────────────── */
+    .chat-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--color-primary);
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .empty-title { font-size: 22px; font-weight: 600; color: var(--color-text); margin-bottom: 6px; }
+    .empty-sub { font-size: 14px; color: var(--color-text-muted); margin-bottom: 28px; }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 560px;
+    }
+
+    .suggestion {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .suggestion:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-subtle);
+    }
+
+    /* ── Messages ────────────────────────────────────────────── */
+    .thread-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 24px 8px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .thread-inner.visible { display: flex; }
+
+    @keyframes msg-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .message { display: flex; gap: 10px; animation: msg-in 0.18s ease; }
+    .message-user { flex-direction: row-reverse; align-self: flex-end; max-width: 80%; }
+
+    .message-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .message-content { font-size: 14px; line-height: 1.65; }
+
+    .message-user .message-content {
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 18px 18px 4px 18px;
+      padding: 10px 15px;
+      white-space: pre-wrap;
+    }
+
+    .message-assistant { align-items: flex-start; max-width: 100%; }
+
+    .message-assistant .message-content {
+      background: transparent;
+      color: var(--color-text);
+      padding: 6px 0;
+    }
+
+    .message-assistant .message-content p { margin-bottom: 10px; line-height: 1.65; }
+    .message-assistant .message-content p:last-child { margin-bottom: 0; }
+
+    .message-assistant .message-content pre {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--color-text);
+    }
+
+    .message-assistant .message-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--color-primary);
+    }
+
+    .message-assistant .message-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--color-text);
+      font-size: inherit;
+    }
+
+    .message-assistant .message-content strong { font-weight: 600; color: var(--color-text); }
+
+    /* During streaming: raw text so chars render immediately */
+    .message-content.streaming { white-space: pre-wrap; }
+
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .message-content.streaming::after {
+      content: '▋';
+      display: inline;
+      animation: cursor-blink 0.65s infinite;
+      margin-left: 1px;
+      color: var(--color-primary);
+      font-size: 0.8em;
+    }
+
+    /* Typing dots ─────────────────────────────────────────────── */
+    @keyframes dot-bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40%           { transform: translateY(-3px); opacity: 1; }
+    }
+
+    .typing-dots { display: flex; gap: 4px; align-items: center; padding: 10px 2px; }
+
+    .typing-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-text-muted);
+      animation: dot-bounce 1.2s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    /* ── Input area ──────────────────────────────────────────── */
+    .chat-input-area {
+      flex-shrink: 0;
+      padding: 12px 24px 20px;
+      position: relative;
+    }
+
+    .chat-input-area::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--color-bg));
+      pointer-events: none;
+    }
+
+    .input-outer { max-width: 720px; margin: 0 auto; }
+
+    .input-box {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 11px 11px 11px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .input-box:focus-within {
+      border-color: var(--color-primary);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22), 0 0 0 3px var(--color-primary-subtle);
+    }
+
+    .chat-textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--color-text);
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: none;
+      min-height: 22px;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 0;
+    }
+
+    .chat-textarea::placeholder { color: var(--color-text-muted); }
+    .chat-textarea::-webkit-scrollbar { width: 4px; }
+    .chat-textarea::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: var(--color-primary);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+      opacity: 0.3;
+    }
+
+    .send-btn:not([disabled]) { opacity: 1; }
+    .send-btn:not([disabled]):hover { transform: scale(1.08); box-shadow: 0 2px 10px rgba(59, 130, 246, 0.45); }
+    .send-btn:not([disabled]):active { transform: scale(0.95); }
+    .send-btn[disabled] { cursor: not-allowed; }
+
+    .input-hint {
+      text-align: center;
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="brand-mark">
+        <div class="brand-mark-dot"></div>
+        Blueprint AI
+      </div>
+      <button class="icon-btn" id="newChatBtn" title="New chat">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="conv-list">
+      <div class="conv-date">Today</div>
+      <div class="conv-item active">The Point design system</div>
+      <div class="conv-item">Gatefold layout patterns</div>
+      <div class="conv-date">Yesterday</div>
+      <div class="conv-item">SVG bottle illustrations</div>
+      <div class="conv-item">Volta Records rebuild</div>
+      <div class="conv-date">Previous week</div>
+      <div class="conv-item">Agentic design concepts</div>
+      <div class="conv-item">Brand mood system</div>
+      <div class="conv-item">CSS cascade architecture</div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-row">
+        <div class="bp-avatar bp-avatar-sm">RE</div>
+        <span class="user-name">Robert Evans</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-text-muted);flex-shrink:0">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <main class="chat-main">
+
+    <div class="chat-header">
+      <button class="model-pill">
+        Claude Sonnet 4.6
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="chat-thread" id="chatThread">
+      <div class="chat-empty" id="emptyState">
+        <div class="empty-icon">BP</div>
+        <h2 class="empty-title">What can I help with?</h2>
+        <p class="empty-sub">Ask me anything about The Point design system.</p>
+        <div class="suggestions">
+          <button class="suggestion" data-prompt="Tell me about The Point blueprint design system">About The Point</button>
+          <button class="suggestion" data-prompt="How does the grid and layout system work?">Grid &amp; layouts</button>
+          <button class="suggestion" data-prompt="How do I customize the brand colors and tokens?">Brand customization</button>
+          <button class="suggestion" data-prompt="What is agentic design and how does it work?">Agentic design</button>
+          <button class="suggestion" data-prompt="Tell me about the mood file color system">Mood system</button>
+          <button class="suggestion" data-prompt="How do cards and media components work together?">Cards &amp; media</button>
+        </div>
+      </div>
+      <div class="thread-inner" id="threadInner"></div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="input-outer">
+        <div class="input-box">
+          <textarea class="chat-textarea" id="chatInput" placeholder="Message Blueprint AI…" rows="1"></textarea>
+          <button class="send-btn" id="sendBtn" disabled title="Send message">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </button>
+        </div>
+        <p class="input-hint">Blueprint AI · The Point design system · Shift+Enter for new line</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const chatThread  = document.getElementById('chatThread');
+  const chatInput   = document.getElementById('chatInput');
+  const sendBtn     = document.getElementById('sendBtn');
+  const emptyState  = document.getElementById('emptyState');
+  const threadInner = document.getElementById('threadInner');
+  const newChatBtn  = document.getElementById('newChatBtn');
+
+  let isStreaming = false;
+
+  // ── Textarea auto-resize ───────────────────────────────────────
+
+  chatInput.addEventListener('input', () => {
+    chatInput.style.height = 'auto';
+    chatInput.style.height = Math.min(chatInput.scrollHeight, 200) + 'px';
+    sendBtn.disabled = chatInput.value.trim() === '' || isStreaming;
+  });
+
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!sendBtn.disabled) sendMessage();
+    }
+  });
+
+  sendBtn.addEventListener('click', sendMessage);
+
+  // ── Suggestion chips ───────────────────────────────────────────
+
+  document.querySelectorAll('.suggestion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      chatInput.value = btn.dataset.prompt;
+      chatInput.dispatchEvent(new Event('input'));
+      sendMessage();
+    });
+  });
+
+  // ── Sidebar ────────────────────────────────────────────────────
+
+  document.querySelectorAll('.conv-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  newChatBtn.addEventListener('click', () => {
+    document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
+    while (threadInner.firstChild) threadInner.removeChild(threadInner.firstChild);
+    threadInner.classList.remove('visible');
+    emptyState.style.display = '';
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+    sendBtn.disabled = true;
+    isStreaming = false;
+  });
+
+  // ── Send flow ──────────────────────────────────────────────────
+
+  function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text || isStreaming) return;
+
+    emptyState.style.display = 'none';
+    threadInner.classList.add('visible');
+
+    appendUserMessage(text);
+
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+    sendBtn.disabled = true;
+
+    showTypingThenStream(getResponse(text));
+  }
+
+  function appendUserMessage(text) {
+    const msg     = document.createElement('div');
+    msg.className = 'message message-user';
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = text;
+    msg.appendChild(content);
+    threadInner.appendChild(msg);
+    scrollBottom();
+  }
+
+  function showTypingThenStream(responseText) {
+    isStreaming = true;
+
+    const typingMsg = document.createElement('div');
+    typingMsg.className = 'message message-assistant';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = 'BP';
+
+    const dots = document.createElement('div');
+    dots.className = 'typing-dots';
+    for (let d = 0; d < 3; d++) {
+      const dot = document.createElement('div');
+      dot.className = 'typing-dot';
+      dots.appendChild(dot);
+    }
+
+    typingMsg.appendChild(avatar);
+    typingMsg.appendChild(dots);
+    threadInner.appendChild(typingMsg);
+    scrollBottom();
+
+    setTimeout(() => {
+      threadInner.removeChild(typingMsg);
+      streamAssistantMessage(responseText);
+    }, 550);
+  }
+
+  function streamAssistantMessage(responseText) {
+    const msg     = document.createElement('div');
+    msg.className = 'message message-assistant';
+
+    const avatar  = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = 'BP';
+
+    const content = document.createElement('div');
+    content.className = 'message-content streaming';
+
+    msg.appendChild(avatar);
+    msg.appendChild(content);
+    threadInner.appendChild(msg);
+    scrollBottom();
+
+    let charIndex = 0;
+
+    const tick = setInterval(() => {
+      if (charIndex < responseText.length) {
+        // textContent during streaming — safe, no parsing of streamed chars
+        content.textContent = responseText.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex % 8 === 0) scrollBottom();
+      } else {
+        content.classList.remove('streaming');
+        // All chars arrived — now render the complete trusted response as rich DOM
+        renderResponse(content, responseText);
+        isStreaming = false;
+        sendBtn.disabled = chatInput.value.trim() === '';
+        clearInterval(tick);
+        scrollBottom();
+      }
+    }, 11);
+  }
+
+  function scrollBottom() {
+    chatThread.scrollTop = chatThread.scrollHeight;
+  }
+
+  // ── DOM-based markdown renderer (no innerHTML) ─────────────────
+  //
+  // Splits on code fences first, then renders inline marks (backtick
+  // code and **bold**) using String.matchAll so every node is built
+  // via document.createElement / createTextNode — nothing goes through
+  // innerHTML, so there is no HTML-injection surface.
+
+  function renderResponse(el, text) {
+    while (el.firstChild) el.removeChild(el.firstChild);
+
+    const CODE_FENCE = /(```[\s\S]*?```)/g;
+    const parts = text.split(CODE_FENCE);
+
+    parts.forEach(part => {
+      if (part.startsWith('```') && part.endsWith('```')) {
+        const code = part.slice(3, -3).trim();
+        const pre  = document.createElement('pre');
+        const c    = document.createElement('code');
+        c.textContent = code;
+        pre.appendChild(c);
+        el.appendChild(pre);
+      } else {
+        part.split('\n\n').forEach(block => {
+          if (!block.trim()) return;
+          const p = document.createElement('p');
+          appendInlineNodes(p, block.trim());
+          el.appendChild(p);
+        });
+      }
+    });
+  }
+
+  function appendInlineNodes(container, text) {
+    const INLINE = /(`[^`]+`|\*\*[^*]+\*\*)/g;
+    let cursor = 0;
+
+    for (const match of text.matchAll(INLINE)) {
+      if (match.index > cursor) {
+        container.appendChild(document.createTextNode(text.slice(cursor, match.index)));
+      }
+
+      const token = match[0];
+
+      if (token.startsWith('`')) {
+        const code = document.createElement('code');
+        code.textContent = token.slice(1, -1);
+        container.appendChild(code);
+      } else {
+        const strong = document.createElement('strong');
+        strong.textContent = token.slice(2, -2);
+        container.appendChild(strong);
+      }
+
+      cursor = match.index + token.length;
+    }
+
+    if (cursor < text.length) {
+      container.appendChild(document.createTextNode(text.slice(cursor)));
+    }
+  }
+
+  // ── Pre-baked responses ────────────────────────────────────────
+
+  const RESPONSES = [
+    {
+      match: ['blueprint', 'design system', 'the-point', 'about the point', 'what is'],
+      text: `The Point is a CSS design system built around a blueprint aesthetic — the kind of drafting-table graph paper that architects use. Every value routes through CSS custom properties (variables) organized in a layered cascade:\n\nbluetprint → brand-base → brand-seasonal → brand-state\n\nThink of it like a legal system: blueprint writes the constitution, brand-state writes the law. Your law always wins, regardless of load order.\n\nA minimum viable brand is two tokens:\n\n\`\`\`\n@layer brand-state {\n  :root {\n    --color-primary: #your-hue;\n    --color-primary-hover: #darker;\n  }\n}\n\`\`\`\n\nEvery button, card, form, badge, and grid reads those two values and repaints itself automatically. No Sass variables, no component-level overrides needed.`
+    },
+    {
+      match: ['grid', 'layout', 'split', 'spread', 'column', 'gatefold'],
+      text: `The layout system is additive, not configurable. You compose what you need from discrete classes:\n\n\`\`\`\n<!-- Equal columns -->\n<div class="bp-grid bp-grid-3">\n\n<!-- Asymmetric splits -->\n<div class="bp-split bp-split-40-60">\n<div class="bp-split bp-split-33-67">\n\n<!-- Gatefold spread: 28 / 44 / 28 -->\n<div class="bp-spread-3">\n\`\`\`\n\nThe spread is the most interesting one. It encodes the "two-source gutter" principle from editorial design: the wide center (44 parts) carries the main narrative, the two flanks (28 parts each) carry supporting material — like a record sleeve where the front face dominates and the spine and back carry metadata.\n\nAll layouts collapse to single column on mobile automatically.`
+    },
+    {
+      match: ['card', 'media', 'image', 'photo', 'bp-card', 'component'],
+      text: `Cards are compositional — you stack classes to build up behavior:\n\n\`\`\`\nbp-card              base surface\nbp-card-hover        lift + glow on hover\nbp-card-feature      icon slot + text layout\nbp-card-media        image flush to top edge\n\`\`\`\n\nThe **bp-media** wrapper is the key piece — it works like a picture frame. You declare the shape, the image fills it:\n\n\`\`\`\n<div class="bp-card bp-card-media">\n  <div class="bp-media bp-media-16-9">\n    <img src="photo.jpg" alt="">\n  </div>\n  <div class="bp-card-header">\n    <div class="bp-card-title">Title</div>\n  </div>\n</div>\n\`\`\`\n\nAvailable ratios: 16:9, 4:3, 3:2, 1:1, 3:4, 2:3, 21:9. The inner img or svg gets **object-fit: cover** automatically.`
+    },
+    {
+      match: ['agentic', 'live', 'change design', 'real-time', 'llm design'],
+      text: `Agentic design is what comes next after this chat UI.\n\nThe concept: the page itself is a design surface. An LLM reaches into the DOM and modifies it while you watch — no reload, no editor, no build step. You describe a feeling; the system finds the tokens that encode it.\n\nThe mechanism is a JSON patch over CSS custom properties:\n\n\`\`\`\n// LLM responds with:\n{ "--color-primary": "#e63329" }\n\n// Applied instantly:\nObject.entries(patch).forEach(([k, v]) =>\n  document.documentElement.style.setProperty(k, v)\n);\n\`\`\`\n\nEvery token in **base.css** becomes a dial. The experiment: can a design system be specific enough that an LLM can navigate it fluently? Can you say "make this feel like a 1970s Japanese jazz label" and get back valid token values?\n\nThe answer is yes — if the token vocabulary is expressive enough.`
+    },
+    {
+      match: ['mood', 'color', 'theme', 'amber', 'slate', 'forest', 'violet', 'arctic', 'ember'],
+      text: `The mood system is six pre-built color directions in the brand-base layer:\n\n\`\`\`\namber   warm, editorial, confident  (food, hospitality)\nslate   professional, restrained   (finance, legal, B2B)\nforest  natural, calm              (wellness, education)\nviolet  creative, expressive       (design tools)\nember   bold, high-energy          (events, launches)\narctic  clean, precise             (dev tools, fintech)\n\`\`\`\n\nSwap at runtime with 10 lines of JavaScript — no reload:\n\n\`\`\`\ndocument.getElementById('mood-link').href =\n  'the-point/moods/amber.css';\n\`\`\`\n\nMoods only set **--color-primary** and its four variants. Your brand.css in brand-state always wins — the cascade handles priority automatically.`
+    },
+    {
+      match: ['brand', 'customize', 'custom', 'override', 'token'],
+      text: `Brand customization works through the CSS @layer cascade.\n\nFour layers in order of precedence:\n\n\`\`\`\nbluetprint     The Point core (never touch this)\nbrand-base     Mood files (amber, slate, arctic)\nbrand-seasonal Campaign or seasonal overrides\nbrand-state    Your brand.css (always wins)\n\`\`\`\n\nA complete brand override lives in one file:\n\n\`\`\`\n@layer brand-state {\n  :root {\n    --color-primary:       #c04a1a;\n    --color-primary-hover: #9a3812;\n    --font-heading: 'Playfair Display', serif;\n    --font-mono: 'JetBrains Mono', monospace;\n    --radius: 2px;\n  }\n}\n\`\`\`\n\nChange those five lines and you get a completely different-feeling product — warm terracotta editorial versus cold precise fintech — without touching any component code.`
+    },
+    {
+      match: ['hello', 'hi', 'hey', 'help'],
+      text: `Hello! I'm a demonstration of a chat UI built entirely with The Point design system — the same CSS that styles every element you're looking at right now.\n\nTry asking me about:\n\nThe blueprint design system and how it works\nGrid and layout patterns (splits, gatefold spreads)\nComponent composition (cards, media, chips)\nBrand customization and the mood file system\nAgentic design — the LLM-driven live design experiment`
+    }
+  ];
+
+  const FALLBACK = `That's a good question. The Point design system is built to handle everything from SaaS dashboards to editorial layouts to product pages — the blueprint aesthetic adapts across contexts.\n\nTry asking me about:\n\nThe CSS cascade and layer architecture\nGrid layouts and the gatefold spread\nComponent composition (cards, media, badges)\nBrand customization and mood files\nThe agentic design experiment`;
+
+  function getResponse(text) {
+    const lower = text.toLowerCase();
+    for (const r of RESPONSES) {
+      if (r.match.some(k => lower.includes(k))) return r.text;
+    }
+    return FALLBACK;
+  }
+</script>
+
+</body>
+</html>

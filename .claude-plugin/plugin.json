@@ -1,5 +1,10 @@
 {
   "name": "the-point",
   "version": "0.1.0",
-  "description": "The Point design system — blueprint aesthetic CSS with AI design agents. Run @blueprint to design and install."
+  "description": "Agentic design system for Claude Code. Blueprint interviews and builds complete HTML + CSS pages. Artisan makes targeted design changes on existing builds. Forge maintains the component system. Copy writes brand-voice content. Review runs the automated quality loop with self-healing. Scout researches domain visual conventions.",
+  "author": {
+    "name": "Robert Evans",
+    "email": "robert@codewranglers.org"
+  },
+  "keywords": ["design", "css", "landing-page", "ui", "brand", "blueprint"]
 }

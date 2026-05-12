@@ -233,11 +233,11 @@
   --bp-radius-2xl:      1rem;
   --bp-radius-full:     9999px;
 
-  /* Transitions */
-  --bp-transition-fast:   all 0.15s ease;
-  --bp-transition-base:   all 0.2s ease;
-  --bp-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --bp-transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Transitions — built from the motion tokens above so --duration-* and --easing-* changes cascade here */
+  --bp-transition-fast:   all var(--duration-fast)   ease;
+  --bp-transition-base:   all var(--duration-base)   ease;
+  --bp-transition-smooth: all var(--duration-slow)   var(--easing-smooth);
+  --bp-transition-bounce: all var(--duration-bounce) var(--easing-bounce);
 
   /* Z-index scale */
   --bp-z-base:          0;
@@ -265,9 +265,10 @@
 
 :root {
   --color-primary:          var(--bp-accent);
-  --color-primary-hover:    var(--bp-accent-hover);
-  --color-primary-subtle:   var(--bp-accent-subtle);
-  --color-primary-glow:     var(--bp-accent-glow);
+  /* Derived automatically from --color-primary. Override in brand.css only if auto-derivation isn't right. */
+  --color-primary-hover:    color-mix(in oklch, var(--color-primary) 75%, black);
+  --color-primary-subtle:   oklch(from var(--color-primary) l c h / 0.12);
+  --color-primary-glow:     oklch(from var(--color-primary) l c h / 0.25);
 
   --color-bg:               var(--bp-bg);
   --color-bg-secondary:     var(--bp-bg-secondary);
@@ -288,6 +289,117 @@
   --font-mono:              var(--bp-font-mono);
 
   --radius:                 var(--bp-radius-md);
+
+  /* State colors */
+  --color-success:          var(--bp-success);
+  --color-warning:          var(--bp-warning);
+  --color-error:            var(--bp-error);
+  --color-success-subtle:   var(--bp-success-subtle);
+  --color-warning-subtle:   var(--bp-warning-subtle);
+  --color-error-subtle:     var(--bp-error-subtle);
+
+  /* Typography scale — these drive the base element styles */
+  --font-size-base:          16px;
+  --font-weight-heading:     var(--bp-font-semibold);
+  --font-weight-body:        var(--bp-font-normal);
+  --line-height-base:        var(--bp-leading-normal);
+  --line-height-heading:     var(--bp-leading-tight);
+  --letter-spacing-heading:  var(--bp-tracking-tight);
+
+  /* Motion — adjust --motion-scale to shift the whole page's animation personality.
+     0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
+     1 = default, 2 = expressive/playful */
+  --motion-scale:    1;
+  --duration-fast:   calc(0.15s * var(--motion-scale));
+  --duration-base:   calc(0.20s * var(--motion-scale));
+  --duration-slow:   calc(0.30s * var(--motion-scale));
+  --duration-bounce: calc(0.40s * var(--motion-scale));
+  --easing-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows — semantic aliases; components use --bp-shadow-* directly */
+  --shadow-sm:   var(--bp-shadow-sm);
+  --shadow-md:   var(--bp-shadow-md);
+  --shadow-lg:   var(--bp-shadow-lg);
+  --shadow-glow: var(--bp-shadow-glow);
+
+  /* Layout — structural dimensions and density */
+  --space-unit:    1rem;
+  --grid-gap:      var(--bp-space-6);
+  --sidebar-width: 256px;
+  --nav-height:    64px;
+  --split-ratio:   1fr 1fr;
+
+  /* Border — controls every border in the system simultaneously */
+  --border-width:  1px;
+  --border-style:  solid;
+
+  /* Focus ring — accessibility lever brands must not erase */
+  --focus-ring-color:  var(--color-primary);
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 2px;
+
+  /* Secondary accent — for two-color brand palettes */
+  --color-secondary:        var(--color-text-muted);
+  --color-secondary-hover:  var(--color-text-secondary);
+  --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
+
+  /* Color on primary — text that sits on a primary-colored background */
+  --color-on-primary: #ffffff;
+
+  /* Content reading width — max-width for prose columns */
+  --content-width: 65ch;
+
+  /* Component padding — independent of --space-unit so card density
+     can be tuned without affecting section-level layout spacing */
+  --card-padding: calc(var(--space-unit) * 1.5);
+
+  /* Blur scale — matte vs. frosted glass spectrum */
+  --blur-sm:  4px;
+  --blur-md:  12px;
+  --blur-lg:  20px;
+
+  /* Overlay backgrounds */
+  --overlay-bg:    rgba(0, 0, 0, 0.6);
+  --overlay-scrim: rgba(0, 0, 0, 0.5);
+
+  /* Interactive feedback */
+  --lift-distance:    2px;
+  --opacity-disabled: 0.4;
+  --opacity-idle:     0.3;
+  --bracket-size:     12px;
+
+  /* Button heights — full size scale */
+  --btn-height-xs: 28px;
+  --btn-height-sm: 34px;
+  --btn-height-md: 40px;
+  --btn-height-lg: 48px;
+  --btn-height-xl: 56px;
+
+  /* Form element dimensions */
+  --input-height:        40px;
+  --textarea-min-height: 100px;
+
+  /* Modal & toast dimensions */
+  --modal-max-width:  520px;
+  --modal-max-height: 90vh;
+  --toast-max-width:  380px;
+
+  /* Hero & section text column widths */
+  --hero-title-max-width:     800px;
+  --hero-subtitle-max-width:  600px;
+  --section-header-max-width: 640px;
+}
+
+/* --------------------------------------------------------------------------
+   MOTION ACCESSIBILITY
+   Cuts all animation duration to zero for users who prefer reduced motion.
+   Because every transition in the system flows through --duration-*, one
+   rule here silences the whole thing — no per-component overrides needed.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-scale: 0; }
 }
 
 /* --------------------------------------------------------------------------
@@ -301,7 +413,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: var(--font-size-base);
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
@@ -309,8 +421,8 @@ html {
 body {
   font-family: var(--font-body);
   font-size: var(--bp-text-base);
-  font-weight: var(--bp-font-normal);
-  line-height: var(--bp-leading-normal);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-base);
   color: var(--color-text);
   background-color: var(--color-bg);
 
@@ -347,11 +459,17 @@ a:hover {
   color: var(--color-primary-hover);
 }
 
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius);
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: var(--bp-font-semibold);
-  line-height: var(--bp-leading-tight);
-  letter-spacing: var(--bp-tracking-tight);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
   color: var(--color-text);
 }
 

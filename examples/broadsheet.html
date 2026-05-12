@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Broadsheet — Blueprint Example</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400&display=swap" rel="stylesheet">
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:        #8b1a1a;
+        --color-primary-hover:  #6b1111;
+        --color-primary-subtle: rgba(139, 26, 26, 0.08);
+        --color-bg:             #f4f0e4;
+        --color-bg-secondary:   #ede8d8;
+        --color-surface:        #faf7f0;
+        --color-border:         #1a1a1a;
+        --color-text:           #0f0f0f;
+        --color-text-secondary: #2a2a2a;
+        --color-text-muted:     #5a5a5a;
+        --font-heading:         'Playfair Display', 'Georgia', serif;
+        --font-body:            'Lora', 'Georgia', serif;
+        --font-mono:            'JetBrains Mono', monospace;
+        --radius:               var(--bp-radius-none);
+        --bp-grid-color:        transparent;
+        --bp-grid-color-bold:   transparent;
+      }
+    }
+
+    body {
+      background-color: var(--color-bg);
+    }
+
+    /* Newspaper masthead */
+    .masthead {
+      border-bottom: 4px double var(--color-border);
+      border-top: 4px solid var(--color-border);
+      padding: 1rem 0 0.75rem;
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .masthead-dateline {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .masthead-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    .masthead-tagline {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* Edition rule */
+    .edition-rule {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 0.5rem 0 0;
+    }
+
+    /* Newspaper grid */
+    .newspaper-grid {
+      display: grid;
+      grid-template-columns: 1fr 2px 2.2fr 2px 1fr;
+      gap: 0;
+      padding: 1.5rem 0;
+    }
+
+    .column-rule {
+      background: var(--color-border);
+      margin: 0 2rem;
+    }
+
+    .col-left {
+      padding-right: 0.5rem;
+    }
+
+    .col-center {
+      padding: 0 0.25rem;
+    }
+
+    .col-right {
+      padding-left: 0.5rem;
+    }
+
+    /* Story styles */
+    .story-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .story-headline-xl {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 900;
+    }
+
+    .story-headline-lg {
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    }
+
+    .story-headline-md {
+      font-size: 1.15rem;
+    }
+
+    .story-deck {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .byline {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border);
+      padding-top: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .story-body {
+      font-family: 'Source Serif 4', 'Lora', serif;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary);
+      column-count: 1;
+    }
+
+    .story-body p + p {
+      text-indent: 1.5em;
+      margin-top: 0;
+    }
+
+    .drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      float: left;
+      line-height: 0.75;
+      padding-right: 0.12em;
+      padding-top: 0.08em;
+      color: var(--color-text);
+    }
+
+    .story-separator {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 1.25rem 0;
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-top: 3px solid var(--color-text);
+      border-bottom: 1px solid var(--color-text);
+      padding: 0.75rem 0;
+      margin: 1.25rem 0;
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.35;
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    /* Briefs column */
+    .brief-item {
+      padding-bottom: 0.9rem;
+      margin-bottom: 0.9rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .brief-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Advertisement block */
+    .ad-block {
+      border: 1px solid var(--color-border);
+      padding: 1rem;
+      text-align: center;
+      margin-top: 1.25rem;
+    }
+
+    .ad-label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Section banner */
+    .section-banner {
+      background: var(--color-text);
+      color: var(--color-bg);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Bottom sections */
+    .bottom-grid {
+      border-top: 4px double var(--color-border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 0;
+    }
+
+    .bottom-col {
+      border-right: 1px solid var(--color-border);
+      padding: 1rem 1.25rem;
+    }
+
+    .bottom-col:last-child {
+      border-right: none;
+    }
+
+    /* Page footer */
+    .paper-footer {
+      border-top: 4px solid var(--color-border);
+      padding: 0.75rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bp-container" style="max-width: 1100px;">
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <div class="masthead-dateline">
+        <span>Est. 1842 &nbsp;·&nbsp; Vol. CLXXX No. 47</span>
+        <span>Thursday, May 8, 2026</span>
+        <span>Design &amp; Technology &nbsp;·&nbsp; $4.00</span>
+      </div>
+      <h1 class="masthead-name">THE FOLIO</h1>
+      <p class="masthead-tagline">Independent reporting on design, technology, and the built world</p>
+      <hr class="edition-rule">
+    </header>
+
+    <!-- MAIN NEWSPAPER GRID -->
+    <div class="newspaper-grid">
+
+      <!-- LEFT COLUMN: Briefs -->
+      <div class="col-left">
+        <div class="section-banner">Today's Briefs</div>
+
+        <div class="brief-item">
+          <span class="kicker">Industry</span>
+          <h3 class="story-headline story-headline-md">Design systems consolidate as teams seek coherence over customization</h3>
+          <p class="story-body" style="font-size: 0.82rem; margin-top: 0.4rem;">Three major enterprise tools announced shared token standards this week, signaling a shift toward interoperability.</p>
+        </div>
+
+        <div class="brief-item">
+          <span class="kicker">Research</span>
+          <h3 class="story-headline story-headline-md">Whitespace use correlates with trust in financial interfaces</h3>
+          <p class="story-body" style="font-size: 0.82rem; margin-top: 0.4rem;">A study of 4,200 participants found that increased margin width raised perceived legitimacy scores by 31 percent.</p>
+        </div>
+
+        <div class="brief-item">
+          <span class="kicker">Tools</span>
+          <h3 class="story-headline story-headline-md">CSS layers gain adoption as cascade complexity grows</h3>
+          <p class="story-body" style="font-size: 0.82rem; margin-top: 0.4rem;">Browser support is now universal. Teams report fewer override conflicts and easier third-party integration.</p>
+        </div>
+
+        <div class="brief-item">
+          <span class="kicker">Opinion</span>
+          <h3 class="story-headline story-headline-md">The return of print aesthetics to digital product design</h3>
+        </div>
+
+        <div class="ad-block">
+          <span class="ad-label">Advertisement</span>
+          <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--color-text); margin: 0 0 0.25rem;">Morison &amp; Co.</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); margin: 0;">Fine Typography Since 1901</p>
+        </div>
+      </div>
+
+      <div class="column-rule"></div>
+
+      <!-- CENTER COLUMN: Lead story -->
+      <div class="col-center">
+        <span class="kicker">Lead Story</span>
+        <h2 class="story-headline story-headline-xl">The quiet revolution in how software gets its look</h2>
+        <p class="story-deck">A new class of design tooling removes the gap between intent and implementation, letting developers speak in the language of aesthetics without the overhead of visual editors.</p>
+        <div class="byline">By Margaret Holloway &nbsp;·&nbsp; Design Correspondent</div>
+
+        <p class="story-body drop-cap">For most of the browser's three-decade history, the visual layer of software has been a negotiation between two professions who rarely agreed on terms. Designers produced intentions. Developers produced approximations. The gap between them was papered over with hand-off tools, style guides, and a persistent, low-grade frustration on both sides.</p>
+
+        <p class="story-body">That gap is closing, though not in the way most predicted. The design tools did not converge on code export. The component libraries did not converge on a shared standard. Instead, a quieter approach has gained ground: opinionated systems that make decisions in advance, trading infinite flexibility for immediate coherence.</p>
+
+        <div class="pull-quote">
+          <p>"The best design system is the one that makes the wrong choice harder than the right one."</p>
+        </div>
+
+        <p class="story-body">The implications are not merely aesthetic. When a team can reach visual competence without a dedicated designer, the economics of software change. Smaller organizations can ship products that do not look provisional. The visual quality bar, previously a function of headcount and budget, becomes a function of taste encoded once and applied everywhere.</p>
+
+        <p class="story-body">Critics of this approach argue that it produces homogeneity: a thousand products that look like variations on a theme. The counter-argument is that homogeneity at the component level creates room for differentiation at the content level, which is where meaning actually lives.</p>
+
+        <hr class="story-separator">
+
+        <span class="kicker">Analysis</span>
+        <h3 class="story-headline story-headline-lg">Why the blueprint metaphor resonates with engineers</h3>
+        <p class="story-deck">The language of technical drawing maps onto software development in ways that feel earned rather than decorative.</p>
+        <div class="byline">By Thomas Farrell &nbsp;·&nbsp; Technology Editor</div>
+
+        <p class="story-body">A blueprint does not pretend to be the thing it describes. It is, explicitly, a plan — a set of relationships expressed in a visual language understood by those who need to build. When software adopts this visual register, it makes an honest statement about its own nature.</p>
+
+        <p class="story-body">This is distinct from using blueprints as decoration, which reached peak saturation in the early 2010s when every app seemed to be wrapped in faux-linen or graph paper. The difference is whether the aesthetic is skin-deep or structural. When the grid, the annotation, the measurement label emerge from the actual layout system rather than a background image, they carry semantic weight.</p>
+      </div>
+
+      <div class="column-rule"></div>
+
+      <!-- RIGHT COLUMN: Secondary stories -->
+      <div class="col-right">
+        <span class="kicker">Profile</span>
+        <h3 class="story-headline story-headline-lg">The typographer who convinced developers to care about kerning</h3>
+        <div class="byline">By Anna Voss</div>
+        <p class="story-body" style="font-size: 0.85rem;">When she published her first type specimen in a developer newsletter, she expected silence. Instead, she received three thousand replies from engineers who had never considered the distance between letters as a design variable. Three years later, her workshop has a six-month waiting list.</p>
+
+        <hr class="story-separator">
+
+        <span class="kicker">Letters</span>
+        <div class="section-banner" style="font-size: 0.65rem; background: transparent; color: var(--color-text); border: 1px solid var(--color-border);">From Our Readers</div>
+
+        <div class="brief-item">
+          <p class="story-body" style="font-style: italic; font-size: 0.82rem;">"Your coverage of CSS architecture has been the most technically honest I've read outside of specification documents. Please do not dumb it down."</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-top: 0.3rem;">— R. Chen, Auckland</p>
+        </div>
+
+        <div class="brief-item">
+          <p class="story-body" style="font-style: italic; font-size: 0.82rem;">"The question is not whether AI can design. It is whether the result of AI design will mean anything to anyone."</p>
+          <p style="font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-top: 0.3rem;">— F. Oduya, Lagos</p>
+        </div>
+
+        <hr class="story-separator">
+
+        <span class="kicker">Market</span>
+        <h3 class="story-headline story-headline-md">Design tool licensing costs rise 40% as consolidation continues</h3>
+        <p class="story-body" style="font-size: 0.82rem; margin-top: 0.4rem;">Enterprise contracts now average $340 per seat annually, up from $243 in 2023. Open-source alternatives report increased adoption among teams below 20 people.</p>
+
+        <div class="pull-quote" style="margin-top: 1.25rem;">
+          <p style="font-size: 1rem;">"Open source is not cheaper. It is a different kind of cost."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM SECTION: 4 columns -->
+    <div class="bottom-grid">
+      <div class="bottom-col">
+        <span class="kicker">Culture</span>
+        <h4 class="story-headline story-headline-md">The renewed interest in physical type specimens</h4>
+        <p class="story-body" style="font-size: 0.8rem; margin-top: 0.4rem;">Letterpress studios report a 60% increase in orders from studios that primarily work in digital media.</p>
+      </div>
+      <div class="bottom-col">
+        <span class="kicker">Practice</span>
+        <h4 class="story-headline story-headline-md">How one agency cut design review cycles from 4 weeks to 6 days</h4>
+        <p class="story-body" style="font-size: 0.8rem; margin-top: 0.4rem;">The answer was not better software. It was a shared vocabulary enforced by tooling rather than convention.</p>
+      </div>
+      <div class="bottom-col">
+        <span class="kicker">Education</span>
+        <h4 class="story-headline story-headline-md">Universities add design systems to core CS curriculum</h4>
+        <p class="story-body" style="font-size: 0.8rem; margin-top: 0.4rem;">Four institutions announced new required courses this semester, citing employer demand for graduates who can reason visually.</p>
+      </div>
+      <div class="bottom-col">
+        <span class="kicker">Obituary</span>
+        <h4 class="story-headline story-headline-md">The death of the style guide as a living document</h4>
+        <p class="story-body" style="font-size: 0.8rem; margin-top: 0.4rem;">When the system enforces the rules, the document becomes archaeology. What gets lost in the translation?</p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="paper-footer">
+      <span>The Folio &nbsp;·&nbsp; Est. 1842</span>
+      <span>All rights reserved</span>
+      <span>Printed in the public interest</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

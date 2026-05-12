@@ -1,0 +1,696 @@
+/* ==========================================================================
+   TSUCHI STUDIO — Brand CSS
+   Ceramics studio, Higashiyama district, Kyoto.
+   Shigaraki clay. Anagama kiln. 22 years at the same wheel.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:    sparse  (--space-unit: 1.5rem) — a functional bowl sits
+               alone on a cedar shelf. Nothing crowds it. The page
+               breathes the way the studio does.
+
+   Weight:     light   (300) — engraved text on a Shigaraki piece at 300
+               weight reads as the marking of a maker, not a claim.
+               Heavier weight would announce; this weight records.
+
+   Tracking:   wide    (0.12em) — between "very-wide" (watch brand theater)
+               and "closed" (editorial urgency). A wood-fired bowl does
+               not perform. Each letter takes its time.
+
+   Motion:     surgical (0.05s/0.1s/0.15s, ease, ease) — the anagama kiln
+               fires for four days without interruption. The page does
+               not animate. No data-bp-motion on <html>.
+
+   Shape:      balanced (default — omitted) — a thrown bowl has no right
+               angles. The default radius is the natural suggestion of a
+               turned edge. Not pill; not sharp. The clay's own form.
+
+   Depth:      flat    (all shadows: none) — a Shigaraki piece on a raw
+               plaster shelf in diffused workshop light casts no shadow.
+               Surface color difference separates areas.
+
+   Theme:      light   (data-bp-theme="light") — the studio walls are raw
+               plaster. The shelves are unfinished cedar. Soft, diffused
+               natural light through a paper-screened window.
+
+   Type:       display-serif — Cormorant Garamond 300. The contrast
+               between the engraved heading and the spare Inter body
+               text is the design. Like the maker's mark on a Shigaraki
+               piece: one stroke. The rest is clay.
+
+   Layout:     journal-sequential — full-width image band, then a
+               centered narrow text block. Repeat down the page.
+               How a Japanese craft catalog works: the image introduces
+               the fact; the fact stands alone.
+
+   Image:      photograph — LoremFlickr URLs. Ceramics, clay, kiln,
+               Shigaraki, Kyoto are all specific physical things.
+
+   Mode:       minimal — Q5 "precise" → compositional suppression.
+               Q7 "quiet" → confirms. No button in hero. No eyebrow.
+               No subtitle. One focal element per section.
+
+   Tone:       precise — chefs, collectors, people making a deliberate
+               $80–400 purchase who want provenance, not poetry.
+               Every sentence is a specific fact or it is removed.
+
+   ADJECTIVE–AXIS SPLIT
+   ────────────────────
+   "precise"  → compositional axis (minimal suppression list) AND
+                token axis (surgical motion, wide tracking, flat depth)
+   "earthy"   → color axis (Shigaraki clay primary, plaster background)
+   "quiet"    → compositional axis (confirms minimal) AND
+                motion token axis (surgical — the page does not perform)
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   light + display-serif → no conflict. Dark + display-serif is the
+                           banned pair; light + display-serif is the
+                           engraved-label pattern.                       ✓
+   flat + light + primary → #6B5E52 is warm enough to anchor the page
+                           without shadows. Surface step-up provides
+                           area separation.                              ✓
+   sparse + light weight  → editorial precision. Not in conflict.
+                           Architecture, pharmaceutical labels, and
+                           Japanese craft catalogs all use this.         ✓
+   balanced shape + minimal composition → the bowl's turned edge is
+                           not a style choice; it is the material's
+                           nature. No conflict with the stripped layout. ✓
+
+   PRIMARY COLOR
+   ─────────────
+   #6B5E52 — iron stoneware clay in diffused morning light.
+   Not the vivid orange of new terracotta. Not the dead grey of
+   unfired clay. The dominant body mass of a wood-fired Shigaraki
+   piece at 90%: warm grey-brown with iron undertone. The color
+   of river gravel in the Kamo, dried in winter air. The clay
+   itself — not the ash glaze (too pale), not the flame mark
+   (too dark). This is what the piece is made of.
+
+   BACKGROUND COLOR
+   ────────────────
+   #F2EDE6 — raw plaster wall in diffused natural light.
+   Not the brilliant white of a gallery. Not cream (too soft).
+   Kyoto studio plaster is aged, slightly warm, mineral — the
+   specific near-white of a textured wall with shoji-filtered
+   winter light on it. Warmer than clinical white; cooler than
+   craft-fair cream. This is the surface the work sits against.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary — iron stoneware clay, diffused morning light ──────────── */
+    --color-primary:          #6B5E52;
+    --color-primary-hover:    #534A40;
+    --color-primary-subtle:   rgba(107, 94, 82, 0.10);
+    --color-primary-glow:     rgba(107, 94, 82, 0.20);
+
+    /* ── Surfaces — raw plaster wall, unfinished cedar shelf ─────────────── */
+    /* #F2EDE6: aged Kyoto studio plaster in shoji-diffused winter light      */
+    --color-bg:               #F2EDE6;
+    /* #EAE4DC: same wall, slightly shaded — the corner the light doesn't reach */
+    --color-bg-secondary:     #EAE4DC;
+    /* #E4DDCE: cedar shelf surface — raw, dry, slightly darker than plaster  */
+    --color-surface:          #E4DDCE;
+    --color-surface-elevated: #DED6C5;
+
+    /* ── Borders — the crack between plaster sections, the shelf edge ───── */
+    --color-border:           #CEC5B4;
+
+    /* ── Text ─────────────────────────────────────────────────────────────── */
+    /* Near-black with warm undertone — carbon ink on washi paper             */
+    --color-text:             #1A1410;
+    --color-text-secondary:   #3C3028;
+    --color-text-muted:       #7A6E62;
+    --color-text-accent:      #6B5E52;
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    /* Display-serif for marks and headings; Inter body (default — omitted)   */
+    --font-heading:           'Cormorant Garamond', 'Garamond', 'Didot', serif;
+    --font-mono:              'JetBrains Mono', 'Courier New', monospace;
+
+    /* Light weight — engraved, not pressed                                   */
+    --font-weight-heading:    300;
+    --font-weight-body:       400;
+
+    /* Wide tracking — craft catalog, not fashion-wide                        */
+    --letter-spacing-heading: 0.12em;
+
+    /* Generous line height — the line on a Shigaraki piece has room          */
+    --line-height-base:       1.75;
+    --line-height-heading:    1.15;
+
+    /* ── Density: sparse ─────────────────────────────────────────────────── */
+    --space-unit:             1.5rem;
+
+    /* ── Motion: surgical — the kiln does not hurry ─────────────────────── */
+    --duration-fast:          0.05s;
+    --duration-base:          0.1s;
+    --duration-slow:          0.15s;
+    --easing-bounce:          ease;
+    --easing-smooth:          ease;
+
+    /* ── Shape: balanced (default — omitted — the clay's own form) ──────── */
+    /* --radius omitted intentionally: the thrown bowl is its own argument   */
+
+    /* ── Depth: flat — plaster wall in diffused light has no shadow ─────── */
+    --shadow-sm:              none;
+    --shadow-md:              none;
+    --shadow-lg:              none;
+
+    /* ── Grid: remove blueprint lines — the studio wall is unmarked ─────── */
+    --bp-grid-color:          transparent;
+    --bp-grid-color-bold:     transparent;
+
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────────
+     All .ts-* classes (tsuchi studio) live here — inside @layer
+     brand-state, outside :root. Prefix ts- to avoid collisions.
+     ──────────────────────────────────────────────────────────────────────── */
+
+
+  /* ── HEADER — wordmark only, no navigation chrome ──────────────────── */
+
+  .ts-header {
+    padding: 3rem var(--bp-space-8) 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .ts-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    /* text-indent compensates for trailing tracking so it aligns true left */
+    text-indent: 0;
+  }
+
+  .ts-header-meta {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+
+  /* ── MARK — full-width photograph, studio name anchored low ─────────── */
+  /* Minimal mode: image only + brand name. Nothing else.                   */
+
+  .ts-mark {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    min-height: 520px;
+    overflow: hidden;
+    background-color: #6B5E52; /* dominant mass: fired ware body, iron stoneware */
+  }
+
+  /*
+   * Reference: anagama kiln, wood-fired ceramics, Shigaraki, Japan
+   * Keywords for LoremFlickr: ceramics,kiln,japan
+   * Seed: 1
+   *
+   * --- Color extraction from Shigaraki anagama photography ---
+   * Kiln mouth glow (firelight):           #C4603A  (vivid ember orange)
+   * Fired ware exterior (ash glaze):       #C8BEAA  (pale warm ash)
+   * Fired ware body (iron stoneware):      #6B5E52  (warm grey-brown — primary)
+   * Kiln interior dark:                    #1A1208  (near-black, warm)
+   * Smoke atmospheric (outside kiln):      #8A8278  (warm mid-grey)
+   * Pine ash fallen on ware:               #D4CCBC  (pale grey-white ash)
+   * Cedar wood, dry, unlit:                #7A6448  (warm brown)
+   */
+  .ts-mark-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://loremflickr.com/1600/900/ceramics,kiln,japan?lock=1');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Bottom scrim — enough to read the name, not so much it kills the photo */
+  .ts-mark-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(242, 237, 230, 0.04) 0%,
+        transparent 30%,
+        transparent 55%,
+        rgba(26, 20, 16, 0.42) 100%
+      );
+  }
+
+  /* Brand name — bottom-left, plaque on a wall, not announcement        */
+  .ts-mark-caption {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    z-index: 2;
+  }
+
+  .ts-mark-name {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+    letter-spacing: 0.22em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: rgba(242, 237, 230, 0.90);
+    text-indent: 0.22em;
+    margin: 0;
+  }
+
+  .ts-mark-location {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(242, 237, 230, 0.55);
+    margin-top: 1rem;
+    display: block;
+  }
+
+
+  /* ── INTRO — narrow centered text block ──────────────────────────────── */
+  /* Journal-sequential: image introduces, text stands alone after.         */
+
+  .ts-intro {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) var(--bp-space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .ts-intro-inner {
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+
+  /* ── KILN — full-width image band, the firing process ───────────────── */
+  /* One visual focus. Text is secondary — caption scale, not headline.    */
+
+  .ts-kiln {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    background-color: #8A7866; /* dominant mass: kiln exterior stone, not the flame */
+  }
+
+  /*
+   * Reference: anagama firing, wood stacked, flame visible through kiln door
+   * Keywords for LoremFlickr: anagama,wood,fire
+   * Seed: 2
+   *
+   * --- Color extraction: anagama firing sequence ---
+   * Flame visible at kiln door (peak):     #E8784A  (orange-red flame body)
+   * Ember bed below flame:                 #B8401A  (deep red ember)
+   * Kiln exterior (stone/brick):           #8A7866  (warm mid-grey stone)
+   * Night sky around kiln:                 #0E0A06  (near-black, warm)
+   * Ash around door opening:               #A89E8E  (pale warm ash)
+   * Pine cordwood, stacked:                #5A4430  (dark warm brown)
+   */
+  .ts-kiln-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://loremflickr.com/1600/800/kiln,pottery,japan?lock=2');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Reading scrim — light, preserves the atmosphere of the flame           */
+  .ts-kiln-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 20, 16, 0.22);
+  }
+
+  .ts-kiln-caption {
+    position: relative;
+    z-index: 2;
+    padding: 0 3rem 3rem;
+  }
+
+  .ts-kiln-fact {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(242, 237, 230, 0.65);
+    line-height: 2.2;
+    margin: 0;
+  }
+
+
+  /* ── CLAY — alternating split: image left / text right ──────────────── */
+
+  .ts-clay {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    min-height: 68vh;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .ts-clay-image {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--color-border);
+    background-color: #5A4E42; /* dominant mass: clay in shadow, wedged grey-brown */
+  }
+
+  /*
+   * Reference: Pottery studio, clay vessel on wheel, grey unfired clay
+   * Keywords for LoremFlickr: pottery,wheel,studio
+   * Seed: 7
+   *
+   * --- Color extraction: grey clay vessel on warm wood work table ---
+   * Unfired clay body (dominant):          #8A8278  (warm mid grey)
+   * Clay surface in shadow:                #5A4E42  (darker warm grey — wrapper bg)
+   * Wood work surface (warm):              #B09070  (warm raw wood)
+   * Studio wall behind (diffuse light):    #C4BAA8  (pale warm grey)
+   * Deep shadow under vessel:              #3A3028  (very dark warm)
+   * Seed 7 chosen: returns grey clay vessel on wood — matches brand palette.
+   * Original seed 3 (clay,pottery,shigaraki) returned a Flickr photo with
+   * artificial red padding baked into the image file — avoid.
+   */
+  .ts-clay-gradient {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to bottom, transparent 40%, rgba(26, 20, 16, 0.35) 100%),
+      url('https://loremflickr.com/900/700/pottery,wheel,studio?lock=7');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .ts-clay-text {
+    padding: 5rem 4.5rem 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-bg);
+  }
+
+
+  /* ── WORK — full-width image, the finished pieces ───────────────────── */
+
+  .ts-work {
+    position: relative;
+    width: 100%;
+    height: 72vh;
+    min-height: 440px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--color-border);
+    background-color: #6B5E52; /* dominant mass: stoneware body, iron clay */
+  }
+
+  /*
+   * Reference: Ceramics studio shop — wooden shelves with handmade bowls,
+   *            cups, plates in warm natural light
+   * Keywords for LoremFlickr: pottery,wooden,shelf
+   * Seed: 6
+   *
+   * --- Color extraction: ceramics shop shelves ---
+   * Cream wall behind shelves (dominant):  #EDE8DC  (warm off-white)
+   * Natural wood shelf (warm):             #B09878  (warm dry cedar)
+   * Stoneware body (grey-brown pieces):    #6B5E52  (iron clay — primary)
+   * Terracotta accent pieces:              #A06040  (warm rust)
+   * Shadow on shelf underside:             #4A3E34  (deep warm grey)
+   * Original seed 4 (stoneware,bowls,handmade) returned a white bowl on a
+   * white seamless background — pure white text was invisible.
+   */
+  .ts-work-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://loremflickr.com/1600/850/pottery,wooden,shelf?lock=6');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Scrim at 0.48 — enough to ensure white text always reads on a light photo */
+  .ts-work-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 20, 16, 0.48);
+  }
+
+  .ts-work-caption {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .ts-work-sentence {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1rem, 2.2vw, 1.45rem);
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    color: rgba(242, 237, 230, 0.88);
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+
+
+  /* ── PROVENANCE — two-column label: fact table ───────────────────────── */
+  /* The entire studio argument in one block.                                */
+
+  .ts-provenance {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--bp-space-20) 0;
+  }
+
+  .ts-provenance-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 var(--bp-space-8);
+  }
+
+  .ts-provenance-header {
+    margin-bottom: var(--bp-space-12);
+  }
+
+
+  /* ── SHARED TEXT COMPONENTS ──────────────────────────────────────────── */
+
+  .ts-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .ts-heading {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+    letter-spacing: 0.12em;
+    line-height: 1.15;
+    color: var(--color-text);
+    margin: 0 0 1.75rem;
+  }
+
+  .ts-body {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--color-text-secondary);
+    max-width: 40ch;
+  }
+
+  .ts-body + .ts-body {
+    margin-top: 1.2rem;
+  }
+
+  /* Fact list — mono label left, body text right, hairline separators       */
+
+  .ts-fact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .ts-fact {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--bp-space-6);
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+
+  .ts-fact-label {
+    font-family: var(--font-mono);
+    font-size: 0.525rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .ts-fact-value {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+
+  /* ── CONTACT / CLOSE ─────────────────────────────────────────────────── */
+
+  .ts-close {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) var(--bp-space-6) var(--bp-space-16);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--bp-space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* A single horizontal rule in the primary — the maker's mark           */
+  .ts-close-rule {
+    width: 36px;
+    height: 1px;
+    background-color: var(--color-primary);
+    opacity: 0.55;
+  }
+
+  .ts-close-address {
+    font-family: var(--font-mono);
+    font-size: 0.525rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    line-height: 2.2;
+    font-style: normal;
+  }
+
+  .ts-close-cta {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .ts-close-cta:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .ts-close-footnote {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+
+
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+
+  @media (max-width: 768px) {
+
+    .ts-header {
+      padding: 2rem var(--bp-space-5) 1.5rem;
+    }
+
+    .ts-mark-caption {
+      bottom: 2rem;
+      left: 1.75rem;
+    }
+
+    .ts-mark-name {
+      letter-spacing: 0.14em;
+      text-indent: 0.14em;
+    }
+
+    .ts-kiln-caption {
+      padding: 0 1.75rem 2rem;
+    }
+
+    /* Stack the clay split section to single column */
+    .ts-clay {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .ts-clay-image {
+      height: 55vw;
+      min-height: 260px;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .ts-clay-text {
+      padding: 3.5rem 2rem;
+    }
+
+    .ts-body {
+      max-width: none;
+    }
+
+    .ts-work-sentence {
+      font-size: 1rem;
+    }
+
+  }
+
+  @media (max-width: 480px) {
+
+    .ts-fact {
+      grid-template-columns: 1fr 1.5fr;
+    }
+
+    .ts-intro {
+      padding: var(--bp-space-12) var(--bp-space-5);
+    }
+
+  }
+
+} /* end @layer brand-state */

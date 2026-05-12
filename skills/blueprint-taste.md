@@ -64,6 +64,9 @@ These are the patterns that appear when taste is absent. Each one is recognizabl
 
 **Instead:** Ask what a hero graphic should DO for this product. A project management tool's hero graphic could be the actual product interface. A consulting firm's could be a single strong photograph. If neither of those fit, *no graphic is better than a placeholder graphic*.
 
+**The exception — background illustration as texture:**
+A fixed SVG illustration placed behind all page content at ≤ 0.4 opacity is categorically different from a glowing orb. The orb fills foreground space with something meaningless. A background illustration at 0.4 opacity reads as texture — like watermark on letterhead — and disappears when you're actually reading. It passes the taste test when: the illustration is *brand-specific* (cherry blossom for a Japanese craft brand; botanical vine for an artisan herbalist; architectural engraving for a heritage legal firm), and the same illustration would appear in that brand's physical materials. It fails when the illustration is chosen because it "looks nice" with no connection to the specific audience. The test: could you swap this illustration onto a competitor's page without anyone noticing? If yes, it's the orb wearing different clothes.
+
 ### 4. Glass Morphism Cards
 
 **What it looks like:** Cards with `backdrop-filter: blur(20px)`, semi-transparent background (`rgba(255,255,255,0.1)`), and a subtle border on all sides.
@@ -80,7 +83,26 @@ These are the patterns that appear when taste is absent. Each one is recognizabl
 
 **Instead:** Lead with 1–2 features that get more space (larger card, more text, featured treatment), then 3–4 supporting features that are smaller. Or reduce to 3 features and say them with more conviction.
 
-### 6. Uniform Spacing
+### 6. Single-source gutters in multi-column layouts
+
+**What it looks like:** An editorial or newspaper-style grid where column breathing room comes entirely from the column rule's margin, with columns themselves at `padding: 0`. For example: `.column-rule { margin: 0 1.25rem; }` and `.col-left, .col-center, .col-right { padding: 0; }`.
+
+**Why it's wrong:** Text in each column runs to the full edge of its grid cell before the margin begins. The eye reads this as cramped even when the total pixel count looks adequate — because all the space is on one side (the rule's) and none is on the other (the column's own). The asymmetry is invisible in the numbers but visible on screen. 40px total gutter built this way reads tighter than 40px built from two sources.
+
+**Instead:** Column breathing room must come from two places:
+1. The rule/divider's margin on both sides (at least `1.75rem`–`2rem` per side)
+2. The column's own inner padding pushing text away from its edge toward the rule
+
+```css
+.column-rule { margin: 0 2rem; }         /* space from the rule's side */
+.col-left    { padding-right: 0.5rem; }  /* space from the left column's side */
+.col-center  { padding: 0 0.25rem; }
+.col-right   { padding-left: 0.5rem; }   /* space from the right column's side */
+```
+
+This applies to any layout with explicit vertical dividers: editorial columns, comparison tables, side-by-side spec panels.
+
+### 7. Uniform Spacing
 
 **What it looks like:** `gap: 1.5rem` everywhere. Same padding on every card, section, and container. No variation.
 

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trace — AI Agent Observability</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./agent-obs-brand.css">
+</head>
+<body style="margin: 0; padding: 0; height: 100vh; overflow: hidden;">
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     APP SHELL
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<div class="bp-app-layout" style="height: 100vh; overflow: hidden;">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────────────────── -->
+  <aside class="bp-sidebar" style="display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid var(--color-border);">
+
+    <!-- Brand -->
+    <div class="bp-sidebar-header" style="padding: 0 12px; height: 44px; display: flex; align-items: center; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <!-- Hexagonal trace icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.75">
+          <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/>
+          <line x1="12" y1="2" x2="12" y2="22"/>
+          <line x1="2" y1="8.5" x2="22" y2="8.5"/>
+          <line x1="2" y1="15.5" x2="22" y2="15.5"/>
+        </svg>
+        <span style="font-size: 13px; font-weight: 600; color: var(--color-text); letter-spacing: -0.02em;">Trace</span>
+        <span class="obs-model-badge" style="margin-left: 2px;">v0.9</span>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="bp-sidebar-nav" style="flex-shrink: 0; padding-top: 4px;">
+      <div class="bp-sidebar-label">Observe</div>
+
+      <a href="#" class="bp-sidebar-item active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Runs
+      </a>
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 3h18v4H3z"/><path d="M3 10h12v4H3z"/><path d="M3 17h8v4H3z"/></svg>
+        Traces
+      </a>
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search
+      </a>
+
+      <div class="bp-sidebar-label" style="margin-top: 8px;">Analyze</div>
+
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        Metrics
+      </a>
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Alerts
+        <span class="bp-badge bp-badge-error" style="margin-left: auto; font-size: 9px; padding: 1px 5px;">2</span>
+      </a>
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Cost
+      </a>
+
+      <div class="bp-sidebar-label" style="margin-top: 8px;">Config</div>
+
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Agents
+      </a>
+      <a href="#" class="bp-sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <!-- Run list -->
+    <div style="flex-shrink: 0; padding: 8px 10px 4px; border-top: 1px solid var(--color-border); margin-top: 8px;">
+      <div style="font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: 6px;">Recent Runs</div>
+    </div>
+
+    <div class="obs-sidebar-search">
+      <input class="obs-search-input" type="text" placeholder="Filter by run ID or agent…">
+    </div>
+
+    <div class="obs-filter-row">
+      <span class="obs-filter-label">Status</span>
+      <span class="obs-filter-chip active">All</span>
+      <span class="obs-filter-chip">Success</span>
+      <span class="obs-filter-chip">Error</span>
+      <span class="obs-filter-chip">Running</span>
+    </div>
+
+    <div class="obs-run-list-scroll">
+      <div class="obs-run-list">
+
+        <!-- Run 1 — active/selected -->
+        <div class="obs-run-item active">
+          <div class="obs-run-item-header">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="obs-status-dot success"></div>
+              <span class="obs-run-id">b4f7a3c2</span>
+            </div>
+            <span class="obs-run-duration">2,847ms</span>
+          </div>
+          <div class="obs-run-meta">
+            <span class="obs-run-agent">research-agent-v2</span>
+            <span class="obs-run-time">12:41:08</span>
+          </div>
+        </div>
+
+        <!-- Run 2 — error -->
+        <div class="obs-run-item">
+          <div class="obs-run-item-header">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="obs-status-dot error"></div>
+              <span class="obs-run-id">9e1c4a7f</span>
+            </div>
+            <span class="obs-run-duration">1,203ms</span>
+          </div>
+          <div class="obs-run-meta">
+            <span class="obs-run-agent">research-agent-v2</span>
+            <span class="obs-run-time">12:39:52</span>
+          </div>
+        </div>
+
+        <!-- Run 3 — running -->
+        <div class="obs-run-item">
+          <div class="obs-run-item-header">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="obs-status-dot running"></div>
+              <span class="obs-run-id">f2d8b01e</span>
+            </div>
+            <span class="obs-run-duration">4,102ms…</span>
+          </div>
+          <div class="obs-run-meta">
+            <span class="obs-run-agent">summarizer-v1</span>
+            <span class="obs-run-time">12:40:44</span>
+          </div>
+        </div>
+
+        <!-- Run 4 -->
+        <div class="obs-run-item">
+          <div class="obs-run-item-header">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="obs-status-dot success"></div>
+              <span class="obs-run-id">3a5c9d14</span>
+            </div>
+            <span class="obs-run-duration">892ms</span>
+          </div>
+          <div class="obs-run-meta">
+            <span class="obs-run-agent">classifier-v3</span>
+            <span class="obs-run-time">12:38:31</span>
+          </div>
+        </div>
+
+        <!-- Run 5 — warning / slow -->
+        <div class="obs-run-item">
+          <div class="obs-run-item-header">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="obs-status-dot warning"></div>
+              <span class="obs-run-id">cc70f5a8</span>
+            </div>
+            <span class="obs-run-duration">9,441ms</span>
+          </div>
+          <div class="obs-run-meta">
+            <span class="obs-run-agent">research-agent-v2</span>
+            <span class="obs-run-time">12:36:19</span>
+          </div>
+        </div>
+
+        <!-- Run 6 -->
+        <div class="obs-run-item">
+          <div class="obs-run-item-header">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="obs-status-dot success"></div>
+              <span class="obs-run-id">07b2e6c3</span>
+            </div>
+            <span class="obs-run-duration">1,581ms</span>
+          </div>
+          <div class="obs-run-meta">
+            <span class="obs-run-agent">summarizer-v1</span>
+            <span class="obs-run-time">12:34:07</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sidebar footer -->
+    <div style="padding: 10px 12px; border-top: 1px solid var(--color-border); flex-shrink: 0;">
+      <div class="bp-flex bp-items-center bp-gap-2">
+        <div class="bp-avatar" style="width: 24px; height: 24px; font-size: 10px; border-radius: 4px; flex-shrink: 0;">RE</div>
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-size: 11px; font-weight: 500; color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">robert@codewranglers.org</div>
+          <div style="font-size: 10px; color: var(--color-text-muted);">Free plan · 847 runs left</div>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────────────────────────── -->
+  <main class="obs-content-area">
+
+    <!-- Top bar -->
+    <div class="obs-topbar">
+      <div class="bp-flex bp-items-center bp-gap-3">
+        <span class="obs-topbar-title">Run: b4f7a3c2</span>
+        <span class="bp-badge bp-badge-success" style="font-size: 10px; padding: 1px 6px;">success</span>
+        <span class="obs-model-badge">claude-sonnet-4-6</span>
+        <span class="obs-model-badge">research-agent-v2</span>
+      </div>
+      <div class="obs-topbar-actions">
+        <button class="bp-btn bp-btn-ghost bp-btn-sm" style="font-size: 11px; padding: 4px 10px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Export
+        </button>
+        <button class="bp-btn bp-btn-ghost bp-btn-sm" style="font-size: 11px; padding: 4px 10px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </button>
+        <button class="bp-btn bp-btn-outline bp-btn-sm" style="font-size: 11px; padding: 4px 10px; border-color: var(--color-primary); color: var(--color-primary);">
+          Replay Run
+        </button>
+      </div>
+    </div>
+
+    <!-- Stat strip -->
+    <div class="obs-stat-strip">
+
+      <div class="obs-stat-cell">
+        <div class="obs-stat-label">runs / hr</div>
+        <div class="obs-stat-value">142</div>
+        <div class="obs-stat-delta up">↑ 12% vs last hr</div>
+      </div>
+
+      <div class="obs-stat-cell">
+        <div class="obs-stat-label">p50 latency</div>
+        <div class="obs-stat-value">1.2s</div>
+        <div class="obs-stat-delta down">↓ 80ms</div>
+      </div>
+
+      <div class="obs-stat-cell">
+        <div class="obs-stat-label">p95 latency</div>
+        <div class="obs-stat-value" style="color: #F59E0B;">4.1s</div>
+        <div class="obs-stat-delta down" style="color: #F59E0B;">↑ 340ms</div>
+      </div>
+
+      <div class="obs-stat-cell">
+        <div class="obs-stat-label">error rate</div>
+        <div class="obs-stat-value">0.8%</div>
+        <div class="obs-stat-delta up">↓ 0.2%</div>
+      </div>
+
+      <div class="obs-stat-cell" style="border-right: none;">
+        <div class="obs-stat-label">avg cost / run</div>
+        <div class="obs-stat-value">$0.0041</div>
+        <div class="obs-stat-delta neutral">— no change</div>
+      </div>
+
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="obs-scroll-area">
+
+      <!-- ── TRACE WATERFALL PANEL ──────────────────────────────────────── -->
+      <div class="obs-panel">
+
+        <div class="obs-panel-header">
+          <span class="obs-panel-title">Trace Waterfall</span>
+          <div class="bp-flex bp-items-center bp-gap-3">
+            <div class="obs-legend">
+              <div class="obs-legend-item">
+                <div class="obs-legend-dot" style="background: var(--color-primary);"></div>
+                llm call
+              </div>
+              <div class="obs-legend-item">
+                <div class="obs-legend-dot" style="background: #D97706;"></div>
+                tool call
+              </div>
+              <div class="obs-legend-item">
+                <div class="obs-legend-dot" style="background: #EF4444;"></div>
+                error
+              </div>
+            </div>
+            <span class="obs-panel-action">Expand all</span>
+          </div>
+        </div>
+
+        <!-- Run summary row -->
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid var(--color-border); background: rgba(0,212,255,0.03);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="obs-status-dot success"></div>
+            <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--color-text);">agent_run: b4f7a3c2</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted);">model: <strong style="color: var(--color-text-secondary);">claude-sonnet-4-6</strong></span>
+            <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted);">tokens: <strong style="color: var(--color-text-secondary);">3,841</strong></span>
+            <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted);">cost: <strong style="color: var(--color-text-secondary);">$0.0041</strong></span>
+            <span class="obs-tool-badge obs-tool-badge-latency">2,847ms total</span>
+          </div>
+        </div>
+
+        <!-- Time axis -->
+        <div class="obs-waterfall-axis" style="background: var(--color-surface-elevated);">
+          <div></div>
+          <div class="obs-axis-labels">
+            <span class="obs-axis-label">0ms</span>
+            <span class="obs-axis-label">700ms</span>
+            <span class="obs-axis-label">1,400ms</span>
+            <span class="obs-axis-label">2,100ms</span>
+            <span class="obs-axis-label">2,847ms</span>
+          </div>
+          <div></div>
+        </div>
+
+        <!-- Waterfall rows -->
+        <div class="obs-waterfall">
+
+          <!-- Span 1: llm:invoke (first, wide — planning call) -->
+          <!-- Duration: 1,847ms out of 2,847ms total = 64.9% width, starts at 0% -->
+          <div class="obs-waterfall-row">
+            <div class="obs-waterfall-label">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" class="obs-span-icon"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              llm:invoke
+            </div>
+            <div class="obs-waterfall-track">
+              <div class="obs-waterfall-bar obs-bar-llm" style="left: 0%; width: 64.9%;"></div>
+            </div>
+            <div class="obs-waterfall-duration">1,847ms</div>
+          </div>
+
+          <!-- Span 2: tool:web_search (child, runs within llm:invoke time) -->
+          <!-- Duration: 412ms, starts ~200ms in = 7%, width 14.5% -->
+          <div class="obs-waterfall-row">
+            <div class="obs-waterfall-label child">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" class="obs-span-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              tool:web_search
+            </div>
+            <div class="obs-waterfall-track">
+              <div class="obs-waterfall-bar obs-bar-tool" style="left: 7%; width: 14.5%;"></div>
+            </div>
+            <div class="obs-waterfall-duration">412ms</div>
+          </div>
+
+          <!-- Span 3: tool:read_file (child, sequential after web_search) -->
+          <!-- Duration: 618ms, starts after web_search ~21.5%, width 21.7% -->
+          <div class="obs-waterfall-row">
+            <div class="obs-waterfall-label child">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" class="obs-span-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              tool:read_file
+            </div>
+            <div class="obs-waterfall-track">
+              <div class="obs-waterfall-bar obs-bar-tool" style="left: 21.5%; width: 21.7%;"></div>
+            </div>
+            <div class="obs-waterfall-duration">618ms</div>
+          </div>
+
+          <!-- Span 4: llm:invoke (second, narrower — synthesis call) -->
+          <!-- Duration: 624ms, starts after first llm ~67%, width 21.9% -->
+          <div class="obs-waterfall-row">
+            <div class="obs-waterfall-label">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" class="obs-span-icon"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              llm:invoke
+            </div>
+            <div class="obs-waterfall-track">
+              <div class="obs-waterfall-bar obs-bar-llm" style="left: 67%; width: 21.9%;"></div>
+            </div>
+            <div class="obs-waterfall-duration">624ms</div>
+          </div>
+
+          <!-- Span 5: tool:write_file (child of second llm) -->
+          <!-- Duration: 256ms, starts ~69%, width 9% -->
+          <div class="obs-waterfall-row">
+            <div class="obs-waterfall-label child">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" class="obs-span-icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              tool:write_file
+            </div>
+            <div class="obs-waterfall-track">
+              <div class="obs-waterfall-bar obs-bar-tool" style="left: 69%; width: 9%;"></div>
+            </div>
+            <div class="obs-waterfall-duration">256ms</div>
+          </div>
+
+          <!-- Span 6: tool:send_message (after write, completes run) -->
+          <!-- Duration: 124ms, starts ~78%, width 4.4% -->
+          <div class="obs-waterfall-row">
+            <div class="obs-waterfall-label child">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" class="obs-span-icon"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              tool:send_message
+            </div>
+            <div class="obs-waterfall-track">
+              <div class="obs-waterfall-bar obs-bar-tool" style="left: 78%; width: 4.4%;"></div>
+            </div>
+            <div class="obs-waterfall-duration">124ms</div>
+          </div>
+
+        </div><!-- /.obs-waterfall -->
+
+      </div><!-- /.obs-panel (waterfall) -->
+
+
+      <!-- ── TOOL CALL DETAIL PANEL ─────────────────────────────────────── -->
+      <div class="obs-panel">
+
+        <div class="obs-panel-header">
+          <span class="obs-panel-title">Tool Call Detail</span>
+          <div class="bp-flex bp-items-center bp-gap-2">
+            <span class="obs-panel-action">↑ Previous span</span>
+            <span class="obs-panel-action">↓ Next span</span>
+          </div>
+        </div>
+
+        <div class="obs-tool-card" style="border: none; border-radius: 0;">
+          <div class="obs-tool-card-header">
+            <div class="obs-tool-card-name">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              tool:web_search
+              <span style="color: var(--color-text-muted); font-weight: 400;">· span c2a1f3b7</span>
+            </div>
+            <div class="obs-tool-card-badges">
+              <span class="obs-tool-badge obs-tool-badge-latency">412ms</span>
+              <span class="obs-tool-badge obs-tool-badge-tokens">∅ tokens</span>
+              <span class="bp-badge bp-badge-success" style="font-size: 10px; padding: 1px 6px;">200 OK</span>
+            </div>
+          </div>
+
+          <div class="obs-tool-card-body">
+            <!-- Input -->
+            <div class="obs-tool-pane">
+              <div class="obs-tool-pane-label">Input</div>
+              <pre class="obs-tool-code">{
+  <span class="obs-json-key">"query"</span>: <span class="obs-json-string">"LLM agent observability 2025"</span>,
+  <span class="obs-json-key">"max_results"</span>: <span class="obs-json-num">8</span>,
+  <span class="obs-json-key">"time_range"</span>: <span class="obs-json-string">"past_year"</span>,
+  <span class="obs-json-key">"safe_search"</span>: <span class="obs-json-num">true</span>
+}</pre>
+            </div>
+
+            <!-- Output -->
+            <div class="obs-tool-pane">
+              <div class="obs-tool-pane-label">Output <span style="color: var(--color-text-muted); font-size: 9px; letter-spacing: 0;">(truncated — 4,218 chars)</span></div>
+              <pre class="obs-tool-code">[
+  {
+    <span class="obs-json-key">"title"</span>: <span class="obs-json-string">"Honeycomb for LLM Tracing"</span>,
+    <span class="obs-json-key">"url"</span>: <span class="obs-json-string">"honeycomb.io/blog/llm-obs…"</span>,
+    <span class="obs-json-key">"snippet"</span>: <span class="obs-json-string">"Distributed tracing for…"</span>
+  },
+  {
+    <span class="obs-json-key">"title"</span>: <span class="obs-json-string">"LangSmith Tracing Guide"</span>,
+    <span class="obs-json-key">"url"</span>: <span class="obs-json-string">"docs.smith.langchain.com…"</span>,
+    <span class="obs-json-key">"snippet"</span>: <span class="obs-json-string">"LangSmith provides full…"</span>
+  }
+  <span style="color: var(--color-text-muted);">… 6 more results</span>
+]</pre>
+            </div>
+          </div>
+
+          <!-- Footer row -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 7px 14px; border-top: 1px solid var(--color-border); background: var(--color-surface-elevated);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted);">started: <strong style="color: var(--color-text-secondary);">+207ms</strong> into run</span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted);">ended: <strong style="color: var(--color-text-secondary);">+619ms</strong></span>
+              <span style="font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted);">parent span: <strong style="color: var(--color-primary);">llm:invoke · a0d4e2c1</strong></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="obs-tool-badge" style="background: rgba(255,255,255,0.04); border: 1px solid var(--color-border); color: var(--color-text-muted); font-family: var(--font-mono); font-size: 10px; padding: 2px 7px;">tool_call_id: tc_xB9k</span>
+              <span class="obs-panel-action">Replay this call</span>
+            </div>
+          </div>
+
+        </div><!-- /.obs-tool-card -->
+
+      </div><!-- /.obs-panel (tool call) -->
+
+
+      <!-- ── RUN METADATA PANEL ─────────────────────────────────────────── -->
+      <div class="obs-panel">
+
+        <div class="obs-panel-header">
+          <span class="obs-panel-title">Run Metadata</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;">
+
+          <div style="padding: 10px 14px; border-right: 1px solid var(--color-border);">
+            <dl class="bp-fact-list bp-fact-list-sm" style="font-size: 11px;">
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Run ID</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">b4f7a3c2-e19d-4a7c</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Agent</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">research-agent-v2</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Model</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">claude-sonnet-4-6</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Environment</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">production</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div style="padding: 10px 14px; border-right: 1px solid var(--color-border);">
+            <dl class="bp-fact-list bp-fact-list-sm">
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Input tokens</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">2,614</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Output tokens</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">1,227</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Cache hits</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">1,841 tokens</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Total cost</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px; color: var(--color-primary);">$0.0041</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div style="padding: 10px 14px;">
+            <dl class="bp-fact-list bp-fact-list-sm">
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Started</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">2026-05-09 12:41:08 UTC</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Duration</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">2,847ms</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Tool calls</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px;">3 (web_search, read_file, send_msg)</dd>
+              </div>
+              <div class="bp-fact">
+                <dt class="bp-fact-label" style="font-family: var(--font-mono); font-size: 10px;">Stop reason</dt>
+                <dd class="bp-fact-value" style="font-family: var(--font-mono); font-size: 10px; color: #22C55E;">end_turn</dd>
+              </div>
+            </dl>
+          </div>
+
+        </div>
+
+      </div><!-- /.obs-panel (metadata) -->
+
+    </div><!-- /.obs-scroll-area -->
+
+  </main><!-- /.obs-content-area -->
+
+</div><!-- /.bp-app-layout -->
+
+</body>
+</html>

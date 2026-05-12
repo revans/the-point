@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt" data-bp-theme="light">
+<!--
+  LIVRARIA DO BECO — Landing Page
+  Used bookshop, narrow alley off Rua do Carmo, Lisbon.
+  4 meters wide, 18 meters deep. Floor-to-ceiling dark oak shelves.
+  Books organized by mood. Owner reads while you browse.
+  19th-century azulejo tile floor. Candle lit at noon.
+  Built on The Point design system + livraria-do-beco-brand.css
+
+  Layout word:          journal-sequential
+  Image strategy:       photograph (LoremFlickr, Lisbon/bookshop keywords)
+  Compositional mode:   atmospheric
+
+  Page structure:
+  Header    — wordmark left, address right. No nav.
+  Block 1   — MARK: full-bleed beco entrance / shop facade. Name at base.
+  Block 2   — TEXT: the opening sentence. What this place is.
+  Block 3   — THE SHELVES: full-width interior image. Caption at lower left.
+  Block 4   — MOODS: centered block explaining the organization system.
+  Block 5   — TILE: azulejo detail image. Caption lower right.
+  Block 6   — VISIT: address, hours, single text-link.
+
+  No nav bar. No feature grid. No CTA button.
+  One text-link at the close: the only action is to come.
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livraria do Beco — Lisbon</title>
+  <meta name="description" content="A used bookshop in a narrow alley off Rua do Carmo, Lisbon. Books organized by mood. Open most days.">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./livraria-do-beco-brand.css">
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       HEADER — Name above the door. Address on the right.
+       No navigation. A bookshop does not have a nav bar.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <header class="ldb-header">
+    <a href="#" class="ldb-wordmark">Livraria do Beco</a>
+    <span class="ldb-header-address">Travessa do Carmo, Lisboa</span>
+  </header>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 1 — MARK
+       The entrance to the alley. The name reads like lettering above
+       a door — this is the threshold, not a hero section.
+       Atmospheric mode: image fills the viewport. Text at base, small.
+       No eyebrow, no button, no subtitle paragraph.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="ldb-mark" aria-label="Entrada da livraria, Travessa do Carmo">
+
+    <div class="ldb-mark-image" role="img" aria-hidden="true"></div>
+
+    <div class="ldb-mark-caption">
+      <h1 class="ldb-mark-name">Livraria do Beco</h1>
+      <span class="ldb-mark-sub">[Opening line — one sentence, the owner's voice]</span>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 2 — TEXT INTERLUDE
+       The first thing the owner would say. Not a description —
+       a recommendation. Centered, narrow, on the warm page.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="ldb-interlude" aria-label="Sobre a livraria">
+    <div class="ldb-interlude-inner">
+      <span class="ldb-eyebrow">[Location label — alley, neighbourhood, city]</span>
+      <p class="ldb-pull">[Opening pull quote — one unhurried sentence about what kind of person finds their way here and why]</p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 3 — THE SHELVES
+       Floor-to-ceiling dark oak. The image is the argument.
+       A caption at lower left — not a headline, a note.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="ldb-shelves" aria-label="As estantes, do chão ao tecto">
+
+    <div class="ldb-shelves-image" role="img" aria-hidden="true"></div>
+
+    <div class="ldb-shelves-caption">
+      <p class="ldb-shelves-text">[Caption — one or two lines about how the shelves are organized, owner-voice]</p>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 4 — THE MOODS
+       "The books are organized by mood, not subject."
+       This sentence earns its own block. Then the mood list.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="ldb-moods" aria-label="Como os livros estão organizados">
+    <div class="ldb-moods-inner">
+
+      <h2 class="ldb-moods-heading">[Section heading — the mood system, 2–4 words]</h2>
+
+      <p class="ldb-moods-body">[Body — two or three sentences explaining that books are organized by mood, not subject. What that means in practice. Owner-voice. Unhurried.]</p>
+
+      <ul class="ldb-mood-list" aria-label="Categorias por humor">
+        <li class="ldb-mood-item">[Mood 1]</li>
+        <li class="ldb-mood-item">[Mood 2]</li>
+        <li class="ldb-mood-item">[Mood 3]</li>
+        <li class="ldb-mood-item">[Mood 4]</li>
+        <li class="ldb-mood-item">[Mood 5]</li>
+        <li class="ldb-mood-item">[Mood 6]</li>
+        <li class="ldb-mood-item">[Mood 7]</li>
+        <li class="ldb-mood-item">[Mood 8]</li>
+      </ul>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 5 — THE TILE
+       The azulejo floor. The most specific physical fact about this shop.
+       Caption lower right — a note about the floor.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="ldb-tile-band" aria-label="O pavimento de azulejo do século XIX">
+
+    <div class="ldb-tile-image" role="img" aria-hidden="true"></div>
+
+    <div class="ldb-tile-caption">
+      <p class="ldb-tile-text">[Caption — the tile floor. Its age. One sentence, owner-voice.]</p>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       BLOCK 6 — VISIT
+       The close. Address, hours, a single text-link.
+       The only action on this page is to come.
+       ════════════════════════════════════════════════════════════════════ -->
+
+  <section class="ldb-visit" aria-label="Como nos encontrar">
+
+    <div class="ldb-candle-rule" aria-hidden="true"></div>
+
+    <h2 class="ldb-visit-heading">[Closing heading — an invitation, not a direction]</h2>
+
+    <p class="ldb-visit-body">[One sentence. What someone should expect when they arrive. Owner-voice. Unhurried.]</p>
+
+    <address class="ldb-address">
+      [Street address — alley name, number if any]<br>
+      [Neighbourhood — Chiado / Bairro Alto]<br>
+      Lisboa, Portugal
+    </address>
+
+    <p class="ldb-visit-hours">[Opening hours — written as the owner would say them, not as a timetable]</p>
+
+    <a href="#" class="ldb-visit-link">[Single CTA — the one thing someone does after reading this page]</a>
+
+    <p class="ldb-eyebrow" style="margin-top: 1rem;">[Footer note — one line about the candle, the owner, or what makes this shop itself]</p>
+
+  </section>
+
+
+</body>
+</html>

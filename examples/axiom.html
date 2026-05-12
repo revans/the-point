@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark" data-bp-motion="draw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axiom — Real-Time Log Analytics & Observability</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/index.css">
+
+  <style>
+    @layer brand-state {
+      :root {
+        --color-primary:         #22d3ee;
+        --color-primary-hover:   #06b6d4;
+        --color-primary-subtle:  rgba(34, 211, 238, 0.08);
+        --color-primary-glow:    rgba(34, 211, 238, 0.2);
+        --color-bg:              #0a1628;
+        --color-bg-secondary:    #0d1d35;
+        --color-surface:         #111f38;
+        --color-surface-elevated:#162444;
+        --color-border:          #1e3251;
+        --color-text:            #e2eaf6;
+        --color-text-secondary:  #8fa3c4;
+        --color-text-muted:      #4a6080;
+        --color-text-accent:     #22d3ee;
+        --color-code-bg:         #0d1d35;
+        --color-code-text:       #22d3ee;
+        --font-heading:          'Inter', system-ui, sans-serif;
+        --font-body:             'Inter', system-ui, sans-serif;
+        --font-mono:             'JetBrains Mono', 'Courier New', monospace;
+        --radius:                var(--bp-radius-none);
+        --bp-grid-color:         rgba(34, 211, 238, 0.025);
+        --bp-grid-color-bold:    rgba(34, 211, 238, 0.05);
+        --bp-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4);
+        --bp-shadow-md:          0 4px 12px rgba(0, 0, 0, 0.5);
+        --bp-shadow-lg:          0 8px 32px rgba(0, 0, 0, 0.6);
+        --bp-shadow-glow:        0 0 24px rgba(34, 211, 238, 0.15);
+      }
+    }
+
+    /* ─── Axiom brand variables ──────────────────────────────── */
+    :root {
+      --ax-cyan:           #22d3ee;
+      --ax-cyan-dim:       rgba(34, 211, 238, 0.6);
+      --ax-amber:          #f59e0b;
+      --ax-amber-subtle:   rgba(245, 158, 11, 0.12);
+      --ax-red:            #ef4444;
+      --ax-red-subtle:     rgba(239, 68, 68, 0.12);
+      --ax-green:          #22c55e;
+      --ax-green-subtle:   rgba(34, 197, 94, 0.12);
+      --ax-blue-deep:      #0a1628;
+      --ax-surface:        #111f38;
+      --ax-surface-hi:     #162444;
+      --ax-border:         #1e3251;
+      --ax-border-bright:  #2a4a72;
+    }
+
+    /* ─── Base resets ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--ax-blue-deep);
+      color: var(--color-text);
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* ─── Typography overrides for Axiom precision feel ─────── */
+    h1, h2, h3, h4 {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    /* ─── Nav custom styles ───────────────────────────────────── */
+    /* GAP: bp-nav doesn't support a center-links layout natively — nav-links defaults to one side */
+    .ax-nav {
+      position: sticky;
+      top: 0;
+      z-index: var(--bp-z-sticky);
+      background: rgba(10, 22, 40, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--ax-border);
+      height: 52px;
+    }
+
+    .ax-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .ax-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--ax-cyan);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .ax-logo span {
+      color: var(--color-text-muted);
+      font-weight: 300;
+    }
+
+    .ax-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+      margin: 0 0 0 auto;
+      padding: 0;
+    }
+
+    .ax-nav-links a {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      padding: 0.375rem 0.75rem;
+      transition: color 0.15s;
+    }
+
+    .ax-nav-links a:hover { color: var(--color-text); }
+
+    /* GAP: no bp- class for a nav status indicator / system health pill */
+    .ax-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--ax-green);
+      background: var(--ax-green-subtle);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      padding: 0.25rem 0.625rem;
+      flex-shrink: 0;
+    }
+
+    .ax-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ax-green);
+      box-shadow: 0 0 6px var(--ax-green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .ax-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── Hero section ────────────────────────────────────────── */
+    .ax-hero {
+      min-height: calc(100vh - 52px);
+      display: grid;
+      /* GAP: bp-grid doesn't support non-equal column splits like 40/60 */
+      grid-template-columns: 40fr 60fr;
+      gap: 0;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 2rem;
+      align-items: center;
+    }
+
+    .ax-hero-copy {
+      padding-right: 3rem;
+      padding-top: 2rem;
+    }
+
+    .ax-hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ax-cyan);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ax-hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--ax-cyan);
+    }
+
+    .ax-hero-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin: 0 0 1.25rem;
+    }
+
+    .ax-hero-title em {
+      font-style: normal;
+      color: var(--ax-cyan);
+    }
+
+    .ax-hero-subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--color-text-secondary);
+      margin: 0 0 2rem;
+      max-width: 38ch;
+    }
+
+    .ax-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .ax-hero-meta {
+      margin-top: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .ax-hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .ax-hero-meta-item .val {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    /* ─── Product dashboard mockup ────────────────────────────── */
+    /* GAP: bp-app-layout exists but is full-page; no compact inline app-chrome variant */
+    .ax-dashboard-frame {
+      border: 1px solid var(--ax-border-bright);
+      background: #0a1628;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(34,211,238,0.06);
+      position: relative;
+      overflow: hidden;
+      max-height: 580px;
+    }
+
+    /* Window chrome bar */
+    .ax-chrome-bar {
+      background: #0d1d35;
+      border-bottom: 1px solid var(--ax-border);
+      padding: 0.5rem 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ax-chrome-dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .ax-chrome-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .ax-chrome-dot-r { background: #3f1c1c; border: 1px solid #5a2929; }
+    .ax-chrome-dot-y { background: #3f3218; border: 1px solid #5a4a22; }
+    .ax-chrome-dot-g { background: #193f24; border: 1px solid #245a35; }
+
+    .ax-chrome-title {
+      flex: 1;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* Metrics bar at top of dashboard */
+    /* GAP: bp-stat is for standalone stats; no compact inline metrics-bar variant */
+    .ax-metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--ax-border);
+    }
+
+    .ax-metric {
+      padding: 0.625rem 0.875rem;
+      border-right: 1px solid var(--ax-border);
+    }
+
+    .ax-metric:last-child { border-right: none; }
+
+    .ax-metric-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .ax-metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-text);
+      line-height: 1;
+    }
+
+    .ax-metric-value.warn { color: var(--ax-amber); }
+    .ax-metric-value.err  { color: var(--ax-red); }
+    .ax-metric-value.ok   { color: var(--ax-green); }
+
+    .ax-metric-delta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      color: var(--color-text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .ax-metric-delta.up   { color: var(--ax-red); }
+    .ax-metric-delta.down { color: var(--ax-green); }
+
+    /* Dashboard body: sidebar + log panel */
+    .ax-dash-body {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      height: calc(580px - 80px - 36px); /* total - chrome - metrics */
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .ax-dash-sidebar {
+      background: #0d1d35;
+      border-right: 1px solid var(--ax-border);
+      padding: 0.625rem 0;
+      overflow-y: auto;
+    }
+
+    .ax-sidebar-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      padding: 0.375rem 0.75rem 0.25rem;
+    }
+
+    /* GAP: bp-sidebar-item doesn't support a colored service-status dot pattern */
+    .ax-service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3125rem 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s;
+      position: relative;
+    }
+
+    .ax-service-item:hover {
+      background: rgba(34, 211, 238, 0.04);
+      color: var(--color-text);
+    }
+
+    .ax-service-item.active {
+      background: rgba(34, 211, 238, 0.08);
+      color: var(--ax-cyan);
+    }
+
+    .ax-service-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--ax-cyan);
+    }
+
+    .ax-svc-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .ax-svc-dot.green  { background: var(--ax-green); box-shadow: 0 0 4px var(--ax-green); }
+    .ax-svc-dot.amber  { background: var(--ax-amber); box-shadow: 0 0 4px var(--ax-amber); }
+    .ax-svc-dot.red    { background: var(--ax-red);   box-shadow: 0 0 4px var(--ax-red); }
+    .ax-svc-dot.muted  { background: var(--color-text-muted); }
+
+    .ax-svc-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ax-svc-count {
+      font-size: 0.5625rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--color-text-muted);
+    }
+
+    .ax-svc-count.red { color: var(--ax-red); }
+
+    /* Log stream panel */
+    .ax-log-panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .ax-log-toolbar {
+      background: #0d1d35;
+      border-bottom: 1px solid var(--ax-border);
+      padding: 0.4375rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* GAP: bp-input exists but not a compact monospace search-bar with live-query indicator */
+    .ax-search-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: var(--ax-blue-deep);
+      border: 1px solid var(--ax-border-bright);
+      padding: 0.3rem 0.625rem;
+      gap: 0.375rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+    }
+
+    .ax-search-prefix {
+      color: var(--ax-cyan);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .ax-search-query {
+      color: var(--color-text);
+    }
+
+    .ax-search-cursor {
+      display: inline-block;
+      width: 0.5em;
+      height: 0.85em;
+      background: var(--ax-cyan);
+      vertical-align: text-bottom;
+      animation: blink-cursor 1.05s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .ax-toolbar-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      font-weight: 500;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--ax-border);
+      color: var(--color-text-muted);
+      background: transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ax-toolbar-pill.active {
+      border-color: rgba(34, 211, 238, 0.3);
+      color: var(--ax-cyan);
+      background: rgba(34, 211, 238, 0.06);
+    }
+
+    /* Log table */
+    /* GAP: bp-table is full-featured but no log-stream variant with alternating density and level-colored rows */
+    .ax-log-table {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--ax-border) transparent;
+    }
+
+    .ax-log-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+    }
+
+    .ax-log-table thead {
+      position: sticky;
+      top: 0;
+      background: #0d1d35;
+      z-index: 1;
+    }
+
+    .ax-log-table th {
+      text-align: left;
+      padding: 0.3rem 0.625rem;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--ax-border);
+    }
+
+    .ax-log-table td {
+      padding: 0.275rem 0.625rem;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(30, 50, 81, 0.5);
+      white-space: nowrap;
+    }
+
+    /* Alternating row backgrounds */
+    .ax-log-table tbody tr:nth-child(even) {
+      background: rgba(22, 36, 68, 0.4);
+    }
+
+    .ax-log-table tbody tr:hover {
+      background: rgba(34, 211, 238, 0.05);
+    }
+
+    .ax-log-table tbody tr.row-error {
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .ax-log-table tbody tr.row-error:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .ax-log-table tbody tr.row-warn {
+      background: rgba(245, 158, 11, 0.05);
+    }
+
+    .ax-col-time {
+      color: var(--color-text-muted);
+      font-size: 0.5625rem;
+      min-width: 110px;
+    }
+
+    .ax-col-level {
+      min-width: 52px;
+    }
+
+    .ax-level-badge {
+      display: inline-block;
+      padding: 0.1rem 0.3rem;
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ax-level-badge.error { background: var(--ax-red-subtle); color: var(--ax-red); }
+    .ax-level-badge.warn  { background: var(--ax-amber-subtle); color: var(--ax-amber); }
+    .ax-level-badge.info  { background: rgba(34, 211, 238, 0.1); color: var(--ax-cyan); }
+    .ax-level-badge.debug { color: var(--color-text-muted); }
+
+    .ax-col-service {
+      color: var(--color-text-secondary);
+      min-width: 110px;
+    }
+
+    .ax-col-message {
+      color: var(--color-text);
+      white-space: normal;
+      word-break: break-word;
+      max-width: 320px;
+    }
+
+    .ax-col-message .highlight {
+      color: var(--ax-cyan);
+      background: rgba(34, 211, 238, 0.1);
+      padding: 0 0.15em;
+    }
+
+    .ax-col-message.error-msg { color: var(--ax-red); }
+    .ax-col-message.warn-msg  { color: var(--ax-amber); }
+
+    /* ─── Social proof bar ────────────────────────────────────── */
+    /* GAP: no bp- class for a logo/brand social proof band */
+    .ax-proof-bar {
+      background: #0d1d35;
+      border-top: 1px solid var(--ax-border);
+      border-bottom: 1px solid var(--ax-border);
+      padding: 1rem 0;
+    }
+
+    .ax-proof-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .ax-proof-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .ax-proof-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--ax-border);
+      flex-shrink: 0;
+    }
+
+    .ax-proof-companies {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .ax-proof-company {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      letter-spacing: 0.04em;
+      transition: color 0.15s;
+    }
+
+    .ax-proof-company:hover { color: var(--color-text-secondary); }
+
+    /* ─── Features section ────────────────────────────────────── */
+    .ax-features {
+      padding: 5rem 0;
+    }
+
+    /* GAP: bp-grid only handles equal columns; no way to specify a primary-wide + secondary-narrow feature layout */
+    .ax-features-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--ax-border);
+    }
+
+    .ax-feature-primary {
+      grid-column: 1 / -1;
+      background: var(--ax-surface);
+      padding: 2.5rem;
+    }
+
+    .ax-feature-secondary {
+      background: var(--ax-surface);
+      padding: 2rem;
+    }
+
+    .ax-feature-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ax-cyan);
+      margin-bottom: 0.875rem;
+    }
+
+    .ax-feature-title {
+      font-size: 1.375rem;
+      font-weight: 500;
+      color: var(--color-text);
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+
+    .ax-feature-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.65;
+      margin: 0 0 1.5rem;
+      max-width: 52ch;
+    }
+
+    /* Search mock inside primary feature */
+    /* GAP: no bp- class for an inline product-interface mock within a feature card */
+    .ax-search-mock {
+      background: var(--ax-blue-deep);
+      border: 1px solid var(--ax-border-bright);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .ax-search-mock-bar {
+      display: flex;
+      align-items: center;
+      padding: 0.625rem 0.875rem;
+      border-bottom: 1px solid var(--ax-border);
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: #0d1d35;
+    }
+
+    .ax-search-mock-icon {
+      color: var(--color-text-muted);
+      font-size: 0.7rem;
+    }
+
+    .ax-search-mock-query {
+      flex: 1;
+      color: var(--color-text);
+    }
+
+    .ax-search-mock-query .kw { color: var(--ax-cyan); }
+    .ax-search-mock-query .op { color: var(--ax-amber); }
+    .ax-search-mock-query .val { color: var(--ax-green); }
+
+    .ax-search-mock-cursor {
+      display: inline-block;
+      width: 0.45em;
+      height: 0.85em;
+      background: var(--ax-cyan);
+      vertical-align: text-bottom;
+      animation: blink-cursor 1.05s step-end infinite;
+      animation-delay: 0.3s;
+    }
+
+    .ax-search-mock-meta {
+      font-size: 0.6rem;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+
+    .ax-search-results {
+      padding: 0;
+    }
+
+    .ax-search-result-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.3125rem 0.875rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6375rem;
+      border-bottom: 1px solid rgba(30, 50, 81, 0.4);
+    }
+
+    .ax-search-result-row:nth-child(even) {
+      background: rgba(22, 36, 68, 0.3);
+    }
+
+    .ax-sr-time  { color: var(--color-text-muted); flex-shrink: 0; min-width: 80px; }
+    .ax-sr-svc   { color: var(--color-text-secondary); flex-shrink: 0; min-width: 100px; }
+    .ax-sr-msg   { color: var(--color-text); flex: 1; }
+    .ax-sr-msg .hl { background: rgba(34, 211, 238, 0.2); color: var(--ax-cyan); }
+
+    .ax-search-footer {
+      padding: 0.4375rem 0.875rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      color: var(--color-text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0d1d35;
+      border-top: 1px solid var(--ax-border);
+    }
+
+    /* Alert rule mock */
+    /* GAP: no bp- class for a form-like rule-builder interface mock */
+    .ax-alert-mock {
+      background: var(--ax-blue-deep);
+      border: 1px solid var(--ax-border-bright);
+      overflow: hidden;
+    }
+
+    .ax-alert-mock-header {
+      background: #0d1d35;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--ax-border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+    }
+
+    .ax-alert-rule-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4375rem 0.75rem;
+      border-bottom: 1px solid rgba(30, 50, 81, 0.4);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6125rem;
+    }
+
+    .ax-rule-label {
+      color: var(--color-text-muted);
+      min-width: 56px;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ax-rule-chip {
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      color: var(--ax-cyan);
+      padding: 0.125rem 0.4rem;
+      font-size: 0.6rem;
+    }
+
+    .ax-rule-chip.amber {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.25);
+      color: var(--ax-amber);
+    }
+
+    .ax-rule-chip.red {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.25);
+      color: var(--ax-red);
+    }
+
+    .ax-rule-arrow {
+      color: var(--color-text-muted);
+      font-size: 0.6rem;
+    }
+
+    .ax-alert-trigger {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.15);
+      padding: 0.5rem 0.75rem;
+      margin: 0.5rem 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+    }
+
+    .ax-alert-trigger-label {
+      color: var(--ax-amber);
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.25rem;
+    }
+
+    .ax-alert-trigger-value {
+      color: var(--color-text);
+      font-weight: 500;
+    }
+
+    /* Trace waterfall mock */
+    /* GAP: no bp- class for a distributed trace / waterfall timeline visualization */
+    .ax-trace-mock {
+      background: var(--ax-blue-deep);
+      border: 1px solid var(--ax-border-bright);
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .ax-trace-header {
+      background: #0d1d35;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--ax-border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      color: var(--color-text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .ax-trace-id { color: var(--ax-cyan); }
+
+    .ax-trace-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.75rem;
+      border-bottom: 1px solid rgba(30, 50, 81, 0.35);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5875rem;
+    }
+
+    .ax-trace-svc {
+      min-width: 110px;
+      color: var(--color-text-secondary);
+      font-size: 0.5625rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ax-trace-span-name {
+      min-width: 100px;
+      color: var(--color-text-muted);
+      font-size: 0.5rem;
+    }
+
+    /* GAP: no bp- utility for inline proportional bar / span visualization */
+    .ax-trace-track {
+      flex: 1;
+      height: 14px;
+      background: rgba(30, 50, 81, 0.4);
+      position: relative;
+    }
+
+    .ax-trace-span {
+      position: absolute;
+      top: 2px;
+      height: 10px;
+      border-radius: 1px;
+    }
+
+    .ax-trace-dur {
+      min-width: 46px;
+      text-align: right;
+      font-size: 0.5625rem;
+      color: var(--color-text-muted);
+    }
+
+    .ax-trace-dur.slow { color: var(--ax-amber); }
+    .ax-trace-dur.ok   { color: var(--ax-green); }
+
+    /* ─── Pricing section ─────────────────────────────────────── */
+    .ax-pricing-header-band {
+      padding: 1rem 0 0.5rem;
+      border-bottom: 1px solid var(--ax-border);
+    }
+
+    .ax-pricing-cycle-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      margin-top: 1rem;
+    }
+
+    .ax-toggle-track {
+      width: 32px;
+      height: 17px;
+      background: rgba(34, 211, 238, 0.15);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .ax-toggle-thumb {
+      width: 11px;
+      height: 11px;
+      background: var(--ax-cyan);
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      right: 3px;
+    }
+
+    .ax-save-badge {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: var(--ax-green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      padding: 0.15rem 0.4rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* Custom pricing card refinements on top of bp-pricing-card */
+    .ax-pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--ax-border);
+      border: 1px solid var(--ax-border);
+    }
+
+    /* GAP: bp-pricing-card-featured doesn't support a custom accent color for the featured stripe */
+    .ax-pricing-card {
+      background: var(--ax-surface);
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    .ax-pricing-card.featured {
+      background: var(--ax-surface-hi);
+    }
+
+    .ax-pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--ax-cyan);
+    }
+
+    .ax-plan-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.875rem;
+    }
+
+    .ax-plan-name.featured-label { color: var(--ax-cyan); }
+
+    .ax-price-amount {
+      font-size: 2.25rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      line-height: 1;
+    }
+
+    .ax-price-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-left: 0.25rem;
+    }
+
+    .ax-price-desc {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin: 0.875rem 0 1.25rem;
+      min-height: 3rem;
+    }
+
+    .ax-feature-list {
+      list-style: none;
+      margin: 0 0 1.5rem;
+      padding: 0;
+    }
+
+    .ax-feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(30, 50, 81, 0.5);
+    }
+
+    .ax-feature-list li:last-child { border-bottom: none; }
+
+    .ax-feature-list li .check {
+      color: var(--ax-green);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .ax-feature-list li .key-val {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ax-feature-list li .key-val .key {
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .ax-feature-list li .key-val .hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      color: var(--color-text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .ax-pricing-note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5875rem;
+      color: var(--color-text-muted);
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    /* ─── Footer ──────────────────────────────────────────────── */
+    .ax-footer {
+      border-top: 1px solid var(--ax-border);
+      background: #0d1d35;
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .ax-footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .ax-footer-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--ax-cyan);
+      margin-bottom: 0.625rem;
+    }
+
+    .ax-footer-desc {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      max-width: 28ch;
+    }
+
+    .ax-footer-col-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.875rem;
+    }
+
+    .ax-footer-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .ax-footer-links a {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .ax-footer-links a:hover { color: var(--color-text); }
+
+    .ax-footer-bottom {
+      max-width: 1280px;
+      margin: 2rem auto 0;
+      padding: 1.25rem 1.5rem 0;
+      border-top: 1px solid var(--ax-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ax-footer-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      color: var(--color-text-muted);
+    }
+
+    .ax-footer-legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .ax-footer-legal a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .ax-footer-legal a:hover { color: var(--color-text-secondary); }
+
+    /* ─── Section header utility ──────────────────────────────── */
+    .ax-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ax-cyan);
+      margin-bottom: 0.625rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ax-section-label::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--ax-cyan);
+    }
+
+    .ax-section-title {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      color: var(--color-text);
+      margin: 0 0 0.625rem;
+    }
+
+    .ax-section-subtitle {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      max-width: 52ch;
+      margin: 0;
+    }
+
+    /* ─── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .ax-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-bottom: 3rem;
+      }
+
+      .ax-hero-copy {
+        padding-right: 0;
+      }
+
+      .ax-dashboard-frame {
+        max-height: none;
+      }
+
+      .ax-dash-body {
+        height: auto;
+        min-height: 400px;
+      }
+
+      .ax-features-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .ax-feature-primary {
+        grid-column: 1;
+      }
+
+      .ax-pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ax-footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .ax-nav-links { display: none; }
+      .ax-metrics-bar { grid-template-columns: repeat(2, 1fr); }
+      .ax-hero-title { font-size: 1.75rem; }
+      .ax-footer-grid { grid-template-columns: 1fr; }
+      .ax-proof-companies { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════════════════════════ -->
+  <nav class="ax-nav">
+    <div class="ax-nav-inner">
+      <a href="#" class="ax-logo">axiom<span>.</span></a>
+
+      <ul class="ax-nav-links">
+        <li><a href="#">Docs</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Changelog</a></li>
+      </ul>
+
+      <div class="ax-status-pill bp-hide-mobile">
+        <div class="ax-status-dot"></div>
+        All systems operational
+      </div>
+
+      <div class="ax-nav-actions" style="margin-left: 1rem;">
+        <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm">Sign in</a>
+        <a href="#" class="bp-btn bp-btn-primary bp-btn-sm">Start free</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO — split layout with live dashboard mockup
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="ax-hero">
+
+    <!-- Left: copy -->
+    <div class="ax-hero-copy">
+      <div class="ax-hero-eyebrow">Log analytics &amp; observability</div>
+
+      <h1 class="ax-hero-title">
+        Every log, searchable<br>
+        in under <em>100ms</em>
+      </h1>
+
+      <p class="ax-hero-subtitle">
+        Axiom ingests your entire log stream — no sampling, no dropping — and makes it instantly queryable. Find the one request that caused the outage, not a statistical approximation of it.
+      </p>
+
+      <div class="ax-hero-actions">
+        <a href="#" class="bp-btn bp-btn-primary bp-btn-lg">Start free trial</a>
+        <a href="#" class="bp-btn bp-btn-ghost bp-btn-lg">Book a demo →</a>
+      </div>
+
+      <div class="ax-hero-meta">
+        <div class="ax-hero-meta-item">
+          <span class="bp-font-mono" style="color: var(--color-text-muted);">ingestion</span>
+          <span class="bp-font-mono val">unbounded</span>
+        </div>
+        <div class="ax-hero-meta-item">
+          <span class="bp-font-mono" style="color: var(--color-text-muted);">retention</span>
+          <span class="bp-font-mono val">12 months</span>
+        </div>
+        <div class="ax-hero-meta-item">
+          <span class="bp-font-mono" style="color: var(--color-text-muted);">query p99</span>
+          <span class="bp-font-mono val">&lt;100ms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: product dashboard mockup -->
+    <div class="ax-dashboard-frame">
+
+      <!-- Window chrome -->
+      <div class="ax-chrome-bar">
+        <div class="ax-chrome-dots">
+          <div class="ax-chrome-dot ax-chrome-dot-r"></div>
+          <div class="ax-chrome-dot ax-chrome-dot-y"></div>
+          <div class="ax-chrome-dot ax-chrome-dot-g"></div>
+        </div>
+        <div class="ax-chrome-title">axiom — production · all services · live tail</div>
+      </div>
+
+      <!-- Metrics bar -->
+      <div class="ax-metrics-bar">
+        <div class="ax-metric">
+          <div class="ax-metric-label">Ingestion Rate</div>
+          <div class="ax-metric-value">2.4M</div>
+          <div class="ax-metric-delta down">↓ 3% vs 1h avg</div>
+        </div>
+        <div class="ax-metric">
+          <div class="ax-metric-label">Error Rate</div>
+          <div class="ax-metric-value warn">0.73%</div>
+          <div class="ax-metric-delta up">↑ 0.2% vs 1h avg</div>
+        </div>
+        <div class="ax-metric">
+          <div class="ax-metric-label">P99 Latency</div>
+          <div class="ax-metric-value">148ms</div>
+          <div class="ax-metric-delta down">↓ 12ms vs 1h avg</div>
+        </div>
+        <div class="ax-metric">
+          <div class="ax-metric-label">Active Alerts</div>
+          <div class="ax-metric-value err">3</div>
+          <div class="ax-metric-delta up">↑ 2 new</div>
+        </div>
+      </div>
+
+      <!-- Dashboard body -->
+      <div class="ax-dash-body">
+
+        <!-- Sidebar: services -->
+        <div class="ax-dash-sidebar">
+          <div class="ax-sidebar-section-label">Services</div>
+
+          <div class="ax-service-item active">
+            <div class="ax-svc-dot green"></div>
+            <span class="ax-svc-name">api-gateway</span>
+            <span class="ax-svc-count">842k</span>
+          </div>
+          <div class="ax-service-item">
+            <div class="ax-svc-dot red"></div>
+            <span class="ax-svc-name">auth-service</span>
+            <span class="ax-svc-count red">2.1k err</span>
+          </div>
+          <div class="ax-service-item">
+            <div class="ax-svc-dot amber"></div>
+            <span class="ax-svc-name">payments-worker</span>
+            <span class="ax-svc-count">214k</span>
+          </div>
+          <div class="ax-service-item">
+            <div class="ax-svc-dot green"></div>
+            <span class="ax-svc-name">user-service</span>
+            <span class="ax-svc-count">490k</span>
+          </div>
+          <div class="ax-service-item">
+            <div class="ax-svc-dot green"></div>
+            <span class="ax-svc-name">notification-svc</span>
+            <span class="ax-svc-count">88k</span>
+          </div>
+          <div class="ax-service-item">
+            <div class="ax-svc-dot muted"></div>
+            <span class="ax-svc-name">data-pipeline</span>
+            <span class="ax-svc-count">12k</span>
+          </div>
+
+          <div class="ax-sidebar-section-label" style="margin-top: 0.875rem;">Alerts</div>
+          <div class="ax-service-item" style="color: var(--ax-red);">
+            <div class="ax-svc-dot red"></div>
+            <span class="ax-svc-name">JWT failures</span>
+            <span class="ax-svc-count red">↑</span>
+          </div>
+          <div class="ax-service-item" style="color: var(--ax-amber);">
+            <div class="ax-svc-dot amber"></div>
+            <span class="ax-svc-name">Queue depth</span>
+            <span class="ax-svc-count red">↑</span>
+          </div>
+        </div>
+
+        <!-- Log stream panel -->
+        <div class="ax-log-panel">
+
+          <!-- Toolbar + search -->
+          <div class="ax-log-toolbar">
+            <div class="ax-search-bar">
+              <span class="ax-search-prefix">|&gt;</span>
+              <span class="ax-search-query">service == <span style="color:var(--ax-green)">"api-gateway"</span> | <span style="color:var(--ax-amber)">level</span> in [ERROR, WARN]</span>
+              <span class="ax-search-cursor"></span>
+            </div>
+            <div class="ax-toolbar-pill active">Live</div>
+            <div class="ax-toolbar-pill">1h</div>
+            <div class="ax-toolbar-pill">6h</div>
+          </div>
+
+          <!-- Log table -->
+          <div class="ax-log-table">
+            <table>
+              <thead>
+                <tr>
+                  <th class="ax-col-time">Timestamp</th>
+                  <th class="ax-col-level">Level</th>
+                  <th class="ax-col-service">Service</th>
+                  <th>Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-error">
+                  <td class="ax-col-time">14:22:07.841</td>
+                  <td class="ax-col-level"><span class="ax-level-badge error">ERROR</span></td>
+                  <td class="ax-col-service">auth-service</td>
+                  <td class="ax-col-message error-msg">JWT validation failed: signature mismatch — user_id=84821 ip=203.0.113.47</td>
+                </tr>
+                <tr class="row-warn">
+                  <td class="ax-col-time">14:22:07.609</td>
+                  <td class="ax-col-level"><span class="ax-level-badge warn">WARN</span></td>
+                  <td class="ax-col-service">payments-worker</td>
+                  <td class="ax-col-message warn-msg">Queue depth at 94% capacity — consumer lag 2.4s</td>
+                </tr>
+                <tr>
+                  <td class="ax-col-time">14:22:07.412</td>
+                  <td class="ax-col-level"><span class="ax-level-badge info">INFO</span></td>
+                  <td class="ax-col-service">api-gateway</td>
+                  <td class="ax-col-message">POST /v2/orders 201 — <span class="highlight">trace_id=8f3d9a</span> latency=42ms</td>
+                </tr>
+                <tr class="row-error">
+                  <td class="ax-col-time">14:22:07.198</td>
+                  <td class="ax-col-level"><span class="ax-level-badge error">ERROR</span></td>
+                  <td class="ax-col-service">auth-service</td>
+                  <td class="ax-col-message error-msg">DB connection timeout after 5000ms — retrying (attempt 3/5)</td>
+                </tr>
+                <tr>
+                  <td class="ax-col-time">14:22:07.044</td>
+                  <td class="ax-col-level"><span class="ax-level-badge debug">DEBUG</span></td>
+                  <td class="ax-col-service">user-service</td>
+                  <td class="ax-col-message" style="color:var(--color-text-muted);">Cache hit for user profile — key=user:91042 ttl=287s</td>
+                </tr>
+                <tr>
+                  <td class="ax-col-time">14:22:06.881</td>
+                  <td class="ax-col-level"><span class="ax-level-badge info">INFO</span></td>
+                  <td class="ax-col-service">api-gateway</td>
+                  <td class="ax-col-message">GET /v2/users/91042 200 — latency=8ms</td>
+                </tr>
+                <tr class="row-warn">
+                  <td class="ax-col-time">14:22:06.723</td>
+                  <td class="ax-col-level"><span class="ax-level-badge warn">WARN</span></td>
+                  <td class="ax-col-service">payments-worker</td>
+                  <td class="ax-col-message warn-msg">Stripe webhook retry — event=payment_intent.succeeded attempt=2</td>
+                </tr>
+                <tr>
+                  <td class="ax-col-time">14:22:06.501</td>
+                  <td class="ax-col-level"><span class="ax-level-badge info">INFO</span></td>
+                  <td class="ax-col-service">notification-svc</td>
+                  <td class="ax-col-message">Email dispatched — recipient=u84821 template=order_confirm delivery=4ms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SOCIAL PROOF BAR
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="ax-proof-bar">
+    <div class="ax-proof-inner">
+      <span class="ax-proof-label">Used by engineering teams at</span>
+      <div class="ax-proof-divider"></div>
+      <div class="ax-proof-companies">
+        <span class="ax-proof-company">Vercel</span>
+        <span class="ax-proof-company">PlanetScale</span>
+        <span class="ax-proof-company">Render</span>
+        <span class="ax-proof-company">Fly.io</span>
+        <span class="ax-proof-company">Cal.com</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FEATURES — asymmetric layout: 1 primary wide + 2 secondary
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="ax-features">
+    <div class="bp-container">
+
+      <div style="margin-bottom: 2.5rem;">
+        <div class="ax-section-label">Capabilities</div>
+        <h2 class="ax-section-title">Built for the moment when things break</h2>
+        <p class="ax-section-subtitle">The UI gets out of the way. You get the answer.</p>
+      </div>
+
+      <div class="ax-features-layout">
+
+        <!-- Primary feature: Search -->
+        <div class="ax-feature-primary">
+          <div class="ax-feature-label">01 — Search</div>
+          <h3 class="ax-feature-title">Sub-second search across<br>10 billion events</h3>
+          <p class="ax-feature-desc">
+            Axiom doesn't pre-aggregate and hope. Every event is stored and indexed. Type a query — even one you've never run before — and get results in under 100ms. No warm-up, no approximation.
+          </p>
+
+          <!-- Search interface mock -->
+          <div class="ax-search-mock">
+            <div class="ax-search-mock-bar">
+              <span class="ax-search-mock-icon">⌕</span>
+              <span class="ax-search-mock-query">
+                <span class="kw">service</span> <span class="op">==</span> <span class="val">"payments-worker"</span>
+                <span style="color:var(--color-text-muted);"> |</span>
+                <span class="kw"> level</span> <span class="op">==</span> <span class="val">"ERROR"</span>
+                <span style="color:var(--color-text-muted);"> |</span>
+                <span class="kw"> summarize</span> count() by bin(<span class="val">_time</span>, <span class="val">5m</span>)<span class="ax-search-mock-cursor"></span>
+              </span>
+              <span class="ax-search-mock-meta">78ms · 4.2B events scanned</span>
+            </div>
+            <div class="ax-search-results">
+              <div class="ax-search-result-row">
+                <span class="ax-sr-time">14:00–14:05</span>
+                <span class="ax-sr-svc">payments-worker</span>
+                <span class="ax-sr-msg">count: <span style="color:var(--ax-cyan);font-weight:500;">7</span> errors</span>
+              </div>
+              <div class="ax-search-result-row">
+                <span class="ax-sr-time">14:05–14:10</span>
+                <span class="ax-sr-svc">payments-worker</span>
+                <span class="ax-sr-msg">count: <span style="color:var(--ax-cyan);font-weight:500;">11</span> errors</span>
+              </div>
+              <div class="ax-search-result-row">
+                <span class="ax-sr-time">14:10–14:15</span>
+                <span class="ax-sr-svc">payments-worker</span>
+                <span class="ax-sr-msg">count: <span style="color:var(--ax-red);font-weight:500;">47</span> errors <span style="color:var(--ax-amber);font-size:0.5rem;margin-left:0.5rem;">↑ spike detected</span></span>
+              </div>
+              <div class="ax-search-result-row">
+                <span class="ax-sr-time">14:15–14:20</span>
+                <span class="ax-sr-svc">payments-worker</span>
+                <span class="ax-sr-msg">count: <span style="color:var(--ax-amber);font-weight:500;">23</span> errors</span>
+              </div>
+              <div class="ax-search-result-row">
+                <span class="ax-sr-time">14:20–14:22</span>
+                <span class="ax-sr-svc">payments-worker</span>
+                <span class="ax-sr-msg">count: <span style="color:var(--ax-cyan);font-weight:500;">4</span> errors</span>
+              </div>
+            </div>
+            <div class="ax-search-footer">
+              <span>Showing 5 time buckets · 92 total events matched</span>
+              <span style="color:var(--ax-cyan);">→ Open in editor</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem; display: flex; gap: 1.5rem;">
+            <div class="bp-stat">
+              <span class="bp-stat-value" style="font-family:'JetBrains Mono',monospace;font-size:1.125rem;color:var(--ax-cyan);">&lt;100ms</span>
+              <span class="bp-stat-label" style="font-family:'JetBrains Mono',monospace;">query p99</span>
+            </div>
+            <div class="bp-stat">
+              <span class="bp-stat-value" style="font-family:'JetBrains Mono',monospace;font-size:1.125rem;color:var(--ax-cyan);">100%</span>
+              <span class="bp-stat-label" style="font-family:'JetBrains Mono',monospace;">of events indexed</span>
+            </div>
+            <div class="bp-stat">
+              <span class="bp-stat-value" style="font-family:'JetBrains Mono',monospace;font-size:1.125rem;color:var(--ax-cyan);">0</span>
+              <span class="bp-stat-label" style="font-family:'JetBrains Mono',monospace;">dropped events</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary feature: Alerts -->
+        <div class="ax-feature-secondary">
+          <div class="ax-feature-label">02 — Alerting</div>
+          <h3 class="ax-feature-title" style="font-size:1.125rem;">Alert on anything</h3>
+          <p class="ax-feature-desc" style="font-size:0.8125rem; margin-bottom: 1rem;">
+            Write the same query you'd use to investigate an incident — then set a threshold. Alerts fire on your data, not on pre-built metrics.
+          </p>
+
+          <div class="ax-alert-mock">
+            <div class="ax-alert-mock-header">Alert rule builder</div>
+            <div class="ax-alert-rule-row">
+              <span class="ax-rule-label">Query</span>
+              <span class="ax-rule-chip">level == "ERROR"</span>
+              <span class="ax-rule-arrow">|</span>
+              <span class="ax-rule-chip">summarize count()</span>
+            </div>
+            <div class="ax-alert-rule-row">
+              <span class="ax-rule-label">Service</span>
+              <span class="ax-rule-chip">auth-service</span>
+            </div>
+            <div class="ax-alert-rule-row">
+              <span class="ax-rule-label">Window</span>
+              <span class="ax-rule-chip">5 minutes</span>
+            </div>
+            <div class="ax-alert-rule-row">
+              <span class="ax-rule-label">Condition</span>
+              <span class="ax-rule-chip amber">count &gt; 25</span>
+            </div>
+            <div class="ax-alert-rule-row">
+              <span class="ax-rule-label">Notify</span>
+              <span class="ax-rule-chip">PagerDuty</span>
+              <span class="ax-rule-chip">Slack #incidents</span>
+            </div>
+            <div class="ax-alert-trigger">
+              <div class="ax-alert-trigger-label">⚠ Last triggered</div>
+              <div class="ax-alert-trigger-value">14:10 UTC — count was 47 (threshold: 25)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary feature: Tracing -->
+        <div class="ax-feature-secondary" style="border-top: 1px solid var(--ax-border);">
+          <div class="ax-feature-label">03 — Tracing</div>
+          <h3 class="ax-feature-title" style="font-size:1.125rem;">Follow a request end-to-end</h3>
+          <p class="ax-feature-desc" style="font-size:0.8125rem; margin-bottom: 1rem;">
+            Distributed trace spans alongside your logs in the same view. No context switching between tools mid-incident.
+          </p>
+
+          <div class="ax-trace-mock">
+            <div class="ax-trace-header">
+              <span>Trace <span class="ax-trace-id">8f3d9a4b</span> · POST /v2/orders</span>
+              <span style="color:var(--ax-amber);">total: 214ms</span>
+            </div>
+
+            <!-- Span rows: offset + width approximate real proportions -->
+            <div class="ax-trace-row">
+              <div class="ax-trace-svc">api-gateway</div>
+              <div class="ax-trace-span-name">http.request</div>
+              <div class="ax-trace-track">
+                <div class="ax-trace-span" style="left:0%;width:100%;background:var(--ax-cyan);opacity:0.3;"></div>
+              </div>
+              <div class="ax-trace-dur">214ms</div>
+            </div>
+            <div class="ax-trace-row">
+              <div class="ax-trace-svc">auth-service</div>
+              <div class="ax-trace-span-name">jwt.validate</div>
+              <div class="ax-trace-track">
+                <div class="ax-trace-span" style="left:3%;width:38%;background:var(--ax-red);opacity:0.5;"></div>
+              </div>
+              <div class="ax-trace-dur slow">82ms</div>
+            </div>
+            <div class="ax-trace-row">
+              <div class="ax-trace-svc">user-service</div>
+              <div class="ax-trace-span-name">db.select</div>
+              <div class="ax-trace-track">
+                <div class="ax-trace-span" style="left:41%;width:14%;background:var(--ax-green);opacity:0.6;"></div>
+              </div>
+              <div class="ax-trace-dur ok">29ms</div>
+            </div>
+            <div class="ax-trace-row">
+              <div class="ax-trace-svc">payments-worker</div>
+              <div class="ax-trace-span-name">stripe.charge</div>
+              <div class="ax-trace-track">
+                <div class="ax-trace-span" style="left:55%;width:30%;background:var(--ax-cyan);opacity:0.5;"></div>
+              </div>
+              <div class="ax-trace-dur">64ms</div>
+            </div>
+            <div class="ax-trace-row">
+              <div class="ax-trace-svc">notification-svc</div>
+              <div class="ax-trace-span-name">email.send</div>
+              <div class="ax-trace-track">
+                <div class="ax-trace-span" style="left:85%;width:11%;background:var(--ax-green);opacity:0.5;"></div>
+              </div>
+              <div class="ax-trace-dur ok">23ms</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PRICING
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="bp-section" style="background: var(--color-bg-secondary);" id="pricing">
+    <div class="bp-container">
+
+      <div class="bp-section-header" style="margin-bottom: 2rem;">
+        <div class="ax-section-label">Pricing</div>
+        <h2 class="ax-section-title">Simple. No ingestion fees.</h2>
+        <p class="ax-section-subtitle">
+          One flat monthly price. Ingest as much as you want — you pay for retention, not volume.
+        </p>
+        <div class="ax-pricing-cycle-toggle">
+          <span>Monthly</span>
+          <div class="ax-toggle-track"><div class="ax-toggle-thumb"></div></div>
+          <span>Annual</span>
+          <span class="ax-save-badge">Save 20%</span>
+        </div>
+      </div>
+
+      <div class="ax-pricing-grid">
+
+        <!-- Free -->
+        <div class="ax-pricing-card">
+          <div class="ax-plan-name">Free</div>
+          <div style="margin-bottom: 0.75rem;">
+            <span class="ax-price-amount">$0</span>
+            <span class="ax-price-period">/ mo</span>
+          </div>
+          <p class="ax-price-desc">Enough for a small team running a side project. No credit card required.</p>
+          <ul class="ax-feature-list">
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">500GB ingestion / month</span>
+                <span class="hint">Reset on the 1st — no rollover</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">30-day retention</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">3 team members</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">5 alert rules</span>
+              </span>
+            </li>
+            <li>
+              <span class="check" style="color:var(--color-text-muted);">—</span>
+              <span style="color:var(--color-text-muted);font-size:0.8125rem;">No SSO / SAML</span>
+            </li>
+            <li>
+              <span class="check" style="color:var(--color-text-muted);">—</span>
+              <span style="color:var(--color-text-muted);font-size:0.8125rem;">No distributed tracing</span>
+            </li>
+          </ul>
+          <a href="#" class="bp-btn bp-btn-outline bp-w-full">Get started free</a>
+        </div>
+
+        <!-- Pro — featured -->
+        <div class="ax-pricing-card featured">
+          <div class="ax-plan-name featured-label">Pro <span class="bp-badge bp-badge-success" style="margin-left:0.5rem;font-size:0.5rem;vertical-align:middle;">Most popular</span></div>
+          <div style="margin-bottom: 0.75rem;">
+            <span class="ax-price-amount">$89</span>
+            <span class="ax-price-period">/ mo</span>
+          </div>
+          <p class="ax-price-desc">For teams running production. The number your EM approves without a meeting.</p>
+          <ul class="ax-feature-list">
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Unlimited ingestion</span>
+                <span class="hint">No rate limits, no sampling</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">12-month retention</span>
+                <span class="hint">Configurable per dataset</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Unlimited team members</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Unlimited alert rules</span>
+                <span class="hint">PagerDuty, Slack, Webhooks</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Distributed tracing</span>
+                <span class="hint">OpenTelemetry compatible</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Email + Slack support</span>
+                <span class="hint">4h response SLA</span>
+              </span>
+            </li>
+          </ul>
+          <a href="#" class="bp-btn bp-btn-primary bp-w-full">Start free trial</a>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:0.5625rem;color:var(--color-text-muted);text-align:center;margin-top:0.625rem;">14-day free trial · no credit card</p>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="ax-pricing-card">
+          <div class="ax-plan-name">Enterprise</div>
+          <div style="margin-bottom: 0.75rem;">
+            <span class="ax-price-amount" style="font-size:1.5rem;color:var(--color-text-secondary);">Custom</span>
+          </div>
+          <p class="ax-price-desc">For teams where logs touch compliance, audit trails, or on-prem requirements.</p>
+          <ul class="ax-feature-list">
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Everything in Pro</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">SSO / SAML</span>
+                <span class="hint">Okta, Google Workspace, Azure AD</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Audit logs</span>
+                <span class="hint">Full user activity log export</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">BYOC / Private link</span>
+                <span class="hint">Data stays in your VPC</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Dedicated Slack channel</span>
+                <span class="hint">1h response SLA, named engineer</span>
+              </span>
+            </li>
+            <li>
+              <span class="check">✓</span>
+              <span class="key-val">
+                <span class="key">Custom data retention</span>
+                <span class="hint">Up to 5 years</span>
+              </span>
+            </li>
+          </ul>
+          <a href="#" class="bp-btn bp-btn-secondary bp-w-full">Book a demo</a>
+        </div>
+
+      </div>
+
+      <p class="ax-pricing-note">
+        All plans include: TLS in transit · SOC 2 Type II · GDPR · 99.95% SLA
+        &nbsp;·&nbsp; <a href="#" style="color:var(--ax-cyan);text-decoration:none;">Compare all features →</a>
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════════ -->
+  <footer class="ax-footer">
+    <div class="ax-footer-grid">
+      <div>
+        <div class="ax-footer-brand">axiom.</div>
+        <p class="ax-footer-desc">Real-time log analytics for engineering teams who need the answer before the page loads.</p>
+        <div style="margin-top:1rem;display:flex;gap:0.75rem;">
+          <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm" style="font-family:'JetBrains Mono',monospace;font-size:0.625rem;">GitHub</a>
+          <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm" style="font-family:'JetBrains Mono',monospace;font-size:0.625rem;">Discord</a>
+          <a href="#" class="bp-btn bp-btn-ghost bp-btn-sm" style="font-family:'JetBrains Mono',monospace;font-size:0.625rem;">Twitter / X</a>
+        </div>
+      </div>
+      <div>
+        <div class="ax-footer-col-title">Product</div>
+        <ul class="ax-footer-links">
+          <li><a href="#">Log Search</a></li>
+          <li><a href="#">Alerting</a></li>
+          <li><a href="#">Distributed Tracing</a></li>
+          <li><a href="#">Integrations</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ax-footer-col-title">Developers</div>
+        <ul class="ax-footer-links">
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Reference</a></li>
+          <li><a href="#">SDKs</a></li>
+          <li><a href="#">OpenTelemetry</a></li>
+          <li><a href="#">Status page</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ax-footer-col-title">Company</div>
+        <ul class="ax-footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ax-footer-bottom">
+      <span class="ax-footer-copy">
+        © 2026 Axiom Inc. &nbsp;·&nbsp;
+        <span class="ax-status-pill" style="display:inline-flex;margin-left:0.5rem;">
+          <span class="ax-status-dot"></span>
+          All systems operational
+        </span>
+      </span>
+      <div class="ax-footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">DPA</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+<!--
+GAPS FOUND:
+- ax-nav / nav layout: bp-nav doesn't support a three-zone layout (brand left | links center | actions right) — had to write full custom flex nav. The bp-nav-links always float to one side.
+- ax-status-pill: no bp- class for a system health indicator pill (colored dot + monospace label + subtle background). Needed for nav and footer.
+- ax-metrics-bar: bp-stat is designed for standalone stat blocks in sections; no compact inline metrics-bar variant that sits flush in a dashboard header row with 4-column grid and dividers between cells.
+- ax-service-item / sidebar with service dots: bp-sidebar-item doesn't support a colored status dot pattern or event-count badge alongside the label. Had to write fully custom sidebar items.
+- ax-search-bar (dashboard toolbar): bp-input exists but is a form input. No compact monospace search-bar with a syntax-prefix indicator and live-query animation cursor suitable for embedding inside a product UI chrome.
+- ax-log-table (log stream): bp-table is a general-purpose table. No log-stream variant with: level badge cells, alternating row backgrounds per log level (error rows red-tinted, warn rows amber-tinted), and compact monospace density.
+- ax-features-layout (asymmetric grid): bp-grid only handles equal columns (2, 3, or 4). No way to specify a primary-wide spanning card + two secondary cards below. Had to use custom CSS grid with grid-column: 1 / -1.
+- ax-search-mock, ax-alert-mock, ax-trace-mock: all three feature illustration panels are completely custom CSS. There's no bp- pattern for inline product-interface mockup components embedded within feature cards.
+- ax-trace-track / waterfall spans: no bp- utility for a proportional inline bar or span timeline. The percentage-positioned absolute spans inside a track div are fully custom.
+- ax-proof-bar: no bp- class for a social proof / logo bar section. The pattern (label | divider | company list in muted monospace) is common in B2B landing pages and would benefit from a bp-logo-bar or bp-proof-bar component.
+- ax-pricing-grid (custom): used custom CSS instead of bp-pricing-card because bp-pricing-card-featured uses a blue glow that didn't match the Axiom visual language (cyan top-border stripe instead). The featured top-accent stripe is not configurable via bp- classes.
+- ax-pricing-cycle-toggle: no bp- class for a billing cycle toggle (monthly/annual switch). Common pricing pattern.
+- ax-footer-grid: bp-footer-grid has a fixed column structure. Needed a 2fr 1fr 1fr 1fr layout for brand + three link columns — had to override with custom grid.
+
+DESIGN NOTES:
+- The hero product mock is intentionally dense — the density IS the marketing. An engineering manager looking at this should immediately recognize it as a real tool, not a Dribbble shot.
+- Chose #0a1628 (deep navy) not #000000. Pure black reads as "terminal aesthetics" (see terminal.html); Axiom should feel like a precision instrument, not a hacker tool. The navy preserves the blueprint grid without the harshness.
+- The cyan (#22d3ee) was chosen because it reads as "data" and "clarity" — the color of terminal output in a healthy system. It avoids the generic purple/indigo that AI tools default to.
+- Typography uses Inter weight 500 throughout (not 700). This is deliberate: authority without shouting. The taste gate notes that "Inter Bold at 72px for every hero" is the banned pattern. Weight 500 at 3rem reads as confident.
+- JetBrains Mono is used for ALL data labels, timestamps, level badges, and monospace elements — never Inter in those contexts. This creates a clear semantic distinction: Inter = human prose, JetBrains Mono = machine data.
+- The features section uses an asymmetric layout (full-width primary, two halves below) instead of a 3-equal-card grid. The taste gate explicitly bans "6 identical feature cards in a 3-column grid." The primary feature gets 2.5× the vertical real estate.
+- The log table alternating rows are tinted by log level (error rows get a faint red wash, warn rows amber) not just alternating dark/light. This is how real log viewers work (Datadog, Grafana Loki) and makes the mockup feel authentic.
+- Pricing is positioned as "no ingestion fees" — this is the real differentiator for log platforms where Datadog's pricing model creates anxiety. The copy directly addresses the $800/month B2B rational decision.
+- The blink-cursor animation appears in two places: the hero search bar and the primary feature search mock. They have different animation-delay values (0s and 0.3s) so they don't blink in sync — subtle life.
+- The trace waterfall uses proportional positioning (CSS left% + width%) derived from approximate real latency values, making it feel authentic rather than decorative.
+-->

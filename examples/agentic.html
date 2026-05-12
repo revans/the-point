@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blueprint AI — Agentic Design</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    @layer brand-state {
+      :root {
+        --font-heading: 'Space Grotesk', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { height: 100vh; overflow: hidden; background: var(--color-bg); }
+
+    /* ── API Key Gate ─────────────────────────────────────────── */
+
+    .api-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: opacity 0.3s ease;
+    }
+
+    .api-gate.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gate-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-xl);
+      padding: 40px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    }
+
+    .gate-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--color-primary);
+      margin: 0 auto 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .gate-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+
+    .gate-sub {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+
+    .gate-form { display: flex; flex-direction: column; gap: 10px; }
+
+    .gate-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--bp-radius-lg);
+      color: var(--color-text);
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      outline: none;
+      transition: border-color 0.15s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .gate-input:focus { border-color: var(--color-primary); }
+    .gate-input::placeholder { color: var(--color-text-muted); }
+
+    .gate-btn {
+      padding: 11px 20px;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--bp-radius-lg);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+
+    .gate-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .gate-btn:active { transform: translateY(0); }
+
+    .gate-error {
+      font-size: 12px;
+      color: var(--bp-error, #ef4444);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .gate-note {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Token Change Toast ───────────────────────────────────── */
+
+    .token-toast {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .token-toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .token-toast-inner {
+      background: var(--color-surface);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--bp-radius-lg);
+      padding: 10px 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .toast-spark {
+      color: var(--color-primary);
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .toast-body {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .toast-headline {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: 2px;
+    }
+
+    /* ── App Layout ───────────────────────────────────────────── */
+
+    .app { display: flex; height: 100vh; }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: color-mix(in srgb, var(--color-surface) 85%, var(--color-bg) 15%);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .sidebar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 14px 12px;
+    }
+
+    .brand-mark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-mark-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      transition: background 0.4s ease;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      background: var(--color-primary-subtle);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .conv-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 8px;
+    }
+
+    .conv-list::-webkit-scrollbar { width: 4px; }
+    .conv-list::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+    .conv-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      padding: 14px 8px 5px;
+    }
+
+    .conv-item {
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+
+    .conv-item:hover { background: color-mix(in srgb, var(--color-primary) 8%, transparent); color: var(--color-text); }
+    .conv-item.active { background: var(--color-primary-subtle); color: var(--color-primary); }
+
+    .sidebar-footer {
+      padding: 10px 8px 14px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .design-palette {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      margin-bottom: 4px;
+    }
+
+    .palette-label {
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      flex: 1;
+    }
+
+    .palette-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      border: 1px solid var(--color-border);
+      transition: background 0.4s ease;
+    }
+
+    .user-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+
+    .user-row:hover { background: color-mix(in srgb, var(--color-primary) 8%, transparent); }
+    .user-name { font-size: 13px; font-weight: 500; color: var(--color-text); flex: 1; }
+
+    /* ── Main ────────────────────────────────────────────────── */
+
+    .chat-main { flex: 1; display: flex; flex-direction: column; height: 100vh; min-width: 0; }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .model-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: transparent;
+    }
+
+    .model-pill:hover { border-color: var(--color-primary); color: var(--color-text); }
+    .model-pill svg { opacity: 0.5; }
+
+    .header-actions {
+      position: absolute;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .reset-btn, .undo-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      background: transparent;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .reset-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .undo-btn:not(:disabled):hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .undo-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .thread-toggle {
+      position: absolute;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      background: transparent;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .thread-toggle:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .thread-toggle-chevron {
+      transition: transform 0.25s ease;
+    }
+
+    .thread-toggle.collapsed .thread-toggle-chevron {
+      transform: rotate(-90deg);
+    }
+
+    /* ── Thread ──────────────────────────────────────────────── */
+
+    .chat-thread {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+      max-height: 100vh;
+    }
+
+    .chat-thread.collapsed {
+      max-height: 0 !important;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chat-thread::-webkit-scrollbar { width: 5px; }
+    .chat-thread::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+    /* ── Empty state ─────────────────────────────────────────── */
+
+    .chat-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--color-primary);
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+      transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+    }
+
+    .empty-title { font-size: 22px; font-weight: 600; color: var(--color-text); margin-bottom: 6px; }
+    .empty-sub { font-size: 14px; color: var(--color-text-muted); margin-bottom: 28px; line-height: 1.5; }
+
+    .suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 600px;
+    }
+
+    .suggestion {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1.3;
+    }
+
+    .suggestion:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-subtle);
+    }
+
+    /* ── Messages ────────────────────────────────────────────── */
+
+    .thread-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 24px 8px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .thread-inner.visible { display: flex; }
+
+    @keyframes msg-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .message { display: flex; gap: 10px; animation: msg-in 0.18s ease; }
+    .message-user { flex-direction: row-reverse; align-self: flex-end; max-width: 80%; }
+
+    .message-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      margin-top: 6px;
+      transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+    }
+
+    .message-content { font-size: 14px; line-height: 1.65; }
+
+    .message-user .message-content {
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 18px 18px 4px 18px;
+      padding: 10px 15px;
+      white-space: pre-wrap;
+      transition: background 0.4s ease;
+    }
+
+    .message-assistant { align-items: flex-start; max-width: 100%; }
+
+    .message-assistant .message-content {
+      background: transparent;
+      color: var(--color-text);
+      padding: 6px 0;
+    }
+
+    .message-assistant .message-content p { margin-bottom: 10px; line-height: 1.65; }
+    .message-assistant .message-content p:last-child { margin-bottom: 0; }
+
+    .message-assistant .message-content pre {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--color-text);
+    }
+
+    .message-assistant .message-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--color-primary);
+    }
+
+    .message-assistant .message-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--color-text);
+      font-size: inherit;
+    }
+
+    .message-assistant .message-content strong { font-weight: 600; color: var(--color-text); }
+
+    .message-content.streaming { white-space: pre-wrap; }
+
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .message-content.streaming::after {
+      content: '▋';
+      display: inline;
+      animation: cursor-blink 0.65s infinite;
+      margin-left: 1px;
+      color: var(--color-primary);
+      font-size: 0.8em;
+    }
+
+    @keyframes dot-bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40%           { transform: translateY(-3px); opacity: 1; }
+    }
+
+    .typing-dots { display: flex; gap: 4px; align-items: center; padding: 10px 2px; }
+
+    .typing-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-text-muted);
+      animation: dot-bounce 1.2s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    /* ── Input area ──────────────────────────────────────────── */
+
+    .chat-input-area {
+      flex-shrink: 0;
+      padding: 12px 24px 20px;
+      position: relative;
+    }
+
+    .chat-input-area::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--color-bg));
+      pointer-events: none;
+      transition: background 0.4s ease;
+    }
+
+    .input-outer { max-width: 720px; margin: 0 auto; }
+
+    .input-hint {
+      text-align: center;
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Restore bp-input-compose padding — the * { padding: 0 } reset above
+       strips layered component rules; this unlayered class rule wins over * */
+    .bp-input-compose {
+      padding: 11px 11px 11px 16px;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── API Key Gate ──────────────────────────────────────────── -->
+<div class="api-gate" id="apiGate">
+  <div class="gate-card">
+    <div class="gate-icon">BP</div>
+    <h2 class="gate-title">Blueprint AI</h2>
+    <p class="gate-sub">Enter your Anthropic API key. Stored only in sessionStorage — sent directly to api.anthropic.com, never anywhere else.</p>
+    <div class="gate-form">
+      <input type="password" class="gate-input" id="apiKeyInput" placeholder="Paste your API key…" autocomplete="off" spellcheck="false">
+      <p class="gate-error" id="apiKeyError" hidden></p>
+      <button class="gate-btn" id="apiKeySubmit">Connect to Claude</button>
+    </div>
+    <p class="gate-note">claude-sonnet-4-6 · Direct browser API call</p>
+  </div>
+</div>
+
+<!-- ── Token Change Toast ────────────────────────────────────── -->
+<div class="token-toast" id="tokenToast" role="status" aria-live="polite">
+  <div class="token-toast-inner">
+    <div class="toast-spark">✦</div>
+    <div class="toast-body">
+      <div class="toast-headline" id="toastHeadline"></div>
+      <div id="toastDetails"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── App ───────────────────────────────────────────────────── -->
+<div class="app" id="appRoot">
+
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="brand-mark">
+        <div class="brand-mark-dot"></div>
+        Blueprint AI
+      </div>
+      <button class="icon-btn" id="newChatBtn" title="New chat">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="conv-list">
+      <div class="conv-date">Today</div>
+      <div class="conv-item active">Agentic design session</div>
+      <div class="conv-item">1970s jazz label experiment</div>
+      <div class="conv-date">Yesterday</div>
+      <div class="conv-item">Cyberpunk terminal palette</div>
+      <div class="conv-item">Warm editorial exploration</div>
+      <div class="conv-date">Previous</div>
+      <div class="conv-item">Token vocabulary research</div>
+      <div class="conv-item">Blueprint system overview</div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="design-palette">
+        <span class="palette-label">Current primary</span>
+        <div class="palette-swatch"></div>
+      </div>
+      <div class="user-row">
+        <div class="bp-avatar bp-avatar-sm">RE</div>
+        <span class="user-name">Robert Evans</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-text-muted);flex-shrink:0">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+    </div>
+  </aside>
+
+  <main class="chat-main">
+    <div class="chat-header">
+      <button class="thread-toggle" id="threadToggle" title="Toggle message log">
+        <svg class="thread-toggle-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+        Log
+      </button>
+      <button class="model-pill">
+        claude-sonnet-4-6
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="header-actions">
+        <button class="undo-btn" id="undoBtn" disabled title="Undo last design change">↩</button>
+        <button class="reset-btn" id="resetBtn">↺ Reset design</button>
+      </div>
+    </div>
+
+    <div class="chat-thread" id="chatThread">
+      <div class="chat-empty" id="emptyState">
+        <div class="empty-icon">BP</div>
+        <h2 class="empty-title">Redesign this page with AI</h2>
+        <p class="empty-sub">Ask Blueprint AI to change how this page looks. Every design token updates live — no reload.</p>
+        <div class="suggestions">
+          <button class="suggestion" data-prompt="Make this feel like a 1970s Japanese jazz label">1970s jazz label</button>
+          <button class="suggestion" data-prompt="Switch to a warm editorial newspaper aesthetic">Warm editorial</button>
+          <button class="suggestion" data-prompt="Go full cyberpunk terminal — dark background, green primary">Cyberpunk terminal</button>
+          <button class="suggestion" data-prompt="Make it feel like a luxury Swiss watch brand">Luxury watch brand</button>
+          <button class="suggestion" data-prompt="Give it a clinical, precise surgical dashboard feel">Surgical dashboard</button>
+          <button class="suggestion" data-prompt="What design tokens can you change on this page?">What can you change?</button>
+        </div>
+      </div>
+      <div class="thread-inner" id="threadInner"></div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="input-outer">
+        <div class="bp-input-compose" id="inputBox">
+          <textarea class="bp-input-compose-field" id="chatInput" placeholder="Ask Blueprint AI to redesign this page…" rows="1"></textarea>
+          <button class="bp-input-compose-action" id="sendBtn" disabled title="Send">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5"/>
+              <polyline points="5 12 12 5 19 12"/>
+            </svg>
+          </button>
+        </div>
+        <p class="input-hint">Blueprint AI · Design tokens update live · No page reload · Shift+Enter for new line</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  // ── State ──────────────────────────────────────────────────────
+
+  let apiKey     = sessionStorage.getItem('bp_api_key') || '';
+  let isStreaming = false;
+  let messages   = [];
+
+  // Tokens we allow the LLM to change — anything outside this list is ignored
+  const ALLOWED_TOKENS = new Set([
+    // Brand colors
+    '--color-primary', '--color-primary-hover', '--color-primary-subtle',
+    '--color-bg', '--color-surface', '--color-border',
+    '--color-text', '--color-text-secondary', '--color-text-muted',
+    // Secondary accent
+    '--color-secondary', '--color-secondary-hover', '--color-secondary-subtle',
+    // Color on primary (text on accent backgrounds)
+    '--color-on-primary',
+    // State colors
+    '--color-success', '--color-warning', '--color-error',
+    '--color-success-subtle', '--color-warning-subtle', '--color-error-subtle',
+    // Overlay backgrounds
+    '--overlay-bg', '--overlay-scrim',
+    // Fonts
+    '--font-heading', '--font-body', '--font-mono',
+    // Typography scale
+    '--font-size-base',
+    '--font-weight-heading', '--font-weight-body',
+    '--line-height-base', '--line-height-heading',
+    '--letter-spacing-heading',
+    // Content column width
+    '--content-width',
+    // Motion
+    '--duration-fast', '--duration-base', '--duration-slow',
+    '--easing-smooth', '--easing-bounce',
+    // Shadows
+    '--shadow-sm', '--shadow-md', '--shadow-lg', '--shadow-glow',
+    // Blur scale
+    '--blur-sm', '--blur-md', '--blur-lg',
+    // Layout & density
+    '--radius',
+    '--space-unit', '--grid-gap',
+    '--sidebar-width', '--nav-height',
+    '--split-ratio',
+    // Border
+    '--border-width', '--border-style',
+    // Focus ring
+    '--focus-ring-color', '--focus-ring-width', '--focus-ring-offset',
+    // Component padding & sizing
+    '--card-padding',
+    '--btn-height-xs', '--btn-height-sm', '--btn-height-md', '--btn-height-lg', '--btn-height-xl',
+    '--input-height', '--textarea-min-height',
+    '--modal-max-width', '--modal-max-height',
+    '--toast-max-width',
+    '--hero-title-max-width', '--hero-subtitle-max-width', '--section-header-max-width',
+    // Interactive feedback
+    '--lift-distance', '--opacity-disabled', '--opacity-idle',
+    '--bracket-size',
+    // Motion personality dial — 0 = static, 0.5 = snappy, 1 = default, 2 = expressive
+    '--motion-scale',
+    // Component-level style APIs (set on the component root to override locally)
+    '--nav-bg', '--nav-blur', '--nav-border', '--nav-link-color',
+    '--btn-radius', '--btn-font', '--btn-font-weight',
+    '--card-bg', '--card-radius', '--card-border-color', '--card-shadow',
+    '--badge-radius',
+    '--chip-radius',
+    '--sidebar-bg', '--sidebar-border',
+    '--input-bg', '--input-radius', '--input-border',
+    '--footer-bg', '--footer-border',
+    '--overlay-blur',
+    '--modal-bg', '--modal-radius',
+  ]);
+
+  // Tokens to clear on reset
+  const RESET_TOKENS = [...ALLOWED_TOKENS];
+
+  // Counter for injected <style> tag IDs — monotonically increasing
+  let cssInjectCounter = 0;
+
+  // ── Snapshot Stack ─────────────────────────────────────────────
+  // Each entry: { label, state: { tokens: {}, injectedCssIds: [] } }
+
+  const snapshotStack = [];
+
+  function captureState() {
+    const root   = document.documentElement;
+    const tokens = {};
+    RESET_TOKENS.forEach(t => { tokens[t] = root.style.getPropertyValue(t); });
+    const injectedCssIds = [...document.querySelectorAll('style[data-agentic-id]')]
+      .map(el => el.dataset.agenticId);
+    return { tokens, injectedCssIds };
+  }
+
+  function applyState(state) {
+    const root = document.documentElement;
+    RESET_TOKENS.forEach(t => {
+      if (state.tokens[t]) root.style.setProperty(t, state.tokens[t]);
+      else root.style.removeProperty(t);
+    });
+    document.querySelectorAll('style[data-agentic-id]').forEach(el => {
+      if (!state.injectedCssIds.includes(el.dataset.agenticId)) el.remove();
+    });
+  }
+
+  function pushSnapshot(label) {
+    snapshotStack.push({ label, state: captureState() });
+    syncUndoBtn();
+  }
+
+  function syncUndoBtn() {
+    const btn = document.getElementById('undoBtn');
+    const n = snapshotStack.length;
+    btn.disabled = n === 0;
+    btn.textContent = n > 0 ? `↩ ${n}` : '↩';
+  }
+
+  function undoChange() {
+    if (!snapshotStack.length) return;
+    const { label, state } = snapshotStack.pop();
+    applyState(state);
+    syncUndoBtn();
+    showTokenToast([['Restored', label]]);
+  }
+
+  const STRIP_TAGS = [
+    [/<tokens>[\s\S]*?<\/tokens>/g, ''],
+    [/<reset_design\/>/g, ''],
+    [/<inject-css>[\s\S]*?<\/inject-css>/g, ''],
+    [/<inject-js>[\s\S]*?<\/inject-js>/g, ''],
+    [/<add-class[^>]*\/?>/g, ''],
+    [/<remove-class[^>]*\/?>/g, ''],
+    [/<dom-text[^>]*>[\s\S]*?<\/dom-text>/g, ''],
+    [/<inject-html[^>]*>[\s\S]*?<\/inject-html>/g, ''],
+  ];
+
+  function stripSpecialBlocks(text) {
+    let out = text;
+    for (const [re, rep] of STRIP_TAGS) out = out.replace(re, rep);
+    return out.trim();
+  }
+
+  function getDisplayText(fullText) {
+    const STARTS = ['<tokens>', '<reset_design/>', '<inject-css>', '<inject-js>', '<add-class', '<remove-class', '<dom-text', '<inject-html'];
+    let cut = fullText.length;
+    for (const tag of STARTS) {
+      const i = fullText.indexOf(tag);
+      if (i >= 0 && i < cut) cut = i;
+    }
+    return fullText.slice(0, cut).trimEnd();
+  }
+
+  function extractLabel(text) {
+    const first = stripSpecialBlocks(text).split(/[.!\n]/)[0].trim();
+    return first.length > 42 ? first.slice(0, 39) + '…' : first || 'Design change';
+  }
+
+  // ── System Prompt ──────────────────────────────────────────────
+
+  let SYSTEM_PROMPT = `You are Blueprint AI — an assistant embedded in a live design experiment built on The Point CSS design system.
+
+CRITICAL RULE: When the user asks for any design change, you MUST emit the appropriate instruction blocks (<tokens>, <inject-css>, etc.). NEVER describe a design change in plain text or markdown code blocks — always make it happen with the instruction format below. If you write CSS as text, nothing changes on the page. If you use the instruction format, the page updates live.
+
+You can redesign this page in real time using five instruction types. Combine them freely in a single response.
+
+## 1 — Design tokens (CSS variables)
+
+<tokens>
+{
+  "--color-primary": "#c04a1a",
+  "--color-bg": "#0a0807",
+  "--color-surface": "#141210",
+  "--color-border": "#2a2520",
+  "--color-text": "#f0ece4",
+  "--color-text-secondary": "#c8c0b8",
+  "--color-text-muted": "#7a7068",
+  "--font-heading": "'Playfair Display', serif",
+  "--font-body": "Georgia, serif",
+  "--font-mono": "'JetBrains Mono', monospace",
+  "--radius": "2px"
+}
+</tokens>
+
+Available token groups:
+
+**Colors:** --color-primary / --color-primary-hover / --color-primary-subtle · --color-bg · --color-surface · --color-border · --color-text / --color-text-secondary / --color-text-muted · --color-success / --color-warning / --color-error (and -subtle variants)
+
+**Secondary accent (two-color palettes):**
+- --color-secondary / --color-secondary-hover / --color-secondary-subtle — second brand color; defaults to muted text
+
+**Color on surfaces:**
+- --color-on-primary — text color on primary-colored backgrounds (default: white)
+- --overlay-bg — modal/drawer backdrop: "rgba(0,0,0,0.6)" = dark, "rgba(255,255,255,0.5)" = frosted light
+- --overlay-scrim — cover section image scrim
+
+**Typography:**
+- --font-heading / --font-body / --font-mono — font families
+- --font-size-base — scales ALL rem sizes: "14px" = compact dashboard, "18px" = airy editorial
+- --font-weight-heading — "300" = luxury watch, "600" = default, "700" = impactful
+- --font-weight-body — "300" = editorial, "400" = default, "500" = strong
+- --line-height-base — "1.25" = dense, "1.5" = default, "1.75" = spacious
+- --line-height-heading — "1.1" = tight display, "1.25" = default
+- --letter-spacing-heading — "-0.04em" = tight, "0em" = normal, "0.12em" = luxury wide
+- --content-width — max-width for readable prose columns: "65ch" = default, "45ch" = narrow editorial
+
+**Motion:**
+- --duration-fast / --duration-base / --duration-slow — "0.05s" = surgical, "0.15s" = default, "0.6s" = theatrical
+- --easing-smooth — standard curve, e.g. "cubic-bezier(0.4, 0, 0.2, 1)"
+- --easing-bounce — playful overshoot, e.g. "cubic-bezier(0.34, 1.56, 0.64, 1)" or "ease" for clinical
+
+**Shadows:** --shadow-sm / --shadow-md / --shadow-lg / --shadow-glow ("none" = flat, full value = depth)
+
+**Blur / glass:** --blur-sm ("4px") / --blur-md ("12px") / --blur-lg ("20px") — controls backdrop-filter on nav, overlays, modals
+
+**Border:**
+- --border-width — "0.5px" = hairline, "1px" = default, "2px" = bold — affects EVERY border in the system
+- --border-style — "solid" = default, "dashed" = editorial/newspaper, "dotted" = playful
+
+**Focus ring (accessibility):**
+- --focus-ring-color — "var(--color-primary)" = default, any color value
+- --focus-ring-width — "2px" = default, "4px" = high-contrast accessible
+- --focus-ring-offset — "2px" = default
+
+**Layout & density:**
+- --space-unit — master density dial: "0.75rem" = compact dashboard, "1rem" = default, "1.5rem" = airy editorial
+- --card-padding — card interior spacing independent of --space-unit: "0.75rem" = dense, "2rem" = open
+- --grid-gap — gap between all grid and split columns/rows
+- --sidebar-width — left panel width: "64px" = icon rail, "256px" = default, "320px" = data-heavy
+- --nav-height — top bar height: "48px" = minimal, "64px" = default, "80px" = prominent
+- --split-ratio — column ratio for .bp-split: "1fr 3fr", "2fr 1fr", etc.
+- --radius — border radius for all components
+
+**Interactive feedback:**
+- --lift-distance — hover lift translate: "0px" = flat, "2px" = default, "6px" = bouncy
+- --opacity-disabled — disabled element opacity: "0.4" = default
+- --opacity-idle — idle/inactive element opacity: "0.3" = default
+- --bracket-size — size of .bp-bracket corner decorations: "12px" = default
+
+**Component sizing:**
+- --btn-height-xs / sm / md / lg / xl — "28px" / "34px" / "40px" / "48px" / "56px"
+- --input-height — form input height: "40px" = default
+- --modal-max-width / --modal-max-height — "520px" / "90vh" = defaults
+- --hero-title-max-width — "800px" = default
+- --hero-subtitle-max-width — "600px" = default
+- --section-header-max-width — "640px" = default
+
+Token rules:
+- --color-primary-hover / --color-primary-subtle / --color-primary-glow are auto-derived from --color-primary — only include them if you need to override the derived values
+- Always maintain contrast: dark bg needs light text; light bg needs dark text
+- Pre-loaded fonts: 'Space Grotesk', 'JetBrains Mono', 'Playfair Display', 'Lora', Georgia, Arial
+
+## 2 — Inject arbitrary CSS rules
+
+<inject-css>
+.bp-card { border-left: 3px solid var(--color-primary); }
+.message-user .message-content { border-radius: 2px; }
+.empty-title { letter-spacing: -0.04em; }
+</inject-css>
+
+Use Blueprint token variables (var(--color-primary) etc.) in injected CSS when possible.
+
+## 3 — Toggle Blueprint component classes
+
+<add-class selector=".empty-icon" class="bp-card-hover"/>
+<remove-class selector=".chat-header" class="bp-section-cover"/>
+
+## 4 — Change visible text
+
+<dom-text selector=".empty-title">What shall we build?</dom-text>
+<dom-text selector=".empty-sub">Describe a product and watch it appear.</dom-text>
+
+## 5 — Inject new Blueprint HTML components
+
+<inject-html selector=".suggestions" position="beforeend">
+  <button class="suggestion" data-prompt="Art deco poster">Art deco poster</button>
+</inject-html>
+
+position values: beforeend (append inside), afterbegin (prepend inside), beforebegin (before element), afterend (after element)
+
+## 6 — Run JavaScript for DOM changes CSS cannot make
+
+Use this for moving elements, reordering children, or any structural change that requires JavaScript.
+
+RULES:
+- Write bare JavaScript between the tags — NO markdown code fences, NO backticks, NO language identifier
+- The code runs directly in the page's global scope and has full DOM access
+- After execution you will see "inject-js ✓" in the feedback toast if it worked, or "inject-js ✗ [error]" if it threw
+
+<inject-js>
+document.querySelector('.app').style.flexDirection = 'row-reverse';
+</inject-js>
+
+<inject-js>
+const sidebar = document.querySelector('.sidebar');
+const main = document.querySelector('.chat-main');
+sidebar.style.order = '2';
+main.style.order = '1';
+</inject-js>
+
+Use inject-js when: moving the sidebar, reordering DOM children, toggling structural layout, anything <inject-css> alone cannot achieve.
+
+## This page's complete DOM structure
+
+Use these exact selectors. Do not guess or invent class names.
+
+.app                        — outermost flex row (sidebar + main), full viewport
+  aside.sidebar             — left panel, 260px wide
+    .sidebar-top            — top area with logo + new-chat button
+      .brand-mark           — "Blueprint AI" logo text
+        .brand-mark-dot     — the colored circle beside the logo
+    .conv-list              — scrollable conversation history list
+      .conv-date            — date group label ("Today", "Yesterday")
+      .conv-item            — a conversation row (.active = selected)
+    .sidebar-footer         — bottom of sidebar
+      .design-palette       — current primary color swatch row
+        .palette-swatch     — the color square itself
+      .user-row             — user name + avatar row
+  main.chat-main            — right column, flex column, fills remaining width
+    .chat-header            — top bar with toggle + model pill + actions
+      .model-pill           — "claude-sonnet-4-6" button
+      .header-actions       — undo + reset button group
+    .chat-thread            — scrollable area containing empty state + messages
+      .chat-empty           — shown when no messages yet
+        .empty-icon         — large "BP" icon
+        .empty-title        — main heading
+        .empty-sub          — subtitle paragraph
+        .suggestions        — suggestion chip row
+          .suggestion       — individual chip button
+      .thread-inner         — the actual message log (hidden until first message)
+    .chat-input-area        — bottom input zone
+      .input-outer          — wrapper for input pill + hint
+        .bp-input-compose   — the input pill component
+          .bp-input-compose-field   — the textarea
+          .bp-input-compose-action  — the send button
+        .input-hint         — small caption below the pill
+
+Layout notes:
+- To move sidebar right: set flex-direction on .app (it is a flex row)
+- To hide sidebar: set display:none on aside.sidebar
+- To change sidebar width: set width on aside.sidebar (or --sidebar-width token)
+- .chat-main fills remaining width via flex:1
+
+## Reset
+
+Include <reset_design/> anywhere to restore all defaults and clear injected CSS.
+
+## Guidelines
+
+- Combine all five types in one response for full redesigns
+- ALWAYS use instruction blocks for design changes — never write CSS in plain text or markdown code blocks
+- When the user asks to change any visual property, emit <tokens> and/or <inject-css> — do not describe what you would do
+- Conversational replies (explaining what something is, answering questions) do not need instruction blocks
+- Be specific and evocative when describing the aesthetic
+- dom-text: keep copy short and on-brand for the aesthetic
+
+## Example: "1970s Japanese jazz label"
+<tokens>
+{
+  "--color-primary": "#c04a1a",
+  "--color-bg": "#0a0807",
+  "--color-surface": "#141210",
+  "--color-border": "#2a2520",
+  "--color-text": "#f0ece4",
+  "--color-text-secondary": "#c8c0b8",
+  "--font-heading": "'Playfair Display', serif",
+  "--font-body": "Georgia, serif",
+  "--font-size-base": "15px",
+  "--font-weight-heading": "700",
+  "--letter-spacing-heading": "-0.02em",
+  "--duration-fast": "0.08s",
+  "--easing-bounce": "ease",
+  "--shadow-sm": "none",
+  "--shadow-md": "none",
+  "--radius": "0px"
+}
+</tokens>
+
+## Example: "Surgical fintech dashboard"
+<tokens>
+{
+  "--color-primary": "#00d4aa",
+  "--color-bg": "#0d1117",
+  "--font-size-base": "13px",
+  "--font-weight-heading": "500",
+  "--line-height-base": "1.4",
+  "--letter-spacing-heading": "0.04em",
+  "--duration-fast": "0.06s",
+  "--duration-base": "0.1s",
+  "--easing-bounce": "ease",
+  "--space-unit": "0.75rem",
+  "--sidebar-width": "200px",
+  "--nav-height": "48px",
+  "--radius": "2px"
+}
+</tokens>`;
+
+  // ── Load Component Reference from llm.md ──────────────────────
+  // Fetches ../llm.md and appends everything from "## Layout" onwards
+  // so the model knows every bp- class and HTML pattern available.
+
+  (async () => {
+    try {
+      const res  = await fetch('../llm.md');
+      const text = await res.text();
+      const cut  = text.indexOf('\n## Layout');
+      if (cut !== -1) {
+        SYSTEM_PROMPT += '\n\n## The Point Component Reference\n\nThe following is the complete class and component reference for The Point CSS system. Use these classes in <add-class>, <remove-class>, and <inject-html> instructions.\n\n' + text.slice(cut + 1);
+      }
+    } catch { /* serve via HTTP — fetch fails on file:// but that is fine */ }
+  })();
+
+  // ── API Key Gate ───────────────────────────────────────────────
+
+  const apiGate     = document.getElementById('apiGate');
+  const apiKeyInput = document.getElementById('apiKeyInput');
+  const apiKeyError = document.getElementById('apiKeyError');
+  const apiKeySubmit = document.getElementById('apiKeySubmit');
+
+  function showGateError(msg) {
+    apiKeyError.textContent = msg;
+    apiKeyError.hidden = false;
+  }
+
+  function hideGate() {
+    apiGate.classList.add('hidden');
+    setTimeout(() => { apiGate.style.display = 'none'; }, 300);
+  }
+
+  if (apiKey) hideGate();
+
+  apiKeySubmit.addEventListener('click', () => {
+    const val = apiKeyInput.value.trim();
+    if (!val) { showGateError('Paste your API key above.'); return; }
+    apiKey = val;
+    sessionStorage.setItem('bp_api_key', val);
+    hideGate();
+  });
+
+  apiKeyInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') apiKeySubmit.click();
+  });
+
+  // ── UI Elements ────────────────────────────────────────────────
+
+  const chatThread  = document.getElementById('chatThread');
+  const chatInput   = document.getElementById('chatInput');
+  const sendBtn     = document.getElementById('sendBtn');
+  const emptyState  = document.getElementById('emptyState');
+  const threadInner = document.getElementById('threadInner');
+  const newChatBtn  = document.getElementById('newChatBtn');
+  const resetBtn    = document.getElementById('resetBtn');
+
+  // ── Textarea auto-resize ───────────────────────────────────────
+
+  chatInput.addEventListener('input', () => {
+    chatInput.style.height = 'auto';
+    chatInput.style.height = Math.min(chatInput.scrollHeight, 200) + 'px';
+    sendBtn.disabled = chatInput.value.trim() === '' || isStreaming;
+  });
+
+  chatInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!sendBtn.disabled) sendMessage();
+    }
+  });
+
+  sendBtn.addEventListener('click', sendMessage);
+
+  // ── Suggestion chips ───────────────────────────────────────────
+
+  document.querySelectorAll('.suggestion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      chatInput.value = btn.dataset.prompt;
+      chatInput.dispatchEvent(new Event('input'));
+      sendMessage();
+    });
+  });
+
+  // ── Sidebar ────────────────────────────────────────────────────
+
+  document.querySelectorAll('.conv-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  newChatBtn.addEventListener('click', () => {
+    document.querySelectorAll('.conv-item').forEach(i => i.classList.remove('active'));
+    while (threadInner.firstChild) threadInner.removeChild(threadInner.firstChild);
+    threadInner.classList.remove('visible');
+    emptyState.style.display = '';
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+    sendBtn.disabled = true;
+    isStreaming = false;
+    messages = [];
+  });
+
+  resetBtn.addEventListener('click', () => {
+    resetDesign();
+    if (threadInner.classList.contains('visible')) {
+      appendStaticAssistantMessage('Design reset to the default blueprint palette.');
+    }
+  });
+
+  document.getElementById('undoBtn').addEventListener('click', undoChange);
+
+  document.getElementById('threadToggle').addEventListener('click', () => {
+    const thread = document.getElementById('chatThread');
+    const btn    = document.getElementById('threadToggle');
+    const collapsed = thread.classList.toggle('collapsed');
+    btn.classList.toggle('collapsed', collapsed);
+  });
+
+  // ── Send flow ──────────────────────────────────────────────────
+
+  function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text || isStreaming) return;
+
+    if (!apiKey) {
+      apiGate.style.display = '';
+      apiGate.classList.remove('hidden');
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    threadInner.classList.add('visible');
+
+    messages.push({ role: 'user', content: text });
+    appendUserMessage(text);
+
+    chatInput.value = '';
+    chatInput.style.height = 'auto';
+    sendBtn.disabled = true;
+
+    showTypingThenStream();
+  }
+
+  function appendUserMessage(text) {
+    const msg     = document.createElement('div');
+    msg.className = 'message message-user';
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = text;
+    msg.appendChild(content);
+    threadInner.appendChild(msg);
+    scrollBottom();
+  }
+
+  function appendStaticAssistantMessage(text) {
+    const msg     = document.createElement('div');
+    msg.className = 'message message-assistant';
+    const avatar  = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = 'BP';
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = text;
+    msg.appendChild(avatar);
+    msg.appendChild(content);
+    threadInner.appendChild(msg);
+    scrollBottom();
+  }
+
+  function showTypingThenStream() {
+    isStreaming = true;
+
+    const typingMsg = document.createElement('div');
+    typingMsg.className = 'message message-assistant';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = 'BP';
+
+    const dots = document.createElement('div');
+    dots.className = 'typing-dots';
+    for (let d = 0; d < 3; d++) {
+      const dot = document.createElement('div');
+      dot.className = 'typing-dot';
+      dots.appendChild(dot);
+    }
+
+    typingMsg.appendChild(avatar);
+    typingMsg.appendChild(dots);
+    threadInner.appendChild(typingMsg);
+    scrollBottom();
+
+    callClaudeAPI()
+      .then(fullText => {
+        threadInner.removeChild(typingMsg);
+        finalizeAssistantMessage(fullText);
+      })
+      .catch(err => {
+        threadInner.removeChild(typingMsg);
+        finalizeAssistantMessage('Error: ' + (err.message || 'Could not reach the API. Check your key and try again.'));
+        if (err.status === 401) {
+          sessionStorage.removeItem('bp_api_key');
+          apiKey = '';
+        }
+      });
+  }
+
+  // ── Anthropic Streaming API ────────────────────────────────────
+
+  async function callClaudeAPI() {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2048,
+        system: SYSTEM_PROMPT,
+        messages: messages.map(m => ({ role: m.role, content: m.content })),
+        stream: true
+      })
+    });
+
+    if (!res.ok) {
+      const errBody = await res.json().catch(() => ({}));
+      const apiErr  = new Error(errBody.error?.message || 'API error ' + res.status);
+      apiErr.status = res.status;
+      throw apiErr;
+    }
+
+    const reader  = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer    = '';
+    let fullText  = '';
+
+    // Show streaming content in a live message node
+    const streamMsg = document.createElement('div');
+    streamMsg.className = 'message message-assistant';
+    const streamAvatar = document.createElement('div');
+    streamAvatar.className = 'message-avatar';
+    streamAvatar.textContent = 'BP';
+    const streamContent = document.createElement('div');
+    streamContent.className = 'message-content streaming';
+    streamMsg.appendChild(streamAvatar);
+    streamMsg.appendChild(streamContent);
+    threadInner.appendChild(streamMsg);
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') continue;
+
+        try {
+          const event = JSON.parse(data);
+          if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+            fullText += event.delta.text;
+            streamContent.textContent = getDisplayText(fullText);
+            if (streamContent.textContent) scrollBottom();
+          }
+        } catch { /* skip malformed SSE lines */ }
+      }
+    }
+
+    threadInner.removeChild(streamMsg);
+    return fullText;
+  }
+
+  function finalizeAssistantMessage(fullText) {
+    const label = extractLabel(fullText);
+    if (fullText.includes('<reset_design/>')) {
+      resetDesign();
+    } else {
+      applyInstructions(fullText, label);
+    }
+
+    const display = stripSpecialBlocks(fullText);
+
+    // Render into a permanent message node
+    const msg     = document.createElement('div');
+    msg.className = 'message message-assistant';
+    const avatar  = document.createElement('div');
+    avatar.className = 'message-avatar';
+    avatar.textContent = 'BP';
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    msg.appendChild(avatar);
+    msg.appendChild(content);
+    threadInner.appendChild(msg);
+    renderResponse(content, display);
+    scrollBottom();
+
+    // Add to conversation history (raw, so LLM sees its own prior patches)
+    messages.push({ role: 'assistant', content: fullText });
+
+    isStreaming = false;
+    sendBtn.disabled = chatInput.value.trim() === '';
+  }
+
+  // ── Instruction Engine ─────────────────────────────────────────
+
+  function applyInstructions(text, label) {
+    const has = tag => text.includes(tag);
+    if (!has('<tokens>') && !has('<inject-css>') && !has('<inject-js>') &&
+        !has('<add-class') && !has('<remove-class') && !has('<dom-text') &&
+        !has('<inject-html')) return;
+    console.log('[agentic] applyInstructions fired. Tags present:',
+      ['<tokens>','<inject-css>','<inject-js>','<add-class','<remove-class','<dom-text','<inject-html']
+        .filter(t => text.includes(t)).join(', '));
+
+    pushSnapshot(label || 'Design change');
+    const changes = [];
+
+    // 1. Design tokens
+    for (const tokM of text.matchAll(/<tokens>([\s\S]*?)<\/tokens>/g)) {
+      const raw  = tokM[1].trim();
+      const root = document.documentElement;
+      let patch  = null;
+
+      // Primary format: strict JSON {"--prop": "value"}
+      try { patch = JSON.parse(raw); } catch { /* try fallback */ }
+
+      // Fallback format: CSS-style  --prop: value;  (one per line)
+      if (!patch || typeof patch !== 'object') {
+        patch = {};
+        for (const m of raw.matchAll(/(--[\w-]+)\s*:\s*([^;\n]+)/g)) {
+          patch[m[1].trim()] = m[2].trim().replace(/;$/, '').trim();
+        }
+      }
+
+      const rejected = [];
+      for (const [prop, val] of Object.entries(patch)) {
+        if (!ALLOWED_TOKENS.has(prop)) { rejected.push(prop); continue; }
+        if (typeof val !== 'string' || val.length > 200) continue;
+        root.style.setProperty(prop, val);
+        changes.push([prop, val]);
+      }
+
+      if (Object.keys(patch).length === 0) {
+        console.warn('[agentic] <tokens>: could not parse block —', raw.slice(0, 120));
+        changes.push(['⚠ tokens', 'parse failed — see console']);
+      }
+      if (rejected.length > 0) {
+        console.warn('[agentic] <tokens>: rejected (not in allowlist):', rejected);
+        changes.push(['⚠ rejected', rejected.slice(0, 3).join(', ')]);
+      }
+    }
+
+    // 2. Inject CSS
+    for (const m of text.matchAll(/<inject-css>([\s\S]*?)<\/inject-css>/g)) {
+      const cssText = m[1].trim();
+      if (!cssText) continue;
+      const style = document.createElement('style');
+      style.textContent = cssText;
+      style.dataset.agenticId = 'agentic-' + (++cssInjectCounter);
+      document.head.appendChild(style);
+      changes.push(['inject-css', cssText.slice(0, 36) + (cssText.length > 36 ? '…' : '')]);
+    }
+
+    // 3. Add class
+    for (const m of text.matchAll(/<add-class\s+selector="([^"]+)"\s+class="([^"]+)"\s*\/?>/g)) {
+      const el = document.querySelector(m[1]);
+      if (el) { el.classList.add(m[2]); changes.push(['add-class', m[1]]); }
+    }
+
+    // 4. Remove class
+    for (const m of text.matchAll(/<remove-class\s+selector="([^"]+)"\s+class="([^"]+)"\s*\/?>/g)) {
+      const el = document.querySelector(m[1]);
+      if (el) { el.classList.remove(m[2]); changes.push(['remove-class', m[1]]); }
+    }
+
+    // 5. DOM text
+    for (const m of text.matchAll(/<dom-text\s+selector="([^"]+)">([\s\S]*?)<\/dom-text>/g)) {
+      const el = document.querySelector(m[1]);
+      if (el) { el.textContent = m[2].trim(); changes.push(['dom-text', m[1]]); }
+    }
+
+    // 6. Inject HTML (DOMParser + importNode — no innerHTML)
+    for (const m of text.matchAll(/<inject-html\s+selector="([^"]+)"(?:\s+position="([^"]+)")?\s*>([\s\S]*?)<\/inject-html>/g)) {
+      const el = document.querySelector(m[1]);
+      if (el && m[3].trim()) {
+        safeInjectHTML(el, m[2] || 'beforeend', m[3].trim());
+        changes.push(['inject-html', m[1]]);
+      }
+    }
+
+    // 7. Inject JS — executes AI-generated JS for DOM changes CSS alone cannot make.
+    // Code comes from the user's own Claude API session; this is a personal dev tool.
+    for (const m of text.matchAll(/<inject-js>([\s\S]*?)<\/inject-js>/g)) {
+      // Strip markdown code fences the model may have added around the code
+      let code = m[1].trim()
+        .replace(/^```[\w]*\n?/, '')
+        .replace(/\n?```$/, '')
+        .trim();
+      if (!code) continue;
+      const preview = code.slice(0, 48) + (code.length > 48 ? '…' : '');
+      try {
+        const s = document.createElement('script');
+        s.textContent = code;
+        document.head.appendChild(s);
+        s.remove();
+        changes.push(['inject-js ✓', preview]);
+      } catch (e) {
+        console.warn('[agentic] inject-js error:', e);
+        // Always report the attempt — success OR failure — so the model gets feedback
+        changes.push(['inject-js ✗', e.message.slice(0, 60)]);
+      }
+    }
+
+    if (changes.length > 0) showTokenToast(changes);
+  }
+
+  function safeInjectHTML(target, position, htmlString) {
+    const doc   = new DOMParser().parseFromString('<body>' + htmlString + '</body>', 'text/html');
+    const nodes = [...doc.body.childNodes];
+    if (position === 'beforeend') {
+      nodes.forEach(n => target.appendChild(document.importNode(n, true)));
+    } else if (position === 'afterbegin') {
+      const first = target.firstChild;
+      nodes.forEach(n => target.insertBefore(document.importNode(n, true), first));
+    } else if (position === 'beforebegin' && target.parentNode) {
+      nodes.forEach(n => target.parentNode.insertBefore(document.importNode(n, true), target));
+    } else if (position === 'afterend' && target.parentNode) {
+      const next = target.nextSibling;
+      nodes.forEach(n => target.parentNode.insertBefore(document.importNode(n, true), next));
+    }
+  }
+
+  function resetDesign() {
+    snapshotStack.length = 0;
+    syncUndoBtn();
+    const root = document.documentElement;
+    RESET_TOKENS.forEach(t => root.style.removeProperty(t));
+    document.querySelectorAll('style[data-agentic-id]').forEach(el => el.remove());
+    cssInjectCounter = 0;
+    showTokenToast([['Reset', 'all styles restored to default']]);
+  }
+
+  // ── Token Toast ────────────────────────────────────────────────
+
+  let toastTimer = null;
+
+  function showTokenToast(changes) {
+    const toast    = document.getElementById('tokenToast');
+    const headline = document.getElementById('toastHeadline');
+    const details  = document.getElementById('toastDetails');
+
+    const isReset = changes.length === 1 && changes[0][0] === 'Reset';
+
+    headline.textContent = isReset
+      ? 'Design reset to default'
+      : `${changes.length} change${changes.length > 1 ? 's' : ''} applied`;
+
+    // Build detail lines with textContent (no innerHTML)
+    while (details.firstChild) details.removeChild(details.firstChild);
+    changes.slice(0, 4).forEach(([k, v]) => {
+      const line = document.createElement('div');
+      line.textContent = k + ': ' + v;
+      details.appendChild(line);
+    });
+
+    toast.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('visible'), 4500);
+  }
+
+  function scrollBottom() {
+    chatThread.scrollTop = chatThread.scrollHeight;
+  }
+
+  // ── DOM-based markdown renderer ────────────────────────────────
+
+  function renderResponse(el, text) {
+    while (el.firstChild) el.removeChild(el.firstChild);
+
+    const CODE_FENCE = /(```[\s\S]*?```)/g;
+    const parts = text.split(CODE_FENCE);
+
+    parts.forEach(part => {
+      if (part.startsWith('```') && part.endsWith('```')) {
+        const code = part.slice(3, -3).trim();
+        const pre  = document.createElement('pre');
+        const c    = document.createElement('code');
+        c.textContent = code;
+        pre.appendChild(c);
+        el.appendChild(pre);
+      } else {
+        part.split('\n\n').forEach(block => {
+          if (!block.trim()) return;
+          const p = document.createElement('p');
+          appendInlineNodes(p, block.trim());
+          el.appendChild(p);
+        });
+      }
+    });
+  }
+
+  function appendInlineNodes(container, text) {
+    const INLINE = /(`[^`]+`|\*\*[^*]+\*\*)/g;
+    let cursor = 0;
+
+    for (const match of text.matchAll(INLINE)) {
+      if (match.index > cursor) {
+        container.appendChild(document.createTextNode(text.slice(cursor, match.index)));
+      }
+      const token = match[0];
+      if (token.startsWith('`')) {
+        const code = document.createElement('code');
+        code.textContent = token.slice(1, -1);
+        container.appendChild(code);
+      } else {
+        const strong = document.createElement('strong');
+        strong.textContent = token.slice(2, -2);
+        container.appendChild(strong);
+      }
+      cursor = match.index + token.length;
+    }
+
+    if (cursor < text.length) {
+      container.appendChild(document.createTextNode(text.slice(cursor)));
+    }
+  }
+</script>
+
+</body>
+</html>

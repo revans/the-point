@@ -1,0 +1,605 @@
+/* ==========================================================================
+   CORNER BREW — Brand CSS
+   A warm minimalist coffee shop in Brooklyn. The antidote to Starbucks.
+   Built on The Point design system.
+
+   VOCABULARY RESOLUTION
+   ─────────────────────
+   Density:    airy  (--space-unit: 1.25rem) — "warm and minimalist" — the
+               whitespace is the calm. A neighborhood café is not cramped.
+               Every element breathes without being sparse.
+
+   Weight:     medium (500) — a corner café is confident, not whispering.
+               Light weight would read as precious; heavy would read as a
+               brand manual. 500 is the weight of a chalkboard menu written
+               with conviction.
+
+   Tracking:   open (0.06em) — humanist-sans at open tracking reads as
+               settled, unhurried. Coffee shops have all day.
+
+   Motion:     responsive (0.12s/0.2s/0.25s, bounce) — consumer-facing,
+               warm, alive. A small bounce on interaction signals "I heard
+               you." Not theatrical — the space is calm, not performing.
+
+   Motion attr: responsive + consumer-facing → data-bp-motion="draw" on <html>
+
+   Shape:      soft (--bp-radius-xl) — approachable, consumer, neighborhood.
+               Not the sharp edges of a bank or the pill of a tech startup.
+               The rounded corners of a ceramic mug.
+
+   Depth:      elevated (specified below) — light theme, cards lift naturally.
+               Creates warmth and separation without shadows heavy enough to
+               weigh the page down. Think: a menu card floating on a table.
+
+   Theme:      light (data-bp-theme="light") — food and hospitality is always
+               light. The indie shop is bright and welcoming. Starbucks goes
+               dark; Corner Brew goes to the window table in the morning sun.
+
+   Type:       humanist-sans (Plus Jakarta Sans, 500) — warm, readable,
+               hand-feeling. Not Inter (corporate/cold), not a serif (too
+               formal for a café where you're writing in your notebook).
+               Plus Jakarta Sans at medium weight sits exactly between
+               approachable and confident.
+
+   Tone:       warm — neighborhood regulars, $5–$7 emotional purchase.
+               Conversational, peer-to-peer. No corporate language.
+               @copy: write like the person behind the counter knows your
+               order, not like a brand manager wrote the wall copy.
+
+   CONFLICT RESOLUTION
+   ───────────────────
+   medium + soft + open → no conflict. Coherent warm-consumer signal
+                          across all three. ✓
+   airy + elevated + light → correct pairing. Light + elevated is the
+                          natural pattern (dark + elevated is the
+                          banned pair). ✓
+   humanist-sans + light → no conflict. This is the wellness/food
+                          pattern. Humanist hairlines read cleanly on
+                          warm cream backgrounds. ✓
+   responsive + soft → no conflict. Consumer apps. ✓
+
+   PRIMARY COLOR
+   ─────────────
+   #6B3D1A — dark roast espresso crema in natural daylight on a white
+   counter. Not mahogany (too formal), not orange (too cheerful), not
+   brown (too generic). The specific amber-brown of a cortado shot
+   just pulled at 9am in a sunlit Brooklyn café — the moment before
+   the milk goes in. Vivid enough to hold a page, warm enough to feel
+   like the drink.
+
+   BACKGROUND COLOR
+   ────────────────
+   #F5EDE0 — the painted plaster wall of a warm minimalist Brooklyn café.
+   Afternoon sun coming through the window, bouncing off white-painted
+   brick. Not cream (too retro), not white (too clinical), not kraft
+   (too craft-fair). The specific warm off-white of a room that gets
+   good light and hasn't been repainted in two years. The wall behind
+   the espresso machine.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+@layer brand-state {
+
+  :root {
+
+    /* ── Primary brand color ──────────────────────────────────────────────── */
+    /* Dark roast espresso crema in daylight — the cortado before the milk    */
+    --color-primary:          #6B3D1A;
+    --color-primary-hover:    #4F2C0E;
+    --color-primary-subtle:   rgba(107, 61, 26, 0.10);
+    --color-primary-glow:     rgba(107, 61, 26, 0.20);
+
+    /* ── Surfaces — warm plaster wall, morning light ─────────────────────── */
+    /* #F5EDE0: the wall behind the espresso machine in afternoon sun         */
+    --color-bg:               #F5EDE0;
+    /* #EDE3D0: same wall, the corner the sun doesn't reach until later       */
+    --color-bg-secondary:     #EDE3D0;
+    /* Card surface — the light wood table you set your cup on               */
+    --color-surface:          #FAF4EC;
+    --color-surface-elevated: #FFF9F4;
+
+    /* ── Borders — the hairline between table and cup                        */
+    --color-border:           #DDD0BC;
+
+    /* ── Text ────────────────────────────────────────────────────────────── */
+    /* Near-black, warm — the same roast that became the primary color        */
+    --color-text:             #1C1108;
+    --color-text-secondary:   #3A2A18;
+    --color-text-muted:       #7A6A56;
+    --color-text-accent:      #6B3D1A;
+
+    /* ── Typography ──────────────────────────────────────────────────────── */
+    /* Humanist-sans — warm, readable, hand-feeling. Not Inter.              */
+    --font-heading:           'Plus Jakarta Sans', 'Nunito', sans-serif;
+    --font-body:              'Plus Jakarta Sans', 'Nunito', sans-serif;
+
+    /* Medium weight — confident, not aggressive. The chalkboard voice.      */
+    --font-weight-heading:    500;
+    --font-weight-body:       400;
+
+    /* Open tracking — settled, unhurried. Coffee shops have all day.        */
+    --letter-spacing-heading: 0.06em;
+
+    /* Line height — generous, the counter card has room to breathe          */
+    --line-height-base:       1.65;
+    --line-height-heading:    1.2;
+
+    /* ── Density: airy — the whitespace is the calm ──────────────────────── */
+    --space-unit:             1.25rem;
+
+    /* ── Motion: responsive — warm, alive, a small bounce on interaction ─── */
+    --duration-fast:          0.12s;
+    --duration-base:          0.2s;
+    --duration-slow:          0.25s;
+    /* Keep default bounce easing — do not set --easing-bounce explicitly    */
+
+    /* ── Shape: soft — the rounded corner of a ceramic mug ──────────────── */
+    --radius:                 var(--bp-radius-xl);
+
+    /* ── Depth: elevated — cards lift like a menu card on a table ────────── */
+    --shadow-sm:              0 1px 3px rgba(107, 61, 26, 0.10);
+    --shadow-md:              0 4px 16px rgba(107, 61, 26, 0.10);
+    --shadow-lg:              0 8px 32px rgba(107, 61, 26, 0.13);
+
+    /* ── Grid: keep blueprint lines, but warm them down to near-invisible ── */
+    /* The faint grid reads as the notebook paper the barista writes on      */
+    --bp-grid-color:          rgba(107, 61, 26, 0.04);
+    --bp-grid-color-bold:     rgba(107, 61, 26, 0.08);
+
+  }
+
+
+  /* ── Component CSS ───────────────────────────────────────────────────────
+     All .cb-* classes (corner brew) live here — inside @layer brand-state,
+     outside :root. Prefix cb- throughout to avoid collisions.
+     ──────────────────────────────────────────────────────────────────────── */
+
+
+  /* ── NAV — minimal sticky, brand name left, 3 links right ───────────── */
+
+  .cb-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(245, 237, 224, 0.90);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 var(--bp-space-8);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cb-nav-brand {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .cb-nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--bp-space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cb-nav-link {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .cb-nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .cb-nav-links {
+      display: none;
+    }
+  }
+
+
+  /* ── HERO — full-bleed photograph, caption bottom-left ───────────────── */
+  /*
+   * Reference: Brooklyn café interior, morning light through tall windows
+   * Sources: coffee brooklyn cafe photography, brooklyn coffee shop morning,
+   *          cortado pour-over sunlight photography
+   * --- Color extraction ---
+   * Morning light on white tile:      #F5F0E6  (warm near-white)
+   * Light wood counter:               #C4A06A  (warm amber-tan)
+   * Espresso machine chrome:          #C8C0B0  (warm grey-silver)
+   * Dark roast bag on shelf:          #3A2210  (deep espresso brown)
+   * Ceramic mug, off-white:           #EDDFCC  (warm cream)
+   * Concrete floor, morning light:    #B0A898  (warm mid-grey)
+   * Window light band:                #F8EED8  (warm yellow-cream)
+   */
+
+  .cb-hero {
+    position: relative;
+    width: 100%;
+    height: 92svh;
+    min-height: 500px;
+    overflow: hidden;
+  }
+
+  .cb-hero-image {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(28, 17, 8, 0.55) 100%
+      ),
+      url('https://loremflickr.com/1600/900/coffee,brooklyn,cafe?lock=1');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cb-hero-caption {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    max-width: 480px;
+    z-index: 2;
+  }
+
+  .cb-hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245, 237, 224, 0.7);
+    display: block;
+    margin-bottom: 0.875rem;
+  }
+
+  .cb-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    color: #F5EDE0;
+    margin: 0 0 1.25rem;
+  }
+
+  .cb-hero-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(245, 237, 224, 0.82);
+    margin: 0 0 1.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .cb-hero-caption {
+      left: 1.5rem;
+      right: 1.5rem;
+      bottom: 2rem;
+    }
+    .cb-hero-title {
+      font-size: 2rem;
+    }
+  }
+
+
+  /* ── INTRO BAND — centered narrow text, the journal-sequential spine ─── */
+
+  .cb-intro {
+    background-color: var(--color-bg);
+    padding: var(--bp-space-20) var(--bp-space-6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cb-intro-inner {
+    max-width: 560px;
+  }
+
+  .cb-section-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+
+  .cb-section-heading {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin: 0 0 1.25rem;
+  }
+
+  .cb-section-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .cb-section-body + .cb-section-body {
+    margin-top: 1rem;
+  }
+
+
+  /* ── SPACE PHOTO — full-width image interlude ────────────────────────── */
+  /*
+   * Reference: Coffee shop interior — the space itself, warm minimalist
+   * Sources: coffee interior minimalist, cafe interior warm light, brooklyn
+   *          coffee shop interior natural light
+   * --- Color extraction ---
+   * Light wood bench:                 #C8A870  (warm amber-tan)
+   * White plaster wall (sunlit):      #F0E8D8  (warm cream, brightest area)
+   * Ceramic mug on saucer:            #E8DCC8  (warm off-white)
+   * Plant shadow on wall:             #D8CCBA  (medium warm grey)
+   * Concrete countertop:              #B8B0A0  (cool-warm mid-grey)
+   * Dark espresso ground:             #2A1A0A  (deep warm near-black)
+   */
+
+  .cb-space-photo {
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    min-height: 360px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cb-space-photo-image {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(28, 17, 8, 0.40) 100%
+      ),
+      url('https://loremflickr.com/1600/700/coffee,interior,minimalist?lock=2');
+    background-size: cover;
+    background-position: center;
+  }
+
+
+  /* ── THE DRINKS — two-column: image left / text right ───────────────── */
+  /*
+   * Reference: Espresso drinks — cortado, pour-over, latte art
+   * Sources: espresso cortado photography, pour-over coffee barista,
+   *          latte art close-up coffee
+   * --- Color extraction ---
+   * Espresso crema surface:           #B87A3A  (amber-gold crema)
+   * Milk foam texture:                #F0E8D8  (warm cream)
+   * Ceramic cup rim (white):          #EDE4D4  (warm off-white)
+   * Coffee in glass (cortado):        #7A3A10  (dark amber-brown)
+   * Wooden tray:                      #A07848  (mid amber-brown)
+   * Table surface under cup:          #C8B89A  (pale warm tan)
+   */
+
+  .cb-drinks {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    min-height: 70vh;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .cb-drinks-image {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .cb-drinks-image-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 55%,
+        rgba(28, 17, 8, 0.35) 100%
+      ),
+      url('https://loremflickr.com/900/700/espresso,cortado,barista?lock=3');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cb-drinks-text {
+    padding: 5rem 4rem 5rem 4.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-bg);
+  }
+
+  .cb-drinks-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cb-drinks-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    font-weight: 400;
+  }
+
+  .cb-drinks-item-price {
+    font-weight: 500;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .cb-drinks {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .cb-drinks-image {
+      height: 55vw;
+      min-height: 280px;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .cb-drinks-text {
+      padding: 3rem 1.75rem;
+    }
+  }
+
+
+  /* ── FIND US — full-width street image + address block ──────────────── */
+  /*
+   * Reference: Brooklyn street, morning neighborhood
+   * Sources: brooklyn street morning, brooklyn neighborhood coffee morning,
+   *          new york morning street photography
+   * --- Color extraction ---
+   * Brooklyn brownstone brick (shade): #8A5E3A  (warm mid-brown)
+   * Sidewalk concrete (morning):      #C0B8A8  (warm pale grey)
+   * Morning sky (overcast-clear mix): #C8D4DC  (pale warm blue-grey)
+   * Tree canopy shadow on building:   #5A4830  (dark warm brown)
+   * Parked car reflection:            #D0C8B8  (warm silver-grey)
+   */
+
+  .cb-find-us {
+    position: relative;
+    width: 100%;
+    height: 72vh;
+    min-height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .cb-find-us-image {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(28, 17, 8, 0.62) 100%
+      ),
+      url('https://loremflickr.com/1600/800/brooklyn,street,morning?lock=4');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cb-find-us-block {
+    position: relative;
+    z-index: 2;
+    padding: 0 3rem 3.5rem;
+    max-width: 400px;
+  }
+
+  .cb-address-name {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    color: #F5EDE0;
+    margin: 0 0 0.75rem;
+  }
+
+  .cb-address-detail {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: rgba(245, 237, 224, 0.80);
+    font-style: normal;
+    margin: 0 0 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .cb-find-us-block {
+      padding: 0 1.5rem 2rem;
+    }
+  }
+
+
+  /* ── FOOTER ──────────────────────────────────────────────────────────── */
+
+  .cb-footer {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    padding: var(--bp-space-12) var(--bp-space-8) var(--bp-space-10);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--bp-space-4);
+  }
+
+  .cb-footer-brand {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    letter-spacing: 0.06em;
+    color: var(--color-text);
+  }
+
+  .cb-footer-meta {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+    text-align: right;
+  }
+
+  .cb-footer-tagline {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .cb-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .cb-footer-meta {
+      text-align: left;
+    }
+  }
+
+} /* end @layer brand-state */

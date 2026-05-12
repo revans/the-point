@@ -137,12 +137,12 @@
    BORDER
    -------------------------------------------------------------------------- */
 
-.bp-border       { border: 1px solid var(--color-border); }
-.bp-border-t     { border-top: 1px solid var(--color-border); }
-.bp-border-b     { border-bottom: 1px solid var(--color-border); }
-.bp-border-l     { border-left: 1px solid var(--color-border); }
-.bp-border-r     { border-right: 1px solid var(--color-border); }
-.bp-border-none  { border: none; }
+.bp-border        { border: var(--border-width) var(--border-style) var(--color-border); }
+.bp-border-t      { border-top: var(--border-width) var(--border-style) var(--color-border); }
+.bp-border-b      { border-bottom: var(--border-width) var(--border-style) var(--color-border); }
+.bp-border-l      { border-left: var(--border-width) var(--border-style) var(--color-border); }
+.bp-border-r      { border-right: var(--border-width) var(--border-style) var(--color-border); }
+.bp-border-none   { border: none; }
 .bp-border-accent { border-color: var(--color-primary); }
 
 .bp-rounded-none { border-radius: var(--bp-radius-none); }
@@ -262,7 +262,7 @@
 .bp-opacity-50  { opacity: 0.5; }
 .bp-opacity-75  { opacity: 0.75; }
 .bp-opacity-100 { opacity: 1; }
-.bp-disabled    { opacity: 0.4; pointer-events: none; }
+.bp-disabled    { opacity: var(--opacity-disabled); pointer-events: none; }
 
 /* --------------------------------------------------------------------------
    INTERACTIVE HELPERS
@@ -273,7 +273,7 @@
 }
 
 .bp-hover-lift:hover {
-  transform: translateY(-2px);
+  transform: translateY(calc(-1 * var(--lift-distance)));
   box-shadow: var(--bp-shadow-md);
 }
 
@@ -301,8 +301,8 @@
 .bp-bracket::after {
   content: '';
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: var(--bracket-size);
+  height: var(--bracket-size);
   border-color: var(--color-primary);
   border-style: solid;
   opacity: 0.6;
@@ -390,3 +390,27 @@
 
   .bp-nav-links    { display: none; }
 }
+
+/* --------------------------------------------------------------------------
+   PROSE — readable content column
+   -------------------------------------------------------------------------- */
+
+.bp-prose {
+  max-width: var(--content-width);
+}
+
+/* --------------------------------------------------------------------------
+   SECONDARY COLOR
+   -------------------------------------------------------------------------- */
+
+.bp-text-secondary-color  { color: var(--color-secondary); }
+.bp-bg-secondary-color    { background-color: var(--color-secondary-subtle); }
+.bp-border-secondary      { border-color: var(--color-secondary); }
+
+/* --------------------------------------------------------------------------
+   BLUR — backdrop-filter scale
+   -------------------------------------------------------------------------- */
+
+.bp-blur-sm { backdrop-filter: blur(var(--blur-sm)); -webkit-backdrop-filter: blur(var(--blur-sm)); }
+.bp-blur-md { backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md)); }
+.bp-blur-lg { backdrop-filter: blur(var(--blur-lg)); -webkit-backdrop-filter: blur(var(--blur-lg)); }
