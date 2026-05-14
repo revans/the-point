@@ -44,6 +44,11 @@
   /* --color-primary-subtle: color-mix(in srgb, var(--color-primary) 12%, transparent); */
   /* --color-primary-glow:   color-mix(in srgb, var(--color-primary) 25%, transparent); */
 
+  /* Text color on primary-filled surfaces (buttons, filled badges, etc.)
+     Default: #ffffff (white). Set to #000000 for light brand colors like yellow or lime.
+     If using brand_controller.js with a color picker, this is computed automatically. */
+  /* --color-on-primary: #000000; */
+
 
   /* -------------------------------------------------------------------------
      TYPOGRAPHY

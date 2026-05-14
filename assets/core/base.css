@@ -344,7 +344,9 @@
   --color-secondary-hover:  var(--color-text-secondary);
   --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
 
-  /* Color on primary — text that sits on a primary-colored background */
+  /* Color on primary — text/icon color on primary-filled surfaces (buttons, badges, etc.)
+     Defaults to white. Override in brand.css for light brand colors (yellow, lime, etc.)
+     or use brand_controller.js to auto-compute this at runtime from --color-primary. */
   --color-on-primary: #ffffff;
 
   /* Content reading width — max-width for prose columns */

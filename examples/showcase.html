@@ -779,8 +779,20 @@
       var presets = document.querySelectorAll('#sc-presets .sc-preset');
       var hexDisplay = document.getElementById('sc-hex-display');
 
+      function hexLuminance(hex) {
+        var c = hex.replace('#', '');
+        if (c.length === 3) c = c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
+        var r = parseInt(c.slice(0,2),16)/255;
+        var g = parseInt(c.slice(2,4),16)/255;
+        var b = parseInt(c.slice(4,6),16)/255;
+        function lin(v) { return v <= 0.04045 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); }
+        return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+      }
+
       function applyColor(hex) {
         document.documentElement.style.setProperty('--color-primary', hex);
+        var onPrimary = hexLuminance(hex) > 0.35 ? '#000000' : '#ffffff';
+        document.documentElement.style.setProperty('--color-on-primary', onPrimary);
         picker.value = hex;
         hexDisplay.textContent = hex.toUpperCase();
       }
