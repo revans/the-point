@@ -165,7 +165,7 @@
 
     /* ── Grid: remove blueprint lines — the studio wall is unmarked ─────── */
     --bp-grid-color:          transparent;
-    --bp-grid-color-bold:     transparent;
+    --bp-grid-color-strong:     transparent;
 
   }
 

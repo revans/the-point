@@ -1,0 +1,19 @@
+eval_id: EV-007
+tests: blueprint-taste
+ran_at: "2026-05-19T18:19:11Z"
+mode: single
+model: claude-sonnet-4-6
+prompt_source: file
+prompt_file: skills/blueprint-taste.md
+input: I'm designing a mental wellness app for people managing everyday anxiety. What's the correct design direction? What colors, typography, and layout choices should I use?
+with_prompt:
+    output_file: 2026-05-19-T18-19-with-prompt.md
+    duration_ms: 48189
+    assertions:
+        - type: contains
+          value: humanist
+          result: pass
+        - type: contains
+          value: rounded
+          result: pass
+    status: pass

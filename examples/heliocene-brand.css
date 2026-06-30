@@ -111,7 +111,7 @@
     /* ── Grid: suppress the blueprint grid on the warm cream background ──── */
     /* A faint warm hairline instead of the cold blue grid */
     --bp-grid-color:       rgba(138, 107, 71, 0.04);
-    --bp-grid-color-bold:  rgba(138, 107, 71, 0.08);
+    --bp-grid-color-strong:  rgba(138, 107, 71, 0.08);
 
     /* ── Brand-specific additions ─────────────────────────────────────────── */
     /* Section heading font: DM Serif Display for non-hero display headings   */

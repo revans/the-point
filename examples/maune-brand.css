@@ -123,7 +123,7 @@
 
     /* ── Suppress blueprint grid — this is paper, not a drafting board ───── */
     --bp-grid-color:          rgba(28, 26, 23, 0.025);
-    --bp-grid-color-bold:     rgba(28, 26, 23, 0.04);
+    --bp-grid-color-strong:     rgba(28, 26, 23, 0.04);
 
     /* ── Brand-specific additions ─────────────────────────────────────────── */
     /* Hairline — 0.5px to feel like a pencil rule                           */

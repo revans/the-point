@@ -1,0 +1,61 @@
+ran_at: "2026-05-19T18:18:11Z"
+model: claude-sonnet-4-6
+mode: single
+total_evals: 12
+total_duration_seconds: 263
+total_eval_time_seconds: 308
+total_passed: 8
+total_failed: 4
+results:
+    - eval_id: EV-001
+      tests: blueprint-copywriter
+      status: pass
+      duration_ms: 19879
+    - eval_id: EV-002
+      tests: blueprint-taste
+      status: pass
+      duration_ms: 30196
+    - eval_id: EV-003
+      tests: blueprint-vocabulary
+      status: error
+      duration_ms: 0
+      failure_reason: 'error: timeout after 60s'
+    - eval_id: EV-004
+      tests: blueprint-copywriter
+      status: pass
+      duration_ms: 59140
+    - eval_id: EV-005
+      tests: blueprint-copywriter
+      status: error
+      duration_ms: 0
+      failure_reason: 'error: timeout after 60s'
+    - eval_id: EV-006
+      tests: blueprint-copywriter
+      status: pass
+      duration_ms: 52799
+    - eval_id: EV-007
+      tests: blueprint-taste
+      status: pass
+      duration_ms: 48189
+    - eval_id: EV-008
+      tests: blueprint-taste
+      status: pass
+      duration_ms: 26454
+    - eval_id: EV-009
+      tests: blueprint-taste
+      status: pass
+      duration_ms: 18469
+    - eval_id: EV-010
+      tests: blueprint-vocabulary
+      status: error
+      duration_ms: 0
+      failure_reason: 'error: timeout after 60s'
+    - eval_id: EV-011
+      tests: blueprint-vocabulary
+      status: pass
+      duration_ms: 53468
+    - eval_id: EV-012
+      tests: blueprint-vocabulary
+      status: error
+      duration_ms: 0
+      failure_reason: 'error: timeout after 60s'

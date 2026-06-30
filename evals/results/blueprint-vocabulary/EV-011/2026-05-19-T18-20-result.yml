@@ -1,0 +1,19 @@
+eval_id: EV-011
+tests: blueprint-vocabulary
+ran_at: "2026-05-19T18:20:32Z"
+mode: single
+model: claude-sonnet-4-6
+prompt_source: file
+prompt_file: skills/blueprint-vocabulary.md
+input: Resolve vocabulary tokens for a dark-theme legal advice platform. The partner wants it to feel authoritative using editorial serif typography at every heading level throughout the page.
+with_prompt:
+    output_file: 2026-05-19-T18-20-with-prompt.md
+    duration_ms: 53468
+    assertions:
+        - type: contains
+          value: "48"
+          result: pass
+        - type: contains
+          value: geometric
+          result: pass
+    status: pass

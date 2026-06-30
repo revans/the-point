@@ -110,6 +110,32 @@ This applies to any layout with explicit vertical dividers: editorial columns, c
 
 **Instead:** Tighten spacing within a card's related elements. Open up spacing between sections. Let the rhythm breathe in some places and compress in others.
 
+### 8. Structural Conventionality Without Intent
+
+**What it looks like:** A page that executes conventional web structure (hero → features → social proof → pricing → CTA) without any structural departure from the web-convention formula, regardless of how well it's executed aesthetically.
+
+**Why it's wrong:** Structural predictability is invisible to the audience in a bad way — they've seen it before, and the brain processes it without forming a memory. Aesthetic quality does not compensate for structural predictability. A beautifully designed hero → features → CTA page is still forgotten faster than a structurally surprising one.
+
+**Instead:** For every build, resolve the Format Reference dimension before choosing a layout pattern (see Dimension 12 in blueprint-vocabulary.md). If the answer is genuinely `web-convention`, add one structural departure: an asymmetric split at the hero, a product-as-hero instead of abstract graphic, or an editorial-alternating layout instead of feature cards. `web-convention` chosen consciously is acceptable. `web-convention` by default is a missed opportunity.
+
+**The challenge question:** "Does this layout have a structural departure that a visitor would notice and remember? If not, what single change would create one?"
+
+### 9. CTA Format Collapse
+
+**What it looks like:** A brand whose Format Reference is anything other than `web-convention` but whose conversion section reverts to a generic web form — `<form>`, `<label>`, `<input>`, `<button>` — without any brand-specific styling or framing that maintains the page's register.
+
+**Why it's wrong:** The conversion section is where the Format Reference matters most. A premium botanical brand's wholesale inquiry form is not a Webflow contact form — it's a letter of inquiry. An architectural visualization firm's project request is not a lead gen form — it's an invitation to collaborate. Dropping into generic form components at the conversion point collapses the atmosphere built over the entire page and signals that nobody thought about what happens after the hero.
+
+**Instead:** For each conversion section, ask: "How would [this Format Reference] handle requesting action?" A newspaper runs an advertisement block with a border rule and a kicker label. A premium catalog uses placeholder text only with deliberate friction. An app shell uses a dialog or slide-over. The conversion section must be designed within the format, not outside it.
+
+### 10. Visual Claim Without Visual Proof
+
+**What it looks like:** A brand whose primary promise is visual — film production, architecture, photography, graphic design, product design, food — but whose portfolio or showcase section uses CSS gradient backgrounds, SVG wireframe placeholders, or generic decorative imagery instead of actual representative images.
+
+**Why it's wrong:** The copy can say "cinematic films" or "architectural visualization" but if the images don't show films or architecture, the claim is never proven. A visitor evaluates a visual-first brand by what they can see, not what they're told. SVG placeholder outlines with a circle in the center do not prove "we make beautiful things." A gradient background does not prove "we know food."
+
+**Instead:** For any brand whose core promise is visual, identify the section where that claim must be proven with imagery — not described — and ensure LoremFlickr or Picsum images use domain-specific keywords that represent the actual product. `architecture,tower,facade` for an architectural visualization firm. `cinematography,interior,luxury` for a film studio. `pasta,fresh,kitchen` for a food brand. Generic atmospheric imagery is not visual proof.
+
 ---
 
 ## Industry Lookup Table

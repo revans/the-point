@@ -161,7 +161,7 @@
 
     /* ── Grid: remove blueprint lines — the azulejo IS the grid ─────────── */
     --bp-grid-color:          transparent;
-    --bp-grid-color-bold:     transparent;
+    --bp-grid-color-strong:     transparent;
 
   }
 

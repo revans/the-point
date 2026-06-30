@@ -1,0 +1,19 @@
+eval_id: EV-008
+tests: blueprint-taste
+ran_at: "2026-05-19T18:19:59Z"
+mode: single
+model: claude-sonnet-4-6
+prompt_source: file
+prompt_file: skills/blueprint-taste.md
+input: I'm designing a website for a farm-to-table restaurant. My current palette is a clean cold blue (#0ea5e9) on white. Does this pass the taste gate?
+with_prompt:
+    output_file: 2026-05-19-T18-19-with-prompt.md
+    duration_ms: 26454
+    assertions:
+        - type: contains
+          value: warm
+          result: pass
+        - type: contains
+          value: earth
+          result: pass
+    status: pass

@@ -294,6 +294,38 @@ If signals split within 1 of each other after Step 2, stop. Do not guess. Do not
 
 One answer resolves the ambiguity. Then proceed to the taste gate with the synthesis in hand.
 
+### Step 2.5 — Resolve Format Reference
+
+Before choosing a layout pattern, determine what real-world format this page's structure borrows from. This is distinct from aesthetic (how it looks) — it is the mental model a visitor uses to navigate the page.
+
+Work through these three questions in order:
+
+**1.** "Given this domain and audience, what non-web format does this brief most naturally evoke?" Consider: a restaurant menu, a technical data sheet, an editorial column, a product dashboard, a film poster, an apothecary catalog, a developer observability terminal, a newspaper front page, a letter of inquiry.
+
+**2.** "Does this audience have familiarity with and affinity for that format?" A financial data product's audience (engineers, analysts) knows Bloomberg terminals — using that format resonates. A children's learning app's audience (parents) does not have nostalgia for CRT terminals — using that format creates friction.
+
+**3.** "Can the conversion action fit naturally within this format?" A newspaper advertisement block is a natural CTA in editorial format. An inquiry form is natural in a premium catalog format. An instant-signup is natural in terminus format. If the conversion action doesn't fit the format, the format is wrong.
+
+**Format Reference options:**
+
+| Word | What it borrows from | Use when |
+|---|---|---|
+| `web-convention` | Standard hero → features → social proof → CTA | Must be chosen consciously — never by default |
+| `print-editorial` | Newspaper/magazine column grid with masthead, kickers, pull quotes | Media, journalism, publishers, content-first brands |
+| `product-as-hero` | Product interface replaces hero image entirely | Dev tools, B2B SaaS, any product whose UI is self-evidently excellent |
+| `split-vertical` | Two equal columns, one purpose per column | Waitlists, early-access, form + preview |
+| `app-shell` | Sidebar + main content, full viewport | Product demos, dashboards, productivity tools |
+| `terminus` | Single conversion surface, one goal, no sections | Focused early-access launches with prior audience awareness |
+| `spec-sheet` | Data-dense, tabular, reference-first | Developer landing pages, technical comparison |
+| `broadcast-terminal` | Live stream / ticker / log aesthetic | Observability, monitoring, real-time data products |
+
+**Critical rules:**
+- `web-convention` is not the default. Ask the question before landing on it.
+- If the Format Reference is not `web-convention`, it applies to the **entire page** — including the conversion section. The CTA section must maintain the format register, not revert to a generic web form.
+- If all three validation questions pass → record the Format Reference and use it as a constraint when designing every section.
+
+Add to the synthesis table: `Format Reference: [word]`
+
 ### Step 5 — Choose the layout pattern
 
 After the synthesis table is built, pick one word from Dimension 9 (Layout Pattern). Do not default to Hero → Section → Footer — that is not a layout, it is the absence of a decision.
@@ -385,6 +417,35 @@ Add to synthesis table: `Compositional mode: minimal`
 
 **Adjective–token axis split:** Adjectives operate on TWO axes simultaneously. `warm` sets the color token axis (warm palette, step 6). `minimalist` sets the compositional axis (strip to essence, step 9). They do not cancel each other — both apply to their own axis. A warm-minimal design has a warm dark espresso palette AND a stripped-down layout with no competing hero elements.
 
+### Step 10 — Visual proof check
+
+Before writing any HTML: if the brand's primary promise is visual (film, architecture, photography, product UI, food, furniture, design), identify the section of the page where that claim is visually proven.
+
+The test: does the brand claim to make or show things? If yes, there must be a section where a visitor can see them — not read about them. SVG wireframe outlines and CSS gradient placeholders do not count as visual proof. LoremFlickr images with domain-specific keywords that represent the actual product do.
+
+For each visual-first brand, explicitly name the proof section in the synthesis table: `Visual proof section: [section name and image strategy]`. Then verify the image keywords are derived from the actual product domain, not decorative atmospherics:
+
+- Architectural visualization firm → `architecture,facade,tower` not `design,modern,abstract`
+- Film production studio → `cinematography,interior,luxury` not `cinema,dark,dramatic`
+- Food brand → the specific ingredient or dish, not `food,lifestyle,table`
+
+If the brief doesn't describe a visual-first brand, skip this step.
+
+### Step 11 — CTA format consistency check
+
+Before writing any HTML: review the planned conversion section against the Format Reference resolved in Step 2.5.
+
+Ask: "Does the conversion section maintain the Format Reference, or does it revert to generic web form components (`bp-form-group`, `bp-input`, `bp-label`) without brand treatment?"
+
+For each Format Reference, ask how that format handles requesting action:
+- `print-editorial` → an advertisement block: border rule, kicker label, minimal form
+- Premium catalog (`editorial-alternating` with luxury vocabulary) → no field labels, placeholder text only, a single "Send inquiry" — deliberate friction
+- `app-shell` → a dialog or slide-over panel that feels like an in-product action
+- `terminus` → the entire page IS the CTA; there is no separate conversion section
+- `product-as-hero` → pricing or "try" section stays in the same dense, data-legible register as the rest of the page
+
+If the planned conversion section doesn't match the format: redesign it before writing HTML. A brand whose page builds atmospheric credibility for 80% of its length and then drops the visitor into a generic `<form>` has collapsed its own argument at the moment it needs it most.
+
 ---
 
 ## The Taste Gate — Before You Write Any CSS
@@ -460,7 +521,7 @@ Run the vocabulary pass (`blueprint-vocabulary.md`) before writing any CSS. Writ
 
     /* Optionally disable the grid */
     /* --bp-grid-color:      transparent; */
-    /* --bp-grid-color-bold: transparent; */
+    /* --bp-grid-color-strong: transparent; */
   }
 
   /* ── Component CSS ──────────────────────────────────────────────────────
@@ -592,6 +653,7 @@ Brand CSS: {path to brand.css}
 | Layout Pattern | {word} | — |
 | Image Strategy | {word} | — |
 | Compositional Mode | {word} | — |
+| Format Reference | {word} | — |
 
 ## What was straightforward
 - {bullet list — dimensions or sections that resolved cleanly with no ambiguity or tradeoffs}

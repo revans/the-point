@@ -145,7 +145,7 @@
     /* ── Grid: keep blueprint lines, but warm them down to near-invisible ── */
     /* The faint grid reads as the notebook paper the barista writes on      */
     --bp-grid-color:          rgba(107, 61, 26, 0.04);
-    --bp-grid-color-bold:     rgba(107, 61, 26, 0.08);
+    --bp-grid-color-strong:     rgba(107, 61, 26, 0.08);
 
   }
 

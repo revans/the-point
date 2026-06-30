@@ -139,7 +139,7 @@
 
     /* ── Grid: remove blueprint lines — limestone has no grid ────────────── */
     --bp-grid-color:          transparent;
-    --bp-grid-color-bold:     transparent;
+    --bp-grid-color-strong:     transparent;
 
   }
 

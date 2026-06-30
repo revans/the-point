@@ -164,7 +164,7 @@ Set to `none` for flat design. Use `var(--bp-shadow-*)` values as references.
 | `--split-ratio` | Column ratio for `.bp-split` without a modifier class | `1fr 1fr` = equal · `1fr 3fr` = narrow label · `3fr 1fr` = wide content |
 | `--radius` | Default border radius | `var(--bp-radius-none)` = sharp · `var(--bp-radius-md)` = default · `var(--bp-radius-xl)` = soft |
 | `--bp-grid-color` | Blueprint grid line opacity | `transparent` = remove grid |
-| `--bp-grid-color-bold` | Bold grid lines | `transparent` = remove |
+| `--bp-grid-color-strong` | Bold grid lines | `transparent` = remove |
 
 `--space-unit` is the highest-leverage single token: setting it to `0.75rem` compacts cards, sections, and grids simultaneously — like changing the grid pitch on graph paper. Setting it to `1.5rem` creates the breathing room of an editorial magazine layout.
 
@@ -332,7 +332,7 @@ Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, g
 
 ## Buttons
 
-**Variants:** `bp-btn-primary` `bp-btn-secondary` `bp-btn-outline` `bp-btn-ghost` `bp-btn-destructive`
+**Variants:** `bp-btn-primary` `bp-btn-secondary` `bp-btn-outline` `bp-btn-ghost` `bp-btn-error`
 **Sizes:** `bp-btn-xs` `bp-btn-sm` *(default: md)* `bp-btn-lg` `bp-btn-xl`
 **Icon-only:** add `bp-btn-icon`
 **Full width:** add `bp-w-full`
@@ -342,7 +342,7 @@ Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, g
 <button class="bp-btn bp-btn-secondary bp-btn-sm">Small secondary</button>
 <button class="bp-btn bp-btn-outline bp-btn-lg">Large outline</button>
 <button class="bp-btn bp-btn-ghost">Ghost</button>
-<button class="bp-btn bp-btn-destructive">Delete</button>
+<button class="bp-btn bp-btn-error">Delete</button>
 <button class="bp-btn bp-btn-primary bp-btn-icon">
   <svg .../>
 </button>
@@ -555,12 +555,12 @@ field.addEventListener('keydown', e => {
 
 Inline pill labels for attributes, categories, flavors, status, or any small metadata that belongs in-line with text or inside a card. Smaller and lighter than badges — no icon implied.
 
-**Variants:** `bp-chip` (base, primary tint) `bp-chip-outline` `bp-chip-muted` `bp-chip-success` `bp-chip-warning` `bp-chip-error`
+**Variants:** `bp-chip` (base, primary tint) `bp-chip-outline` `bp-chip-secondary` `bp-chip-success` `bp-chip-warning` `bp-chip-error`
 
 ```html
 <span class="bp-chip">Spicy</span>
 <span class="bp-chip bp-chip-outline">Gluten-free</span>
-<span class="bp-chip bp-chip-muted">Archived</span>
+<span class="bp-chip bp-chip-secondary">Archived</span>
 <span class="bp-chip bp-chip-success">In stock</span>
 <span class="bp-chip bp-chip-warning">Low stock</span>
 <span class="bp-chip bp-chip-error">Discontinued</span>
@@ -568,7 +568,7 @@ Inline pill labels for attributes, categories, flavors, status, or any small met
 <!-- Chip group — wrapping row with consistent gap -->
 <div class="bp-chip-group">
   <span class="bp-chip">Tag one</span>
-  <span class="bp-chip bp-chip-muted">Tag two</span>
+  <span class="bp-chip bp-chip-secondary">Tag two</span>
 </div>
 ```
 
@@ -777,7 +777,7 @@ At narrow viewports (≤ 480px) each fact stacks label above value.
 
 ```html
 <div class="bp-divider">or</div>         <!-- text divider with lines -->
-<div class="bp-dotted-connector"></div>  <!-- dashed horizontal line -->
+<div class="bp-dashed-connector"></div>  <!-- dashed horizontal line -->
 ```
 
 ---
@@ -894,7 +894,7 @@ Named typographic registers — answer "what role is this text playing?" not "ho
 
 ### Colors
 ```
-bp-text-primary   bp-text-secondary   bp-text-muted   bp-text-accent
+bp-text-body      bp-text-secondary   bp-text-muted   bp-text-primary
 bp-text-success   bp-text-warning     bp-text-error
 bp-bg-base        bp-bg-secondary     bp-bg-surface   bp-bg-accent
 ```

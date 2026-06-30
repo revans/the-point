@@ -114,7 +114,7 @@ The blueprint grid is part of the default aesthetic. To remove it in your brand 
 @layer brand-state {
   :root {
     --bp-grid-color:      transparent;
-    --bp-grid-color-bold: transparent;
+    --bp-grid-color-strong: transparent;
   }
 }
 ```
@@ -235,7 +235,7 @@ All components use `bp-` prefixed classes. A brief overview:
 `bp-section-header` `bp-section-label` `bp-section-title` `bp-section-subtitle`
 
 **Buttons**
-`bp-btn` + variant: `bp-btn-primary` `bp-btn-secondary` `bp-btn-outline` `bp-btn-ghost` `bp-btn-destructive`
+`bp-btn` + variant: `bp-btn-primary` `bp-btn-secondary` `bp-btn-outline` `bp-btn-ghost` `bp-btn-error`
 + size: `bp-btn-xs` `bp-btn-sm` `bp-btn-lg` `bp-btn-xl` `bp-btn-icon`
 
 **Cards**
@@ -275,7 +275,7 @@ All components use `bp-` prefixed classes. A brief overview:
 `bp-footer-col-title` `bp-footer-links` `bp-footer-link` `bp-footer-bottom` `bp-footer-copy`
 
 **Blueprint decorative**
-`bp-bracket` `bp-mono-label` `bp-annotation` `bp-dotted-connector` `bp-text-gradient`
+`bp-bracket` `bp-mono-label` `bp-annotation` `bp-dashed-connector` `bp-text-gradient`
 
 **Motion**
 `bp-animate` rescopes transitions to the bounce curve within a container

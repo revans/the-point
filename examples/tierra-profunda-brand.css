@@ -144,7 +144,7 @@
 
     /* ── Grid: amber grid on warm dark — barely visible, structural ──────── */
     --bp-grid-color:          rgba(184, 115, 42, 0.03);
-    --bp-grid-color-bold:     rgba(184, 115, 42, 0.06);
+    --bp-grid-color-strong:     rgba(184, 115, 42, 0.06);
 
   }
 

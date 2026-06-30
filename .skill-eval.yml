@@ -1,0 +1,5 @@
+default_model: claude-sonnet-4-6
+evals_file: evals.yml
+results_dir: evals/results
+per_eval_timeout_seconds: 60
+concurrency: 4

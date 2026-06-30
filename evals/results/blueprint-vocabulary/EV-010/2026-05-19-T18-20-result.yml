@@ -1,0 +1,13 @@
+eval_id: EV-010
+tests: blueprint-vocabulary
+ran_at: "2026-05-19T18:20:25Z"
+mode: single
+model: claude-sonnet-4-6
+prompt_source: file
+prompt_file: skills/blueprint-vocabulary.md
+input: 'Translate this brief into Blueprint vocabulary tokens: ''We make heritage mechanical watches. Swiss workshop, founded 1948. The website should feel like the watch itself — precise, quiet, earned.'''
+with_prompt:
+    output_file: ""
+    duration_ms: 0
+    assertions: []
+    status: error

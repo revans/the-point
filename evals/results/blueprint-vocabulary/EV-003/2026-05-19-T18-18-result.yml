@@ -1,0 +1,13 @@
+eval_id: EV-003
+tests: blueprint-vocabulary
+ran_at: "2026-05-19T18:18:11Z"
+mode: single
+model: claude-sonnet-4-6
+prompt_source: file
+prompt_file: skills/blueprint-vocabulary.md
+input: 'Translate this brief into Blueprint vocabulary tokens: ''A developer CLI tool with a web dashboard. Power users who hate decorative UI. Should feel like a precision instrument.'''
+with_prompt:
+    output_file: ""
+    duration_ms: 0
+    assertions: []
+    status: error

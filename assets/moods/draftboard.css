@@ -1,0 +1,29 @@
+/* ==========================================================================
+   THE POINT — Mood: Draftboard
+   Prussian blue architecture. Blueprint cyan on deep navy.
+   The visual language of precision drawing: technical ink on drafting film.
+
+   This is the canonical "The Point" aesthetic — the system demonstrating
+   itself. The grid is not hidden; it is the design.
+
+   Use for: design systems, developer tools, technical documentation,
+            anything whose authority comes from architectural precision.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/draftboard.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    /* Blueprint cyan — the technical ink color of architectural drawings */
+    --color-primary:        #00B4D8;
+    --color-primary-hover:  #0096B8;
+    --color-primary-subtle: rgba(0, 180, 216, 0.1);
+    --color-primary-glow:   rgba(0, 180, 216, 0.22);
+
+    /* Text on primary-filled buttons must be dark — cyan is too bright for white text */
+    --color-on-primary:     #03060F;
+  }
+}

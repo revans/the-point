@@ -132,6 +132,50 @@ Use the tone calibration from the skill:
 
 ---
 
+## Copy Psychology Reference
+
+Apply these principles during the writing phase — not as a checklist after writing, but as active constraints while writing each line. These govern why copy works or fails for specific audiences, beyond the banned phrases list.
+
+**Principle 1 — Specificity over adjectives.** The reader cannot evaluate an adjective. They can evaluate a number, a material, a timeframe, a named place, or a named company. Every adjective in a draft is a flag — replace it with the specific fact that made you choose that adjective.
+- "Fast" → "under 100ms"
+- "Premium ingredients" → "hand-harvested from Iceland's Vatnajökull region, one batch per year"
+- "Trusted by thousands" → name the companies, not the count
+
+**Principle 2 — Outcome first, feature second.** The reader is not interested in what was built — they are interested in what they get. Every feature statement must be translatable to an outcome from the reader's perspective. Write the feature, then ask "so what?" twice. The answer to the second "so what?" is the outcome.
+- "Automated report generation" → "Your client opens a PDF that looks like you spent an afternoon. It took 4 minutes."
+- "Real-time log indexing" → "Find the one request that caused the outage."
+
+**Principle 3 — Audience-specific persuasion mode.** Different audiences make decisions through different mechanisms:
+- **B2B decision-makers:** need proof (named customers, specific metrics), need risk reduction, respond to peer validation
+- **Developer / technical buyers:** need honest technical claims, detect and dismiss marketing language; show the code or the interface
+- **B2C consumers:** respond to aspiration and identity ("people like me use this"), need simplicity
+- **Luxury / premium buyers:** friction is a signal — "request a quote" conveys exclusivity; instant purchase undermines premium positioning
+- **Professional buyers (chefs, engineers, bar directors):** peer-level specificity; talk as an expert to an expert
+
+**Principle 4 — Present-tense tension over artificial urgency.** Find the actual temporal or supply stakes in the situation and state them plainly. "The building will be finished in 2027. The buyers are deciding now." creates real urgency — it doesn't need a countdown timer or a "limited time" badge. If you can't find the real stakes, don't manufacture fake ones.
+
+**Principle 5 — The headline earns the body, not the reverse.** The headline's job is to make one specific promise interesting enough that the reader continues. It does not summarize the product — it makes a claim or creates a question. If the headline could appear on any product in the same category unchanged, rewrite it.
+
+**Additional banned patterns** (extends the list below):
+- "Powerful / seamless / beautiful / intuitive / innovative / cutting-edge / robust" — adjectives without proof
+- "We believe..." as an opening — beliefs are not interesting; what you built is
+- "Simple" as a standalone claim — every product claims to be simple; name the specific hard thing that is now easy
+- "Experience the difference" / "Discover the possibilities" — passive invitation with no specific promise
+- Exclamation marks in headline or hero copy
+- ALL CAPS for emphasis
+
+**Copy architecture by domain** — the sequence in which claims, proof, and action appear:
+
+| Domain | Sequence |
+|---|---|
+| B2B SaaS | Problem they recognize → specific claim → proof in UI or customer quote → adoption path |
+| Developer tools | Technical claim → show the interface or code → honest tradeoffs → low-friction start |
+| Luxury / premium consumer | Aspiration → material/origin specificity → friction as exclusivity signal |
+| Food / hospitality | Atmosphere → specific people/place/ingredient → simple path to experience |
+| Professional B2B | Peer-level claim → proof from domain professionals (named) → inquiry path |
+
+---
+
 ## Writing Phase
 
 Now write all copy. Check every line against the banned phrases list before writing it.

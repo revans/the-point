@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html data-bp-theme="dark" data-bp-motion="draw" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Point — Agentic Design System for Claude Code</title>
+  <meta name="description" content="A Claude Code plugin. You answer eight questions. Six agents build a complete landing page — design, copy, and QA included.">
+  <link rel="stylesheet" href="../assets/index.css">
+  <link rel="stylesheet" href="./the-point-brand.css">
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────────── -->
+  <nav class="bp-nav">
+    <div class="bp-container bp-nav-inner">
+      <a href="#" class="tp-nav-brand">THE-POINT</a>
+      <ul class="bp-nav-links">
+        <li><a href="#pipeline" class="bp-nav-link">Pipeline</a></li>
+        <li><a href="#agents" class="bp-nav-link">Agents</a></li>
+        <li><a href="#examples" class="bp-nav-link">Examples</a></li>
+      </ul>
+      <div class="bp-nav-actions">
+        <a href="#install" class="bp-btn bp-btn-primary bp-btn-sm">Install →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero: product-as-hero split ─────────────────────────────────────── -->
+  <!-- Format Reference: product-as-hero. Left = claim + install. Right = proof. -->
+  <section class="bp-section-xl">
+    <div class="bp-container">
+      <div class="bp-split bp-split-40-60 tp-hero-split">
+
+        <!-- Left: claim + install command -->
+        <div class="tp-hero-left">
+          <span class="tp-kicker">Agentic Design System</span>
+          <h1 class="tp-hero-title">You answer eight questions. Six agents build the website.</h1>
+          <p class="tp-hero-subtitle">Blueprint interviews you, synthesizes 12 design dimensions, and writes a complete HTML landing page with brand CSS. Copy fills the words. Review loops until it passes. You read the result — not the process.</p>
+          <div class="tp-install-block">
+            <span class="tp-install-label">Install</span>
+            <code class="tp-install-cmd">cp -r the-point ~/.claude/plugins/</code>
+          </div>
+          <p class="tp-hint">Then start Claude Code and type <code>@blueprint</code></p>
+        </div>
+
+        <!-- Right: browser frame showing a built page (kakurega dark editorial) -->
+        <div>
+          <div class="tp-browser-frame">
+            <div class="tp-browser-chrome">
+              <span class="tp-dot tp-dot-red"></span>
+              <span class="tp-dot tp-dot-yellow"></span>
+              <span class="tp-dot tp-dot-green"></span>
+              <span class="tp-browser-url">examples/kakurega.html · built by @blueprint</span>
+            </div>
+            <div class="tp-browser-content tp-mockup-dark-editorial">
+              <div class="tp-mock-nav">
+                <div class="tp-mock-brand">隠れ家</div>
+                <div class="tp-mock-nav-items">
+                  <div class="tp-mock-nav-dot"></div>
+                  <div class="tp-mock-nav-dot"></div>
+                  <div class="tp-mock-nav-dot"></div>
+                </div>
+              </div>
+              <div class="tp-mock-hero">
+                <div class="tp-mock-eyebrow">Private Dining · Minami-Aoyama · Tokyo</div>
+                <div class="tp-mock-headline">隠れた<br>場所</div>
+                <div class="tp-mock-rule"></div>
+                <div class="tp-mock-body-lines">
+                  <div class="tp-mock-line tp-mock-line-lg"></div>
+                  <div class="tp-mock-line tp-mock-line-sm"></div>
+                </div>
+              </div>
+              <div class="tp-mock-footer-bar">
+                <div class="tp-mock-cta">Request a Table →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pipeline section ─────────────────────────────────────────────────── -->
+  <section class="bp-section" id="pipeline">
+    <div class="bp-container">
+      <div class="bp-section-header">
+        <span class="bp-section-label">How it works</span>
+        <h2 class="bp-section-title">One approval. The agents run the rest.</h2>
+        <p class="bp-section-subtitle">You answer the interview. Blueprint synthesizes and builds. Copy fills every word. Review loops until zero failures. You see the result when it passes — not before.</p>
+      </div>
+      <div class="tp-pipeline">
+        <div class="tp-pipeline-node">
+          <span class="tp-node-name">@scout</span>
+          <span class="tp-node-role">Category research</span>
+        </div>
+        <div class="tp-pipeline-arrow">→</div>
+        <div class="tp-pipeline-node">
+          <span class="tp-node-name">@blueprint</span>
+          <span class="tp-node-role">Design synthesis</span>
+        </div>
+        <div class="tp-pipeline-arrow">→</div>
+        <div class="tp-pipeline-node">
+          <span class="tp-node-name">@copy</span>
+          <span class="tp-node-role">Words + images</span>
+        </div>
+        <div class="tp-pipeline-arrow">→</div>
+        <div class="tp-pipeline-node">
+          <span class="tp-node-name">@review</span>
+          <span class="tp-node-role">QA + fix loop</span>
+        </div>
+        <div class="tp-pipeline-arrow">→</div>
+        <div class="tp-pipeline-node tp-pipeline-node-ship">
+          <span class="tp-node-name">SHIP</span>
+          <span class="tp-node-role">Zero rework</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Agents section ───────────────────────────────────────────────────── -->
+  <section class="bp-section" id="agents">
+    <div class="bp-container">
+      <div class="bp-section-header">
+        <span class="bp-section-label">The Pipeline</span>
+        <h2 class="bp-section-title">Each one owns its scope. None overlap.</h2>
+      </div>
+      <div class="bp-grid bp-grid-3">
+
+        <div class="bp-card tp-agent-card">
+          <div class="bp-card-header">
+            <span class="tp-agent-name">@blueprint</span>
+            <div class="bp-card-title">Design Architect</div>
+            <div class="bp-card-description">Interviews you. Synthesizes 12 design dimensions. Writes brand.css and the complete HTML structure with layout, color, typography, and every component decision.</div>
+          </div>
+        </div>
+
+        <div class="bp-card tp-agent-card">
+          <div class="bp-card-header">
+            <span class="tp-agent-name">@copy</span>
+            <div class="bp-card-title">Copywriter</div>
+            <div class="bp-card-description">Fills every [bracket placeholder] with audience-specific copy. Resolves LoremFlickr image URLs from the prose context. Never writes generic AI marketing language.</div>
+          </div>
+        </div>
+
+        <div class="bp-card tp-agent-card">
+          <div class="bp-card-header">
+            <span class="tp-agent-name">@review</span>
+            <div class="bp-card-title">QA Gate</div>
+            <div class="bp-card-description">Runs 20+ spec checks against the build. Files precise fix requests. Manages the @blueprint fix loop autonomously until zero failures remain.</div>
+          </div>
+        </div>
+
+        <div class="bp-card tp-agent-card">
+          <div class="bp-card-header">
+            <span class="tp-agent-name">@scout</span>
+            <div class="bp-card-title">Category Researcher</div>
+            <div class="bp-card-description">Surveys five competitors before @blueprint starts. Documents what every player does — so @blueprint can identify where to diverge and what the visual conventions actually are.</div>
+          </div>
+        </div>
+
+        <div class="bp-card tp-agent-card">
+          <div class="bp-card-header">
+            <span class="tp-agent-name">@forge</span>
+            <div class="bp-card-title">Component Builder</div>
+            <div class="bp-card-description">Creates new bp- components on demand when the layout needs something the design system doesn't have yet. Writes to components.css and registers in llm.md.</div>
+          </div>
+        </div>
+
+        <div class="bp-card tp-agent-card">
+          <div class="bp-card-header">
+            <span class="tp-agent-name">@artisan</span>
+            <div class="bp-card-title">Visual Refiner</div>
+            <div class="bp-card-description">Takes a screenshot of the built page. Identifies visual polish gaps that code review can't catch. Applies targeted refinements — spacing inconsistencies, weight mismatches, alignment errors.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Examples section ─────────────────────────────────────────────────── -->
+  <!-- Visual proof: three different built pages proving range and format diversity -->
+  <section class="bp-section" id="examples">
+    <div class="bp-container">
+      <div class="bp-section-header">
+        <span class="bp-section-label">Examples</span>
+        <h2 class="bp-section-title">Three sessions. Three design systems.</h2>
+        <p class="bp-section-subtitle">Same pipeline. Different interview answers. Different format references, color palettes, typographic registers.</p>
+      </div>
+      <div class="bp-grid bp-grid-3">
+
+        <!-- Example 1: GHOST Security — broadcast-terminal -->
+        <div class="tp-example-frame">
+          <div class="tp-browser-frame">
+            <div class="tp-browser-chrome tp-browser-chrome-sm">
+              <span class="tp-dot tp-dot-red"></span>
+              <span class="tp-dot tp-dot-yellow"></span>
+              <span class="tp-dot tp-dot-green"></span>
+              <span class="tp-browser-url-sm">ghost.html</span>
+            </div>
+            <div class="tp-browser-content tp-mockup-terminal">
+              <div class="tp-term-header">GHOST</div>
+              <div class="tp-term-line">AGENTIC SECURITY PLATFORM</div>
+              <div class="tp-term-line tp-term-line-dim">► system boot complete</div>
+              <div class="tp-term-line tp-term-line-dim">► 2,847 threats neutralized</div>
+              <div class="tp-term-line tp-term-line-dim">► agents: online</div>
+              <div class="tp-term-cursor">_</div>
+            </div>
+          </div>
+          <div class="tp-example-meta">
+            <span class="tp-format-ref">broadcast-terminal</span>
+            <span class="tp-example-name">GHOST Security</span>
+          </div>
+        </div>
+
+        <!-- Example 2: Il Mulino di Sale — print-editorial -->
+        <div class="tp-example-frame">
+          <div class="tp-browser-frame">
+            <div class="tp-browser-chrome tp-browser-chrome-sm">
+              <span class="tp-dot tp-dot-red"></span>
+              <span class="tp-dot tp-dot-yellow"></span>
+              <span class="tp-dot tp-dot-green"></span>
+              <span class="tp-browser-url-sm">mulino.html</span>
+            </div>
+            <div class="tp-browser-content tp-mockup-editorial">
+              <div class="tp-ed-masthead">Il Mulino di Sale</div>
+              <div class="tp-ed-rule"></div>
+              <div class="tp-ed-kicker">Pasta Fresca · Firenze · Est. 1987</div>
+              <div class="tp-ed-headline">Il sapore<br>della tradizione</div>
+              <div class="tp-ed-body-lines">
+                <div class="tp-ed-line"></div>
+                <div class="tp-ed-line tp-ed-line-sm"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tp-example-meta">
+            <span class="tp-format-ref">print-editorial</span>
+            <span class="tp-example-name">Il Mulino di Sale</span>
+          </div>
+        </div>
+
+        <!-- Example 3: Fable — split-vertical -->
+        <div class="tp-example-frame">
+          <div class="tp-browser-frame">
+            <div class="tp-browser-chrome tp-browser-chrome-sm">
+              <span class="tp-dot tp-dot-red"></span>
+              <span class="tp-dot tp-dot-yellow"></span>
+              <span class="tp-dot tp-dot-green"></span>
+              <span class="tp-browser-url-sm">fable.html</span>
+            </div>
+            <div class="tp-browser-content tp-mockup-split">
+              <div class="tp-split-left">
+                <div class="tp-split-label">Early Access</div>
+                <div class="tp-split-headline">Write what<br>matters.</div>
+                <div class="tp-split-line"></div>
+              </div>
+              <div class="tp-split-right">
+                <div class="tp-split-form-label">Join the list</div>
+                <div class="tp-split-input"></div>
+                <div class="tp-split-btn">Get access →</div>
+              </div>
+            </div>
+          </div>
+          <div class="tp-example-meta">
+            <span class="tp-format-ref">split-vertical</span>
+            <span class="tp-example-name">Fable</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA section ──────────────────────────────────────────────────────── -->
+  <!-- Format maintained: terminal block, not a form — product-as-hero to the end -->
+  <section class="bp-section" id="install">
+    <div class="bp-container bp-container-md">
+      <div class="tp-cta-block">
+        <h2 class="tp-cta-title">Your first build takes eight minutes.</h2>
+        <p class="tp-cta-subtitle">Answer the interview. Read the result.</p>
+        <div class="tp-terminal">
+          <div class="tp-terminal-chrome">
+            <span class="tp-terminal-label">Terminal</span>
+          </div>
+          <div class="tp-terminal-body">
+            <div class="tp-terminal-line">
+              <span class="tp-term-prompt">$</span>git clone https://github.com/mrgrampz/the-point
+            </div>
+            <div class="tp-terminal-line">
+              <span class="tp-term-prompt">$</span>cp -r the-point ~/.claude/plugins/
+            </div>
+            <div class="tp-terminal-gap"></div>
+            <div class="tp-terminal-line">
+              <span class="tp-term-prompt">$</span>claude  <span style="color: var(--color-text-muted); font-size: 11px;"># start Claude Code, then type:</span>
+            </div>
+            <div class="tp-terminal-line">
+              <span class="tp-term-agent">@blueprint</span><span class="tp-term-response">Blueprint is ready. What are we building?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer class="bp-section-sm">
+    <div class="bp-container">
+      <div class="tp-footer">
+        <span class="tp-footer-brand">the-point</span>
+        <span class="tp-footer-meta">v0.1.0 · by mrgrampz · Claude Code Plugin</span>
+        <div class="tp-footer-links">
+          <a href="https://github.com/mrgrampz/the-point" class="tp-footer-link">GitHub</a>
+          <a href="#examples" class="tp-footer-link">Examples</a>
+          <a href="#" class="tp-footer-link">Changelog</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

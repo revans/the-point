@@ -108,7 +108,7 @@
 
     /* Grid: remove blueprint grid — the bar has no grid, only smoke rings */
     --bp-grid-color:      transparent;
-    --bp-grid-color-bold: transparent;
+    --bp-grid-color-strong: transparent;
   }
 
   /* ── Brand mark — centered, very small, widest tracking ─────────────────── */

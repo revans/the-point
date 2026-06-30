@@ -108,7 +108,7 @@
      ---------------------------------------------------------------------- */
 
   /* --bp-grid-color:      rgba(your-rgb, 0.08); */
-  /* --bp-grid-color-bold: rgba(your-rgb, 0.15); */
+  /* --bp-grid-color-strong: rgba(your-rgb, 0.15); */
   /* --bp-grid-size:       40px; */
 
 
@@ -145,7 +145,7 @@
     --font-heading: 'Outfit', sans-serif;
     --font-body:    'Inter', sans-serif;
 
-    --radius: var(--bp-radius-xl);
+    --radius: var(--radius-xl);
   }
 }
 */

@@ -117,7 +117,7 @@
 
     /* ── Grid: suppress blueprint grid on the warm dark bg ───────────────── */
     --bp-grid-color:         rgba(224, 123, 37, 0.03);
-    --bp-grid-color-bold:    rgba(224, 123, 37, 0.06);
+    --bp-grid-color-strong:    rgba(224, 123, 37, 0.06);
 
   }
 

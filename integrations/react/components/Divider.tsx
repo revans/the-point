@@ -16,5 +16,5 @@ export function Divider({ label, className = '', ...props }: DividerProps) {
 }
 
 export function DottedConnector({ className = '', ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={['bp-dotted-connector', className].filter(Boolean).join(' ')} {...props} />
+  return <div className={['bp-dashed-connector', className].filter(Boolean).join(' ')} {...props} />
 }

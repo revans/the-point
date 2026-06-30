@@ -59,7 +59,7 @@ All non-default dimensions verified in brand.css:
 - Depth (flat): `--shadow-sm: none` ✓, `--shadow-md: none` ✓, `--shadow-lg: none` ✓
 - Theme (dark): `data-bp-theme="dark"` on `<html>` ✓ (verified in HTML Check 2)
 - Type family (display-serif): `--font-heading: 'Cormorant Garamond', 'Georgia', serif` ✓, `--font-body: 'Inter', system-ui, sans-serif` ✓ (body is default but written for explicit documentation — acceptable)
-- Grid color: `--bp-grid-color` and `--bp-grid-color-bold` are set (not defaults) — intentional amber grid. ✓
+- Grid color: `--bp-grid-color` and `--bp-grid-color-strong` are set (not defaults) — intentional amber grid. ✓
 
 ### ✅ Check 2 — Theme attribute
 **Status:** PASS

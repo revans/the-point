@@ -76,7 +76,7 @@
 
     /* grid: keep blueprint grid lines but tint them to barely-visible cyan */
     --bp-grid-color:          rgba(0, 229, 204, 0.035);
-    --bp-grid-color-bold:     rgba(0, 229, 204, 0.07);
+    --bp-grid-color-strong:     rgba(0, 229, 204, 0.07);
 
     /* heading line-height: display condensed needs tighter vertical rhythm */
     --line-height-heading:    1.0;

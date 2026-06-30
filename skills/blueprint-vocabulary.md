@@ -163,6 +163,54 @@ Theme is the single highest-contrast decision on the page — every other dimens
 
 ---
 
+### Color Theory Reference
+
+Color choices are signals the audience decodes, often below conscious awareness. Use this reference when resolving the Theme dimension and deriving `--color-primary` and `--color-bg` in Steps 6–7 of synthesis.
+
+**Hue psychology by family**
+
+| Hue family | Signal | Appropriate domains | Inappropriate domains |
+|---|---|---|---|
+| Blue / teal / cyan | Stable, trustworthy, precise, institutional | Finance, healthcare, B2B SaaS, dev tools, observability | Food (suppresses appetite), children's (reads as cold) |
+| Green | Permission, safety, growth, nature | Health/wellness, sustainability, agriculture, fintech growth | — |
+| Amber / orange | Warmth, energy, appetite, craft | Food, hospitality, creative tools, education | Finance (signals risk), healthcare (signals caution) |
+| Red | Urgency, passion, danger, appetite | Commerce/deals, food, strong consumer brands | Healthcare primary (reads as emergency), luxury |
+| Purple / violet | Creativity, luxury, mystery | Premium consumer, AI consumer, creative tools | Conservative B2B, legal, institutional |
+| Neutral + single accent | Restraint, expertise, discipline | B2B professional services, legal, luxury, premium editorial | Contexts requiring emotional warmth or brand distinctiveness |
+
+**Specific dark-background tones and their register:**
+
+| Value | Register | Use for |
+|---|---|---|
+| Pure black `#000000` | Terminal, CRT, hacker | Only when that aesthetic is the explicit brand register |
+| Deep navy `#0a1628` | Precision instrument, authority | Dev tools, observability, fintech, B2B SaaS |
+| Warm dark `#0a0807` | Premium, intimate, editorial | Luxury, hospitality, spirits |
+| Deep purple-black `#0a0612` | Creative, imaginative | AI consumer, premium B2C, creative tools |
+| Cream / off-white `#f4f0e4` | Aged, editorial, cultural authority | Newspapers, food editorial, heritage brands |
+
+**Saturation signals:**
+
+| Saturation | Signal | Appropriate | Risk |
+|---|---|---|---|
+| High (vivid, pure) | Emotional, energetic, B2C, youthful | Consumer products, entertainment, food | Reads as cheap or garish in professional contexts |
+| Medium (muted) | Balanced, modern, approachable | SaaS, general consumer, startups | — |
+| Low (desaturated) | Restrained, professional, intellectual | B2B, finance, premium, law, enterprise | Reads as lifeless in B2C or children's contexts |
+
+**Domain color reference:**
+
+| Domain | Direction | Why |
+|---|---|---|
+| B2B SaaS | Blue-teal + dark navy or light neutral | Buyers are risk-averse; blue suppresses arousal and reads as stable |
+| Dev tools / observability | Cyan or amber on deep navy | Terminal heritage; precision instrument register |
+| Food / hospitality | Amber, terracotta, forest green, deep burgundy | Appetite stimulation; warmth; natural material |
+| Luxury consumer | Neutral + single gold or cream accent | Restraint signals premium; excess signals discount |
+| Healthcare / wellness | Desaturated green, blue, white | Safety, cleanliness, calm |
+| Creative / design tools | Purple, violet, unexpected palettes | Creativity permission |
+| Editorial / journalism | Near-black text on cream | Print heritage, cultural authority |
+| Finance | Blue, navy, conservative neutrals | Trust, stability, institutional authority |
+
+---
+
 ### Dimension 8 — Type Family
 
 *What category of typeface sets the tone?*
@@ -190,6 +238,58 @@ Weight (Dimension 2) and tracking (Dimension 3) tell you *how* to configure a fo
 **The one forbidden pair:** Heading and body fonts from the same category with the same weight signal. Mix categories between heading and body (display-serif heading + geometric-sans body is contrast). But don't mix two different serifs on the same typographic level — one reads as "I couldn't decide."
 
 **Serif legibility on dark backgrounds:** `editorial-serif` and `display-serif` typefaces are defined by their thin strokes — the hairlines in letters like "i", "W", and "s" that create rhythm on the page. On a dark background, those hairlines render at 1px and disappear at body sizes. Think of it like pencil on white paper vs. pencil on black paper: the thin lines vanish. If theme = **dark** and type family = **editorial-serif** or **display-serif**: either switch to `geometric-sans` or `humanist-sans` for full-page use, or confirm that headings are large enough (≥ 48px) that the thin strokes still read. Display-serif at hero scale (64px+) can survive dark backgrounds; editorial-serif body text cannot.
+
+---
+
+### Typography Pairing Theory
+
+Type Family tells you which category to start from. This section explains why certain combinations work and what they communicate — so pairings are chosen, not assembled.
+
+**The contrast principle.** Good type pairings contrast in role, weight, or historical register. Two geometric sans families at similar weights produce monotony. A display serif paired with a humanist sans works because they serve different cognitive functions: the serif carries emotional weight and personality, the sans carries legibility and neutrality. They are doing different jobs. Matching (two serifs, two sans at similar weight) requires exceptional execution to avoid feeling undifferentiated. Prefer contrast.
+
+**Pairing archetypes:**
+
+| Archetype | Combination | Signal | Best for |
+|---|---|---|---|
+| Emotional + functional | Display or editorial serif headline + humanist sans body | Authority + warmth + legibility | Editorial, luxury consumer, food/hospitality, content-first brands |
+| Precision + data | Geometric sans prose + monospace for code/data/labels | Technical credibility; prose vs. data distinction is semantic, not decorative | Dev tools, observability, fintech, technical SaaS |
+| Single family, weight contrast | One display serif, 900 headline + 300 italic accent | High personality, singular voice | Consumer brands with strong opinion, luxury, creative |
+| Single family, utility | One geometric sans (Inter, DM Sans), weight variation only | Clean, systematic, interface-first | App shells, dashboards, dense product UI |
+| Three-tier editorial | Display serif headline + text serif body + mono labels/kickers | Full print hierarchy: headline / body / metadata | Editorial, journalism, newspaper-format brands |
+
+**Weight contrast as personality dial:**
+
+| Pair | Signal | Use when |
+|---|---|---|
+| 900 + 300 italic | High dramatic personality, memorable | Consumer brands with strong voice, luxury, editorial with opinion |
+| 700 + 400 | Confident, conventional, safe | General purpose, most SaaS, professional services |
+| 500 + 400 | Intellectual restraint | Premium B2B, professional services, architecture |
+| 300 + 300 | Ultra-light, atmospheric | Luxury with image support, fashion, art — risk: legibility at small sizes |
+
+**Letter-spacing at scale:** Large display type needs tighter tracking than default. At 72px, default letter-spacing creates uncomfortable gaps.
+
+| Size range | Guidance |
+|---|---|
+| Display (3rem+) | −0.03em to −0.04em |
+| Large heading (2rem–3rem) | −0.02em to −0.03em |
+| Medium heading (1.5rem–2rem) | −0.01em to −0.02em |
+| Small labels / mono | +0.05em to +0.15em (wider aids legibility at small sizes) |
+
+**Single vs. multi-family rule:**
+- Single family is correct when: the product is data-dense (variation adds noise), the UI is the product (app shells, dashboards), or the brand voice is precise and unadorned.
+- Multi-family is correct when: the brand has editorial personality with distinct content tiers, the page borrows from print traditions, or different content types need semantic distinction (prose vs. data vs. labels).
+
+**Domain pairing reference:**
+
+| Domain | Pairing pattern |
+|---|---|
+| Editorial / journalism | Display serif + text serif + mono labels |
+| Dev tools / observability | Geometric sans prose + mono for data/code |
+| Luxury consumer | Single display serif, weight contrast (900 + 300 italic) |
+| B2B SaaS | Humanist sans + mono for data labels |
+| Food / hospitality | Display or editorial serif + humanist sans |
+| Finance | Humanist sans or geometric sans (single, neutral) |
+| Healthcare | Humanist sans single — warm, clear, non-threatening |
 
 ---
 
@@ -442,6 +542,63 @@ A minimalist hero with a "Find Us →" button is not minimalist. It is minimalis
 
 ---
 
+## Dimension 12 — Format Reference
+
+*What real-world artifact does this page's structure borrow from?*
+
+The first eleven dimensions control CSS tokens and compositional choices — what things look like and how much of each section to deploy. Dimension 12 controls something deeper: the mental model a visitor uses to navigate the page. Two pages can share identical token bundles and produce completely different experiences because one borrows the structure of a newspaper front page and the other borrows the structure of a SaaS landing page.
+
+**Format Reference is resolved in synthesis Step 2.5 — before choosing a Layout Pattern.** The layout pattern describes the spatial arrangement of image and text. The Format Reference describes what kind of document the whole page behaves like.
+
+---
+
+| Word | What it borrows from | Navigate like | Use when |
+|---|---|---|---|
+| `web-convention` | Standard hero → features → social proof → pricing → CTA | A typical website | Must be chosen consciously, never by default |
+| `print-editorial` | Newspaper or magazine column structure with masthead, kicker labels, pull quotes, bylines, column rules | A newspaper front page or magazine spread | Media, journalism, publishers, content-first brands, any brand claiming cultural authority |
+| `product-as-hero` | Product interface replaces hero image entirely | A software demo or trial | Dev tools, B2B SaaS with strong UI, any product whose interface is the argument |
+| `split-vertical` | Two equal columns with one purpose per column | A split-panel document | Waitlists, early-access pages, form + preview, dual-audience pages |
+| `app-shell` | Sidebar navigation + main content, full viewport | A software application | Product demos, dashboards, productivity tools, docs |
+| `terminus` | Single conversion surface, one goal, no scrollable sections | A poster or a landing card | Focused early-access campaigns with prior audience awareness |
+| `spec-sheet` | Data-dense, tabular, reference-first | A technical specification | Developer landing pages, hardware products, infrastructure comparison |
+| `broadcast-terminal` | Live stream, ticker, or log aesthetic | A monitoring dashboard | Observability, real-time data, monitoring tools |
+
+---
+
+### Format Reference selection rules
+
+**Rule 1 — Conscious default only.**
+`web-convention` is not what you pick when nothing else fits. It is what you pick when you have consciously asked "what format serves this audience?" and the answer is genuinely: a conventional website. If you haven't asked the question, you haven't made a decision.
+
+**Rule 2 — Domain-fit validation.**
+Before committing, validate:
+1. Does this audience have familiarity with and affinity for this format?
+2. Does the navigation model of this format match how this audience makes decisions in this domain?
+3. Can the conversion action fit naturally within this format?
+
+If any answer is no, the format creates friction instead of resonance. A CRT terminal aesthetic for a children's app fails question 1 and 2. A split-vertical waitlist for a professional services firm fails question 3 (a partner doesn't put their contact in a split form).
+
+**Rule 3 — Page-wide application.**
+The Format Reference is not a style applied to the hero and dropped at the back half. It applies to every section, especially the conversion section. A premium botanical brand's wholesale inquiry section does not look like a Webflow contact form — it looks like a letter. Wherever the page's format is maintained through 80% of its length but collapses at the conversion section, the Format Reference was not actually used — it was approximated and then abandoned.
+
+**Rule 4 — Record in synthesis table.**
+Add: `Format Reference: [word]` to the synthesis table before proceeding to Step 5 (Layout Pattern). The layout pattern and the Format Reference are separate: a `print-editorial` format can use either a `document` or `editorial-alternating` layout pattern, depending on what sections exist.
+
+---
+
+### Format Reference × domain reference
+
+| Domain | Starting Format Reference | Why |
+|---|---|---|
+| Developer tools | `product-as-hero` or `broadcast-terminal` | Engineers evaluate by seeing the interface, not by reading marketing claims |
+| Editorial / media brand | `print-editorial` | The format signals cultural authority that fits the domain |
+| Waitlist / early access | `split-vertical` or `terminus` | Simple, focused; the audience came to sign up, not to browse |
+| Premium consumer | `web-convention` with strong Format Reference constraint on conversion section | The experience builds; friction at checkout is a feature |
+| SaaS with weak UI | `web-convention` | If the interface is not yet the argument, don't expose it — use conventional structure instead |
+| Observability / monitoring | `broadcast-terminal` or `product-as-hero` | The live data IS the product; simulating it in the hero is the argument |
+
+---
+
 ## Composition Rules
 
 Words from different dimensions combine into a complete token bundle. These rules prevent incoherent combinations.
@@ -531,6 +688,7 @@ Before writing `brand.css`, write this internal comment block so the reasoning i
    Depth:       flat          → --shadow-sm/md/lg: none
    Theme:       light         → data-bp-theme="light" on <html>
    Type family: display-serif → --font-heading: 'Cormorant Garamond', serif; --font-body: 'Inter', sans-serif (default — omit)
+   Format Ref:  print-editorial → structure borrows from newspaper front page; applies to every section including conversion
    Tone:        precise       → @copy: measured, credible, specific — no casual language or superlatives
 */
 ```
