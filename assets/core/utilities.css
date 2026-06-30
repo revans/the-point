@@ -14,7 +14,6 @@
 
 .bp-flex         { display: flex; }
 .bp-inline-flex  { display: inline-flex; }
-.bp-d-grid,
 .bp-grid-bare    { display: grid; }   /* bare display:grid — no gap; see .bp-grid in components.css for the layout component */
 
 /* --------------------------------------------------------------------------
@@ -144,7 +143,8 @@
 .bp-border-l      { border-left: var(--border-width) var(--border-style) var(--color-border); }
 .bp-border-r      { border-right: var(--border-width) var(--border-style) var(--color-border); }
 .bp-border-none   { border: none; }
-.bp-border-primary { border-color: var(--color-primary); }
+.bp-border-primary   { border-color: var(--color-primary); }
+.bp-border-secondary { border-color: var(--color-secondary); }
 
 .bp-rounded-none { border-radius: var(--radius-none); }
 .bp-rounded-sm   { border-radius: var(--radius-sm); }
@@ -286,6 +286,9 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Do not stack with .bp-hover-lift — equal-specificity cascade order silently
+   drops --shadow-md (this rule’s box-shadow wins). Use .bp-hover-lift-glow
+   for the combined effect. */
 .bp-hover-glow {
   transition: var(--transition-smooth);
 }
@@ -441,6 +444,21 @@
   max-width: var(--content-width);
 }
 
+/*
+   BRAND COLOR NAMING RULE
+   -----------------------
+   Brand accent color utilities follow short-form canonical names when the slot is
+   available (e.g. .bp-text-primary, .bp-border-secondary). The `brand-` infix is
+   used only when the short-form name is already occupied by a semantic UI utility:
+     - .bp-text-secondary → taken by --color-text-secondary (UI semantic)
+     - .bp-bg-secondary   → taken by --color-bg-secondary   (UI semantic)
+   Therefore .bp-text-brand-secondary and .bp-bg-brand-secondary are the CANONICAL
+   forms (not deprecated aliases) for those slots.
+   For any future tertiary/quaternary brand colors: check if the short-form slot is
+   free first. If free, use short-form and add a @deprecated brand-infix alias.
+   If taken, use the brand-infix as canonical and add a comment explaining why.
+*/
+
 /* --------------------------------------------------------------------------
    BRAND PRIMARY COLOR — brand-namespaced utilities (bg uses -subtle tier; text/border use full token)
    -------------------------------------------------------------------------- */
@@ -455,9 +473,8 @@
    BRAND SECONDARY COLOR — brand-namespaced utilities (bg uses -subtle tier; text/border use full token)
    -------------------------------------------------------------------------- */
 
-.bp-text-brand-secondary   { color: var(--color-secondary); }
-.bp-bg-brand-secondary     { background-color: var(--color-secondary-subtle); } /* subtle tint intentional: full --color-secondary bg requires explicit white text */
-.bp-border-secondary { border-color: var(--color-secondary); }
+.bp-text-brand-secondary   { color: var(--color-secondary); } /* canonical — short-form is unavailable; see brand color naming rule above */
+.bp-bg-brand-secondary     { background-color: var(--color-secondary-subtle); } /* canonical — short-form is unavailable; see brand color naming rule above */
 /* .bp-border-brand-secondary → use .bp-border-secondary (same output: border-color: var(--color-secondary)) */
 
 /* --------------------------------------------------------------------------

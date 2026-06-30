@@ -302,8 +302,6 @@
 
   /* Typography scale — these drive the base element styles */
   --font-size-base:          16px;
-  --font-size-sm:            var(--bp-text-sm);
-  --font-size-md:            var(--bp-text-md);
   --font-size-h1:            var(--bp-text-5xl);
   --font-size-h2:            var(--bp-text-4xl);
   --font-size-h3:            var(--bp-text-3xl);
@@ -323,6 +321,8 @@
   --leading-normal:          var(--bp-leading-normal);
   --leading-relaxed:         var(--bp-leading-relaxed);
   --font-size-xs:            var(--bp-text-xs);
+  --font-size-sm:            var(--bp-text-sm);
+  --font-size-md:            var(--bp-text-md);
   --font-size-lg:            var(--bp-text-lg);
   --font-size-xl:            var(--bp-text-xl);
   --font-size-2xl:           var(--bp-text-2xl);
@@ -330,6 +330,12 @@
   --font-size-4xl:           var(--bp-text-4xl);
   --font-size-5xl:           var(--bp-text-5xl);
   --font-size-6xl:           var(--bp-text-6xl);
+  /* Step numeral tokens — decorative oversized ghost numeral in .bp-step::before.
+     These intentionally exceed the named scale (6xl = 3.75rem) to produce the
+     large background number effect. Define them here so brand overrides have a
+     lever that keeps components.css responsive type declarations consistent. */
+  --font-size-step-numeral-min: 4rem;   /* 64px — clamp floor */
+  --font-size-step-numeral-max: 7rem;   /* 112px — clamp ceiling */
   --font-weight-light:       var(--bp-weight-light);
   --font-weight-normal:      var(--bp-weight-normal);
   --font-weight-medium:      var(--bp-weight-medium);

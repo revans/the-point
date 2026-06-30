@@ -1133,11 +1133,6 @@
   box-shadow: var(--shadow-glow), var(--shadow-lg);
 }
 
-.bp-pricing-card-featured:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
-}
-
 .bp-pricing-plan {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
@@ -1239,7 +1234,7 @@
 }
 
 .bp-avatar-sm  { width: var(--avatar-sm); height: var(--avatar-sm); font-size: var(--font-size-xs); }
-.bp-avatar-md  { width: var(--avatar-md); height: var(--avatar-md); font-size: var(--font-size-sm); }
+.bp-avatar-md  { width: var(--avatar-md); height: var(--avatar-md); }
 .bp-avatar-lg  { width: var(--avatar-lg); height: var(--avatar-lg); font-size: var(--font-size-base); }
 .bp-avatar-xl  { width: var(--avatar-xl); height: var(--avatar-xl); font-size: var(--font-size-xl); }
 
@@ -1774,7 +1769,7 @@
   position: absolute;
   top: calc(-1 * var(--space-2));
   left: 0;
-  font-size: clamp(4rem, 8vw, 7rem);
+  font-size: clamp(var(--font-size-step-numeral-min), 8vw, var(--font-size-step-numeral-max));
   font-weight: var(--font-weight-bold);
   font-family: var(--font-heading);
   line-height: 1;

@@ -25,7 +25,10 @@
     content: "Page " counter(page);
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 8pt;
-    color: #4a7a9b; /* MUST stay in sync with --color-text-muted in the @media print :root block (line 72); @page margin boxes cannot resolve custom properties in Chrome/Edge */
+    /* !! COUPLED VALUE — do not change this hex without updating --color-text-muted in the @media print :root block below.
+       @page margin boxes cannot resolve CSS custom properties in Chrome/Edge (as of 2026), so the value must be hardcoded here.
+       The canonical value lives in --color-text-muted. This line must always match it exactly: #4a7a9b */
+    color: #4a7a9b;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
@@ -69,7 +72,10 @@
     --color-border:           #bfdbfe !important;
     --color-text:             #0a1628 !important;
     --color-text-secondary:   #1e3a57 !important;
-    --color-text-muted:       #4a7a9b !important; /* also hardcoded at line 28 in @page { @bottom-right } — update both together; @page margin boxes cannot resolve custom properties in Chrome/Edge */
+    /* !! COUPLED VALUE — if you change this hex, you must also update the hardcoded color in @page { @bottom-right } above.
+       @page margin boxes cannot resolve CSS custom properties in Chrome/Edge (as of 2026), so that site must stay in manual sync.
+       Both sites must always carry the same hex: #4a7a9b */
+    --color-text-muted:       #4a7a9b !important;
     --color-primary:          #1d4ed8 !important;
     --color-primary-hover:    #1e40af !important;
     --color-primary-subtle:   rgba(29, 78, 216, 0.06) !important;

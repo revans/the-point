@@ -125,7 +125,14 @@
    animation (0,1,0) — bp-fade-up runs instead of bp-border-draw, the scroll-
    driven timeline is lost, and background-size stays at 0%. This rule matches
    the same specificity and appears later in source order, so it layers both
-   animations and restores the scroll-driven longhands. */
+   animations and restores the scroll-driven longhands.
+
+   fill-mode NOTE: bp-fade-up uses `both` here (not `forwards`) so that ANY
+   element — including ones like bp-card that have no page-level `opacity: 0`
+   rule — is held invisible during the pre-animation delay. Element-specific
+   variants below (hero, nav, footer, main-content) use `forwards` because
+   those elements already have `opacity: 0` set in the page-level rules above
+   and do not need backwards fill. Do not change `both` to `forwards` here. */
 [data-bp-motion="draw"] .bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
@@ -146,15 +153,15 @@
   animation-range: entry 0% entry 50%, normal;
 }
 
-/* Nav variant — specificity (0,3,0) preserves --duration-gradual and
+/* Nav variant — specificity (0,3,0) preserves --duration-reveal and
    --delay-nav (0.35s) when bp-animate-draw is added to .bp-nav,
    preventing the generic (0,2,0) rule at line 129 from substituting
    --delay-section (0.6s) and --duration-slower (0.45s). */
 [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
-    bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-nav) forwards;
-  animation-duration: auto, var(--duration-gradual);
+    bp-fade-up var(--duration-reveal) var(--easing-smooth) var(--delay-nav) forwards;
+  animation-duration: auto, var(--duration-reveal);
   animation-timeline: view(), auto;
   animation-range: entry 0% entry 50%, normal;
 }
@@ -165,8 +172,8 @@
 [data-bp-motion="draw"] .bp-footer.bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
-    bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-footer) forwards;
-  animation-duration: auto, var(--duration-gradual);
+    bp-fade-up var(--duration-reveal) var(--easing-smooth) var(--delay-footer) forwards;
+  animation-duration: auto, var(--duration-reveal);
   animation-timeline: view(), auto;
   animation-range: entry 0% entry 50%, normal;
 }
@@ -216,7 +223,7 @@
     --transition-fast:   all var(--duration-fast)    var(--easing-smooth);
     --transition-base:   all var(--duration-base)    var(--easing-smooth);
     --transition-smooth: all var(--duration-slow)    var(--easing-smooth);
-    --transition-bounce: all var(--duration-gradual) var(--easing-smooth);
+    --transition-bounce: all var(--duration-reveal) var(--easing-smooth);
   }
 }
 
@@ -233,7 +240,7 @@
 .bp-animate {
   --transition-fast:   all var(--duration-moderate) var(--easing-bounce);
   --transition-base:   all var(--duration-slow)     var(--easing-bounce);
-  --transition-smooth: all var(--duration-gradual)  var(--easing-bounce);
+  --transition-smooth: all var(--duration-reveal)  var(--easing-bounce);
   --transition-bounce: all var(--duration-long)     var(--easing-bounce);
 }
 
@@ -301,7 +308,14 @@
   /* Matching combined-rule overrides — same logic as above but with an
      intentional --delay-draw delay in the animation shorthand (no
      scroll timeline here) and no animation-timeline / animation-range
-     longhands. */
+     longhands.
+
+     fill-mode NOTE: bp-fade-up uses `both` here (not `forwards`) so that ANY
+     element — including ones like bp-card that have no page-level `opacity: 0`
+     rule — is held invisible during the pre-animation delay. Element-specific
+     variants below (hero, nav, footer, main-content) use `forwards` because
+     those elements already have `opacity: 0` set in the page-level rules above
+     and do not need backwards fill. Do not change `both` to `forwards` here. */
   [data-bp-motion="draw"] .bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
@@ -317,13 +331,13 @@
   [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
-      bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-nav) forwards;
+      bp-fade-up var(--duration-reveal) var(--easing-smooth) var(--delay-nav) forwards;
   }
 
   [data-bp-motion="draw"] .bp-footer.bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
-      bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-footer) forwards;
+      bp-fade-up var(--duration-reveal) var(--easing-smooth) var(--delay-footer) forwards;
   }
 
   [data-bp-motion="draw"] .bp-main-content.bp-animate-draw {
