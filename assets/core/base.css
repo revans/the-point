@@ -47,7 +47,7 @@
 
   /* Grid lines */
   --bp-grid-color:      rgba(59, 130, 246, 0.08);
-  --bp-grid-color-bold: rgba(59, 130, 246, 0.15);
+  --bp-grid-color-strong: rgba(59, 130, 246, 0.15);
 
   /* Shadows */
   --bp-shadow-sm:       0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -94,7 +94,7 @@
 
   /* Grid lines */
   --bp-grid-color:      rgba(29, 78, 216, 0.07);
-  --bp-grid-color-bold: rgba(29, 78, 216, 0.14);
+  --bp-grid-color-strong: rgba(29, 78, 216, 0.14);
 
   /* Shadows */
   --bp-shadow-sm:       0 1px 3px rgba(10, 22, 40, 0.08), 0 1px 2px rgba(10, 22, 40, 0.05);
@@ -138,7 +138,7 @@
     --bp-accent-hover:    #1e40af;
 
     --bp-grid-color:      rgba(29, 78, 216, 0.07);
-    --bp-grid-color-bold: rgba(29, 78, 216, 0.14);
+    --bp-grid-color-strong: rgba(29, 78, 216, 0.14);
 
     --bp-shadow-sm:       0 1px 3px rgba(10, 22, 40, 0.08), 0 1px 2px rgba(10, 22, 40, 0.05);
     --bp-shadow-md:       0 4px 16px rgba(10, 22, 40, 0.1), 0 2px 6px rgba(10, 22, 40, 0.06);
@@ -365,10 +365,11 @@
   --duration-base:   calc(0.20s * var(--motion-scale));
   --duration-moderate: calc(0.25s * var(--motion-scale));
   --duration-slow:     calc(0.30s * var(--motion-scale));
-  --duration-gradual:  calc(0.40s * var(--motion-scale));
   --duration-slower:   calc(0.45s * var(--motion-scale));
-  --duration-long:   calc(0.5s  * var(--motion-scale));
-  --duration-draw:   calc(0.8s  * var(--motion-scale));
+  --duration-long:     calc(0.5s  * var(--motion-scale));
+  /* Semantic aliases — named by use-case, not position in the scale */
+  --duration-gradual:  calc(0.40s * var(--motion-scale)); /* nav/footer reveals, bounce transitions */
+  --duration-draw:     calc(0.8s  * var(--motion-scale));
   --delay-draw:    calc(0.15s * var(--motion-scale));
   --delay-nav:     calc(0.35s * var(--motion-scale));
   --delay-hero:    calc(0.5s  * var(--motion-scale));
@@ -566,7 +567,7 @@
   --scrollbar-size: 6px;
 
   /* Print grid */
-  --color-print-grid-bold: oklch(from var(--color-bg) l c h / 0.06);
+  --color-print-grid-strong: oklch(from var(--color-bg) l c h / 0.06);
   --color-print-grid:      oklch(from var(--color-bg) l c h / 0.03);
 
   /* Print layout */
@@ -575,7 +576,7 @@
 
   /* Grid — semantic aliases; override --color-grid-* in brand.css, not --bp-grid-* primitives */
   --color-grid:      var(--bp-grid-color);
-  --color-grid-bold: var(--bp-grid-color-bold);
+  --color-grid-strong: var(--bp-grid-color-strong);
   --grid-size:       var(--bp-grid-size);
   --grid-line-width: var(--bp-grid-line-width);
 }
@@ -620,8 +621,8 @@ body {
 
   /* Blueprint grid */
   background-image:
-    linear-gradient(var(--color-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
-    linear-gradient(90deg, var(--color-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(var(--color-grid-strong) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(90deg, var(--color-grid-strong) var(--grid-line-width), transparent var(--grid-line-width)),
     linear-gradient(var(--color-grid) var(--grid-line-width), transparent var(--grid-line-width)),
     linear-gradient(90deg, var(--color-grid) var(--grid-line-width), transparent var(--grid-line-width));
   background-size:

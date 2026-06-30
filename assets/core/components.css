@@ -51,8 +51,7 @@
   background-color: var(--color-text);
   color: var(--color-bg);
 }
-.bp-section-dark .bp-text-muted,
-.bp-section-dark [class*="text-muted"] {
+.bp-section-dark .bp-text-muted {
   color: color-mix(in srgb, var(--color-bg) 70%, transparent);
 }
 .bp-section-dark .bp-card {
@@ -992,6 +991,11 @@
 
 /* --------------------------------------------------------------------------
    BADGES
+   Use bp-badge for technical/system identifiers: version strings, codes,
+   machine-readable status labels, or any value where monospace rendering
+   reinforces the technical register (e.g. "v1.2.0", "SKU-4821", "PENDING").
+   font-family is intentionally var(--font-mono) to distinguish badges from
+   bp-chip, which uses the body font (Inter) for human-readable attributes.
    -------------------------------------------------------------------------- */
 
 .bp-badge {
@@ -1115,12 +1119,14 @@
   box-shadow: var(--shadow-glow);
 }
 
-.bp-pricing-card:hover {
+.bp-pricing-card:hover,
+.bp-pricing-card:focus-visible {
   transform: translateY(calc(-2 * var(--lift-distance)));
   box-shadow: var(--shadow-lg);
 }
 
-.bp-pricing-card-featured:hover {
+.bp-pricing-card-featured:hover,
+.bp-pricing-card-featured:focus-visible {
   transform: none; /* featured cards elevate via glow, not lift */
   box-shadow: var(--shadow-glow), var(--shadow-lg);
 }

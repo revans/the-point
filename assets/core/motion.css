@@ -213,10 +213,10 @@
   }
 
   .bp-animate {
-    --bp-transition-fast:   all var(--duration-fast)    var(--easing-smooth);
-    --bp-transition-base:   all var(--duration-base)    var(--easing-smooth);
-    --bp-transition-smooth: all var(--duration-slow)    var(--easing-smooth);
-    --bp-transition-bounce: all var(--duration-gradual)     var(--easing-smooth);
+    --transition-fast:   all var(--duration-fast)    var(--easing-smooth);
+    --transition-base:   all var(--duration-base)    var(--easing-smooth);
+    --transition-smooth: all var(--duration-slow)    var(--easing-smooth);
+    --transition-bounce: all var(--duration-gradual) var(--easing-smooth);
   }
 }
 
@@ -224,17 +224,17 @@
    COMPONENT-LEVEL BOUNCE  .bp-animate
 
    Rescopes all transition tokens within the container to the bounce curve.
-   Because child components use var(--bp-transition-*) for their transitions,
+   Because child components use var(--transition-*) for their transitions,
    overriding the token here cascades down — no per-component overrides needed.
 
    Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
    -------------------------------------------------------------------------- */
 
 .bp-animate {
-  --bp-transition-fast:   all var(--duration-moderate)    var(--easing-bounce);
-  --bp-transition-base:   all var(--duration-slow)   var(--easing-bounce);
-  --bp-transition-smooth: all var(--duration-gradual) var(--easing-bounce);
-  --bp-transition-bounce: all var(--duration-long) var(--easing-bounce);
+  --transition-fast:   all var(--duration-moderate) var(--easing-bounce);
+  --transition-base:   all var(--duration-slow)     var(--easing-bounce);
+  --transition-smooth: all var(--duration-gradual)  var(--easing-bounce);
+  --transition-bounce: all var(--duration-long)     var(--easing-bounce);
 }
 
 /* --------------------------------------------------------------------------

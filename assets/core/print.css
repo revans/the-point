@@ -41,8 +41,8 @@
   body {
     background-color: var(--color-bg) !important;
     background-image:
-      linear-gradient(var(--color-print-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
-      linear-gradient(90deg, var(--color-print-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+      linear-gradient(var(--color-print-grid-strong) var(--grid-line-width), transparent var(--grid-line-width)),
+      linear-gradient(90deg, var(--color-print-grid-strong) var(--grid-line-width), transparent var(--grid-line-width)),
       linear-gradient(var(--color-print-grid) var(--grid-line-width), transparent var(--grid-line-width)),
       linear-gradient(90deg, var(--color-print-grid) var(--grid-line-width), transparent var(--grid-line-width)) !important;
     background-size:
@@ -82,7 +82,7 @@
     --color-error:            #9b1c1c !important;
     --color-error-subtle:     rgba(155, 28, 28, 0.06) !important;
     --color-error-hover:      #7c1616 !important;
-    --color-print-grid-bold: rgba(10, 22, 40, 0.06) !important;
+    --color-print-grid-strong: rgba(10, 22, 40, 0.06) !important;
     --color-print-grid:      rgba(10, 22, 40, 0.03) !important;
     --bp-shadow-sm:           none !important;
     --bp-shadow-md:           none !important;
@@ -204,11 +204,29 @@
   .bp-print-spec .bp-card.bp-bracket::before,
   .bp-print-spec .bp-card.bp-bracket::after {
     display: block !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: auto !important;
+    height: auto !important;
+    opacity: 1 !important;
+    border-width: 0 !important;
   }
 
   .bp-print-spec .bp-pricing-card.bp-bracket::before,
   .bp-print-spec .bp-pricing-card.bp-bracket::after {
     display: block !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: auto !important;
+    height: auto !important;
+    opacity: 1 !important;
+    border-width: 0 !important;
   }
 
   /* Keep cards and sections intact across page breaks */

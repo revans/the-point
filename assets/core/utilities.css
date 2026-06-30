@@ -14,7 +14,7 @@
 
 .bp-flex         { display: flex; }
 .bp-inline-flex  { display: inline-flex; }
-.bp-grid         { display: grid; }
+.bp-d-grid       { display: grid; }
 
 /* --------------------------------------------------------------------------
    FLEXBOX
@@ -132,7 +132,6 @@
 .bp-bg-secondary { background-color: var(--color-bg-secondary); }
 .bp-bg-surface   { background-color: var(--color-surface); }
 .bp-bg-primary-subtle { background-color: var(--color-primary-subtle); }
-.bp-bg-accent         { background-color: var(--color-primary-subtle); } /* alias → .bp-bg-primary-subtle */
 
 /* --------------------------------------------------------------------------
    BORDER
@@ -274,6 +273,8 @@
    INTERACTIVE HELPERS
    -------------------------------------------------------------------------- */
 
+/* Do not stack with .bp-hover-glow — equal-specificity cascade order silently
+   drops --shadow-md. Use .bp-hover-lift-glow for the combined effect. */
 .bp-hover-lift {
   transition: var(--transition-smooth);
 }
@@ -440,19 +441,20 @@
 }
 
 /* --------------------------------------------------------------------------
-   BRAND PRIMARY COLOR — symmetric aliases for bp-{prop}-brand-{primary|secondary}
+   BRAND PRIMARY COLOR — brand-namespaced utilities (bg uses -subtle tier; text/border use full token)
    -------------------------------------------------------------------------- */
 
+/* @deprecated — use .bp-text-primary (same output) */
 .bp-text-brand-primary   { color: var(--color-primary); }
-.bp-bg-brand-primary     { background-color: var(--color-primary-subtle); }
-.bp-border-brand-primary { border-color: var(--color-primary); }
+.bp-bg-brand-primary     { background-color: var(--color-primary-subtle); } /* subtle tint intentional: full --color-primary bg requires explicit white text */
+/* .bp-border-brand-primary → use .bp-border-primary (same output: border-color: var(--color-primary)) */
 
 /* --------------------------------------------------------------------------
-   BRAND SECONDARY COLOR
+   BRAND SECONDARY COLOR — brand-namespaced utilities (bg uses -subtle tier; text/border use full token)
    -------------------------------------------------------------------------- */
 
 .bp-text-brand-secondary   { color: var(--color-secondary); }
-.bp-bg-brand-secondary     { background-color: var(--color-secondary-subtle); }
+.bp-bg-brand-secondary     { background-color: var(--color-secondary-subtle); } /* subtle tint intentional: full --color-secondary bg requires explicit white text */
 .bp-border-brand-secondary { border-color: var(--color-secondary); }
 
 /* --------------------------------------------------------------------------
