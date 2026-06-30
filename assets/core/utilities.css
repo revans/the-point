@@ -305,19 +305,19 @@
   height: var(--bracket-size);
   border-color: var(--color-primary);
   border-style: solid;
-  opacity: 0.6;
+  opacity: var(--opacity-decorative-strong);
 }
 
 .bp-bracket::before {
   top: -1px;
   left: -1px;
-  border-width: 1px 0 0 1px;
+  border-width: var(--border-width) 0 0 var(--border-width);
 }
 
 .bp-bracket::after {
   bottom: -1px;
   right: -1px;
-  border-width: 0 1px 1px 0;
+  border-width: 0 var(--border-width) var(--border-width) 0;
 }
 
 /* Mono label — reference/coordinate style */
@@ -342,22 +342,22 @@
   content: '';
   position: absolute;
   background-color: var(--color-primary);
-  opacity: 0.4;
+  opacity: var(--opacity-decorative);
 }
 
 .bp-crosshair::before {
-  width: 1px;
+  width: var(--bp-grid-line-width);
   height: 100%;
 }
 
 .bp-crosshair::after {
   width: 100%;
-  height: 1px;
+  height: var(--bp-grid-line-width);
 }
 
 /* Dotted line connector */
 .bp-dotted-connector {
-  border-top: 1px dashed var(--color-border);
+  border-top: var(--border-width) dashed var(--color-border);
   width: 100%;
 }
 
@@ -367,7 +367,7 @@
   font-size: var(--bp-text-xs);
   color: var(--color-text-muted);
   letter-spacing: var(--bp-tracking-wide);
-  border-left: 2px solid var(--color-border);
+  border-left: var(--annotation-border-width) var(--border-style) var(--color-border);
   padding-left: var(--bp-space-3);
 }
 

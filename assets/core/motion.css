@@ -30,7 +30,7 @@
 @keyframes bp-fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(var(--motion-fade-distance));
   }
   to {
     opacity: 1;
@@ -43,19 +43,19 @@
    remain free for bp-bracket and other decorative utilities. */
 @keyframes bp-border-draw {
   0%   {
-    background-size: 0%   1px,  1px  0%,  0%   1px,  1px  0%;
+    background-size: 0%   var(--border-width), var(--border-width) 0%,   0%   var(--border-width), var(--border-width) 0%;
   }
   25%  {
-    background-size: 100% 1px,  1px  0%,  0%   1px,  1px  0%;
+    background-size: 100% var(--border-width), var(--border-width) 0%,   0%   var(--border-width), var(--border-width) 0%;
   }
   50%  {
-    background-size: 100% 1px,  1px 100%, 0%   1px,  1px  0%;
+    background-size: 100% var(--border-width), var(--border-width) 100%, 0%   var(--border-width), var(--border-width) 0%;
   }
   75%  {
-    background-size: 100% 1px,  1px 100%, 100% 1px,  1px  0%;
+    background-size: 100% var(--border-width), var(--border-width) 100%, 100% var(--border-width), var(--border-width) 0%;
   }
   100% {
-    background-size: 100% 1px,  1px 100%, 100% 1px,  1px 100%;
+    background-size: 100% var(--border-width), var(--border-width) 100%, 100% var(--border-width), var(--border-width) 100%;
   }
 }
 
@@ -75,7 +75,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: var(--motion-sweep-height);
   background: linear-gradient(
     90deg,
     var(--color-primary) 0%,
@@ -85,19 +85,19 @@
   transform-origin: left center;
   z-index: var(--bp-z-toast);
   pointer-events: none;
-  animation: bp-draw-line-h 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: bp-draw-line-h calc(0.5s * var(--motion-scale)) var(--easing-smooth) forwards;
 }
 
 /* Nav materialises first, just after the line completes */
 [data-bp-motion="draw"] .bp-nav {
   opacity: 0;
-  animation: bp-fade-up 0.4s ease-out 0.35s forwards;
+  animation: bp-fade-up calc(0.4s * var(--motion-scale)) ease-out calc(0.35s * var(--motion-scale)) forwards;
 }
 
 /* Hero is the biggest element — give it the most time */
 [data-bp-motion="draw"] .bp-hero {
   opacity: 0;
-  animation: bp-fade-up 0.5s ease-out 0.5s forwards;
+  animation: bp-fade-up calc(0.5s * var(--motion-scale)) ease-out calc(0.5s * var(--motion-scale)) forwards;
 }
 
 /* Sections stagger in sequence */
@@ -105,19 +105,19 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up 0.45s ease-out 0.6s forwards;
+  animation: bp-fade-up calc(0.45s * var(--motion-scale)) ease-out calc(0.6s * var(--motion-scale)) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up 0.45s ease-out 0.5s forwards;
+  animation: bp-fade-up calc(0.45s * var(--motion-scale)) ease-out calc(0.5s * var(--motion-scale)) forwards;
 }
 
 /* Footer is last */
 [data-bp-motion="draw"] .bp-footer {
   opacity: 0;
-  animation: bp-fade-up 0.4s ease-out 0.7s forwards;
+  animation: bp-fade-up calc(0.4s * var(--motion-scale)) ease-out calc(0.7s * var(--motion-scale)) forwards;
 }
 
 /* --------------------------------------------------------------------------
@@ -145,7 +145,7 @@
   .bp-animate-draw {
     animation: none !important;
     /* Show the final border state immediately */
-    background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100% !important;
+    background-size: 100% var(--border-width), var(--border-width) 100%, 100% var(--border-width), var(--border-width) 100% !important;
   }
 }
 
@@ -184,10 +184,10 @@
   background-repeat: no-repeat;
 
   /* Start all lines at zero size */
-  background-size: 0% 1px, 1px 0%, 0% 1px, 1px 0%;
+  background-size: 0% var(--border-width), var(--border-width) 0%, 0% var(--border-width), var(--border-width) 0%;
 
   /* Draw clockwise: top → right → bottom → left */
-  animation: bp-border-draw 0.8s ease-out both;
+  animation: bp-border-draw calc(0.8s * var(--motion-scale)) ease-out both;
 
   /* Scroll-driven: draw when element enters the viewport */
   animation-timeline: view();
@@ -198,6 +198,6 @@
    Just plays on load with a short delay. */
 @supports not (animation-timeline: view()) {
   .bp-animate-draw {
-    animation: bp-border-draw 0.8s ease-out 0.15s both;
+    animation: bp-border-draw calc(0.8s * var(--motion-scale)) ease-out calc(0.15s * var(--motion-scale)) both;
   }
 }

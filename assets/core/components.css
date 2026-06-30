@@ -257,7 +257,7 @@
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
   box-shadow: var(--bp-shadow-glow);
-  transform: translateY(-1px);
+  transform: translateY(calc(-1 * var(--lift-distance) / 2));
   color: var(--color-on-primary);
 }
 
@@ -312,7 +312,7 @@
 
 .bp-btn-destructive:hover {
   background-color: color-mix(in srgb, var(--bp-error) 85%, black);
-  transform: translateY(-1px);
+  transform: translateY(calc(-1 * var(--lift-distance) / 2));
   color: var(--color-on-primary);
 }
 
@@ -343,12 +343,12 @@
 }
 
 .bp-btn-icon {
-  width: 40px;
+  width: var(--btn-height-md);
   padding: 0;
 }
 
-.bp-btn-icon.bp-btn-sm { width: 34px; }
-.bp-btn-icon.bp-btn-lg { width: 48px; }
+.bp-btn-icon.bp-btn-sm { width: var(--btn-height-sm); }
+.bp-btn-icon.bp-btn-lg { width: var(--btn-height-lg); }
 
 /* --------------------------------------------------------------------------
    CARDS
@@ -371,7 +371,7 @@
 .bp-card-hover:hover {
   border-color: var(--color-primary);
   box-shadow: var(--bp-shadow-glow), var(--bp-shadow-md);
-  transform: translateY(-2px);
+  transform: translateY(calc(-1 * var(--lift-distance)));
 }
 
 .bp-card-header {
@@ -518,7 +518,7 @@
   font-size: clamp(var(--bp-text-4xl), 6vw, var(--bp-text-6xl));
   font-weight: var(--bp-font-bold);
   letter-spacing: var(--bp-tracking-tight);
-  line-height: 1.1;
+  line-height: var(--bp-leading-display);
   color: var(--color-text);
   max-width: var(--hero-title-max-width);
   margin-bottom: var(--bp-space-6);
@@ -779,7 +779,7 @@
 .bp-textarea:focus,
 .bp-select:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-subtle);
+  box-shadow: 0 0 0 var(--focus-glow-spread) var(--color-primary-subtle);
 }
 
 .bp-input:disabled,
@@ -794,7 +794,7 @@
 }
 
 .bp-input-error:focus {
-  box-shadow: 0 0 0 3px var(--bp-error-subtle);
+  box-shadow: 0 0 0 var(--focus-glow-spread) var(--bp-error-subtle);
 }
 
 .bp-form-error {
@@ -818,8 +818,8 @@
 
 .bp-checkbox input[type="checkbox"],
 .bp-radio input[type="radio"] {
-  width: 16px;
-  height: 16px;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
   flex-shrink: 0;
   margin-top: 2px;
   accent-color: var(--color-primary);
@@ -865,7 +865,7 @@
 
 .bp-input-compose:focus-within {
   border-color: var(--color-primary);
-  box-shadow: var(--bp-shadow-sm), 0 0 0 3px var(--color-primary-subtle);
+  box-shadow: var(--bp-shadow-sm), 0 0 0 var(--focus-glow-spread) var(--color-primary-subtle);
 }
 
 .bp-input-compose-field {
@@ -889,8 +889,8 @@
 }
 
 .bp-input-compose-action {
-  width: 32px;
-  height: 32px;
+  width: var(--compose-action-size);
+  height: var(--compose-action-size);
   border-radius: var(--bp-radius-lg);
   background-color: var(--color-primary);
   color: var(--color-on-primary);
@@ -1052,7 +1052,7 @@
 }
 
 .bp-pricing-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(calc(-2 * var(--lift-distance)));
   box-shadow: var(--bp-shadow-lg);
 }
 
@@ -1134,7 +1134,7 @@
 .bp-divider::after {
   content: '';
   flex: 1;
-  height: 1px;
+  height: var(--border-width);
   background-color: var(--color-border);
 }
 
@@ -1560,9 +1560,9 @@
    Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
 */
 .bp-animate {
-  --bp-transition-fast:   all 0.25s var(--easing-bounce);
-  --bp-transition-base:   all 0.3s  var(--easing-bounce);
-  --bp-transition-smooth: all 0.4s  var(--easing-bounce);
+  --bp-transition-fast:   all calc(0.25s * var(--motion-scale)) var(--easing-bounce);
+  --bp-transition-base:   all calc(0.3s  * var(--motion-scale)) var(--easing-bounce);
+  --bp-transition-smooth: all calc(0.4s  * var(--motion-scale)) var(--easing-bounce);
 }
 
 /* --------------------------------------------------------------------------
@@ -1601,7 +1601,7 @@
   font-family: var(--font-heading);
   font-weight: var(--bp-font-bold);
   letter-spacing: var(--bp-tracking-tight);
-  line-height: 1.1;
+  line-height: var(--bp-leading-display);
   color: var(--color-text);
 }
 
@@ -1682,7 +1682,7 @@
 .bp-step {
   position: relative;
   padding-top: var(--bp-space-10);
-  border-top: 2px solid var(--color-primary);
+  border-top: var(--annotation-border-width) var(--border-style) var(--color-primary);
 }
 
 /* Large background numeral — pure CSS, no extra markup */
@@ -1696,7 +1696,7 @@
   font-family: var(--font-heading);
   line-height: 1;
   color: var(--color-primary);
-  opacity: 0.08;
+  opacity: var(--opacity-ghost);
   pointer-events: none;
   user-select: none;
 }
@@ -1818,11 +1818,11 @@
 /* Grid-unit sizes — snap to the 40px blueprint grid.
    Skeleton blocks sit exactly on grid lines: loading state reads
    like an empty blueprint form with reserved, precisely-sized spaces. */
-.bp-skeleton-1u { height: 40px; }
-.bp-skeleton-2u { height: 80px; }
-.bp-skeleton-3u { height: 120px; }
-.bp-skeleton-4u { height: 160px; }
-.bp-skeleton-6u { height: 240px; }
+.bp-skeleton-1u { height: var(--bp-grid-size); }
+.bp-skeleton-2u { height: calc(var(--bp-grid-size) * 2); }
+.bp-skeleton-3u { height: calc(var(--bp-grid-size) * 3); }
+.bp-skeleton-4u { height: calc(var(--bp-grid-size) * 4); }
+.bp-skeleton-6u { height: calc(var(--bp-grid-size) * 6); }
 
 /* bp-skeleton-card — matches exact bp-card outer dimensions so
    the skeleton→card swap has zero layout shift (no content jumping).
