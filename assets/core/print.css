@@ -122,7 +122,6 @@
   /* Reset motion initial states — bp-motion="draw" sets opacity:0 on page
      sections before animating them in. Cancelling the animation leaves them
      invisible. Force full opacity so the printed page is not blank. */
-  [data-bp-motion="draw"] .bp-nav,
   [data-bp-motion="draw"] .bp-hero,
   [data-bp-motion="draw"] .bp-section,
   [data-bp-motion="draw"] .bp-section-sm,
@@ -291,14 +290,16 @@
     border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    margin-bottom: var(--bp-space-4);
     break-inside: avoid;
   }
 
   .bp-print-spec .bp-pricing-card::before {
     content: "TIER-" counter(bp-tier, decimal-leading-zero);
     display: block;
-    font-family: var(--bp-font-mono), monospace;
+    font-family: var(--bp-font-mono), 'JetBrains Mono', monospace;
     font-size: var(--bp-text-xs);
+    font-weight: var(--bp-font-semibold);
     letter-spacing: var(--bp-tracking-widest);
     text-transform: uppercase;
     color: var(--color-primary) !important;

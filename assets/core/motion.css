@@ -83,7 +83,7 @@
     transparent 100%
   );
   transform-origin: left center;
-  z-index: var(--bp-z-toast);
+  z-index: var(--z-toast);
   pointer-events: none;
   animation: bp-draw-line-h calc(0.5s * var(--motion-scale)) var(--easing-smooth) forwards;
 }
@@ -91,13 +91,13 @@
 /* Nav materialises first, just after the line completes */
 [data-bp-motion="draw"] .bp-nav {
   opacity: 0;
-  animation: bp-fade-up calc(0.4s * var(--motion-scale)) ease-out calc(0.35s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) calc(0.35s * var(--motion-scale)) forwards;
 }
 
 /* Hero is the biggest element — give it the most time */
 [data-bp-motion="draw"] .bp-hero {
   opacity: 0;
-  animation: bp-fade-up calc(0.5s * var(--motion-scale)) ease-out calc(0.5s * var(--motion-scale)) forwards;
+  animation: bp-fade-up calc(0.5s * var(--motion-scale)) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
 }
 
 /* Sections stagger in sequence */
@@ -105,19 +105,19 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up calc(0.45s * var(--motion-scale)) ease-out calc(0.6s * var(--motion-scale)) forwards;
+  animation: bp-fade-up calc(0.45s * var(--motion-scale)) var(--easing-smooth) calc(0.6s * var(--motion-scale)) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up calc(0.45s * var(--motion-scale)) ease-out calc(0.5s * var(--motion-scale)) forwards;
+  animation: bp-fade-up calc(0.45s * var(--motion-scale)) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
 }
 
 /* Footer is last */
 [data-bp-motion="draw"] .bp-footer {
   opacity: 0;
-  animation: bp-fade-up calc(0.4s * var(--motion-scale)) ease-out calc(0.7s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) calc(0.7s * var(--motion-scale)) forwards;
 }
 
 /* --------------------------------------------------------------------------
@@ -178,8 +178,8 @@
   background-position:
     0      0,      /* top */
     100%   0,      /* right */
-    0      100%,   /* bottom */
-    0      0;      /* left */
+    100%   100%,   /* bottom */
+    0      100%;   /* left */
 
   background-repeat: no-repeat;
 
@@ -187,7 +187,7 @@
   background-size: 0% var(--border-width), var(--border-width) 0%, 0% var(--border-width), var(--border-width) 0%;
 
   /* Draw clockwise: top → right → bottom → left */
-  animation: bp-border-draw calc(0.8s * var(--motion-scale)) ease-out both;
+  animation: bp-border-draw calc(0.8s * var(--motion-scale)) var(--easing-smooth) both;
   /* Override the time value from the shorthand — scroll-driven timelines need
      animation-duration: auto to map keyframes to scroll progress, not a fixed duration */
   animation-duration: auto;
@@ -201,6 +201,6 @@
    Just plays on load with a short delay. */
 @supports not (animation-timeline: view()) {
   .bp-animate-draw {
-    animation: bp-border-draw calc(0.8s * var(--motion-scale)) ease-out calc(0.15s * var(--motion-scale)) both;
+    animation: bp-border-draw calc(0.8s * var(--motion-scale)) var(--easing-smooth) var(--duration-fast) both;
   }
 }

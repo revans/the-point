@@ -28,7 +28,7 @@
   /* Core palette */
   --bp-bg:              #0a1628;
   --bp-bg-secondary:    #0f1f38;
-  --bp-bg-elevated:     #162540;
+  --bp-surface-elevated:     #162540;
   --bp-surface:         #1a2d4a;
   --bp-surface-hover:   #1f3454;
   --bp-border:          #2a4a6b;
@@ -88,7 +88,7 @@
   /* Core palette */
   --bp-bg:              #f5f7fa;
   --bp-bg-secondary:    #edf0f5;
-  --bp-bg-elevated:     #e8ecf2;
+  --bp-surface-elevated:     #e8ecf2;
   --bp-surface:         #ffffff;
   --bp-surface-hover:   #f0f4f9;
   --bp-border:          #93c5fd;
@@ -136,7 +136,7 @@
   [data-bp-theme="auto"] {
     --bp-bg:              #f5f7fa;
     --bp-bg-secondary:    #edf0f5;
-    --bp-bg-elevated:     #e8ecf2;
+    --bp-surface-elevated:     #e8ecf2;
     --bp-surface:         #ffffff;
     --bp-surface-hover:   #f0f4f9;
     --bp-border:          #93c5fd;
@@ -271,7 +271,7 @@
   --color-bg:               var(--bp-bg);
   --color-bg-secondary:     var(--bp-bg-secondary);
   --color-surface:          var(--bp-surface);
-  --color-surface-elevated: var(--bp-bg-elevated);
+  --color-surface-elevated: var(--bp-surface-elevated);
   --color-border:           var(--bp-border);
   --color-border-subtle:    var(--bp-border-subtle);
   --color-surface-hover:    var(--bp-surface-hover);
@@ -284,6 +284,7 @@
   --color-code-bg:          var(--bp-accent-subtle);
   --color-code-text:        var(--bp-text-accent);
 
+  --font-sans:              var(--bp-font-sans);
   --font-heading:           var(--bp-font-sans);
   --font-body:              var(--bp-font-sans);
   --font-mono:              var(--bp-font-mono);
@@ -333,6 +334,15 @@
   --shadow-lg:   var(--bp-shadow-lg);
   --shadow-glow: var(--bp-shadow-glow);
 
+  /* Z-index — semantic aliases; reference --z-* in component and element styles */
+  --z-base:     var(--bp-z-base);
+  --z-raised:   var(--bp-z-raised);
+  --z-dropdown: var(--bp-z-dropdown);
+  --z-sticky:   var(--bp-z-sticky);
+  --z-overlay:  var(--bp-z-overlay);
+  --z-modal:    var(--bp-z-modal);
+  --z-toast:    var(--bp-z-toast);
+
   /* Layout — structural dimensions and density */
   --space-unit:    1rem;
   --grid-gap:      var(--bp-space-6);
@@ -360,8 +370,15 @@
      or use brand_controller.js to auto-compute this at runtime from --color-primary. */
   --color-on-primary: #ffffff;
 
+  /* Color on error — text/icon color on error-filled surfaces (destructive buttons, alerts, etc.)
+     Always white unless --color-error is a light hue. Override in brand.css if needed. */
+  --color-on-error: #ffffff;
+
   /* Content reading width — max-width for prose columns */
   --content-width: 65ch;
+
+  /* Footer brand description — max-width for the brand blurb in the footer column */
+  --footer-brand-max-width: 280px;
 
   /* Component padding — independent of --space-unit so card density
      can be tuned without affecting section-level layout spacing */
@@ -454,6 +471,7 @@
 html {
   font-size: var(--font-size-base);
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
 
@@ -557,7 +575,7 @@ hr {
 }
 
 ::selection {
-  background-color: var(--bp-accent-glow);
+  background-color: var(--color-primary-glow);
   color: var(--color-text);
 }
 
@@ -566,6 +584,6 @@ hr {
    -------------------------------------------------------------------------- */
 
 ::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
-::-webkit-scrollbar-track { background: var(--bp-bg-secondary); }
-::-webkit-scrollbar-thumb { background: var(--bp-border); border-radius: var(--bp-radius-full); }
-::-webkit-scrollbar-thumb:hover { background: var(--bp-text-muted); }
+::-webkit-scrollbar-track { background: var(--color-bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--bp-radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }

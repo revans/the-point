@@ -555,7 +555,7 @@ field.addEventListener('keydown', e => {
 
 Inline pill labels for attributes, categories, flavors, status, or any small metadata that belongs in-line with text or inside a card. Smaller and lighter than badges — no icon implied.
 
-**Variants:** `bp-chip` (base, primary tint) `bp-chip-outline` `bp-chip-muted` `bp-chip-success` `bp-chip-warning` `bp-chip-danger`
+**Variants:** `bp-chip` (base, primary tint) `bp-chip-outline` `bp-chip-muted` `bp-chip-success` `bp-chip-warning` `bp-chip-error`
 
 ```html
 <span class="bp-chip">Spicy</span>
@@ -563,7 +563,7 @@ Inline pill labels for attributes, categories, flavors, status, or any small met
 <span class="bp-chip bp-chip-muted">Archived</span>
 <span class="bp-chip bp-chip-success">In stock</span>
 <span class="bp-chip bp-chip-warning">Low stock</span>
-<span class="bp-chip bp-chip-danger">Discontinued</span>
+<span class="bp-chip bp-chip-error">Discontinued</span>
 
 <!-- Chip group — wrapping row with consistent gap -->
 <div class="bp-chip-group">
