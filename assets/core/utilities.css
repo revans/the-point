@@ -397,6 +397,7 @@
 @media (max-width: 640px) {
   .bp-section      { padding-top: var(--section-sm-padding-y);     padding-bottom: var(--section-sm-padding-y); }
   .bp-section-lg   { padding-top: var(--section-padding-y);        padding-bottom: var(--section-padding-y); }
+  .bp-section-xl   { padding-top: var(--section-lg-padding-y);     padding-bottom: var(--section-lg-padding-y); }
   .bp-hero         { padding-top: var(--hero-padding-top-mobile);  padding-bottom: var(--hero-padding-bottom-mobile); }
 
   .bp-nav-links    { display: none; }
@@ -411,12 +412,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   SECONDARY COLOR
+   BRAND SECONDARY COLOR
    -------------------------------------------------------------------------- */
 
-.bp-text-secondary-accent   { color: var(--color-secondary); }
-.bp-bg-secondary-accent     { background-color: var(--color-secondary-subtle); }
-.bp-border-secondary-accent { border-color: var(--color-secondary); }
+.bp-text-brand-secondary   { color: var(--color-secondary); }
+.bp-bg-brand-secondary     { background-color: var(--color-secondary-subtle); }
+.bp-border-brand-secondary { border-color: var(--color-secondary); }
 
 /* --------------------------------------------------------------------------
    BLUR — backdrop-filter scale

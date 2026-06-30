@@ -358,7 +358,7 @@
 .bp-btn-lg {
   height: var(--btn-height-lg);
   padding: 0 var(--bp-space-8);
-  font-size: var(--bp-text-base);
+  font-size: var(--font-size-base);
 }
 
 .bp-btn-xl {
@@ -554,7 +554,7 @@
 }
 
 .bp-hero-subtitle {
-  font-size: clamp(var(--bp-text-base), 2vw, var(--bp-text-xl));
+  font-size: clamp(var(--font-size-base), 2vw, var(--font-size-xl));
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
   max-width: var(--hero-subtitle-max-width);
@@ -1207,7 +1207,7 @@
 
 .bp-avatar-sm  { width: var(--avatar-sm); height: var(--avatar-sm); font-size: var(--bp-text-xs); }
 .bp-avatar-md  { width: var(--avatar-md); height: var(--avatar-md); font-size: var(--bp-text-sm); }
-.bp-avatar-lg  { width: var(--avatar-lg); height: var(--avatar-lg); font-size: var(--bp-text-base); }
+.bp-avatar-lg  { width: var(--avatar-lg); height: var(--avatar-lg); font-size: var(--font-size-base); }
 .bp-avatar-xl  { width: var(--avatar-xl); height: var(--avatar-xl); font-size: var(--bp-text-xl); }
 
 .bp-avatar img {
@@ -1312,7 +1312,7 @@
 }
 
 .bp-testimonial-quote {
-  font-size: var(--bp-text-base);
+  font-size: var(--font-size-base);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
   font-style: italic;
@@ -1668,7 +1668,7 @@
   border-color: currentColor;
 }
 
-.bp-chip-muted {
+.bp-chip-secondary {
   background-color: var(--color-surface-elevated);
   color: var(--color-text-secondary);
   border-color: var(--color-border);

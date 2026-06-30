@@ -69,7 +69,7 @@
     --color-border:           #bfdbfe !important;
     --color-text:             #0a1628 !important;
     --color-text-secondary:   #1e3a57 !important;
-    --color-text-muted:       #4a7a9b !important;
+    --color-text-muted:       #4a7a9b !important; /* also hardcoded at line 28 in @page { @bottom-right } — update both together; @page margin boxes cannot resolve custom properties in Chrome/Edge */
     --color-primary:          #1d4ed8 !important;
     --color-primary-hover:    #1e40af !important;
     --color-primary-subtle:   rgba(29, 78, 216, 0.06) !important;
@@ -224,12 +224,12 @@
     display: block !important;
     float: none !important;
     width: auto !important;
-    margin: var(--print-gap-sm) 0;
-    font-size: var(--print-annotation-font-size);
+    margin: var(--print-gap-sm) 0 !important;
+    font-size: var(--print-annotation-font-size) !important;
     color: var(--color-text-muted) !important;
     border-left: var(--border-width-strong) var(--border-style) var(--color-primary) !important;
-    padding-left: var(--annotation-indent);
-    font-style: italic;
+    padding-left: var(--annotation-indent) !important;
+    font-style: italic !important;
   }
 
   /* Page numbers are handled by @page { @bottom-right } above —
@@ -241,10 +241,10 @@
      -------------------------------------------------------------------------- */
 
   .bp-stat {
-    flex-direction: row;
-    align-items: baseline;
-    gap: var(--print-gap-md);
-    padding: var(--print-gap-xs) 0;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: var(--print-gap-md) !important;
+    padding: var(--print-gap-xs) 0 !important;
     border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
   }
 
