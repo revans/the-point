@@ -299,9 +299,17 @@
   --color-success-subtle:   oklch(from var(--color-success) l c h / 0.12);
   --color-warning-subtle:   oklch(from var(--color-warning) l c h / 0.12);
   --color-error-subtle:     oklch(from var(--color-error) l c h / 0.12);
-  --color-success-text:     var(--color-success);
-  --color-warning-text:     var(--color-warning);
-  --color-error-text:       var(--color-error);
+  /* Text-color tokens — rule: all text-color tokens live under --color-text-{qualifier}.
+     Do not add --color-{state}-text variants; extend this block instead. */
+  --color-text-success:     var(--color-success);
+  --color-text-warning:     var(--color-warning);
+  --color-text-error:       var(--color-error);
+
+  /* Deprecated aliases — remove next version; migrate consumers to --color-text-{state} */
+  --color-success-text:     var(--color-text-success);
+  --color-warning-text:     var(--color-text-warning);
+  --color-error-text:       var(--color-text-error);
+
   /* State hovers use 85% (less darkening than brand's 75%) — red/yellow/green must stay hue-recognizable */
   --color-error-hover:      color-mix(in oklch, var(--color-error) 85%, black);
   --color-success-hover:    color-mix(in oklch, var(--color-success) 85%, black);
@@ -397,7 +405,7 @@
   --shadow-sm:   var(--bp-shadow-sm);
   --shadow-md:   var(--bp-shadow-md);
   --shadow-lg:   var(--bp-shadow-lg);
-  --shadow-glow:       var(--bp-shadow-glow);
+  --shadow-glow:       0 0 20px var(--color-primary-glow), 0 0 40px oklch(from var(--color-primary) l c h / 0.07);
   --shadow-glow-error: var(--bp-shadow-glow-error);
   --shadow-inset: var(--bp-shadow-inset);
 
@@ -477,7 +485,9 @@
      Override in brand.css with your actual secondary brand hue for two-color palettes. */
   --color-secondary:        var(--bp-accent-hover);
   --color-secondary-hover:  color-mix(in oklch, var(--color-secondary) 75%, black);
-  --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
+  --color-secondary-subtle:       oklch(from var(--color-secondary) l c h / 0.12);
+  --color-secondary-glow:         oklch(from var(--color-secondary) l c h / 0.25);
+  --color-secondary-transparent:  oklch(from var(--color-secondary) l c h / 0);
 
   /* Color on secondary — text/icon color on secondary-filled surfaces (buttons, badges, etc.)
      Defaults to white. Override in brand.css for light secondary hues. */
@@ -584,10 +594,6 @@
   /* Print grid */
   --color-print-grid-strong: rgba(0, 0, 0, 0.12);
   --color-print-grid:        rgba(0, 0, 0, 0.06);
-
-  /* Print layout */
-  --print-stat-value-min-width: 80px;
-  --print-annotation-font-size: 8.5pt;
 
   /* Grid — semantic aliases; override --color-grid-* in brand.css, not --bp-grid-* primitives */
   --color-grid:      var(--bp-grid-color);

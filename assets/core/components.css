@@ -411,9 +411,7 @@
 
 .bp-card {
   --card-bg:           var(--color-surface);
-  --card-radius:       var(--radius-lg);
   --card-border-color: var(--color-border);
-  --card-shadow:       var(--shadow-sm);
 
   background-color: var(--card-bg);
   border: var(--border-width) var(--border-style) var(--card-border-color);

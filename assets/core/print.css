@@ -100,9 +100,8 @@
        color: var(--color-on-primary/error/success/secondary) stays readable. */
     --color-on-primary:       #0a1628 !important;
     --color-on-error:         #0a1628 !important;
-    --color-on-success:       #0a1628 !important;
     --color-on-secondary:     #0a1628 !important;
-    /* --color-on-warning is already #000000 in base.css — no override needed */
+    /* --color-on-warning and --color-on-success are already #000000 in base.css — no override needed */
     --color-print-grid-strong: rgba(10, 22, 40, 0.06) !important;
     --color-print-grid:      rgba(10, 22, 40, 0.03) !important;
     --bp-shadow-sm:           none !important;
@@ -123,9 +122,11 @@
     --footer-padding-bottom: var(--bp-space-2) !important;
     --footer-gap:            var(--bp-space-4) !important;
     /* Semantic print-spacing aliases — all print density tuning happens here */
-    --print-gap-xs:          var(--bp-space-2) !important;
-    --print-gap-sm:          var(--bp-space-3) !important;
-    --print-gap-md:          var(--bp-space-4) !important;
+    --print-gap-xs:               var(--bp-space-2) !important;
+    --print-gap-sm:               var(--bp-space-3) !important;
+    --print-gap-md:               var(--bp-space-4) !important;
+    --print-stat-value-min-width: 80px !important;
+    --print-annotation-font-size: 8.5pt !important;
   }
 
   /* --------------------------------------------------------------------------
