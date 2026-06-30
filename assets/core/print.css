@@ -209,7 +209,7 @@
     margin: 1em 0;
     font-size: 8.5pt;
     color: var(--color-text-muted) !important;
-    border-left: var(--border-width-accent) var(--border-style) var(--color-primary);
+    border-left: var(--border-width-accent) var(--border-style) var(--color-primary) !important;
     padding-left: 0.75em;
     font-style: italic;
   }
@@ -258,7 +258,7 @@
      -------------------------------------------------------------------------- */
 
   .bp-print-spec {
-    counter-reset: bp-req;
+    counter-reset: bp-req bp-tier;
   }
 
   .bp-print-spec .bp-card {
@@ -287,14 +287,15 @@
 
   /* Pricing cards rendered as spec blocks */
   .bp-print-spec .bp-pricing-card {
-    counter-increment: bp-req;
+    counter-increment: bp-tier;
+    border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     break-inside: avoid;
   }
 
   .bp-print-spec .bp-pricing-card::before {
-    content: "TIER-" counter(bp-req, decimal-leading-zero);
+    content: "TIER-" counter(bp-tier, decimal-leading-zero);
     display: block;
     font-family: var(--bp-font-mono), monospace;
     font-size: var(--bp-text-xs);

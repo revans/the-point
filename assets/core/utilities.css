@@ -329,7 +329,8 @@
   color: var(--color-text-muted);
 }
 
-/* Crosshair dot */
+/* Crosshair dot — cannot be combined with .bp-bracket on the same element;
+   both classes claim ::before and ::after and will silently clobber each other */
 .bp-crosshair {
   position: relative;
   display: inline-flex;

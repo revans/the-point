@@ -188,6 +188,9 @@
 
   /* Draw clockwise: top → right → bottom → left */
   animation: bp-border-draw calc(0.8s * var(--motion-scale)) ease-out both;
+  /* Override the time value from the shorthand — scroll-driven timelines need
+     animation-duration: auto to map keyframes to scroll progress, not a fixed duration */
+  animation-duration: auto;
 
   /* Scroll-driven: draw when element enters the viewport */
   animation-timeline: view();

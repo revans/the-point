@@ -306,9 +306,9 @@
 
 /* Destructive */
 .bp-btn-destructive {
-  background-color: var(--bp-error);
+  background-color: var(--color-error);
   color: var(--color-on-primary);
-  border-color: var(--bp-error);
+  border-color: var(--color-error);
 }
 
 .bp-btn-destructive:hover {
@@ -419,8 +419,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: var(--feature-icon-size);
+  height: var(--feature-icon-size);
   background-color: var(--color-primary-subtle);
   border: var(--border-width) var(--border-style) var(--color-primary);
   border-radius: var(--bp-radius-lg);
@@ -805,16 +805,16 @@
 }
 
 .bp-input-error {
-  border-color: var(--bp-error);
+  border-color: var(--color-error);
 }
 
 .bp-input-error:focus {
-  box-shadow: 0 0 0 var(--focus-glow-spread) var(--bp-error-subtle);
+  box-shadow: 0 0 0 var(--focus-glow-spread) var(--color-error-subtle);
 }
 
 .bp-form-error {
   font-size: var(--bp-text-xs);
-  color: var(--bp-error);
+  color: var(--color-error);
 }
 
 .bp-form-hint {
@@ -1009,8 +1009,8 @@
 
 .bp-alert-icon {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: var(--alert-icon-size);
+  height: var(--alert-icon-size);
   margin-top: 1px;
 }
 
@@ -1212,8 +1212,8 @@
   font-weight: var(--bp-font-medium);
 }
 
-.bp-stat-change-up   { color: var(--bp-success); }
-.bp-stat-change-down { color: var(--bp-error); }
+.bp-stat-change-up   { color: var(--color-success); }
+.bp-stat-change-down { color: var(--color-error); }
 
 /* --------------------------------------------------------------------------
    TABLE
@@ -1667,8 +1667,8 @@
 }
 
 .bp-chip-danger {
-  background-color: var(--color-danger-subtle, color-mix(in srgb, var(--color-danger) 12%, transparent));
-  color: var(--color-danger);
+  background-color: var(--color-error-subtle);
+  color: var(--color-error);
 }
 
 /* Chip group — wrapping row of chips with consistent gap */
