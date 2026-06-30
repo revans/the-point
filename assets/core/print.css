@@ -91,6 +91,15 @@
     --color-error:            #9b1c1c !important;
     --color-error-subtle:     rgba(155, 28, 28, 0.06) !important;
     --color-error-hover:      #7c1616 !important;
+    /* on-* tokens — white base values (#ffffff) would become invisible on the
+       forced white print background when UA background-stripping is active.
+       Override to the same dark navy as --color-text so any element using
+       color: var(--color-on-primary/error/success/secondary) stays readable. */
+    --color-on-primary:       #0a1628 !important;
+    --color-on-error:         #0a1628 !important;
+    --color-on-success:       #0a1628 !important;
+    --color-on-secondary:     #0a1628 !important;
+    /* --color-on-warning is already #000000 in base.css — no override needed */
     --color-print-grid-strong: rgba(10, 22, 40, 0.06) !important;
     --color-print-grid:      rgba(10, 22, 40, 0.03) !important;
     --bp-shadow-sm:           none !important;
@@ -226,6 +235,14 @@
     border-top-width: 0 !important;
     border-left-width: 0 !important;
     border-right-width: 0 !important;
+    /* border-bottom preserved on ::before — it is the REQ/TIER label separator */
+  }
+
+  /* ::after bracket corner has no label content — zero all borders to prevent
+     a spurious horizontal line below the card body when position:static is set */
+  .bp-print-spec .bp-card.bp-bracket::after,
+  .bp-print-spec .bp-pricing-card.bp-bracket::after {
+    border-bottom-width: 0 !important;
   }
 
   /* Keep cards and sections intact across page breaks */

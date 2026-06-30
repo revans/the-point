@@ -70,7 +70,7 @@
 
 .bp-text-xs   { font-size: var(--font-size-xs); }
 .bp-text-sm   { font-size: var(--font-size-sm); }
-.bp-text-base { font-size: var(--font-size-base); }
+.bp-text-base { font-size: var(--font-size-md); }
 .bp-text-lg   { font-size: var(--font-size-lg); }
 .bp-text-xl   { font-size: var(--font-size-xl); }
 .bp-text-2xl  { font-size: var(--font-size-2xl); }
@@ -396,8 +396,8 @@
   height: var(--grid-line-width);
 }
 
-/* Dotted line connector */
-.bp-dotted-connector {
+/* Dashed line connector */
+.bp-dashed-connector {
   border-top: var(--border-width) dashed var(--color-border);
   width: 100%;
 }

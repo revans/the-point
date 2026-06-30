@@ -558,7 +558,7 @@
   --hero-title-max-width:     800px;
   --hero-subtitle-max-width:  600px;
   --hero-caption-max-width:   40ch;
-  --section-header-max-width: 640px;
+  --section-header-max-width: var(--container-sm);
 
   /* Inline code */
   --font-size-code: 0.9em;
@@ -609,6 +609,7 @@
 
 html {
   font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;

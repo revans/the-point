@@ -202,7 +202,7 @@
    -------------------------------------------------------------------------- */
 
 .bp-animate {
-  --transition-fast:   all var(--duration-moderate) var(--easing-bounce);
+  --transition-fast:   all var(--duration-moderate) var(--easing-bounce); /* intentionally slower than --duration-fast — bounce easing needs ~0.25s to show overshoot */
   --transition-base:   all var(--duration-slow)     var(--easing-bounce);
   --transition-smooth: all var(--duration-reveal)  var(--easing-bounce);
   --transition-bounce: all var(--duration-long)     var(--easing-bounce);

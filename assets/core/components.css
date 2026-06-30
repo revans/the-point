@@ -243,7 +243,7 @@
   font-weight: var(--btn-font-weight);
   line-height: 1;
   white-space: nowrap;
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) var(--border-style) transparent;
   border-radius: var(--btn-radius);
   cursor: pointer;
   transition: var(--transition-smooth);
@@ -873,6 +873,7 @@
 }
 
 .bp-input-error:focus {
+  border-color: var(--color-error);
   box-shadow: 0 0 0 var(--focus-glow-spread) var(--color-error-subtle);
 }
 
@@ -1458,12 +1459,12 @@
   position: fixed;
   bottom: var(--space-6);
   right: var(--space-6);
+  left: var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
   z-index: var(--z-toast);
   max-width: var(--toast-max-width);
-  width: 100%;
 }
 
 .bp-toast {
@@ -1644,7 +1645,7 @@
   transition: var(--transition-fast);
   cursor: pointer;
   text-decoration: none;
-  border: var(--border-width) solid transparent;
+  border: var(--border-width) var(--border-style) transparent;
 }
 
 .bp-sidebar-item:hover {
@@ -1731,7 +1732,8 @@
 
 .bp-chip-outline {
   background-color: transparent;
-  border-color: currentColor;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border);
 }
 
 .bp-chip-secondary {
