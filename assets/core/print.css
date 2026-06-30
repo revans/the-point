@@ -202,19 +202,7 @@
      0,2,1, no !important) loses the cascade and the REQ label is silently
      hidden. Higher specificity (0,3,1) with !important wins the cascade. */
   .bp-print-spec .bp-card.bp-bracket::before,
-  .bp-print-spec .bp-card.bp-bracket::after {
-    display: block !important;
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    bottom: auto !important;
-    right: auto !important;
-    width: auto !important;
-    height: auto !important;
-    opacity: 1 !important;
-    border-width: 0 !important;
-  }
-
+  .bp-print-spec .bp-card.bp-bracket::after,
   .bp-print-spec .bp-pricing-card.bp-bracket::before,
   .bp-print-spec .bp-pricing-card.bp-bracket::after {
     display: block !important;
@@ -226,7 +214,9 @@
     width: auto !important;
     height: auto !important;
     opacity: 1 !important;
-    border-width: 0 !important;
+    border-top-width: 0 !important;
+    border-left-width: 0 !important;
+    border-right-width: 0 !important;
   }
 
   /* Keep cards and sections intact across page breaks */

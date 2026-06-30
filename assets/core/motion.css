@@ -91,7 +91,7 @@
 /* Nav materialises just after the line completes */
 [data-bp-motion="draw"] .bp-nav {
   opacity: 0;
-  animation: bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-nav) forwards;
+  animation: bp-fade-up var(--duration-reveal) var(--easing-smooth) var(--delay-nav) forwards;
 }
 
 /* Hero is the biggest element — give it the most time */
@@ -117,7 +117,7 @@
 /* Footer is last */
 [data-bp-motion="draw"] .bp-footer {
   opacity: 0;
-  animation: bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-footer) forwards;
+  animation: bp-fade-up var(--duration-reveal) var(--easing-smooth) var(--delay-footer) forwards;
 }
 
 /* When bp-animate-draw is applied to a page-motion target, the animation

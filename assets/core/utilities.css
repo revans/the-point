@@ -14,7 +14,8 @@
 
 .bp-flex         { display: flex; }
 .bp-inline-flex  { display: inline-flex; }
-.bp-d-grid       { display: grid; }
+.bp-d-grid,
+.bp-grid-bare    { display: grid; }   /* bare display:grid — no gap; see .bp-grid in components.css for the layout component */
 
 /* --------------------------------------------------------------------------
    FLEXBOX
@@ -446,6 +447,7 @@
 
 /* @deprecated — use .bp-text-primary (same output) */
 .bp-text-brand-primary   { color: var(--color-primary); }
+/* @deprecated — use .bp-bg-primary-subtle (same output) */
 .bp-bg-brand-primary     { background-color: var(--color-primary-subtle); } /* subtle tint intentional: full --color-primary bg requires explicit white text */
 /* .bp-border-brand-primary → use .bp-border-primary (same output: border-color: var(--color-primary)) */
 
@@ -455,7 +457,8 @@
 
 .bp-text-brand-secondary   { color: var(--color-secondary); }
 .bp-bg-brand-secondary     { background-color: var(--color-secondary-subtle); } /* subtle tint intentional: full --color-secondary bg requires explicit white text */
-.bp-border-brand-secondary { border-color: var(--color-secondary); }
+.bp-border-secondary { border-color: var(--color-secondary); }
+/* .bp-border-brand-secondary → use .bp-border-secondary (same output: border-color: var(--color-secondary)) */
 
 /* --------------------------------------------------------------------------
    BLUR — backdrop-filter scale

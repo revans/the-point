@@ -58,11 +58,8 @@
 
   /* States */
   --bp-success:         #22c55e;
-  --bp-success-subtle:  rgba(34, 197, 94, 0.12);
   --bp-warning:         #f59e0b;
-  --bp-warning-subtle:  rgba(245, 158, 11, 0.12);
   --bp-error:           #ef4444;
-  --bp-error-subtle:    rgba(239, 68, 68, 0.12);
 }
 
 /* --------------------------------------------------------------------------
@@ -105,11 +102,8 @@
 
   /* States */
   --bp-success:         #16a34a;
-  --bp-success-subtle:  rgba(22, 163, 74, 0.08);
   --bp-warning:         #d97706;
-  --bp-warning-subtle:  rgba(217, 119, 6, 0.08);
   --bp-error:           #dc2626;
-  --bp-error-subtle:    rgba(220, 38, 38, 0.08);
 }
 
 /* --------------------------------------------------------------------------
@@ -147,11 +141,8 @@
     --bp-shadow-inset:    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
     --bp-success:         #16a34a;
-    --bp-success-subtle:  rgba(22, 163, 74, 0.08);
     --bp-warning:         #d97706;
-    --bp-warning-subtle:  rgba(217, 119, 6, 0.08);
     --bp-error:           #dc2626;
-    --bp-error-subtle:    rgba(220, 38, 38, 0.08);
   }
 }
 
@@ -182,6 +173,7 @@
 
   --bp-text-xs:         0.75rem;    /* 12px */
   --bp-text-sm:         0.875rem;   /* 14px */
+  --bp-text-md:         1rem;       /* 16px */
   --bp-text-lg:         1.125rem;   /* 18px */
   --bp-text-xl:         1.25rem;    /* 20px */
   --bp-text-2xl:        1.5rem;     /* 24px */
@@ -311,6 +303,7 @@
   /* Typography scale — these drive the base element styles */
   --font-size-base:          16px;
   --font-size-sm:            var(--bp-text-sm);
+  --font-size-md:            var(--bp-text-md);
   --font-size-h1:            var(--bp-text-5xl);
   --font-size-h2:            var(--bp-text-4xl);
   --font-size-h3:            var(--bp-text-3xl);
@@ -368,7 +361,7 @@
   --duration-slower:   calc(0.45s * var(--motion-scale));
   --duration-long:     calc(0.5s  * var(--motion-scale));
   /* Semantic aliases — named by use-case, not position in the scale */
-  --duration-gradual:  calc(0.40s * var(--motion-scale)); /* nav/footer reveals, bounce transitions */
+  --duration-reveal:   calc(0.40s * var(--motion-scale)); /* nav/footer reveals, bounce transitions */
   --duration-draw:     calc(0.8s  * var(--motion-scale));
   --delay-draw:    calc(0.15s * var(--motion-scale));
   --delay-nav:     calc(0.35s * var(--motion-scale));
@@ -381,7 +374,7 @@
   --bp-transition-fast:   all var(--duration-fast)   var(--easing-smooth);
   --bp-transition-base:   all var(--duration-base)   var(--easing-smooth);
   --bp-transition-smooth: all var(--duration-slow)   var(--easing-smooth);
-  --bp-transition-bounce: all var(--duration-gradual) var(--easing-bounce);
+  --bp-transition-bounce: all var(--duration-reveal) var(--easing-bounce);
   --motion-fade-distance: 12px;
   --motion-sweep-height:  2px;
 
@@ -469,6 +462,10 @@
   --color-secondary:        var(--bp-accent-hover);
   --color-secondary-hover:  color-mix(in oklch, var(--color-secondary) 75%, black);
   --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
+
+  /* Color on secondary — text/icon color on secondary-filled surfaces (buttons, badges, etc.)
+     Defaults to white. Override in brand.css for light secondary hues. */
+  --color-on-secondary: #ffffff;
 
   /* Color on primary — text/icon color on primary-filled surfaces (buttons, badges, etc.)
      Defaults to white. Override in brand.css for light brand colors (yellow, lime, etc.)
@@ -567,8 +564,8 @@
   --scrollbar-size: 6px;
 
   /* Print grid */
-  --color-print-grid-strong: oklch(from var(--color-bg) l c h / 0.06);
-  --color-print-grid:      oklch(from var(--color-bg) l c h / 0.03);
+  --color-print-grid-strong: rgba(0, 0, 0, 0.12);
+  --color-print-grid:        rgba(0, 0, 0, 0.06);
 
   /* Print layout */
   --print-stat-value-min-width: 80px;

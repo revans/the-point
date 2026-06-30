@@ -210,6 +210,7 @@
   background-color: var(--color-primary-subtle);
 }
 
+.bp-nav-brand:focus-visible,
 .bp-nav-link:focus-visible,
 .bp-sidebar-item:focus-visible,
 .bp-footer-link:focus-visible {
@@ -1055,9 +1056,11 @@
   gap: var(--space-3);
   padding: var(--space-4);
   border-radius: var(--radius-lg);
-  border: var(--border-width) var(--border-style) var(--color-border);
+  border: var(--border-width) var(--border-style) var(--color-primary);
   font-size: var(--font-size-sm);
   line-height: var(--leading-relaxed);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
 }
 
 .bp-alert-icon {
@@ -1072,12 +1075,6 @@
 .bp-alert-title {
   font-weight: var(--font-weight-semibold);
   margin-bottom: var(--space-1);
-}
-
-.bp-alert-default {
-  background-color: var(--color-primary-subtle);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
 }
 
 .bp-alert-success {
@@ -1125,10 +1122,20 @@
   box-shadow: var(--shadow-lg);
 }
 
+.bp-pricing-card:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
 .bp-pricing-card-featured:hover,
 .bp-pricing-card-featured:focus-visible {
   transform: none; /* featured cards elevate via glow, not lift */
   box-shadow: var(--shadow-glow), var(--shadow-lg);
+}
+
+.bp-pricing-card-featured:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .bp-pricing-plan {
