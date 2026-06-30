@@ -27,7 +27,7 @@
        @page margin boxes cannot resolve CSS custom properties in Chrome/Edge (as of 2026), so the value must be hardcoded here.
        The canonical value lives in --bp-font-mono. This line must always match it exactly: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace */
     font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-    font-size: 8pt;
+    font-size: 8pt; /* standalone value — page-number size for @page margin box; no design-system token; not coupled to anything in base.css */
     /* !! COUPLED VALUE — do not change this hex without updating --color-text-muted in the @media print :root block below.
        @page margin boxes cannot resolve CSS custom properties in Chrome/Edge (as of 2026), so the value must be hardcoded here.
        The canonical value lives in --color-text-muted. This line must always match it exactly: #4a7a9b */

@@ -352,6 +352,7 @@
   --font-weight-label:       var(--font-weight-semibold);
   --font-size-label:         var(--font-size-sm);
   --line-height-label:       var(--line-height-normal);
+  --letter-spacing-label:    var(--letter-spacing-wide);
   /* Role aliases — use in element-level base styles */
   --letter-spacing-heading:     var(--letter-spacing-tight);
   /* @deprecated — use --letter-spacing-widest instead; kept for print.css compatibility */
@@ -448,8 +449,8 @@
   --section-xl-padding-y:  var(--space-40);
   --hero-padding-top:           var(--space-32);
   --hero-padding-bottom:        var(--space-24);
-  --hero-padding-top-mobile:    var(--space-16);
-  --hero-padding-bottom-mobile: var(--space-12);
+  --hero-padding-top-phone:    var(--space-16);
+  --hero-padding-bottom-phone: var(--space-12);
   --footer-padding-top:    var(--space-12);
   --footer-padding-bottom: var(--space-8);
   --footer-gap:            var(--space-12);
@@ -497,9 +498,10 @@
   --color-on-warning: #000000;
 
   /* Color on success — text/icon color on success-filled surfaces (alerts, badges, etc.)
-     Defaults to white; --bp-success (#22c55e) is mid-green with sufficient contrast (~3.7:1 AA-large).
-     If using --bp-success for normal text, verify contrast and override in brand.css if needed. */
-  --color-on-success: #ffffff;
+     Must be dark: --bp-success (#22c55e) is a bright green (luminance 0.41); white text gives only 2.28:1,
+     failing WCAG AA-large (3:1). Black gives 9.22:1 and passes all WCAG levels.
+     Override in brand.css if --color-success is a dark hue. */
+  --color-on-success: #000000;
 
   /* Content reading width — max-width for prose columns */
   --content-width: 65ch;
@@ -507,10 +509,11 @@
   /* Footer brand description — max-width for the brand blurb in the footer column */
   --footer-brand-max-width: 280px;
 
-  /* Component padding and shadow — defined here so both .bp-card and
+  /* Component padding, shadow, and radius — defined here so both .bp-card and
      .bp-skeleton-card can reference them without inheritance dependency */
   --card-padding: var(--space-6);
   --card-shadow:  var(--shadow-sm);
+  --card-radius:  var(--radius-lg);
 
   /* Blur scale — matte vs. frosted glass spectrum */
   --blur-sm:  4px;

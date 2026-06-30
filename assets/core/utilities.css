@@ -126,9 +126,9 @@
 .bp-text-muted     { color: var(--color-text-muted); }
 .bp-text-accent    { color: var(--color-text-accent); }
 .bp-text-primary   { color: var(--color-primary); }
-.bp-text-success   { color: var(--color-success); }
-.bp-text-warning   { color: var(--color-warning); }
-.bp-text-error     { color: var(--color-error); }
+.bp-text-success   { color: var(--color-success-text); }
+.bp-text-warning   { color: var(--color-warning-text); }
+.bp-text-error     { color: var(--color-error-text); }
 
 .bp-bg-base      { background-color: var(--color-bg); }
 .bp-bg-secondary { background-color: var(--color-bg-secondary); }
@@ -432,7 +432,7 @@
   .bp-section      { padding-top: var(--section-sm-padding-y);     padding-bottom: var(--section-sm-padding-y); }
   .bp-section-lg   { padding-top: var(--section-padding-y);        padding-bottom: var(--section-padding-y); }
   .bp-section-xl   { padding-top: var(--section-lg-padding-y);     padding-bottom: var(--section-lg-padding-y); }
-  .bp-hero         { padding-top: var(--hero-padding-top-mobile);  padding-bottom: var(--hero-padding-bottom-mobile); }
+  .bp-hero         { padding-top: var(--hero-padding-top-phone);  padding-bottom: var(--hero-padding-bottom-phone); }
 
   .bp-nav-links    { display: none; }
 }

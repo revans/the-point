@@ -67,6 +67,12 @@
 .bp-section-dark .bp-card .bp-card-description {
   color: color-mix(in srgb, var(--color-bg) 70%, transparent);
 }
+.bp-section-dark .bp-section-title,
+.bp-section-dark .bp-hero-title,
+.bp-section-dark .bp-stat-value,
+.bp-section-dark .bp-testimonial-name {
+  color: var(--color-bg);
+}
 
 /* Full-bleed 100vh hero — fills the viewport and positions a caption overlay
    in the bottom-left corner. Content sits above a background (image or CSS)
@@ -379,7 +385,7 @@
 .bp-btn-lg {
   height: var(--btn-height-lg);
   padding: 0 var(--space-8);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-md);
 }
 
 .bp-btn-xl {
@@ -1268,7 +1274,7 @@
 
 .bp-avatar-sm  { width: var(--avatar-sm); height: var(--avatar-sm); font-size: var(--font-size-xs); }
 .bp-avatar-md  { width: var(--avatar-md); height: var(--avatar-md); }
-.bp-avatar-lg  { width: var(--avatar-lg); height: var(--avatar-lg); font-size: var(--font-size-base); }
+.bp-avatar-lg  { width: var(--avatar-lg); height: var(--avatar-lg); font-size: var(--font-size-md); }
 .bp-avatar-xl  { width: var(--avatar-xl); height: var(--avatar-xl); font-size: var(--font-size-xl); }
 
 .bp-avatar img {
@@ -1373,7 +1379,7 @@
 }
 
 .bp-testimonial-quote {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-md);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
   font-style: italic;
@@ -1954,7 +1960,7 @@
 .bp-skeleton-card {
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--card-radius);
   padding: var(--card-padding);
   box-shadow: var(--shadow-inset), var(--card-shadow);
   display: flex;
