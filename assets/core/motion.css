@@ -91,7 +91,7 @@
 /* Nav materialises just after the line completes */
 [data-bp-motion="draw"] .bp-nav {
   opacity: 0;
-  animation: bp-fade-up var(--duration-lax) var(--easing-smooth) var(--delay-nav) forwards;
+  animation: bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-nav) forwards;
 }
 
 /* Hero is the biggest element — give it the most time */
@@ -117,7 +117,7 @@
 /* Footer is last */
 [data-bp-motion="draw"] .bp-footer {
   opacity: 0;
-  animation: bp-fade-up var(--duration-lax) var(--easing-smooth) var(--delay-footer) forwards;
+  animation: bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-footer) forwards;
 }
 
 /* When bp-animate-draw is applied to a page-motion target, the animation
@@ -146,15 +146,15 @@
   animation-range: entry 0% entry 50%, normal;
 }
 
-/* Nav variant — specificity (0,3,0) preserves --duration-lax and
+/* Nav variant — specificity (0,3,0) preserves --duration-gradual and
    --delay-nav (0.35s) when bp-animate-draw is added to .bp-nav,
    preventing the generic (0,2,0) rule at line 129 from substituting
    --delay-section (0.6s) and --duration-slower (0.45s). */
 [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
-    bp-fade-up var(--duration-lax) var(--easing-smooth) var(--delay-nav) forwards;
-  animation-duration: auto, var(--duration-lax);
+    bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-nav) forwards;
+  animation-duration: auto, var(--duration-gradual);
   animation-timeline: view(), auto;
   animation-range: entry 0% entry 50%, normal;
 }
@@ -165,8 +165,8 @@
 [data-bp-motion="draw"] .bp-footer.bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
-    bp-fade-up var(--duration-lax) var(--easing-smooth) var(--delay-footer) forwards;
-  animation-duration: auto, var(--duration-lax);
+    bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-footer) forwards;
+  animation-duration: auto, var(--duration-gradual);
   animation-timeline: view(), auto;
   animation-range: entry 0% entry 50%, normal;
 }
@@ -215,8 +215,8 @@
   .bp-animate {
     --bp-transition-fast:   all var(--duration-fast)    var(--easing-smooth);
     --bp-transition-base:   all var(--duration-base)    var(--easing-smooth);
-    --bp-transition-smooth: all var(--duration-lax) var(--easing-smooth);
-    --bp-transition-bounce: all var(--duration-slow)    var(--easing-smooth);
+    --bp-transition-smooth: all var(--duration-slow)    var(--easing-smooth);
+    --bp-transition-bounce: all var(--duration-gradual)     var(--easing-smooth);
   }
 }
 
@@ -233,7 +233,7 @@
 .bp-animate {
   --bp-transition-fast:   all var(--duration-moderate)    var(--easing-bounce);
   --bp-transition-base:   all var(--duration-slow)   var(--easing-bounce);
-  --bp-transition-smooth: all var(--duration-lax) var(--easing-bounce);
+  --bp-transition-smooth: all var(--duration-gradual) var(--easing-bounce);
   --bp-transition-bounce: all var(--duration-long) var(--easing-bounce);
 }
 
@@ -317,13 +317,13 @@
   [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
-      bp-fade-up var(--duration-lax) var(--easing-smooth) var(--delay-nav) forwards;
+      bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-nav) forwards;
   }
 
   [data-bp-motion="draw"] .bp-footer.bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
-      bp-fade-up var(--duration-lax) var(--easing-smooth) var(--delay-footer) forwards;
+      bp-fade-up var(--duration-gradual) var(--easing-smooth) var(--delay-footer) forwards;
   }
 
   [data-bp-motion="draw"] .bp-main-content.bp-animate-draw {

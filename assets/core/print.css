@@ -267,7 +267,7 @@
   }
 
   .bp-stat-label {
-    flex: 1;
+    flex: 1 !important;
     color: var(--color-text-muted) !important;
   }
 

@@ -131,7 +131,8 @@
 .bp-bg-base      { background-color: var(--color-bg); }
 .bp-bg-secondary { background-color: var(--color-bg-secondary); }
 .bp-bg-surface   { background-color: var(--color-surface); }
-.bp-bg-accent    { background-color: var(--color-primary-subtle); }
+.bp-bg-primary-subtle { background-color: var(--color-primary-subtle); }
+.bp-bg-accent         { background-color: var(--color-primary-subtle); } /* alias → .bp-bg-primary-subtle */
 
 /* --------------------------------------------------------------------------
    BORDER
@@ -143,7 +144,7 @@
 .bp-border-l      { border-left: var(--border-width) var(--border-style) var(--color-border); }
 .bp-border-r      { border-right: var(--border-width) var(--border-style) var(--color-border); }
 .bp-border-none   { border: none; }
-.bp-border-accent { border-color: var(--color-primary); }
+.bp-border-primary { border-color: var(--color-primary); }
 
 .bp-rounded-none { border-radius: var(--radius-none); }
 .bp-rounded-sm   { border-radius: var(--radius-sm); }
@@ -190,6 +191,7 @@
 .bp-py-6  { padding-top: var(--space-6);  padding-bottom: var(--space-6); }
 .bp-py-8  { padding-top: var(--space-8);  padding-bottom: var(--space-8); }
 .bp-py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+.bp-py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
 .bp-py-20 { padding-top: var(--space-20); padding-bottom: var(--space-20); }
 
 /* --------------------------------------------------------------------------
@@ -398,16 +400,18 @@
 
 /* --------------------------------------------------------------------------
    RESPONSIVE HELPERS
+   Two explicit tiers — intentional, not a typo:
+     Tier 1 — "phone"  (≤640px):    layout collapses to single-column.
+                                     Section padding and nav links respond here
+                                     so that tablet-portrait (641px–767px)
+                                     keeps desktop-sized layout.
+     Tier 2 — "mobile" (≤767.98px): phones + small-tablet portrait.
+                                     .bp-hide-mobile / .bp-hide-desktop use
+                                     this wider cutoff so hidden content stays
+                                     hidden on tablets narrower than 768px too.
    -------------------------------------------------------------------------- */
 
-@media (max-width: 767.98px) {
-  .bp-hide-mobile  { display: none; }
-}
-
-@media (min-width: 768px) {
-  .bp-hide-desktop { display: none; }
-}
-
+/* Tier 1 — phone (≤640px): layout collapses to single-column */
 @media (max-width: 640px) {
   .bp-section      { padding-top: var(--section-sm-padding-y);     padding-bottom: var(--section-sm-padding-y); }
   .bp-section-lg   { padding-top: var(--section-padding-y);        padding-bottom: var(--section-padding-y); }
@@ -417,6 +421,16 @@
   .bp-nav-links    { display: none; }
 }
 
+/* Tier 2 — mobile (≤767.98px): phones + small-tablet portrait */
+@media (max-width: 767.98px) {
+  .bp-hide-mobile  { display: none; }
+}
+
+/* Tier 2 — desktop (≥768px): tablet-landscape and wider */
+@media (min-width: 768px) {
+  .bp-hide-desktop { display: none; }
+}
+
 /* --------------------------------------------------------------------------
    PROSE — readable content column
    -------------------------------------------------------------------------- */
@@ -424,6 +438,14 @@
 .bp-prose {
   max-width: var(--content-width);
 }
+
+/* --------------------------------------------------------------------------
+   BRAND PRIMARY COLOR — symmetric aliases for bp-{prop}-brand-{primary|secondary}
+   -------------------------------------------------------------------------- */
+
+.bp-text-brand-primary   { color: var(--color-primary); }
+.bp-bg-brand-primary     { background-color: var(--color-primary-subtle); }
+.bp-border-brand-primary { border-color: var(--color-primary); }
 
 /* --------------------------------------------------------------------------
    BRAND SECONDARY COLOR

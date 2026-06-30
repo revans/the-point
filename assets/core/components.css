@@ -21,6 +21,7 @@
 .bp-container-sm  { max-width: var(--container-sm); }
 .bp-container-md  { max-width: var(--container-md); }
 .bp-container-lg  { max-width: var(--container-lg); }
+.bp-container-xl  { max-width: var(--container-xl); }
 .bp-container-2xl { max-width: var(--container-2xl); }
 
 .bp-section {
@@ -660,12 +661,12 @@
    At mobile all splits collapse to a single column. */
 
 .bp-split        { display: grid; gap: var(--grid-gap); grid-template-columns: var(--split-ratio, 1fr 1fr); }
-.bp-split-40-60  { grid-template-columns: 2fr 3fr; }
-.bp-split-60-40  { grid-template-columns: 3fr 2fr; }
-.bp-split-33-67  { grid-template-columns: 1fr 2fr; }
-.bp-split-67-33  { grid-template-columns: 2fr 1fr; }
-.bp-split-25-75  { grid-template-columns: 1fr 3fr; }
-.bp-split-75-25  { grid-template-columns: 3fr 1fr; }
+.bp-split-40-60  { display: grid; gap: var(--grid-gap); grid-template-columns: 2fr 3fr; }
+.bp-split-60-40  { display: grid; gap: var(--grid-gap); grid-template-columns: 3fr 2fr; }
+.bp-split-33-67  { display: grid; gap: var(--grid-gap); grid-template-columns: 1fr 2fr; }
+.bp-split-67-33  { display: grid; gap: var(--grid-gap); grid-template-columns: 2fr 1fr; }
+.bp-split-25-75  { display: grid; gap: var(--grid-gap); grid-template-columns: 1fr 3fr; }
+.bp-split-75-25  { display: grid; gap: var(--grid-gap); grid-template-columns: 3fr 1fr; }
 
 @media (max-width: 768px) {
   .bp-split,
@@ -1445,9 +1446,23 @@
   font-size: var(--font-size-sm);
 }
 
-.bp-toast-success { border-color: var(--color-success); }
-.bp-toast-warning { border-color: var(--color-warning); }
-.bp-toast-error   { border-color: var(--color-error); }
+.bp-toast-success {
+  background-color: var(--color-success-subtle);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.bp-toast-warning {
+  background-color: var(--color-warning-subtle);
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.bp-toast-error {
+  background-color: var(--color-error-subtle);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
 
 /* --------------------------------------------------------------------------
    FOOTER
@@ -1886,7 +1901,7 @@
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  padding: var(--card-padding);
   box-shadow: var(--shadow-inset), var(--card-shadow);
   display: flex;
   flex-direction: column;

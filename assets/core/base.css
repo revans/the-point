@@ -343,6 +343,8 @@
   --font-weight-semibold:    var(--bp-weight-semibold);
   --font-weight-bold:        var(--bp-weight-bold);
   --font-weight-label:       var(--bp-weight-semibold);
+  --font-size-label:         var(--bp-text-sm);
+  --line-height-label:       var(--bp-leading-normal);
   /* Role aliases — use in element-level base styles */
   --letter-spacing-heading:     var(--bp-tracking-tight);
   /* @deprecated — use --tracking-widest instead; kept for print.css compatibility */
@@ -362,9 +364,9 @@
   --duration-fast:   calc(0.15s * var(--motion-scale));
   --duration-base:   calc(0.20s * var(--motion-scale));
   --duration-moderate: calc(0.25s * var(--motion-scale));
-  --duration-slow:   calc(0.30s * var(--motion-scale));
-  --duration-lax: calc(0.40s * var(--motion-scale));
-  --duration-slower: calc(0.45s * var(--motion-scale));
+  --duration-slow:     calc(0.30s * var(--motion-scale));
+  --duration-gradual:  calc(0.40s * var(--motion-scale));
+  --duration-slower:   calc(0.45s * var(--motion-scale));
   --duration-long:   calc(0.5s  * var(--motion-scale));
   --duration-draw:   calc(0.8s  * var(--motion-scale));
   --delay-draw:    calc(0.15s * var(--motion-scale));
@@ -378,7 +380,7 @@
   --bp-transition-fast:   all var(--duration-fast)   var(--easing-smooth);
   --bp-transition-base:   all var(--duration-base)   var(--easing-smooth);
   --bp-transition-smooth: all var(--duration-slow)   var(--easing-smooth);
-  --bp-transition-bounce: all var(--duration-lax) var(--easing-bounce);
+  --bp-transition-bounce: all var(--duration-gradual) var(--easing-bounce);
   --motion-fade-distance: 12px;
   --motion-sweep-height:  2px;
 
@@ -461,7 +463,8 @@
   --focus-ring-offset: 2px;
   --focus-glow-spread: 3px;
 
-  /* Secondary accent — for two-color brand palettes */
+  /* Secondary accent — default is a darkened primary (fallback only).
+     Override in brand.css with your actual secondary brand hue for two-color palettes. */
   --color-secondary:        var(--bp-accent-hover);
   --color-secondary-hover:  color-mix(in oklch, var(--color-secondary) 75%, black);
   --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
@@ -491,9 +494,10 @@
   /* Footer brand description — max-width for the brand blurb in the footer column */
   --footer-brand-max-width: 280px;
 
-  /* Component padding — independent of --space-unit so card density
-     can be tuned without affecting section-level layout spacing */
-  --card-padding: calc(var(--space-unit) * 1.5);
+  /* Component padding and shadow — defined here so both .bp-card and
+     .bp-skeleton-card can reference them without inheritance dependency */
+  --card-padding: var(--space-6);
+  --card-shadow:  var(--shadow-sm);
 
   /* Blur scale — matte vs. frosted glass spectrum */
   --blur-sm:  4px;
