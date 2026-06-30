@@ -217,7 +217,9 @@
 .bp-mt-5  { margin-top: var(--bp-space-5); }
 .bp-mt-6  { margin-top: var(--bp-space-6); }
 .bp-mt-8  { margin-top: var(--bp-space-8); }
+.bp-mt-10 { margin-top: var(--bp-space-10); }
 .bp-mt-12 { margin-top: var(--bp-space-12); }
+.bp-mt-16 { margin-top: var(--bp-space-16); }
 
 /* --------------------------------------------------------------------------
    SIZING
@@ -271,7 +273,7 @@
    -------------------------------------------------------------------------- */
 
 .bp-hover-lift {
-  transition: var(--bp-transition-smooth);
+  transition: var(--transition-smooth);
 }
 
 .bp-hover-lift:hover,
@@ -281,7 +283,7 @@
 }
 
 .bp-hover-glow {
-  transition: var(--bp-transition-smooth);
+  transition: var(--transition-smooth);
 }
 
 .bp-hover-glow:hover,

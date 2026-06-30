@@ -146,6 +146,31 @@
   animation-range: entry 0% entry 50%, normal;
 }
 
+/* Nav variant — specificity (0,3,0) preserves --duration-bounce and
+   --motion-delay-nav (0.35s) when bp-animate-draw is added to .bp-nav,
+   preventing the generic (0,2,0) rule at line 129 from substituting
+   --motion-delay-section (0.6s) and --duration-slower (0.45s). */
+[data-bp-motion="draw"] .bp-nav.bp-animate-draw {
+  animation:
+    bp-border-draw var(--duration-draw) var(--easing-smooth) both,
+    bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-nav) forwards;
+  animation-duration: auto, var(--duration-bounce);
+  animation-timeline: view(), auto;
+  animation-range: entry 0% entry 50%, normal;
+}
+
+/* Footer variant — specificity (0,3,0) preserves --motion-delay-footer (0.7s)
+   so the footer fires after sections (0.6s), maintaining the intended stagger
+   sequence: nav (0.35s) → hero → sections (0.6s) → footer (0.7s). */
+[data-bp-motion="draw"] .bp-footer.bp-animate-draw {
+  animation:
+    bp-border-draw var(--duration-draw) var(--easing-smooth) both,
+    bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-footer) forwards;
+  animation-duration: auto, var(--duration-bounce);
+  animation-timeline: view(), auto;
+  animation-range: entry 0% entry 50%, normal;
+}
+
 /* --------------------------------------------------------------------------
    REDUCED MOTION GUARD
    Users who set prefers-reduced-motion get the final state instantly.
@@ -189,6 +214,7 @@
   --bp-transition-fast:   all var(--duration-mid)    var(--easing-bounce);
   --bp-transition-base:   all var(--duration-slow)   var(--easing-bounce);
   --bp-transition-smooth: all var(--duration-bounce) var(--easing-bounce);
+  --bp-transition-bounce: all var(--duration-slower) var(--easing-bounce);
 }
 
 /* --------------------------------------------------------------------------
@@ -265,5 +291,17 @@
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both,
       bp-fade-up var(--duration-long) var(--easing-smooth) var(--motion-delay-hero) forwards;
+  }
+
+  [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
+    animation:
+      bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both,
+      bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-nav) forwards;
+  }
+
+  [data-bp-motion="draw"] .bp-footer.bp-animate-draw {
+    animation:
+      bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both,
+      bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-footer) forwards;
   }
 }

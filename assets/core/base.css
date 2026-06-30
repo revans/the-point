@@ -509,6 +509,7 @@
   --input-height:        40px;
   --textarea-min-height: 100px;
   --checkbox-size:       16px;
+  --input-baseline-nudge: 2px; /* optical alignment of checkbox/radio against wrapped label text */
   --compose-action-size:      32px;
   --compose-field-min-height: 22px;
   --compose-field-max-height: 200px;
@@ -549,9 +550,9 @@
   --print-stat-value-min-width: 80px;
   --print-annotation-font-size: 8.5pt;
 
-  /* Grid — semantic aliases; override --grid-* in brand.css, not --bp-grid-* primitives */
-  --grid-color:      var(--bp-grid-color);
-  --grid-color-bold: var(--bp-grid-color-bold);
+  /* Grid — semantic aliases; override --color-grid-* in brand.css, not --bp-grid-* primitives */
+  --color-grid:      var(--bp-grid-color);
+  --color-grid-bold: var(--bp-grid-color-bold);
   --grid-size:       var(--bp-grid-size);
   --grid-line-width: var(--bp-grid-line-width);
 }
@@ -565,6 +566,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   :root { --motion-scale: 0; }
+  html  { scroll-behavior: auto; }
 }
 
 /* --------------------------------------------------------------------------
@@ -595,10 +597,10 @@ body {
 
   /* Blueprint grid */
   background-image:
-    linear-gradient(var(--grid-color-bold) var(--grid-line-width), transparent var(--grid-line-width)),
-    linear-gradient(90deg, var(--grid-color-bold) var(--grid-line-width), transparent var(--grid-line-width)),
-    linear-gradient(var(--grid-color) var(--grid-line-width), transparent var(--grid-line-width)),
-    linear-gradient(90deg, var(--grid-color) var(--grid-line-width), transparent var(--grid-line-width));
+    linear-gradient(var(--color-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(90deg, var(--color-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(var(--color-grid) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(90deg, var(--color-grid) var(--grid-line-width), transparent var(--grid-line-width));
   background-size:
     var(--grid-size) var(--grid-size),
     var(--grid-size) var(--grid-size),

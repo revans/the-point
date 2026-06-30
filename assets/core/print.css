@@ -195,6 +195,11 @@
     display: block !important;
   }
 
+  .bp-print-spec .bp-pricing-card.bp-bracket::before,
+  .bp-print-spec .bp-pricing-card.bp-bracket::after {
+    display: block !important;
+  }
+
   /* Keep cards and sections intact across page breaks */
   .bp-card,
   .bp-pricing-card,
@@ -219,7 +224,7 @@
     display: block !important;
     float: none !important;
     width: auto !important;
-    margin: var(--bp-space-3) 0;
+    margin: var(--print-gap-sm) 0;
     font-size: var(--print-annotation-font-size);
     color: var(--color-text-muted) !important;
     border-left: var(--border-width-strong) var(--border-style) var(--color-primary) !important;
