@@ -85,7 +85,7 @@
   transform-origin: left center;
   z-index: var(--z-toast);
   pointer-events: none;
-  animation: bp-draw-line-h calc(0.5s * var(--motion-scale)) var(--easing-smooth) forwards;
+  animation: bp-draw-line-h var(--duration-long) var(--easing-smooth) forwards;
 }
 
 /* Nav materialises first, just after the line completes */
@@ -97,7 +97,7 @@
 /* Hero is the biggest element — give it the most time */
 [data-bp-motion="draw"] .bp-hero {
   opacity: 0;
-  animation: bp-fade-up calc(0.5s * var(--motion-scale)) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-long) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
 }
 
 /* Sections stagger in sequence */
@@ -105,13 +105,13 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up calc(0.45s * var(--motion-scale)) var(--easing-smooth) calc(0.6s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) calc(0.6s * var(--motion-scale)) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up calc(0.45s * var(--motion-scale)) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
 }
 
 /* Footer is last */
@@ -187,7 +187,7 @@
   background-size: 0% var(--border-width), var(--border-width) 0%, 0% var(--border-width), var(--border-width) 0%;
 
   /* Draw clockwise: top → right → bottom → left */
-  animation: bp-border-draw calc(0.8s * var(--motion-scale)) var(--easing-smooth) both;
+  animation: bp-border-draw var(--duration-draw) var(--easing-smooth) both;
   /* Override the time value from the shorthand — scroll-driven timelines need
      animation-duration: auto to map keyframes to scroll progress, not a fixed duration */
   animation-duration: auto;
@@ -201,6 +201,6 @@
    Just plays on load with a short delay. */
 @supports not (animation-timeline: view()) {
   .bp-animate-draw {
-    animation: bp-border-draw calc(0.8s * var(--motion-scale)) var(--easing-smooth) var(--duration-fast) both;
+    animation: bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both;
   }
 }

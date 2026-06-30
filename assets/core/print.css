@@ -39,7 +39,7 @@
 
   /* Force white background, low-opacity navy grid — structural, not decorative */
   body {
-    background-color: #ffffff !important;
+    background-color: var(--color-bg) !important;
     background-image:
       linear-gradient(var(--print-grid-color-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
       linear-gradient(90deg, var(--print-grid-color-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
@@ -107,7 +107,7 @@
     padding: 0 !important;
     height: auto !important;
     color: var(--color-primary) !important;
-    font-size: var(--bp-text-sm) !important;
+    font-size: var(--font-size-sm) !important;
     text-decoration: underline !important;
     display: inline !important;
   }
@@ -230,9 +230,9 @@
   }
 
   .bp-stat-value {
-    font-size: var(--bp-text-base) !important;
+    font-size: var(--font-size-base) !important;
     font-weight: var(--bp-font-semibold);
-    min-width: 80px;
+    min-width: var(--print-stat-value-min-width);
     color: var(--color-text) !important;
   }
 
@@ -270,18 +270,22 @@
     position: relative;
   }
 
-  .bp-print-spec .bp-card::before {
-    content: "REQ-" counter(bp-req, decimal-leading-zero);
+  .bp-print-spec .bp-card::before,
+  .bp-print-spec .bp-pricing-card::before {
     display: block;
-    font-family: var(--bp-font-mono), 'JetBrains Mono', monospace;
-    font-size: var(--bp-text-xs);
-    font-weight: var(--bp-font-semibold);
-    letter-spacing: var(--bp-tracking-widest);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-widest);
     text-transform: uppercase;
     color: var(--color-primary) !important;
     border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
     padding-bottom: var(--bp-space-2);
     margin-bottom: var(--bp-space-3);
+  }
+
+  .bp-print-spec .bp-card::before {
+    content: "REQ-" counter(bp-req, decimal-leading-zero);
   }
 
   /* Pricing cards rendered as spec blocks */
@@ -296,16 +300,6 @@
 
   .bp-print-spec .bp-pricing-card::before {
     content: "TIER-" counter(bp-tier, decimal-leading-zero);
-    display: block;
-    font-family: var(--bp-font-mono), 'JetBrains Mono', monospace;
-    font-size: var(--bp-text-xs);
-    font-weight: var(--bp-font-semibold);
-    letter-spacing: var(--bp-tracking-widest);
-    text-transform: uppercase;
-    color: var(--color-primary) !important;
-    border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
-    padding-bottom: var(--bp-space-2);
-    margin-bottom: var(--bp-space-3);
   }
 
   /* Footer — compress padding and allow a break between the grid and the

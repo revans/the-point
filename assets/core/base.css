@@ -28,8 +28,9 @@
   /* Core palette */
   --bp-bg:              #0a1628;
   --bp-bg-secondary:    #0f1f38;
-  --bp-surface-elevated:     #162540;
+  --bp-surface-inset:        #162540;  /* darker than surface — sunken/recessed (code blocks, wells) */
   --bp-surface:         #1a2d4a;
+  --bp-surface-elevated:     #213868;  /* lighter than surface — raised cards, dropdowns, overlays */
   --bp-surface-hover:   #1f3454;
   --bp-border:          #2a4a6b;
   --bp-border-subtle:   #1e3a57;
@@ -88,8 +89,9 @@
   /* Core palette */
   --bp-bg:              #f5f7fa;
   --bp-bg-secondary:    #edf0f5;
-  --bp-surface-elevated:     #e8ecf2;
+  --bp-surface-inset:        #e8ecf2;  /* slightly darker than surface — sunken/recessed (code blocks, wells) */
   --bp-surface:         #ffffff;
+  --bp-surface-elevated:     #ffffff;  /* same as surface; elevation is signaled by shadow, not lightness */
   --bp-surface-hover:   #f0f4f9;
   --bp-border:          #93c5fd;
   --bp-border-subtle:   #bfdbfe;
@@ -136,8 +138,9 @@
   [data-bp-theme="auto"] {
     --bp-bg:              #f5f7fa;
     --bp-bg-secondary:    #edf0f5;
-    --bp-surface-elevated:     #e8ecf2;
+    --bp-surface-inset:        #e8ecf2;  /* slightly darker than surface — sunken/recessed (code blocks, wells) */
     --bp-surface:         #ffffff;
+    --bp-surface-elevated:     #ffffff;  /* same as surface; elevation is signaled by shadow, not lightness */
     --bp-surface-hover:   #f0f4f9;
     --bp-border:          #93c5fd;
     --bp-border-subtle:   #bfdbfe;
@@ -272,6 +275,7 @@
   --color-bg-secondary:     var(--bp-bg-secondary);
   --color-surface:          var(--bp-surface);
   --color-surface-elevated: var(--bp-surface-elevated);
+  --color-surface-inset:    var(--bp-surface-inset);  /* recessed/sunken — code blocks, wells, table headers */
   --color-border:           var(--bp-border);
   --color-border-subtle:    var(--bp-border-subtle);
   --color-surface-hover:    var(--bp-surface-hover);
@@ -304,11 +308,22 @@
 
   /* Typography scale — these drive the base element styles */
   --font-size-base:          16px;
+  --font-size-sm:            var(--bp-text-sm);
+  --font-size-h1:            var(--bp-text-5xl);
+  --font-size-h2:            var(--bp-text-4xl);
+  --font-size-h3:            var(--bp-text-3xl);
+  --font-size-h4:            var(--bp-text-2xl);
+  --font-size-h5:            var(--bp-text-xl);
+  --font-size-h6:            var(--bp-text-lg);
   --font-weight-heading:     var(--bp-font-semibold);
   --font-weight-body:        var(--bp-font-normal);
   --line-height-base:        var(--bp-leading-normal);
   --line-height-heading:     var(--bp-leading-tight);
+  --line-height-body:        var(--bp-leading-relaxed);
   --letter-spacing-heading:  var(--bp-tracking-tight);
+  --font-size-xs:            var(--bp-text-xs);
+  --font-weight-semibold:    var(--bp-font-semibold);
+  --letter-spacing-widest:   var(--bp-tracking-widest);
 
   /* Motion — adjust --motion-scale to shift the whole page's animation personality.
      0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
@@ -318,6 +333,9 @@
   --duration-base:   calc(0.20s * var(--motion-scale));
   --duration-slow:   calc(0.30s * var(--motion-scale));
   --duration-bounce: calc(0.40s * var(--motion-scale));
+  --duration-mid:    calc(0.45s * var(--motion-scale));
+  --duration-long:   calc(0.5s  * var(--motion-scale));
+  --duration-draw:   calc(0.8s  * var(--motion-scale));
   --easing-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
   --easing-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
   /* Transition presets — defined here (not in the blueprint layer) because they depend on --duration-* and --easing-* above */
@@ -328,7 +346,7 @@
   --motion-fade-distance: 12px;
   --motion-sweep-height:  2px;
 
-  /* Shadows — semantic aliases; components use --bp-shadow-* directly */
+  /* Shadows — semantic aliases; use --shadow-* in components, not --bp-shadow-* */
   --shadow-sm:   var(--bp-shadow-sm);
   --shadow-md:   var(--bp-shadow-md);
   --shadow-lg:   var(--bp-shadow-lg);
@@ -445,6 +463,9 @@
   /* Print grid */
   --print-grid-color-bold: rgba(10, 22, 40, 0.06);
   --print-grid-color:      rgba(10, 22, 40, 0.03);
+
+  /* Print layout */
+  --print-stat-value-min-width: 80px;
 }
 
 /* --------------------------------------------------------------------------
@@ -473,11 +494,13 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg-secondary);
 }
 
 body {
   font-family: var(--font-body);
-  font-size: var(--bp-text-base);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-body);
   line-height: var(--line-height-base);
   color: var(--color-text);
@@ -530,16 +553,16 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text);
 }
 
-h1 { font-size: var(--bp-text-5xl); }
-h2 { font-size: var(--bp-text-4xl); }
-h3 { font-size: var(--bp-text-3xl); }
-h4 { font-size: var(--bp-text-2xl); }
-h5 { font-size: var(--bp-text-xl); }
-h6 { font-size: var(--bp-text-lg); }
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-h4); }
+h5 { font-size: var(--font-size-h5); }
+h6 { font-size: var(--font-size-h6); }
 
 p {
   color: var(--color-text-secondary);
-  line-height: var(--bp-leading-relaxed);
+  line-height: var(--line-height-body);
 }
 
 code, pre, kbd {
@@ -548,7 +571,7 @@ code, pre, kbd {
 }
 
 pre {
-  background-color: var(--color-surface-elevated);
+  background-color: var(--color-surface-inset);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--radius);
   padding: var(--bp-space-4);

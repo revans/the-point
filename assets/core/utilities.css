@@ -147,7 +147,7 @@
 
 .bp-rounded-none { border-radius: var(--bp-radius-none); }
 .bp-rounded-sm   { border-radius: var(--bp-radius-sm); }
-.bp-rounded      { border-radius: var(--radius); }
+.bp-rounded      { border-radius: var(--bp-radius-md); }
 .bp-rounded-lg   { border-radius: var(--bp-radius-lg); }
 .bp-rounded-xl   { border-radius: var(--bp-radius-xl); }
 .bp-rounded-2xl  { border-radius: var(--bp-radius-2xl); }
@@ -408,9 +408,9 @@
    SECONDARY COLOR
    -------------------------------------------------------------------------- */
 
-.bp-text-secondary-color  { color: var(--color-secondary); }
-.bp-bg-secondary-color    { background-color: var(--color-secondary-subtle); }
-.bp-border-secondary      { border-color: var(--color-secondary); }
+.bp-text-secondary-accent   { color: var(--color-secondary); }
+.bp-bg-secondary-accent     { background-color: var(--color-secondary-subtle); }
+.bp-border-secondary-accent { border-color: var(--color-secondary); }
 
 /* --------------------------------------------------------------------------
    BLUR — backdrop-filter scale
