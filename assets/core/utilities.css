@@ -85,7 +85,7 @@
 .bp-font-semibold { font-weight: var(--bp-font-semibold); }
 .bp-font-bold     { font-weight: var(--bp-font-bold); }
 
-.bp-font-sans { font-family: var(--font-body); }
+.bp-font-sans { font-family: var(--bp-font-sans); }
 .bp-font-mono { font-family: var(--font-mono); }
 
 .bp-leading-tight   { line-height: var(--bp-leading-tight); }
@@ -275,6 +275,10 @@
 .bp-hover-lift:hover {
   transform: translateY(calc(-1 * var(--lift-distance)));
   box-shadow: var(--bp-shadow-md);
+}
+
+.bp-hover-glow {
+  transition: var(--bp-transition-smooth);
 }
 
 .bp-hover-glow:hover {

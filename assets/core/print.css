@@ -227,7 +227,7 @@
     align-items: baseline;
     gap: var(--bp-space-4);
     padding: var(--bp-space-2) 0;
-    border-bottom: var(--border-width) var(--border-style) var(--color-border);
+    border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
   }
 
   .bp-stat-value {
@@ -280,7 +280,7 @@
     letter-spacing: var(--bp-tracking-widest);
     text-transform: uppercase;
     color: var(--color-primary) !important;
-    border-bottom: var(--border-width) var(--border-style) var(--color-border);
+    border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
     padding-bottom: var(--bp-space-2);
     margin-bottom: var(--bp-space-3);
   }
@@ -302,7 +302,7 @@
     letter-spacing: var(--bp-tracking-widest);
     text-transform: uppercase;
     color: var(--color-primary) !important;
-    border-bottom: var(--border-width) var(--border-style) var(--color-border);
+    border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
     padding-bottom: var(--bp-space-2);
     margin-bottom: var(--bp-space-3);
   }
