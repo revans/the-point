@@ -25,7 +25,7 @@
     content: "Page " counter(page);
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 8pt;
-    color: #4a7a9b;
+    color: #4a7a9b; /* = --color-text-muted print value; @page cannot use custom properties in Chrome/Edge */
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
@@ -176,6 +176,16 @@
     display: none !important;
   }
 
+  /* Restore ::before/::after on bracket cards inside a print-spec.
+     The rule above carries !important (specificity 0,1,0). Without this
+     override, .bp-print-spec .bp-card::before { display: block } (specificity
+     0,2,0, no !important) loses the cascade and the REQ label is silently
+     hidden. Higher specificity (0,3,0) with !important wins the cascade. */
+  .bp-print-spec .bp-card.bp-bracket::before,
+  .bp-print-spec .bp-card.bp-bracket::after {
+    display: block !important;
+  }
+
   /* Keep cards and sections intact across page breaks */
   .bp-card,
   .bp-pricing-card,
@@ -208,7 +218,7 @@
     margin: 1em 0;
     font-size: 8.5pt;
     color: var(--color-text-muted) !important;
-    border-left: var(--border-width-accent) var(--border-style) var(--color-primary) !important;
+    border-left: var(--border-width-strong) var(--border-style) var(--color-primary) !important;
     padding-left: 0.75em;
     font-style: italic;
   }
@@ -231,7 +241,7 @@
 
   .bp-stat-value {
     font-size: var(--font-size-base) !important;
-    font-weight: var(--bp-font-semibold);
+    font-weight: var(--font-weight-semibold);
     min-width: var(--print-stat-value-min-width);
     color: var(--color-text) !important;
   }

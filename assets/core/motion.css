@@ -83,21 +83,21 @@
     transparent 100%
   );
   transform-origin: left center;
-  z-index: var(--z-toast);
+  z-index: var(--z-draw);
   pointer-events: none;
   animation: bp-draw-line-h var(--duration-long) var(--easing-smooth) forwards;
 }
 
-/* Nav materialises first, just after the line completes */
+/* Nav materialises just after the line completes */
 [data-bp-motion="draw"] .bp-nav {
   opacity: 0;
-  animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) calc(0.35s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-nav) forwards;
 }
 
 /* Hero is the biggest element — give it the most time */
 [data-bp-motion="draw"] .bp-hero {
   opacity: 0;
-  animation: bp-fade-up var(--duration-long) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-long) var(--easing-smooth) var(--motion-delay-hero) forwards;
 }
 
 /* Sections stagger in sequence */
@@ -105,19 +105,19 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) calc(0.6s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) var(--motion-delay-section) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) calc(0.5s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) var(--motion-delay-hero) forwards;
 }
 
 /* Footer is last */
 [data-bp-motion="draw"] .bp-footer {
   opacity: 0;
-  animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) calc(0.7s * var(--motion-scale)) forwards;
+  animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-footer) forwards;
 }
 
 /* --------------------------------------------------------------------------

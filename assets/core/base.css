@@ -35,18 +35,6 @@
   --bp-border:          #2a4a6b;
   --bp-border-subtle:   #1e3a57;
 
-  /* Blueprint blue spectrum */
-  --bp-blue-50:         #eff6ff;
-  --bp-blue-100:        #dbeafe;
-  --bp-blue-200:        #bfdbfe;
-  --bp-blue-300:        #93c5fd;
-  --bp-blue-400:        #60a5fa;
-  --bp-blue-500:        #3b82f6;
-  --bp-blue-600:        #2563eb;
-  --bp-blue-700:        #1d4ed8;
-  --bp-blue-800:        #1e40af;
-  --bp-blue-900:        #1e3a8a;
-
   /* Text */
   --bp-text-primary:    #e8f4fd;
   --bp-text-secondary:  #93c5fd;
@@ -182,6 +170,18 @@
   --bp-grid-size:       40px;
   --bp-grid-line-width: 1px;
 
+  /* Blueprint blue spectrum */
+  --bp-blue-50:         #eff6ff;
+  --bp-blue-100:        #dbeafe;
+  --bp-blue-200:        #bfdbfe;
+  --bp-blue-300:        #93c5fd;
+  --bp-blue-400:        #60a5fa;
+  --bp-blue-500:        #3b82f6;
+  --bp-blue-600:        #2563eb;
+  --bp-blue-700:        #1d4ed8;
+  --bp-blue-800:        #1e40af;
+  --bp-blue-900:        #1e3a8a;
+
   /* Typography */
   --bp-font-sans:       'Inter', system-ui, -apple-system, sans-serif;
   --bp-font-mono:       'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
@@ -248,6 +248,7 @@
   --bp-z-overlay:       300;
   --bp-z-modal:         400;
   --bp-z-toast:         500;
+  --bp-z-draw:          600;
 
   /* Container */
   --bp-container-sm:    640px;
@@ -285,8 +286,8 @@
   --color-text-muted:       var(--bp-text-muted);
   --color-text-accent:      var(--bp-text-accent);
 
-  --color-code-bg:          var(--bp-accent-subtle);
-  --color-code-text:        var(--bp-text-accent);
+  --color-code-bg:          var(--color-primary-subtle);
+  --color-code-text:        var(--color-text-accent);
 
   --font-sans:              var(--bp-font-sans);
   --font-heading:           var(--bp-font-sans);
@@ -294,6 +295,8 @@
   --font-mono:              var(--bp-font-mono);
 
   --radius:                 var(--bp-radius-md);
+  --radius-sm:              var(--bp-radius-sm);
+  --radius-full:            var(--bp-radius-full);
 
   /* State colors */
   --color-success:          var(--bp-success);
@@ -336,6 +339,10 @@
   --duration-mid:    calc(0.45s * var(--motion-scale));
   --duration-long:   calc(0.5s  * var(--motion-scale));
   --duration-draw:   calc(0.8s  * var(--motion-scale));
+  --motion-delay-nav:     calc(0.35s * var(--motion-scale));
+  --motion-delay-hero:    calc(0.5s  * var(--motion-scale));
+  --motion-delay-section: calc(0.6s  * var(--motion-scale));
+  --motion-delay-footer:  calc(0.7s  * var(--motion-scale));
   --easing-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
   --easing-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
   /* Transition presets — defined here (not in the blueprint layer) because they depend on --duration-* and --easing-* above */
@@ -351,6 +358,7 @@
   --shadow-md:   var(--bp-shadow-md);
   --shadow-lg:   var(--bp-shadow-lg);
   --shadow-glow: var(--bp-shadow-glow);
+  --shadow-inset: var(--bp-shadow-inset);
 
   /* Z-index — semantic aliases; reference --z-* in component and element styles */
   --z-base:     var(--bp-z-base);
@@ -360,10 +368,12 @@
   --z-overlay:  var(--bp-z-overlay);
   --z-modal:    var(--bp-z-modal);
   --z-toast:    var(--bp-z-toast);
+  --z-draw:     var(--bp-z-draw);
 
   /* Layout — structural dimensions and density */
   --space-unit:    1rem;
   --grid-gap:      var(--bp-space-6);
+  --hr-margin:     var(--bp-space-8);
   --sidebar-width: 256px;
   --nav-height:    64px;
   --split-ratio:   1fr 1fr;
@@ -379,8 +389,8 @@
   --focus-glow-spread: 3px;
 
   /* Secondary accent — for two-color brand palettes */
-  --color-secondary:        var(--color-text-muted);
-  --color-secondary-hover:  var(--color-text-secondary);
+  --color-secondary:        var(--bp-accent-hover);
+  --color-secondary-hover:  var(--bp-accent);
   --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
 
   /* Color on primary — text/icon color on primary-filled surfaces (buttons, badges, etc.)
@@ -420,8 +430,8 @@
   --opacity-ghost:             0.08;
   --bracket-size:     12px;
 
-  /* Accent border — 2px prominent border for steps, annotations, side accents */
-  --border-width-accent: 2px;
+  /* Strong/prominent border width — 2px for steps, annotations, side accents */
+  --border-width-strong: 2px;
 
   /* Button heights — full size scale */
   --btn-height-xs: 28px;
@@ -434,7 +444,9 @@
   --input-height:        40px;
   --textarea-min-height: 100px;
   --checkbox-size:       16px;
-  --compose-action-size: 32px;
+  --compose-action-size:      32px;
+  --compose-field-min-height: 22px;
+  --compose-field-max-height: 200px;
   --select-chevron-size: 14px;
   --avatar-sm:           32px;
   --avatar-md:           40px;
@@ -456,6 +468,9 @@
   /* Inline code */
   --font-size-code: 0.9em;
   --code-padding:   0.125em 0.375em;
+
+  /* Block code */
+  --pre-padding: var(--bp-space-4);
 
   /* Scrollbar */
   --scrollbar-size: 6px;
@@ -500,7 +515,6 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-size: var(--font-size-base);
   font-weight: var(--font-weight-body);
   line-height: var(--line-height-base);
   color: var(--color-text);
@@ -574,7 +588,7 @@ pre {
   background-color: var(--color-surface-inset);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--radius);
-  padding: var(--bp-space-4);
+  padding: var(--pre-padding);
   overflow-x: auto;
 }
 
@@ -582,7 +596,7 @@ code {
   background-color: var(--color-code-bg);
   color: var(--color-code-text);
   padding: var(--code-padding);
-  border-radius: var(--bp-radius-sm);
+  border-radius: var(--radius-sm);
 }
 
 pre code {
@@ -594,7 +608,7 @@ pre code {
 hr {
   border: none;
   border-top: var(--border-width) var(--border-style) var(--color-border);
-  margin: var(--bp-space-8) 0;
+  margin: var(--hr-margin) 0;
 }
 
 ::selection {
@@ -608,5 +622,5 @@ hr {
 
 ::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
 ::-webkit-scrollbar-track { background: var(--color-bg-secondary); }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--bp-radius-full); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--radius-full); }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }

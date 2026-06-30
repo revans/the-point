@@ -156,7 +156,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--nav-height, 64px);
+  height: var(--nav-height);
   gap: var(--bp-space-8);
 }
 
@@ -198,6 +198,14 @@
 .bp-nav-link.active {
   color: var(--color-primary);
   background-color: var(--color-primary-subtle);
+}
+
+.bp-nav-link:focus-visible,
+.bp-sidebar-item:focus-visible,
+.bp-footer-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius);
 }
 
 .bp-nav-actions {
@@ -259,7 +267,6 @@
   border-color: var(--color-primary-hover);
   box-shadow: var(--bp-shadow-glow);
   transform: translateY(calc(-1 * var(--lift-distance) / 2));
-  color: var(--color-on-primary);
 }
 
 .bp-btn-primary:active {
@@ -319,12 +326,10 @@
   background-color: var(--color-error-hover);
   border-color: var(--color-error-hover);
   transform: translateY(calc(-1 * var(--lift-distance) / 2));
-  color: var(--color-on-error);
 }
 
 .bp-btn-destructive:active {
   transform: translateY(0);
-  box-shadow: none;
 }
 
 /* Sizes */
@@ -376,7 +381,7 @@
   border-radius: var(--card-radius);
   padding: var(--card-padding);
   transition: var(--bp-transition-smooth);
-  box-shadow: var(--bp-shadow-inset), var(--card-shadow);
+  box-shadow: var(--shadow-inset), var(--card-shadow);
 }
 
 .bp-card-hover:hover {
@@ -904,8 +909,8 @@
   font-size: var(--bp-text-sm);
   line-height: var(--bp-leading-relaxed);
   resize: none;
-  min-height: 22px;
-  max-height: 200px;
+  min-height: var(--compose-field-min-height);
+  max-height: var(--compose-field-max-height);
   overflow-y: auto;
   padding: 0;
 }
@@ -1674,16 +1679,19 @@
 .bp-chip-success {
   background-color: var(--color-success-subtle, color-mix(in srgb, var(--color-success) 12%, transparent));
   color: var(--color-success);
+  border-color: var(--color-success);
 }
 
 .bp-chip-warning {
   background-color: var(--color-warning-subtle, color-mix(in srgb, var(--color-warning) 12%, transparent));
   color: var(--color-warning);
+  border-color: var(--color-warning);
 }
 
 .bp-chip-error {
   background-color: var(--color-error-subtle, color-mix(in srgb, var(--color-error) 12%, transparent));
   color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 /* Chip group — wrapping row of chips with consistent gap */
@@ -1712,7 +1720,7 @@
 .bp-step {
   position: relative;
   padding-top: var(--bp-space-10);
-  border-top: var(--border-width-accent) var(--border-style) var(--color-primary);
+  border-top: var(--border-width-strong) var(--border-style) var(--color-primary);
 }
 
 /* Large background numeral — pure CSS, no extra markup */
@@ -1862,7 +1870,7 @@
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--bp-radius-lg);
   padding: var(--bp-space-6);
-  box-shadow: var(--bp-shadow-inset), var(--bp-shadow-sm);
+  box-shadow: var(--shadow-inset), var(--bp-shadow-sm);
   display: flex;
   flex-direction: column;
   gap: var(--bp-space-4);
