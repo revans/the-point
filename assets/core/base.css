@@ -226,6 +226,7 @@
   --bp-space-20:        5rem;      /* 80px */
   --bp-space-24:        6rem;      /* 96px */
   --bp-space-32:        8rem;      /* 128px */
+  --bp-space-40:        10rem;     /* 160px */
 
   /* Border radius */
   --bp-radius-none:     0;
@@ -278,6 +279,8 @@
   --color-surface:          var(--bp-surface);
   --color-surface-elevated: var(--bp-bg-elevated);
   --color-border:           var(--bp-border);
+  --color-border-subtle:    var(--bp-border-subtle);
+  --color-surface-hover:    var(--bp-surface-hover);
 
   --color-text:             var(--bp-text-primary);
   --color-text-secondary:   var(--bp-text-secondary);
@@ -395,6 +398,7 @@
   --textarea-min-height: 100px;
   --checkbox-size:       16px;
   --compose-action-size: 32px;
+  --select-chevron-size: 14px;
 
   /* Modal & toast dimensions */
   --modal-max-width:  520px;

@@ -191,7 +191,7 @@
 
 .bp-nav-link:hover {
   color: var(--color-text);
-  background-color: var(--bp-surface-hover, var(--color-surface));
+  background-color: var(--color-surface-hover);
 }
 
 .bp-nav-link.active {
@@ -274,7 +274,7 @@
 }
 
 .bp-btn-secondary:hover {
-  background-color: var(--bp-surface-hover, var(--bp-bg-elevated));
+  background-color: var(--color-surface-hover);
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
@@ -724,13 +724,13 @@
 .bp-select {
   appearance: none;
   -webkit-appearance: none;
-  padding-right: 2.5rem;
+  padding-right: var(--bp-space-10);
   cursor: pointer;
   /* Dark theme chevron (default) — #4a7a9b = --bp-text-muted dark */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a7a9b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 14px 14px;
+  background-position: right var(--bp-space-3) center;
+  background-size: var(--select-chevron-size) var(--select-chevron-size);
 }
 
 .bp-select:focus {
@@ -1237,7 +1237,7 @@
 .bp-table td {
   padding: var(--bp-space-3) var(--bp-space-4);
   color: var(--color-text-secondary);
-  border-bottom: var(--border-width) var(--border-style) var(--bp-border-subtle);
+  border-bottom: var(--border-width) var(--border-style) var(--color-border-subtle);
 }
 
 .bp-table tbody tr:last-child td {
@@ -1796,7 +1796,7 @@
   background: linear-gradient(
     90deg,
     var(--bp-bg-elevated) 25%,
-    var(--bp-surface-hover, var(--bp-surface)) 50%,
+    var(--color-surface-hover) 50%,
     var(--bp-bg-elevated) 75%
   );
   background-size: 200% 100%;
