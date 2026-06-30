@@ -120,10 +120,10 @@
    COLORS
    -------------------------------------------------------------------------- */
 
-.bp-text-primary   { color: var(--color-text); }
+.bp-text-body      { color: var(--color-text); }
 .bp-text-secondary { color: var(--color-text-secondary); }
 .bp-text-muted     { color: var(--color-text-muted); }
-.bp-text-accent    { color: var(--color-primary); }
+.bp-text-primary   { color: var(--color-primary); }
 .bp-text-success   { color: var(--color-success); }
 .bp-text-warning   { color: var(--color-warning); }
 .bp-text-error     { color: var(--color-error); }
@@ -289,6 +289,19 @@
 .bp-hover-glow:hover,
 .bp-hover-glow:focus-visible {
   box-shadow: var(--shadow-glow);
+}
+
+/* Combined modifier: intentional layering of lift transform + both shadows.
+   Use this single class instead of stacking .bp-hover-lift + .bp-hover-glow,
+   which silently drops --shadow-md due to equal-specificity cascade order. */
+.bp-hover-lift-glow {
+  transition: var(--transition-smooth);
+}
+
+.bp-hover-lift-glow:hover,
+.bp-hover-lift-glow:focus-visible {
+  transform: translateY(calc(-1 * var(--lift-distance)));
+  box-shadow: var(--shadow-md), var(--shadow-glow);
 }
 
 .bp-clickable {

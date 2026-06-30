@@ -73,6 +73,15 @@
     --color-primary:          #1d4ed8 !important;
     --color-primary-hover:    #1e40af !important;
     --color-primary-subtle:   rgba(29, 78, 216, 0.06) !important;
+    --color-success:          #1a5c35 !important;
+    --color-success-subtle:   rgba(26, 92, 53, 0.06) !important;
+    --color-success-hover:    #144a2a !important;
+    --color-warning:          #7a4a00 !important;
+    --color-warning-subtle:   rgba(122, 74, 0, 0.06) !important;
+    --color-warning-hover:    #623b00 !important;
+    --color-error:            #9b1c1c !important;
+    --color-error-subtle:     rgba(155, 28, 28, 0.06) !important;
+    --color-error-hover:      #7c1616 !important;
     --color-print-grid-bold: rgba(10, 22, 40, 0.06) !important;
     --color-print-grid:      rgba(10, 22, 40, 0.03) !important;
     --bp-shadow-sm:           none !important;
@@ -188,10 +197,10 @@
   }
 
   /* Restore ::before/::after on bracket cards inside a print-spec.
-     The rule above carries !important (specificity 0,1,0). Without this
+     The rule above carries !important (specificity 0,1,1). Without this
      override, .bp-print-spec .bp-card::before { display: block } (specificity
-     0,2,0, no !important) loses the cascade and the REQ label is silently
-     hidden. Higher specificity (0,3,0) with !important wins the cascade. */
+     0,2,1, no !important) loses the cascade and the REQ label is silently
+     hidden. Higher specificity (0,3,1) with !important wins the cascade. */
   .bp-print-spec .bp-card.bp-bracket::before,
   .bp-print-spec .bp-card.bp-bracket::after {
     display: block !important;
@@ -286,7 +295,7 @@
     border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin-bottom: var(--print-gap-md);
+    margin-bottom: var(--print-gap-md) !important;
     break-inside: avoid;
     position: relative;
   }
@@ -301,8 +310,8 @@
     text-transform: uppercase;
     color: var(--color-primary) !important;
     border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
-    padding-bottom: var(--print-gap-xs);
-    margin-bottom: var(--print-gap-sm);
+    padding-bottom: var(--print-gap-xs) !important;
+    margin-bottom: var(--print-gap-sm) !important;
   }
 
   .bp-print-spec .bp-card:not(.bp-pricing-card)::before {
@@ -315,7 +324,7 @@
     border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin-bottom: var(--print-gap-md);
+    margin-bottom: var(--print-gap-md) !important;
     break-inside: avoid;
   }
 

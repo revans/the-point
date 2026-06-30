@@ -358,27 +358,27 @@
      0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
      1 = default, 2 = expressive/playful */
   --motion-scale:    1;
-  --duration-fast:   calc(0.15s * var(--motion-scale));
   --duration-faster: calc(0.08s * var(--motion-scale));
+  --duration-fast:   calc(0.15s * var(--motion-scale));
   --duration-base:   calc(0.20s * var(--motion-scale));
-  --duration-base-plus: calc(0.25s * var(--motion-scale));
+  --duration-moderate: calc(0.25s * var(--motion-scale));
   --duration-slow:   calc(0.30s * var(--motion-scale));
-  --duration-slowish: calc(0.40s * var(--motion-scale));
+  --duration-lax: calc(0.40s * var(--motion-scale));
   --duration-slower: calc(0.45s * var(--motion-scale));
   --duration-long:   calc(0.5s  * var(--motion-scale));
   --duration-draw:   calc(0.8s  * var(--motion-scale));
-  --motion-delay-draw:    calc(0.15s * var(--motion-scale));
-  --motion-delay-nav:     calc(0.35s * var(--motion-scale));
-  --motion-delay-hero:    calc(0.5s  * var(--motion-scale));
-  --motion-delay-section: calc(0.6s  * var(--motion-scale));
-  --motion-delay-footer:  calc(0.7s  * var(--motion-scale));
+  --delay-draw:    calc(0.15s * var(--motion-scale));
+  --delay-nav:     calc(0.35s * var(--motion-scale));
+  --delay-hero:    calc(0.5s  * var(--motion-scale));
+  --delay-section: calc(0.6s  * var(--motion-scale));
+  --delay-footer:  calc(0.7s  * var(--motion-scale));
   --easing-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
   --easing-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
   /* Transition presets — defined here (not in the blueprint layer) because they depend on --duration-* and --easing-* above */
   --bp-transition-fast:   all var(--duration-fast)   var(--easing-smooth);
   --bp-transition-base:   all var(--duration-base)   var(--easing-smooth);
   --bp-transition-smooth: all var(--duration-slow)   var(--easing-smooth);
-  --bp-transition-bounce: all var(--duration-slowish) var(--easing-bounce);
+  --bp-transition-bounce: all var(--duration-lax) var(--easing-bounce);
   --motion-fade-distance: 12px;
   --motion-sweep-height:  2px;
 
@@ -418,9 +418,12 @@
   --space-12: var(--bp-space-12);
   --space-16: var(--bp-space-16);
   --space-20: var(--bp-space-20);
-  --annotation-indent: var(--bp-space-3);
-  --grid-gap:         var(--bp-space-6);
-  --hr-margin:     var(--bp-space-8);
+  --space-24: var(--bp-space-24);
+  --space-32: var(--bp-space-32);
+  --space-40: var(--bp-space-40);
+  --annotation-indent: var(--space-3);
+  --grid-gap:         var(--space-6);
+  --hr-margin:     var(--space-8);
   --sidebar-width: 256px;
   --nav-height:    64px;
   --split-ratio:   1fr 1fr;
@@ -428,17 +431,25 @@
   /* Section / hero / footer spacing tokens — override these in brand.css or
      @media print instead of reaching for --bp-space-* primitives directly
      in component selectors. This is the correct override point. */
-  --section-padding-y:     var(--bp-space-20);
-  --section-sm-padding-y:  var(--bp-space-12);
-  --section-lg-padding-y:  var(--bp-space-32);
-  --section-xl-padding-y:  var(--bp-space-40);
-  --hero-padding-top:           var(--bp-space-32);
-  --hero-padding-bottom:        var(--bp-space-24);
-  --hero-padding-top-mobile:    var(--bp-space-16);
-  --hero-padding-bottom-mobile: var(--bp-space-12);
-  --footer-padding-top:    var(--bp-space-12);
-  --footer-padding-bottom: var(--bp-space-8);
-  --footer-gap:            var(--bp-space-12);
+  --section-padding-y:     var(--space-20);
+  --section-sm-padding-y:  var(--space-12);
+  --section-lg-padding-y:  var(--space-32);
+  --section-xl-padding-y:  var(--space-40);
+  --hero-padding-top:           var(--space-32);
+  --hero-padding-bottom:        var(--space-24);
+  --hero-padding-top-mobile:    var(--space-16);
+  --hero-padding-bottom-mobile: var(--space-12);
+  --footer-padding-top:    var(--space-12);
+  --footer-padding-bottom: var(--space-8);
+  --footer-gap:            var(--space-12);
+
+  /* Container widths */
+  --container-sm:  var(--bp-container-sm);
+  --container-md:  var(--bp-container-md);
+  --container-lg:  var(--bp-container-lg);
+  --container-xl:  var(--bp-container-xl);
+  --container-2xl: var(--bp-container-2xl);
+  --container-pad: var(--bp-container-pad);
 
   /* Border — controls every border in the system simultaneously */
   --border-width:  1px;
@@ -500,6 +511,7 @@
   --opacity-decorative:        0.4;
   --opacity-decorative-strong: 0.6;
   --opacity-ghost:             0.08;
+  --opacity-pressed:           0.8;
   --bracket-size:     12px;
 
   /* Strong/prominent border width — 2px for steps, annotations, side accents */
@@ -544,7 +556,7 @@
   --code-padding:   0.125em 0.375em;
 
   /* Block code */
-  --pre-padding: var(--bp-space-4);
+  --pre-padding: var(--space-4);
 
   /* Scrollbar */
   --scrollbar-size: 6px;
