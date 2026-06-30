@@ -17,6 +17,7 @@
   padding-right: var(--bp-container-pad);
 }
 
+/* SHould these inherit bp-container? That way we don't have to call both bp-container & bp-container-lg on an element */
 .bp-container-sm  { max-width: var(--bp-container-sm); }
 .bp-container-md  { max-width: var(--bp-container-md); }
 .bp-container-lg  { max-width: var(--bp-container-lg); }
@@ -311,7 +312,7 @@
 }
 
 .bp-btn-destructive:hover {
-  background-color: color-mix(in srgb, var(--bp-error) 85%, black);
+  background-color: var(--color-error-hover);
   transform: translateY(calc(-1 * var(--lift-distance) / 2));
   color: var(--color-on-primary);
 }
@@ -721,40 +722,54 @@
   padding: 0 var(--bp-space-3);
 }
 
+/* Wrapper provides the ::after positioning context for the mask-driven chevron.
+   Usage: <div class="bp-select-wrapper"><select class="bp-select">...</select></div>
+   Single SVG mask in CSS; chevron color is token-driven via background-color.
+   Theme adaptation is automatic through semantic tokens — no light-theme overrides needed. */
+.bp-select-wrapper {
+  position: relative;
+  display: block;
+}
+
+.bp-select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: var(--bp-space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--select-chevron-size);
+  height: var(--select-chevron-size);
+  background-color: var(--color-text-muted);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  pointer-events: none;
+}
+
+.bp-select-wrapper:has(.bp-select:focus)::after {
+  background-color: var(--color-primary);
+}
+
+.bp-select-wrapper:has(.bp-select.bp-input-error)::after {
+  background-color: var(--color-error);
+}
+
+.bp-select-wrapper:has(.bp-select:disabled)::after {
+  opacity: var(--opacity-disabled);
+}
+
 .bp-select {
   appearance: none;
   -webkit-appearance: none;
   padding-right: var(--bp-space-10);
   cursor: pointer;
-  /* Dark theme chevron (default) — #4a7a9b = --bp-text-muted dark */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a7a9b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right var(--bp-space-3) center;
-  background-size: var(--select-chevron-size) var(--select-chevron-size);
-}
-
-.bp-select:focus {
-  /* Accent chevron on focus — #3b82f6 = --bp-accent */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-}
-
-.bp-select.bp-input-error {
-  /* Error chevron — #ef4444 = --bp-error */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 }
 
 .bp-select:disabled {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a7a9b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   cursor: not-allowed;
-}
-
-/* Light theme overrides — #6b8cae = --bp-text-muted light */
-[data-bp-theme="light"] .bp-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b8cae' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-}
-
-[data-bp-theme="light"] .bp-select:focus {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 }
 
 /* Option elements — limited browser support but sets intent */
@@ -1156,10 +1171,10 @@
   border: var(--border-width) var(--border-style) var(--color-border);
 }
 
-.bp-avatar-sm  { width: 32px;  height: 32px;  font-size: var(--bp-text-xs); }
-.bp-avatar-md  { width: 40px;  height: 40px;  font-size: var(--bp-text-sm); }
-.bp-avatar-lg  { width: 48px;  height: 48px;  font-size: var(--bp-text-base); }
-.bp-avatar-xl  { width: 64px;  height: 64px;  font-size: var(--bp-text-xl); }
+.bp-avatar-sm  { width: var(--avatar-sm); height: var(--avatar-sm); font-size: var(--bp-text-xs); }
+.bp-avatar-md  { width: var(--avatar-md); height: var(--avatar-md); font-size: var(--bp-text-sm); }
+.bp-avatar-lg  { width: var(--avatar-lg); height: var(--avatar-lg); font-size: var(--bp-text-base); }
+.bp-avatar-xl  { width: var(--avatar-xl); height: var(--avatar-xl); font-size: var(--bp-text-xl); }
 
 .bp-avatar img {
   width: 100%;
@@ -1682,7 +1697,7 @@
 .bp-step {
   position: relative;
   padding-top: var(--bp-space-10);
-  border-top: var(--annotation-border-width) var(--border-style) var(--color-primary);
+  border-top: var(--border-width-accent) var(--border-style) var(--color-primary);
 }
 
 /* Large background numeral — pure CSS, no extra markup */

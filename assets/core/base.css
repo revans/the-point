@@ -303,6 +303,9 @@
   --color-success-subtle:   var(--bp-success-subtle);
   --color-warning-subtle:   var(--bp-warning-subtle);
   --color-error-subtle:     var(--bp-error-subtle);
+  --color-error-hover:      color-mix(in oklch, var(--color-error) 85%, black);
+  --color-success-hover:    color-mix(in oklch, var(--color-success) 85%, black);
+  --color-warning-hover:    color-mix(in oklch, var(--color-warning) 85%, black);
 
   /* Typography scale — these drive the base element styles */
   --font-size-base:          16px;
@@ -383,8 +386,8 @@
   --opacity-ghost:             0.08;
   --bracket-size:     12px;
 
-  /* Annotation */
-  --annotation-border-width: 2px;
+  /* Accent border — 2px prominent border for steps, annotations, side accents */
+  --border-width-accent: 2px;
 
   /* Button heights — full size scale */
   --btn-height-xs: 28px;
@@ -399,6 +402,10 @@
   --checkbox-size:       16px;
   --compose-action-size: 32px;
   --select-chevron-size: 14px;
+  --avatar-sm:           32px;
+  --avatar-md:           40px;
+  --avatar-lg:           48px;
+  --avatar-xl:           64px;
 
   /* Modal & toast dimensions */
   --modal-max-width:  520px;

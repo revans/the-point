@@ -367,7 +367,7 @@
   font-size: var(--bp-text-xs);
   color: var(--color-text-muted);
   letter-spacing: var(--bp-tracking-wide);
-  border-left: var(--annotation-border-width) var(--border-style) var(--color-border);
+  border-left: var(--border-width-accent) var(--border-style) var(--color-border);
   padding-left: var(--bp-space-3);
 }
 

@@ -209,7 +209,7 @@
     margin: 1em 0;
     font-size: 8.5pt;
     color: var(--color-text-muted) !important;
-    border-left: var(--annotation-border-width) var(--border-style) var(--color-primary);
+    border-left: var(--border-width-accent) var(--border-style) var(--color-primary);
     padding-left: 0.75em;
     font-style: italic;
   }
