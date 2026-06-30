@@ -327,6 +327,10 @@
   --line-height-base:        var(--bp-leading-normal);
   --line-height-heading:     var(--bp-leading-tight);
   --line-height-body:        var(--bp-leading-relaxed);
+  --leading-tight:           var(--bp-leading-tight);
+  --leading-snug:            var(--bp-leading-snug);
+  --leading-normal:          var(--bp-leading-normal);
+  --leading-relaxed:         var(--bp-leading-relaxed);
   --letter-spacing-heading:  var(--bp-tracking-tight);
   --font-size-xs:            var(--bp-text-xs);
   --font-size-lg:            var(--bp-text-lg);
@@ -343,6 +347,12 @@
   --font-weight-bold:        var(--bp-font-bold);
   --font-weight-label:       var(--bp-font-semibold);
   --letter-spacing-caps:     var(--bp-tracking-widest);
+  --tracking-tight:          var(--bp-tracking-tight);
+  --tracking-normal:         var(--bp-tracking-normal);
+  --tracking-wide:           var(--bp-tracking-wide);
+  --tracking-wider:          var(--bp-tracking-wider);
+  --tracking-widest:         var(--bp-tracking-widest);
+  --letter-spacing-annotation:  var(--bp-tracking-wide);
 
   /* Motion — adjust --motion-scale to shift the whole page's animation personality.
      0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
@@ -352,7 +362,7 @@
   --duration-base:   calc(0.20s * var(--motion-scale));
   --duration-slow:   calc(0.30s * var(--motion-scale));
   --duration-bounce: calc(0.40s * var(--motion-scale));
-  --duration-mid:    calc(0.45s * var(--motion-scale));
+  --duration-longer: calc(0.45s * var(--motion-scale));
   --duration-long:   calc(0.5s  * var(--motion-scale));
   --duration-draw:   calc(0.8s  * var(--motion-scale));
   --motion-delay-nav:     calc(0.35s * var(--motion-scale));
@@ -386,13 +396,32 @@
   --z-toast:    var(--bp-z-toast);
   --z-draw:     var(--bp-z-draw);
 
+  /* Transitions — semantic aliases; use --transition-* in components, not --bp-transition-* */
+  --transition-fast:   var(--bp-transition-fast);
+  --transition-base:   var(--bp-transition-base);
+  --transition-smooth: var(--bp-transition-smooth);
+  --transition-bounce: var(--bp-transition-bounce);
+
   /* Layout — structural dimensions and density */
-  --space-unit:    1rem;
-  --grid-gap:      var(--bp-space-6);
+  --space-unit:       1rem;
+  --annotation-indent: var(--bp-space-3);
+  --grid-gap:         var(--bp-space-6);
   --hr-margin:     var(--bp-space-8);
   --sidebar-width: 256px;
   --nav-height:    64px;
   --split-ratio:   1fr 1fr;
+
+  /* Section / hero / footer spacing tokens — override these in brand.css or
+     @media print instead of reaching for --bp-space-* primitives directly
+     in component selectors. This is the correct override point. */
+  --section-padding-y:     var(--bp-space-20);
+  --section-sm-padding-y:  var(--bp-space-12);
+  --section-lg-padding-y:  var(--bp-space-32);
+  --hero-padding-top:      var(--bp-space-32);
+  --hero-padding-bottom:   var(--bp-space-24);
+  --footer-padding-top:    var(--bp-space-12);
+  --footer-padding-bottom: var(--bp-space-8);
+  --footer-gap:            var(--bp-space-12);
 
   /* Border — controls every border in the system simultaneously */
   --border-width:  1px;
@@ -406,7 +435,7 @@
 
   /* Secondary accent — for two-color brand palettes */
   --color-secondary:        var(--bp-accent-hover);
-  --color-secondary-hover:  var(--bp-accent);
+  --color-secondary-hover:  color-mix(in oklch, var(--color-secondary) 75%, black);
   --color-secondary-subtle: oklch(from var(--color-secondary) l c h / 0.12);
 
   /* Color on primary — text/icon color on primary-filled surfaces (buttons, badges, etc.)
@@ -417,6 +446,16 @@
   /* Color on error — text/icon color on error-filled surfaces (destructive buttons, alerts, etc.)
      Always white unless --color-error is a light hue. Override in brand.css if needed. */
   --color-on-error: #ffffff;
+
+  /* Color on warning — text/icon color on warning-filled surfaces (alerts, badges, etc.)
+     Must be dark: --bp-warning (#f59e0b) is a light amber hue; white text fails WCAG AA (~2.7:1).
+     Override in brand.css if --color-warning is a dark hue. */
+  --color-on-warning: #000000;
+
+  /* Color on success — text/icon color on success-filled surfaces (alerts, badges, etc.)
+     Defaults to white; --bp-success (#22c55e) is mid-green with sufficient contrast (~3.7:1 AA-large).
+     If using --bp-success for normal text, verify contrast and override in brand.css if needed. */
+  --color-on-success: #ffffff;
 
   /* Content reading width — max-width for prose columns */
   --content-width: 65ch;
@@ -479,6 +518,7 @@
   /* Hero & section text column widths */
   --hero-title-max-width:     800px;
   --hero-subtitle-max-width:  600px;
+  --hero-caption-max-width:   40ch;
   --section-header-max-width: 640px;
 
   /* Inline code */
@@ -569,7 +609,7 @@ img, video {
 a {
   color: var(--color-primary);
   text-decoration: none;
-  transition: var(--bp-transition-fast);
+  transition: var(--transition-fast);
 }
 
 a:hover {
@@ -626,6 +666,7 @@ pre code {
   background: none;
   padding: 0;
   color: inherit;
+  font-size: 1em;
 }
 
 hr {

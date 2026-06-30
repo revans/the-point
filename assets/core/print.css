@@ -41,10 +41,10 @@
   body {
     background-color: var(--color-bg) !important;
     background-image:
-      linear-gradient(var(--color-print-grid-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-      linear-gradient(90deg, var(--color-print-grid-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-      linear-gradient(var(--color-print-grid) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-      linear-gradient(90deg, var(--color-print-grid) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)) !important;
+      linear-gradient(var(--color-print-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+      linear-gradient(90deg, var(--color-print-grid-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+      linear-gradient(var(--color-print-grid) var(--grid-line-width), transparent var(--grid-line-width)),
+      linear-gradient(90deg, var(--color-print-grid) var(--grid-line-width), transparent var(--grid-line-width)) !important;
     background-size:
       var(--grid-size) var(--grid-size),
       var(--grid-size) var(--grid-size),
@@ -78,6 +78,22 @@
     --bp-shadow-lg:           none !important;
     --bp-shadow-glow:         none !important;
     --bp-shadow-inset:        none !important;
+    --shadow-sm:              none !important;
+    --shadow-md:              none !important;
+    --shadow-lg:              none !important;
+    --shadow-glow:            none !important;
+    --shadow-inset:           none !important;
+    /* Spacing token overrides — compress layout for paper; override tokens here
+       rather than overriding primitives directly in component selectors */
+    --grid-gap:              var(--bp-space-4) !important;
+    --section-padding-y:     var(--bp-space-6) !important;
+    --section-sm-padding-y:  var(--bp-space-6) !important;
+    --section-lg-padding-y:  var(--bp-space-6) !important;
+    --hero-padding-top:      var(--bp-space-8) !important;
+    --hero-padding-bottom:   var(--bp-space-8) !important;
+    --footer-padding-top:    var(--bp-space-6) !important;
+    --footer-padding-bottom: var(--bp-space-2) !important;
+    --footer-gap:            var(--bp-space-4) !important;
   }
 
   /* --------------------------------------------------------------------------
@@ -132,18 +148,10 @@
     opacity: 1 !important;
   }
 
-  /* Compress section padding — screen spacing is intentionally generous;
-     print doesn't have infinite scroll so half-page gaps waste paper */
-  .bp-section,
-  .bp-section-sm,
-  .bp-section-lg {
-    padding-top: var(--bp-space-6) !important;
-    padding-bottom: var(--bp-space-6) !important;
-  }
-
+  /* Section/hero padding is compressed via --section-padding-y, --section-sm-padding-y,
+     --section-lg-padding-y, --hero-padding-top, --hero-padding-bottom overrides in :root above.
+     Only hero min-height needs a direct rule — there is no semantic token for that. */
   .bp-hero {
-    padding-top: var(--bp-space-8) !important;
-    padding-bottom: var(--bp-space-8) !important;
     min-height: unset !important;
   }
 
@@ -195,14 +203,9 @@
     break-inside: avoid;
   }
 
-  /* Tighten grid gaps — screen grids have generous spacing designed for
-     visual breathing room; on paper that gap becomes dead whitespace */
-  .bp-grid,
-  .bp-grid-2,
-  .bp-grid-3,
-  .bp-grid-4 {
-    gap: var(--bp-space-4) !important;
-  }
+  /* Grid gap is compressed via --grid-gap override in :root above.
+     All .bp-grid* variants now consume var(--grid-gap) so no component
+     selector override is needed. */
 
   /* --------------------------------------------------------------------------
      ANNOTATIONS — INLINE REFERENCE NOTES
@@ -213,14 +216,14 @@
      -------------------------------------------------------------------------- */
 
   .bp-annotation {
-    display: block;
-    float: none;
-    width: auto;
+    display: block !important;
+    float: none !important;
+    width: auto !important;
     margin: 1em 0;
     font-size: var(--print-annotation-font-size);
     color: var(--color-text-muted) !important;
     border-left: var(--border-width-strong) var(--border-style) var(--color-primary) !important;
-    padding-left: 0.75em;
+    padding-left: var(--bp-space-3);
     font-style: italic;
   }
 
@@ -313,19 +316,12 @@
     content: "TIER-" counter(bp-tier, decimal-leading-zero);
   }
 
-  /* Footer — compress padding and allow a break between the grid and the
-     bottom bar. break-inside:avoid on .bp-footer itself forces the entire
-     footer onto one page; if it can't fit, it lands alone on a new page
-     (the "page 7" problem). Instead: keep each sub-section intact but let
-     the browser break between the grid block and the footer-bottom bar. */
-  .bp-footer {
-    padding-top: var(--bp-space-6) !important;
-    padding-bottom: var(--bp-space-2) !important;
-  }
-
+  /* Footer — padding is compressed via --footer-padding-top / --footer-padding-bottom
+     and gap via --footer-gap in :root above. break-inside:avoid on .bp-footer-grid keeps
+     each sub-section intact, letting the browser break between the grid and footer-bottom
+     bar (avoids the "entire footer marooned on page 7" problem). */
   .bp-footer-grid {
     break-inside: avoid;
-    gap: var(--bp-space-4) !important;
   }
 
   .bp-footer-bottom {

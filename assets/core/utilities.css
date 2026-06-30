@@ -88,16 +88,16 @@
 .bp-font-sans { font-family: var(--font-sans); }
 .bp-font-mono { font-family: var(--font-mono); }
 
-.bp-leading-tight   { line-height: var(--bp-leading-tight); }
-.bp-leading-snug    { line-height: var(--bp-leading-snug); }
-.bp-leading-normal  { line-height: var(--bp-leading-normal); }
-.bp-leading-relaxed { line-height: var(--bp-leading-relaxed); }
+.bp-leading-tight   { line-height: var(--leading-tight); }
+.bp-leading-snug    { line-height: var(--leading-snug); }
+.bp-leading-normal  { line-height: var(--leading-normal); }
+.bp-leading-relaxed { line-height: var(--leading-relaxed); }
 
-.bp-tracking-tight   { letter-spacing: var(--bp-tracking-tight); }
-.bp-tracking-normal  { letter-spacing: var(--bp-tracking-normal); }
-.bp-tracking-wide    { letter-spacing: var(--bp-tracking-wide); }
-.bp-tracking-wider   { letter-spacing: var(--bp-tracking-wider); }
-.bp-tracking-widest  { letter-spacing: var(--bp-tracking-widest); }
+.bp-tracking-tight   { letter-spacing: var(--tracking-tight); }
+.bp-tracking-normal  { letter-spacing: var(--tracking-normal); }
+.bp-tracking-wide    { letter-spacing: var(--tracking-wide); }
+.bp-tracking-wider   { letter-spacing: var(--tracking-wider); }
+.bp-tracking-widest  { letter-spacing: var(--tracking-widest); }
 
 .bp-uppercase   { text-transform: uppercase; }
 .bp-lowercase   { text-transform: lowercase; }
@@ -145,13 +145,13 @@
 .bp-border-none   { border: none; }
 .bp-border-accent { border-color: var(--color-primary); }
 
-.bp-rounded-none { border-radius: var(--bp-radius-none); }
-.bp-rounded-sm   { border-radius: var(--bp-radius-sm); }
-.bp-rounded      { border-radius: var(--bp-radius-md); }
-.bp-rounded-lg   { border-radius: var(--bp-radius-lg); }
-.bp-rounded-xl   { border-radius: var(--bp-radius-xl); }
-.bp-rounded-2xl  { border-radius: var(--bp-radius-2xl); }
-.bp-rounded-full { border-radius: var(--bp-radius-full); }
+.bp-rounded-none { border-radius: var(--radius-none); }
+.bp-rounded-sm   { border-radius: var(--radius-sm); }
+.bp-rounded      { border-radius: var(--radius); }
+.bp-rounded-lg   { border-radius: var(--radius-lg); }
+.bp-rounded-xl   { border-radius: var(--radius-xl); }
+.bp-rounded-2xl  { border-radius: var(--radius-2xl); }
+.bp-rounded-full { border-radius: var(--radius-full); }
 
 /* --------------------------------------------------------------------------
    SHADOW
@@ -264,7 +264,7 @@
 .bp-opacity-50  { opacity: 0.5; }
 .bp-opacity-75  { opacity: 0.75; }
 .bp-opacity-100 { opacity: 1; }
-.bp-disabled    { opacity: var(--opacity-disabled); pointer-events: none; cursor: not-allowed; }
+.bp-disabled    { opacity: var(--opacity-disabled); pointer-events: none; }
 
 /* --------------------------------------------------------------------------
    INTERACTIVE HELPERS
@@ -277,7 +277,7 @@
 .bp-hover-lift:hover,
 .bp-hover-lift:focus-visible {
   transform: translateY(calc(-1 * var(--lift-distance)));
-  box-shadow: var(--bp-shadow-md);
+  box-shadow: var(--shadow-md);
 }
 
 .bp-hover-glow {
@@ -286,7 +286,7 @@
 
 .bp-hover-glow:hover,
 .bp-hover-glow:focus-visible {
-  box-shadow: var(--bp-shadow-glow);
+  box-shadow: var(--shadow-glow);
 }
 
 .bp-clickable {
@@ -332,7 +332,7 @@
 .bp-mono-label {
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  letter-spacing: var(--bp-tracking-widest);
+  letter-spacing: var(--letter-spacing-caps);
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
@@ -355,13 +355,13 @@
 }
 
 .bp-crosshair::before {
-  width: var(--bp-grid-line-width);
+  width: var(--grid-line-width);
   height: 100%;
 }
 
 .bp-crosshair::after {
   width: 100%;
-  height: var(--bp-grid-line-width);
+  height: var(--grid-line-width);
 }
 
 /* Dotted line connector */
@@ -375,9 +375,9 @@
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  letter-spacing: var(--bp-tracking-wide);
+  letter-spacing: var(--letter-spacing-annotation);
   border-left: var(--border-width-strong) var(--border-style) var(--color-border);
-  padding-left: var(--bp-space-3);
+  padding-left: var(--annotation-indent);
 }
 
 /* --------------------------------------------------------------------------

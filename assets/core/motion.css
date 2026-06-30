@@ -105,13 +105,13 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) var(--motion-delay-section) forwards;
+  animation: bp-fade-up var(--duration-longer) var(--easing-smooth) var(--motion-delay-section) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up var(--duration-mid) var(--easing-smooth) var(--motion-delay-hero) forwards;
+  animation: bp-fade-up var(--duration-longer) var(--easing-smooth) var(--motion-delay-hero) forwards;
 }
 
 /* Footer is last */
@@ -147,6 +147,22 @@
     /* Show the final border state immediately */
     background-size: 100% var(--border-width), var(--border-width) 100%, 100% var(--border-width), var(--border-width) 100% !important;
   }
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENT-LEVEL BOUNCE  .bp-animate
+
+   Rescopes all transition tokens within the container to the bounce curve.
+   Because child components use var(--bp-transition-*) for their transitions,
+   overriding the token here cascades down — no per-component overrides needed.
+
+   Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
+   -------------------------------------------------------------------------- */
+
+.bp-animate {
+  --bp-transition-fast:   all calc(0.25s * var(--motion-scale)) var(--easing-bounce);
+  --bp-transition-base:   all calc(0.3s  * var(--motion-scale)) var(--easing-bounce);
+  --bp-transition-smooth: all calc(0.4s  * var(--motion-scale)) var(--easing-bounce);
 }
 
 /* --------------------------------------------------------------------------
@@ -186,6 +202,11 @@
 
   /* Start all lines at zero size */
   background-size: 0% var(--border-width), var(--border-width) 0%, 0% var(--border-width), var(--border-width) 0%;
+
+  /* Hide the host's opaque CSS border so the gradient lines show through.
+     background-image layers paint UNDER border in CSS paint order — without
+     this, the 1px solid border covers the 1px gradient lines completely. */
+  border-color: transparent;
 
   /* Draw clockwise: top → right → bottom → left */
   animation: bp-border-draw var(--duration-draw) var(--easing-smooth) both;
