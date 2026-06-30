@@ -70,8 +70,8 @@
 
 .bp-text-xs   { font-size: var(--font-size-xs); }
 .bp-text-sm   { font-size: var(--font-size-sm); }
-.bp-text-base { font-size: var(--font-size-base); }
-.bp-text-md   { font-size: var(--font-size-md); }
+.bp-text-base { font-size: var(--font-size-base); } /* fixed 16px anchor — does not scale with root font-size; prefer .bp-text-md for responsive type */
+.bp-text-md   { font-size: var(--font-size-md); }   /* 1rem = 16px by default; scales with user/brand root font-size */
 .bp-text-lg   { font-size: var(--font-size-lg); }
 .bp-text-xl   { font-size: var(--font-size-xl); }
 .bp-text-2xl  { font-size: var(--font-size-2xl); }
@@ -124,6 +124,7 @@
 .bp-text-body      { color: var(--color-text); } /* 'body' used because .bp-text-base is taken by the font-size scale */
 .bp-text-secondary { color: var(--color-text-secondary); }
 .bp-text-muted     { color: var(--color-text-muted); }
+.bp-text-accent    { color: var(--color-text-accent); }
 .bp-text-primary   { color: var(--color-primary); }
 .bp-text-success   { color: var(--color-success); }
 .bp-text-warning   { color: var(--color-warning); }

@@ -299,6 +299,9 @@
   --color-success-subtle:   oklch(from var(--color-success) l c h / 0.12);
   --color-warning-subtle:   oklch(from var(--color-warning) l c h / 0.12);
   --color-error-subtle:     oklch(from var(--color-error) l c h / 0.12);
+  --color-success-text:     var(--color-success);
+  --color-warning-text:     var(--color-warning);
+  --color-error-text:       var(--color-error);
   /* State hovers use 85% (less darkening than brand's 75%) — red/yellow/green must stay hue-recognizable */
   --color-error-hover:      color-mix(in oklch, var(--color-error) 85%, black);
   --color-success-hover:    color-mix(in oklch, var(--color-success) 85%, black);
@@ -369,7 +372,7 @@
   --duration-base:   calc(0.20s * var(--motion-scale));
   --duration-moderate: calc(0.25s * var(--motion-scale));
   --duration-slow:     calc(0.30s * var(--motion-scale));
-  --duration-slower:   calc(0.45s * var(--motion-scale));
+  --duration-relaxed:  calc(0.45s * var(--motion-scale));
   --duration-long:     calc(0.5s  * var(--motion-scale));
   /* Semantic aliases — named by use-case, not position in the scale */
   --duration-reveal:   calc(0.40s * var(--motion-scale)); /* nav/footer reveals, bounce transitions */
@@ -566,7 +569,7 @@
   --section-header-max-width: var(--container-sm);
 
   /* Inline code */
-  --font-size-code: 0.9em;
+  --font-size-code: var(--font-size-sm);   /* 0.875rem = 14px — fixed, not parent-relative */
   --code-padding:   0.125em 0.375em;
 
   /* Block code */
@@ -712,11 +715,6 @@ pre code {
   background: none;
   padding: 0;
   color: inherit;
-  font-size: 1em;
-}
-
-pre kbd {
-  font-size: 1em;
 }
 
 hr {

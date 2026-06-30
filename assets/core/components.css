@@ -417,6 +417,10 @@
   box-shadow: var(--shadow-inset), var(--card-shadow);
 }
 
+.bp-card-hover {
+  cursor: pointer;
+}
+
 .bp-card-hover:hover,
 .bp-card-hover:focus-visible {
   border-color: var(--color-primary);
@@ -1036,6 +1040,7 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-wide);
+  line-height: 1;
   padding: var(--space-1) var(--space-2);
   border-radius: var(--badge-radius);
   white-space: nowrap;
@@ -1136,6 +1141,7 @@
   flex-direction: column;
   gap: var(--space-6);
   transition: var(--transition-smooth);
+  cursor: pointer;
 }
 
 .bp-pricing-card-featured {
@@ -1479,6 +1485,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   background-color: var(--color-surface);
+  color: var(--color-text);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
@@ -1917,7 +1924,7 @@
     var(--color-surface-elevated) 75%
   );
   background-size: 200% 100%;
-  animation: bp-shimmer calc(1.5s * var(--motion-scale)) infinite; /* shimmer cycles longer than transitions — 1.5s baseline respects motion-scale */
+  animation: bp-shimmer calc(1.5s * var(--motion-scale)) linear infinite; /* shimmer cycles longer than transitions — 1.5s baseline respects motion-scale */
   border-radius: var(--radius);
 }
 

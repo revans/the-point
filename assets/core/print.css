@@ -390,7 +390,7 @@
 
   .bp-mono-label {
     color: var(--color-text-muted) !important;
-    border-color: var(--color-border) !important;
+    border: var(--border-width) var(--border-style) var(--color-border) !important;
   }
 
   /* Gradient text falls back to solid primary in print */

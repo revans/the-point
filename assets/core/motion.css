@@ -105,13 +105,13 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up var(--duration-slower) var(--easing-smooth) var(--delay-section) forwards;
+  animation: bp-fade-up var(--duration-relaxed) var(--easing-smooth) var(--delay-section) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up var(--duration-slower) var(--easing-smooth) var(--delay-hero) forwards;
+  animation: bp-fade-up var(--duration-relaxed) var(--easing-smooth) var(--delay-hero) forwards;
 }
 
 /* Footer is last */
@@ -136,8 +136,8 @@
 [data-bp-motion="draw"] .bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
-    bp-fade-up var(--duration-slower) var(--easing-smooth) var(--delay-section) both;
-  animation-duration: auto, var(--duration-slower);
+    bp-fade-up var(--duration-relaxed) var(--easing-smooth) var(--delay-section) both;
+  animation-duration: auto, var(--duration-relaxed);
   animation-timeline: view(), auto;
   animation-range: entry 0% entry 50%, normal;
 }
@@ -156,7 +156,7 @@
 /* Nav variant — specificity (0,3,0) preserves --duration-reveal and
    --delay-nav (0.35s) when bp-animate-draw is added to .bp-nav,
    preventing the generic (0,2,0) rule at line 136 from substituting
-   --delay-section (0.6s) and --duration-slower (0.45s). */
+   --delay-section (0.6s) and --duration-relaxed (0.45s). */
 [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
@@ -178,15 +178,15 @@
   animation-range: entry 0% entry 50%, normal;
 }
 
-/* Main-content variant — specificity (0,3,0) preserves --duration-slower and
+/* Main-content variant — specificity (0,3,0) preserves --duration-relaxed and
    --delay-hero (same as the base .bp-main-content rule at line 112),
    preventing the generic (0,2,0) rule at line 136 from substituting
    --delay-section (0.6s). */
 [data-bp-motion="draw"] .bp-main-content.bp-animate-draw {
   animation:
     bp-border-draw var(--duration-draw) var(--easing-smooth) both,
-    bp-fade-up var(--duration-slower) var(--easing-smooth) var(--delay-hero) forwards;
-  animation-duration: auto, var(--duration-slower);
+    bp-fade-up var(--duration-relaxed) var(--easing-smooth) var(--delay-hero) forwards;
+  animation-duration: auto, var(--duration-relaxed);
   animation-timeline: view(), auto;
   animation-range: entry 0% entry 50%, normal;
 }
@@ -304,6 +304,13 @@
   animation-range: entry 0% entry 50%;
 }
 
+/* Keep the border transparent during interactive states so the gradient draw
+   lines remain visible. `.bp-card-hover:hover` and `:focus-visible` in
+   components.css carry specificity (0,2,0), which beats the (0,1,0) of
+   `.bp-animate-draw` above. This combined selector is (0,3,0) and wins. */
+.bp-card-hover.bp-animate-draw:hover,
+.bp-card-hover.bp-animate-draw:focus-visible { border-color: transparent; }
+
 /* Fallback for browsers without scroll-driven animation support.
    Just plays on load with a short delay. */
 @supports not (animation-timeline: view()) {
@@ -325,7 +332,7 @@
   [data-bp-motion="draw"] .bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
-      bp-fade-up var(--duration-slower) var(--easing-smooth) var(--delay-section) both;
+      bp-fade-up var(--duration-relaxed) var(--easing-smooth) var(--delay-section) both;
   }
 
   [data-bp-motion="draw"] .bp-hero.bp-animate-draw {
@@ -349,6 +356,6 @@
   [data-bp-motion="draw"] .bp-main-content.bp-animate-draw {
     animation:
       bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both,
-      bp-fade-up var(--duration-slower) var(--easing-smooth) var(--delay-hero) forwards;
+      bp-fade-up var(--duration-relaxed) var(--easing-smooth) var(--delay-hero) forwards;
   }
 }
