@@ -265,7 +265,7 @@
 .bp-btn-primary:hover {
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
-  box-shadow: var(--bp-shadow-glow);
+  box-shadow: var(--shadow-glow);
   transform: translateY(calc(-1 * var(--lift-distance) / 2));
 }
 
@@ -296,7 +296,7 @@
 
 .bp-btn-outline:hover {
   background-color: var(--color-primary-subtle);
-  box-shadow: var(--bp-shadow-glow);
+  box-shadow: var(--shadow-glow);
 }
 
 .bp-btn-outline:active {
@@ -363,8 +363,10 @@
   padding: 0;
 }
 
+.bp-btn-icon.bp-btn-xs { width: var(--btn-height-xs); }
 .bp-btn-icon.bp-btn-sm { width: var(--btn-height-sm); }
 .bp-btn-icon.bp-btn-lg { width: var(--btn-height-lg); }
+.bp-btn-icon.bp-btn-xl { width: var(--btn-height-xl); }
 
 /* --------------------------------------------------------------------------
    CARDS
@@ -372,9 +374,9 @@
 
 .bp-card {
   --card-bg:           var(--color-surface);
-  --card-radius:       var(--bp-radius-lg);
+  --card-radius:       var(--radius-lg);
   --card-border-color: var(--color-border);
-  --card-shadow:       var(--bp-shadow-sm);
+  --card-shadow:       var(--shadow-sm);
 
   background-color: var(--card-bg);
   border: var(--border-width) var(--border-style) var(--card-border-color);
@@ -386,7 +388,7 @@
 
 .bp-card-hover:hover {
   border-color: var(--color-primary);
-  box-shadow: var(--bp-shadow-glow), var(--bp-shadow-md);
+  box-shadow: var(--shadow-glow), var(--shadow-md);
   transform: translateY(calc(-1 * var(--lift-distance)));
 }
 
@@ -438,7 +440,7 @@
   height: var(--feature-icon-size);
   background-color: var(--color-primary-subtle);
   border: var(--border-width) var(--border-style) var(--color-primary);
-  border-radius: var(--bp-radius-lg);
+  border-radius: var(--radius-lg);
   color: var(--color-primary);
   flex-shrink: 0;
 }
@@ -525,7 +527,7 @@
   color: var(--color-primary);
   background-color: var(--color-primary-subtle);
   border: var(--border-width) var(--border-style) var(--color-primary);
-  border-radius: var(--bp-radius-full);
+  border-radius: var(--radius-full);
   padding: var(--bp-space-1) var(--bp-space-4);
   margin-bottom: var(--bp-space-6);
 }
@@ -558,7 +560,7 @@
 
 /* Text gradient accent */
 .bp-text-gradient {
-  background: linear-gradient(135deg, var(--color-primary), color-mix(in oklch, var(--color-primary) 50%, white));
+  background: linear-gradient(135deg, var(--color-primary), color-mix(in oklch, var(--color-primary) 50%, var(--color-bg)));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -888,15 +890,15 @@
   gap: var(--bp-space-2);
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--bp-radius-2xl);
+  border-radius: var(--radius-2xl);
   padding: var(--bp-space-3) var(--bp-space-3) var(--bp-space-3) var(--bp-space-4);
-  box-shadow: var(--bp-shadow-sm);
+  box-shadow: var(--shadow-sm);
   transition: var(--bp-transition-fast);
 }
 
 .bp-input-compose:focus-within {
   border-color: var(--color-primary);
-  box-shadow: var(--bp-shadow-sm), 0 0 0 var(--focus-glow-spread) var(--color-primary-subtle);
+  box-shadow: var(--shadow-sm), 0 0 0 var(--focus-glow-spread) var(--color-primary-subtle);
 }
 
 .bp-input-compose-field {
@@ -922,7 +924,7 @@
 .bp-input-compose-action {
   width: var(--compose-action-size);
   height: var(--compose-action-size);
-  border-radius: var(--bp-radius-lg);
+  border-radius: var(--radius-lg);
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border: none;
@@ -941,7 +943,7 @@
 
 .bp-input-compose-action:not(:disabled):hover {
   transform: scale(1.08);
-  box-shadow: var(--bp-shadow-glow);
+  box-shadow: var(--shadow-glow);
 }
 
 .bp-input-compose-action:not(:disabled):active {
@@ -958,7 +960,7 @@
    -------------------------------------------------------------------------- */
 
 .bp-badge {
-  --badge-radius: var(--bp-radius-sm);
+  --badge-radius: var(--radius-sm);
 
   display: inline-flex;
   align-items: center;
@@ -1017,7 +1019,7 @@
   display: flex;
   gap: var(--bp-space-3);
   padding: var(--bp-space-4);
-  border-radius: var(--bp-radius-lg);
+  border-radius: var(--radius-lg);
   border: var(--border-width) var(--border-style) var(--color-border);
   font-size: var(--bp-text-sm);
   line-height: var(--bp-leading-relaxed);
@@ -1069,7 +1071,7 @@
   position: relative;
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--bp-radius-xl);
+  border-radius: var(--radius-xl);
   padding: var(--bp-space-8);
   display: flex;
   flex-direction: column;
@@ -1079,16 +1081,16 @@
 
 .bp-pricing-card-featured {
   border-color: var(--color-primary);
-  box-shadow: var(--bp-shadow-glow);
+  box-shadow: var(--shadow-glow);
 }
 
 .bp-pricing-card:hover {
   transform: translateY(calc(-2 * var(--lift-distance)));
-  box-shadow: var(--bp-shadow-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .bp-pricing-card-featured:hover {
-  box-shadow: var(--bp-shadow-glow), var(--bp-shadow-lg);
+  box-shadow: var(--shadow-glow), var(--shadow-lg);
 }
 
 .bp-pricing-plan {
@@ -1181,7 +1183,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--bp-radius-full);
+  border-radius: var(--radius-full);
   background-color: var(--color-primary-subtle);
   color: var(--color-primary);
   font-weight: var(--bp-font-semibold);
@@ -1243,7 +1245,7 @@
   width: 100%;
   overflow-x: auto;
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--bp-radius-lg);
+  border-radius: var(--radius-lg);
 }
 
 .bp-table {
@@ -1290,7 +1292,7 @@
 .bp-testimonial {
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--bp-radius-xl);
+  border-radius: var(--radius-xl);
   padding: var(--bp-space-6);
   display: flex;
   flex-direction: column;
@@ -1344,12 +1346,12 @@
 
 .bp-modal {
   --modal-bg:     var(--color-surface);
-  --modal-radius: var(--bp-radius-xl);
+  --modal-radius: var(--radius-xl);
 
   background-color: var(--modal-bg);
   border: var(--border-width) var(--border-style) var(--color-border);
   border-radius: var(--modal-radius);
-  box-shadow: var(--bp-shadow-lg);
+  box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: var(--modal-max-width);
   max-height: var(--modal-max-height);
@@ -1406,9 +1408,9 @@
   gap: var(--bp-space-3);
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--bp-radius-lg);
+  border-radius: var(--radius-lg);
   padding: var(--bp-space-4);
-  box-shadow: var(--bp-shadow-lg);
+  box-shadow: var(--shadow-lg);
   font-size: var(--bp-text-sm);
 }
 
@@ -1648,7 +1650,7 @@
    -------------------------------------------------------------------------- */
 
 .bp-chip {
-  --chip-radius: var(--bp-radius-full);
+  --chip-radius: var(--radius-full);
 
   display: inline-flex;
   align-items: center;
@@ -1677,19 +1679,19 @@
 }
 
 .bp-chip-success {
-  background-color: var(--color-success-subtle, color-mix(in srgb, var(--color-success) 12%, transparent));
+  background-color: var(--color-success-subtle);
   color: var(--color-success);
   border-color: var(--color-success);
 }
 
 .bp-chip-warning {
-  background-color: var(--color-warning-subtle, color-mix(in srgb, var(--color-warning) 12%, transparent));
+  background-color: var(--color-warning-subtle);
   color: var(--color-warning);
   border-color: var(--color-warning);
 }
 
 .bp-chip-error {
-  background-color: var(--color-error-subtle, color-mix(in srgb, var(--color-error) 12%, transparent));
+  background-color: var(--color-error-subtle);
   color: var(--color-error);
   border-color: var(--color-error);
 }
@@ -1868,9 +1870,9 @@
 .bp-skeleton-card {
   background-color: var(--color-surface);
   border: var(--border-width) var(--border-style) var(--color-border);
-  border-radius: var(--bp-radius-lg);
+  border-radius: var(--radius-lg);
   padding: var(--bp-space-6);
-  box-shadow: var(--shadow-inset), var(--bp-shadow-sm);
+  box-shadow: var(--shadow-inset), var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: var(--bp-space-4);

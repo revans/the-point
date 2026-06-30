@@ -182,6 +182,7 @@
     0      100%;   /* left */
 
   background-repeat: no-repeat;
+  background-origin: border-box;
 
   /* Start all lines at zero size */
   background-size: 0% var(--border-width), var(--border-width) 0%, 0% var(--border-width), var(--border-width) 0%;

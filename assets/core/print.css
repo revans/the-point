@@ -41,15 +41,15 @@
   body {
     background-color: var(--color-bg) !important;
     background-image:
-      linear-gradient(var(--print-grid-color-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-      linear-gradient(90deg, var(--print-grid-color-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-      linear-gradient(var(--print-grid-color) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-      linear-gradient(90deg, var(--print-grid-color) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)) !important;
+      linear-gradient(var(--color-print-grid-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
+      linear-gradient(90deg, var(--color-print-grid-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
+      linear-gradient(var(--color-print-grid) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
+      linear-gradient(90deg, var(--color-print-grid) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)) !important;
     background-size:
-      var(--bp-grid-size) var(--bp-grid-size),
-      var(--bp-grid-size) var(--bp-grid-size),
-      calc(var(--bp-grid-size) / 4) calc(var(--bp-grid-size) / 4),
-      calc(var(--bp-grid-size) / 4) calc(var(--bp-grid-size) / 4) !important;
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size),
+      calc(var(--grid-size) / 4) calc(var(--grid-size) / 4),
+      calc(var(--grid-size) / 4) calc(var(--grid-size) / 4) !important;
     color: var(--color-text) !important;
   }
 
@@ -77,6 +77,7 @@
     --bp-shadow-md:           none !important;
     --bp-shadow-lg:           none !important;
     --bp-shadow-glow:         none !important;
+    --bp-shadow-inset:        none !important;
   }
 
   /* --------------------------------------------------------------------------
@@ -216,7 +217,7 @@
     float: none;
     width: auto;
     margin: 1em 0;
-    font-size: 8.5pt;
+    font-size: var(--print-annotation-font-size);
     color: var(--color-text-muted) !important;
     border-left: var(--border-width-strong) var(--border-style) var(--color-primary) !important;
     padding-left: 0.75em;
@@ -241,8 +242,8 @@
 
   .bp-stat-value {
     font-size: var(--font-size-base) !important;
-    font-weight: var(--font-weight-semibold);
-    min-width: var(--print-stat-value-min-width);
+    font-weight: var(--font-weight-label) !important;
+    min-width: var(--print-stat-value-min-width) !important;
     color: var(--color-text) !important;
   }
 
@@ -270,7 +271,7 @@
     counter-reset: bp-req bp-tier;
   }
 
-  .bp-print-spec .bp-card {
+  .bp-print-spec .bp-card:not(.bp-pricing-card) {
     counter-increment: bp-req;
     border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
@@ -285,8 +286,8 @@
     display: block;
     font-family: var(--font-mono);
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--letter-spacing-widest);
+    font-weight: var(--font-weight-label);
+    letter-spacing: var(--letter-spacing-caps);
     text-transform: uppercase;
     color: var(--color-primary) !important;
     border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
@@ -294,7 +295,7 @@
     margin-bottom: var(--bp-space-3);
   }
 
-  .bp-print-spec .bp-card::before {
+  .bp-print-spec .bp-card:not(.bp-pricing-card)::before {
     content: "REQ-" counter(bp-req, decimal-leading-zero);
   }
 

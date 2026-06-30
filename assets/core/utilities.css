@@ -70,20 +70,20 @@
 
 .bp-text-xs   { font-size: var(--font-size-xs); }
 .bp-text-sm   { font-size: var(--font-size-sm); }
-.bp-text-base { font-size: var(--bp-text-base); }
-.bp-text-lg   { font-size: var(--bp-text-lg); }
-.bp-text-xl   { font-size: var(--bp-text-xl); }
-.bp-text-2xl  { font-size: var(--bp-text-2xl); }
-.bp-text-3xl  { font-size: var(--bp-text-3xl); }
-.bp-text-4xl  { font-size: var(--bp-text-4xl); }
-.bp-text-5xl  { font-size: var(--bp-text-5xl); }
-.bp-text-6xl  { font-size: var(--bp-text-6xl); }
+.bp-text-base { font-size: var(--font-size-base); }
+.bp-text-lg   { font-size: var(--font-size-lg); }
+.bp-text-xl   { font-size: var(--font-size-xl); }
+.bp-text-2xl  { font-size: var(--font-size-2xl); }
+.bp-text-3xl  { font-size: var(--font-size-3xl); }
+.bp-text-4xl  { font-size: var(--font-size-4xl); }
+.bp-text-5xl  { font-size: var(--font-size-5xl); }
+.bp-text-6xl  { font-size: var(--font-size-6xl); }
 
-.bp-font-light    { font-weight: var(--bp-font-light); }
-.bp-font-normal   { font-weight: var(--bp-font-normal); }
-.bp-font-medium   { font-weight: var(--bp-font-medium); }
-.bp-font-semibold { font-weight: var(--bp-font-semibold); }
-.bp-font-bold     { font-weight: var(--bp-font-bold); }
+.bp-font-light    { font-weight: var(--font-weight-light); }
+.bp-font-normal   { font-weight: var(--font-weight-normal); }
+.bp-font-medium   { font-weight: var(--font-weight-medium); }
+.bp-font-semibold { font-weight: var(--font-weight-semibold); }
+.bp-font-bold     { font-weight: var(--font-weight-bold); }
 
 .bp-font-sans { font-family: var(--font-sans); }
 .bp-font-mono { font-family: var(--font-mono); }
@@ -331,7 +331,7 @@
 /* Mono label — reference/coordinate style */
 .bp-mono-label {
   font-family: var(--font-mono);
-  font-size: var(--bp-text-xs);
+  font-size: var(--font-size-xs);
   letter-spacing: var(--bp-tracking-widest);
   text-transform: uppercase;
   color: var(--color-text-muted);
@@ -373,7 +373,7 @@
 /* Annotation style text */
 .bp-annotation {
   font-family: var(--font-mono);
-  font-size: var(--bp-text-xs);
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
   letter-spacing: var(--bp-tracking-wide);
   border-left: var(--border-width-strong) var(--border-style) var(--color-border);
@@ -420,6 +420,6 @@
    BLUR — backdrop-filter scale
    -------------------------------------------------------------------------- */
 
-.bp-blur-sm { backdrop-filter: blur(var(--blur-sm)); -webkit-backdrop-filter: blur(var(--blur-sm)); }
-.bp-blur-md { backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md)); }
-.bp-blur-lg { backdrop-filter: blur(var(--blur-lg)); -webkit-backdrop-filter: blur(var(--blur-lg)); }
+.bp-blur-sm { -webkit-backdrop-filter: blur(var(--blur-sm)); backdrop-filter: blur(var(--blur-sm)); }
+.bp-blur-md { -webkit-backdrop-filter: blur(var(--blur-md)); backdrop-filter: blur(var(--blur-md)); }
+.bp-blur-lg { -webkit-backdrop-filter: blur(var(--blur-lg)); backdrop-filter: blur(var(--blur-lg)); }

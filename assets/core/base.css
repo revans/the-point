@@ -296,6 +296,10 @@
 
   --radius:                 var(--bp-radius-md);
   --radius-sm:              var(--bp-radius-sm);
+  --radius-none:            var(--bp-radius-none);
+  --radius-lg:              var(--bp-radius-lg);
+  --radius-xl:              var(--bp-radius-xl);
+  --radius-2xl:             var(--bp-radius-2xl);
   --radius-full:            var(--bp-radius-full);
 
   /* State colors */
@@ -325,8 +329,20 @@
   --line-height-body:        var(--bp-leading-relaxed);
   --letter-spacing-heading:  var(--bp-tracking-tight);
   --font-size-xs:            var(--bp-text-xs);
+  --font-size-lg:            var(--bp-text-lg);
+  --font-size-xl:            var(--bp-text-xl);
+  --font-size-2xl:           var(--bp-text-2xl);
+  --font-size-3xl:           var(--bp-text-3xl);
+  --font-size-4xl:           var(--bp-text-4xl);
+  --font-size-5xl:           var(--bp-text-5xl);
+  --font-size-6xl:           var(--bp-text-6xl);
+  --font-weight-light:       var(--bp-font-light);
+  --font-weight-normal:      var(--bp-font-normal);
+  --font-weight-medium:      var(--bp-font-medium);
   --font-weight-semibold:    var(--bp-font-semibold);
-  --letter-spacing-widest:   var(--bp-tracking-widest);
+  --font-weight-bold:        var(--bp-font-bold);
+  --font-weight-label:       var(--bp-font-semibold);
+  --letter-spacing-caps:     var(--bp-tracking-widest);
 
   /* Motion — adjust --motion-scale to shift the whole page's animation personality.
      0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
@@ -476,11 +492,18 @@
   --scrollbar-size: 6px;
 
   /* Print grid */
-  --print-grid-color-bold: rgba(10, 22, 40, 0.06);
-  --print-grid-color:      rgba(10, 22, 40, 0.03);
+  --color-print-grid-bold: rgba(10, 22, 40, 0.06);
+  --color-print-grid:      rgba(10, 22, 40, 0.03);
 
   /* Print layout */
   --print-stat-value-min-width: 80px;
+  --print-annotation-font-size: 8.5pt;
+
+  /* Grid — semantic aliases; override --grid-* in brand.css, not --bp-grid-* primitives */
+  --grid-color:      var(--bp-grid-color);
+  --grid-color-bold: var(--bp-grid-color-bold);
+  --grid-size:       var(--bp-grid-size);
+  --grid-line-width: var(--bp-grid-line-width);
 }
 
 /* --------------------------------------------------------------------------
@@ -522,15 +545,15 @@ body {
 
   /* Blueprint grid */
   background-image:
-    linear-gradient(var(--bp-grid-color-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-    linear-gradient(90deg, var(--bp-grid-color-bold) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-    linear-gradient(var(--bp-grid-color) var(--bp-grid-line-width), transparent var(--bp-grid-line-width)),
-    linear-gradient(90deg, var(--bp-grid-color) var(--bp-grid-line-width), transparent var(--bp-grid-line-width));
+    linear-gradient(var(--grid-color-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(90deg, var(--grid-color-bold) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(var(--grid-color) var(--grid-line-width), transparent var(--grid-line-width)),
+    linear-gradient(90deg, var(--grid-color) var(--grid-line-width), transparent var(--grid-line-width));
   background-size:
-    var(--bp-grid-size) var(--bp-grid-size),
-    var(--bp-grid-size) var(--bp-grid-size),
-    calc(var(--bp-grid-size) / 4) calc(var(--bp-grid-size) / 4),
-    calc(var(--bp-grid-size) / 4) calc(var(--bp-grid-size) / 4);
+    var(--grid-size) var(--grid-size),
+    var(--grid-size) var(--grid-size),
+    calc(var(--grid-size) / 4) calc(var(--grid-size) / 4),
+    calc(var(--grid-size) / 4) calc(var(--grid-size) / 4);
 
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
