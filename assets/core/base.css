@@ -53,7 +53,8 @@
   --bp-shadow-sm:       0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
   --bp-shadow-md:       0 4px 16px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
   --bp-shadow-lg:       0 10px 32px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
-  --bp-shadow-glow:     0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.1);
+  --bp-shadow-glow:       0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.1);
+  --bp-shadow-glow-error: 0 0 20px rgba(239, 68, 68, 0.2), 0 0 40px rgba(239, 68, 68, 0.1);
   --bp-shadow-inset:    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   /* States */
@@ -97,7 +98,8 @@
   --bp-shadow-sm:       0 1px 3px rgba(10, 22, 40, 0.08), 0 1px 2px rgba(10, 22, 40, 0.05);
   --bp-shadow-md:       0 4px 16px rgba(10, 22, 40, 0.1), 0 2px 6px rgba(10, 22, 40, 0.06);
   --bp-shadow-lg:       0 10px 32px rgba(10, 22, 40, 0.12), 0 4px 12px rgba(10, 22, 40, 0.08);
-  --bp-shadow-glow:     0 0 20px rgba(29, 78, 216, 0.15), 0 0 40px rgba(29, 78, 216, 0.07);
+  --bp-shadow-glow:       0 0 20px rgba(29, 78, 216, 0.15), 0 0 40px rgba(29, 78, 216, 0.07);
+  --bp-shadow-glow-error: 0 0 20px rgba(220, 38, 38, 0.15), 0 0 40px rgba(220, 38, 38, 0.07);
   --bp-shadow-inset:    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   /* States */
@@ -137,7 +139,8 @@
     --bp-shadow-sm:       0 1px 3px rgba(10, 22, 40, 0.08), 0 1px 2px rgba(10, 22, 40, 0.05);
     --bp-shadow-md:       0 4px 16px rgba(10, 22, 40, 0.1), 0 2px 6px rgba(10, 22, 40, 0.06);
     --bp-shadow-lg:       0 10px 32px rgba(10, 22, 40, 0.12), 0 4px 12px rgba(10, 22, 40, 0.08);
-    --bp-shadow-glow:     0 0 20px rgba(29, 78, 216, 0.15), 0 0 40px rgba(29, 78, 216, 0.07);
+    --bp-shadow-glow:       0 0 20px rgba(29, 78, 216, 0.15), 0 0 40px rgba(29, 78, 216, 0.07);
+    --bp-shadow-glow-error: 0 0 20px rgba(220, 38, 38, 0.15), 0 0 40px rgba(220, 38, 38, 0.07);
     --bp-shadow-inset:    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
     --bp-success:         #16a34a;
@@ -254,8 +257,9 @@
   --color-primary:          var(--bp-accent);
   /* Derived automatically from --color-primary. Override in brand.css only if auto-derivation isn't right. */
   --color-primary-hover:    color-mix(in oklch, var(--color-primary) 75%, black); /* 75%: brand hues tolerate stronger darkening; state colors use 85% to preserve hue recognizability */
-  --color-primary-subtle:   oklch(from var(--color-primary) l c h / 0.12);
-  --color-primary-glow:     oklch(from var(--color-primary) l c h / 0.25);
+  --color-primary-subtle:       oklch(from var(--color-primary) l c h / 0.12);
+  --color-primary-glow:         oklch(from var(--color-primary) l c h / 0.25);
+  --color-primary-transparent:  oklch(from var(--color-primary) l c h / 0);
 
   --color-bg:               var(--bp-bg);
   --color-bg-secondary:     var(--bp-bg-secondary);
@@ -308,19 +312,19 @@
   --font-size-h4:            var(--bp-text-2xl);
   --font-size-h5:            var(--bp-text-xl);
   --font-size-h6:            var(--bp-text-lg);
-  --font-weight-heading:     var(--bp-weight-semibold);
-  --font-weight-body:        var(--bp-weight-normal);
+  --font-weight-heading:     var(--font-weight-semibold);
+  --font-weight-body:        var(--font-weight-normal);
   /* Role tokens — element-level defaults (body, headings, paragraphs in base.css) */
-  --line-height-base:        var(--bp-leading-normal);
-  --line-height-heading:     var(--bp-leading-tight);
-  --line-height-body:        var(--bp-leading-relaxed);
-  --line-height-paragraph:   var(--bp-leading-relaxed);
+  --line-height-base:        var(--line-height-normal);
+  --line-height-heading:     var(--line-height-tight);
+  --line-height-body:        var(--line-height-relaxed);
+  --line-height-paragraph:   var(--line-height-relaxed);
   /* Scale tokens — one-off overrides in components and utility classes */
-  --leading-display:         var(--bp-leading-display);
-  --leading-tight:           var(--bp-leading-tight);
-  --leading-snug:            var(--bp-leading-snug);
-  --leading-normal:          var(--bp-leading-normal);
-  --leading-relaxed:         var(--bp-leading-relaxed);
+  --line-height-display:         var(--bp-leading-display);
+  --line-height-tight:           var(--bp-leading-tight);
+  --line-height-snug:            var(--bp-leading-snug);
+  --line-height-normal:          var(--bp-leading-normal);
+  --line-height-relaxed:         var(--bp-leading-relaxed);
   --font-size-xs:            var(--bp-text-xs);
   --font-size-sm:            var(--bp-text-sm);
   --font-size-md:            var(--bp-text-md);
@@ -342,19 +346,19 @@
   --font-weight-medium:      var(--bp-weight-medium);
   --font-weight-semibold:    var(--bp-weight-semibold);
   --font-weight-bold:        var(--bp-weight-bold);
-  --font-weight-label:       var(--bp-weight-semibold);
-  --font-size-label:         var(--bp-text-sm);
-  --line-height-label:       var(--bp-leading-normal);
+  --font-weight-label:       var(--font-weight-semibold);
+  --font-size-label:         var(--font-size-sm);
+  --line-height-label:       var(--line-height-normal);
   /* Role aliases — use in element-level base styles */
-  --letter-spacing-heading:     var(--bp-tracking-tight);
-  /* @deprecated — use --tracking-widest instead; kept for print.css compatibility */
-  --letter-spacing-caps:        var(--bp-tracking-widest);
+  --letter-spacing-heading:     var(--letter-spacing-tight);
+  /* @deprecated — use --letter-spacing-widest instead; kept for print.css compatibility */
+  --letter-spacing-caps:        var(--letter-spacing-widest);
   /* Scale aliases — use in one-off component overrides */
-  --tracking-tight:             var(--bp-tracking-tight);
-  --tracking-normal:            var(--bp-tracking-normal);
-  --tracking-wide:              var(--bp-tracking-wide);
-  --tracking-wider:             var(--bp-tracking-wider);
-  --tracking-widest:            var(--bp-tracking-widest);
+  --letter-spacing-tight:             var(--bp-tracking-tight);
+  --letter-spacing-normal:            var(--bp-tracking-normal);
+  --letter-spacing-wide:              var(--bp-tracking-wide);
+  --letter-spacing-wider:             var(--bp-tracking-wider);
+  --letter-spacing-widest:            var(--bp-tracking-widest);
 
   /* Motion — adjust --motion-scale to shift the whole page's animation personality.
      0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
@@ -389,7 +393,8 @@
   --shadow-sm:   var(--bp-shadow-sm);
   --shadow-md:   var(--bp-shadow-md);
   --shadow-lg:   var(--bp-shadow-lg);
-  --shadow-glow: var(--bp-shadow-glow);
+  --shadow-glow:       var(--bp-shadow-glow);
+  --shadow-glow-error: var(--bp-shadow-glow-error);
   --shadow-inset: var(--bp-shadow-inset);
 
   /* Z-index — semantic aliases; reference --z-* in component and element styles */

@@ -70,7 +70,8 @@
 
 .bp-text-xs   { font-size: var(--font-size-xs); }
 .bp-text-sm   { font-size: var(--font-size-sm); }
-.bp-text-base { font-size: var(--font-size-md); }
+.bp-text-base { font-size: var(--font-size-base); }
+.bp-text-md   { font-size: var(--font-size-md); }
 .bp-text-lg   { font-size: var(--font-size-lg); }
 .bp-text-xl   { font-size: var(--font-size-xl); }
 .bp-text-2xl  { font-size: var(--font-size-2xl); }
@@ -88,16 +89,16 @@
 .bp-font-sans { font-family: var(--font-sans); }
 .bp-font-mono { font-family: var(--font-mono); }
 
-.bp-leading-tight   { line-height: var(--leading-tight); }
-.bp-leading-snug    { line-height: var(--leading-snug); }
-.bp-leading-normal  { line-height: var(--leading-normal); }
-.bp-leading-relaxed { line-height: var(--leading-relaxed); }
+.bp-leading-tight   { line-height: var(--line-height-tight); }
+.bp-leading-snug    { line-height: var(--line-height-snug); }
+.bp-leading-normal  { line-height: var(--line-height-normal); }
+.bp-leading-relaxed { line-height: var(--line-height-relaxed); }
 
-.bp-tracking-tight   { letter-spacing: var(--tracking-tight); }
-.bp-tracking-normal  { letter-spacing: var(--tracking-normal); }
-.bp-tracking-wide    { letter-spacing: var(--tracking-wide); }
-.bp-tracking-wider   { letter-spacing: var(--tracking-wider); }
-.bp-tracking-widest  { letter-spacing: var(--tracking-widest); }
+.bp-tracking-tight   { letter-spacing: var(--letter-spacing-tight); }
+.bp-tracking-normal  { letter-spacing: var(--letter-spacing-normal); }
+.bp-tracking-wide    { letter-spacing: var(--letter-spacing-wide); }
+.bp-tracking-wider   { letter-spacing: var(--letter-spacing-wider); }
+.bp-tracking-widest  { letter-spacing: var(--letter-spacing-widest); }
 
 .bp-uppercase   { text-transform: uppercase; }
 .bp-lowercase   { text-transform: lowercase; }
@@ -364,7 +365,7 @@
 .bp-mono-label {
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
-  letter-spacing: var(--tracking-widest);
+  letter-spacing: var(--letter-spacing-widest);
   text-transform: uppercase;
   color: var(--color-text-muted);
 }
@@ -407,7 +408,7 @@
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--letter-spacing-wide);
   border-left: var(--border-width-strong) var(--border-style) var(--color-border);
   padding-left: var(--annotation-indent);
 }

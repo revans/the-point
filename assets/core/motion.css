@@ -80,7 +80,7 @@
     90deg,
     var(--color-primary) 0%,
     var(--color-primary) 70%,
-    oklch(from var(--color-primary) l c h / 0) 100%
+    var(--color-primary-transparent) 100%
   );
   transform-origin: left center;
   z-index: var(--z-draw);
@@ -155,7 +155,7 @@
 
 /* Nav variant — specificity (0,3,0) preserves --duration-reveal and
    --delay-nav (0.35s) when bp-animate-draw is added to .bp-nav,
-   preventing the generic (0,2,0) rule at line 129 from substituting
+   preventing the generic (0,2,0) rule at line 136 from substituting
    --delay-section (0.6s) and --duration-slower (0.45s). */
 [data-bp-motion="draw"] .bp-nav.bp-animate-draw {
   animation:
@@ -180,7 +180,7 @@
 
 /* Main-content variant — specificity (0,3,0) preserves --duration-slower and
    --delay-hero (same as the base .bp-main-content rule at line 112),
-   preventing the generic (0,2,0) rule at line 129 from substituting
+   preventing the generic (0,2,0) rule at line 136 from substituting
    --delay-section (0.6s). */
 [data-bp-motion="draw"] .bp-main-content.bp-animate-draw {
   animation:
@@ -202,10 +202,12 @@
    -------------------------------------------------------------------------- */
 
 .bp-animate {
-  --transition-fast:   all var(--duration-moderate) var(--easing-bounce); /* intentionally slower than --duration-fast — bounce easing needs ~0.25s to show overshoot */
-  --transition-base:   all var(--duration-slow)     var(--easing-bounce);
-  --transition-smooth: all var(--duration-reveal)  var(--easing-bounce);
-  --transition-bounce: all var(--duration-long)     var(--easing-bounce);
+  /* All four tokens escalate one step above their base duration — bounce easing needs runway to show overshoot.
+     The reduced-motion block below reverts each token to its base-case value; do not 'correct' these back. */
+  --transition-fast:   all var(--duration-moderate) var(--easing-bounce); /* base is --duration-fast   → escalated to --duration-moderate */
+  --transition-base:   all var(--duration-slow)     var(--easing-bounce); /* base is --duration-base   → escalated to --duration-slow    */
+  --transition-smooth: all var(--duration-reveal)   var(--easing-bounce); /* base is --duration-slow   → escalated to --duration-reveal  */
+  --transition-bounce: all var(--duration-long)     var(--easing-bounce); /* base is --duration-reveal → escalated to --duration-long    */
 }
 
 /* --------------------------------------------------------------------------
