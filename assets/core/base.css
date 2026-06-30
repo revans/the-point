@@ -190,11 +190,11 @@
   --bp-text-5xl:        3rem;       /* 48px */
   --bp-text-6xl:        3.75rem;    /* 60px */
 
-  --bp-font-light:      300;
-  --bp-font-normal:     400;
-  --bp-font-medium:     500;
-  --bp-font-semibold:   600;
-  --bp-font-bold:       700;
+  --bp-weight-light:      300;
+  --bp-weight-normal:     400;
+  --bp-weight-medium:     500;
+  --bp-weight-semibold:   600;
+  --bp-weight-bold:       700;
 
   --bp-leading-display: 1.1;
   --bp-leading-tight:   1.25;
@@ -261,7 +261,7 @@
 :root {
   --color-primary:          var(--bp-accent);
   /* Derived automatically from --color-primary. Override in brand.css only if auto-derivation isn't right. */
-  --color-primary-hover:    color-mix(in oklch, var(--color-primary) 75%, black);
+  --color-primary-hover:    color-mix(in oklch, var(--color-primary) 75%, black); /* 75%: brand hues tolerate stronger darkening; state colors use 85% to preserve hue recognizability */
   --color-primary-subtle:   oklch(from var(--color-primary) l c h / 0.12);
   --color-primary-glow:     oklch(from var(--color-primary) l c h / 0.25);
 
@@ -300,9 +300,10 @@
   --color-success:          var(--bp-success);
   --color-warning:          var(--bp-warning);
   --color-error:            var(--bp-error);
-  --color-success-subtle:   var(--bp-success-subtle);
-  --color-warning-subtle:   var(--bp-warning-subtle);
-  --color-error-subtle:     var(--bp-error-subtle);
+  --color-success-subtle:   oklch(from var(--color-success) l c h / 0.12);
+  --color-warning-subtle:   oklch(from var(--color-warning) l c h / 0.12);
+  --color-error-subtle:     oklch(from var(--color-error) l c h / 0.12);
+  /* State hovers use 85% (less darkening than brand's 75%) — red/yellow/green must stay hue-recognizable */
   --color-error-hover:      color-mix(in oklch, var(--color-error) 85%, black);
   --color-success-hover:    color-mix(in oklch, var(--color-success) 85%, black);
   --color-warning-hover:    color-mix(in oklch, var(--color-warning) 85%, black);
@@ -316,8 +317,8 @@
   --font-size-h4:            var(--bp-text-2xl);
   --font-size-h5:            var(--bp-text-xl);
   --font-size-h6:            var(--bp-text-lg);
-  --font-weight-heading:     var(--bp-font-semibold);
-  --font-weight-body:        var(--bp-font-normal);
+  --font-weight-heading:     var(--bp-weight-semibold);
+  --font-weight-body:        var(--bp-weight-normal);
   /* Role tokens — element-level defaults (body, headings, paragraphs in base.css) */
   --line-height-base:        var(--bp-leading-normal);
   --line-height-heading:     var(--bp-leading-tight);
@@ -336,12 +337,12 @@
   --font-size-4xl:           var(--bp-text-4xl);
   --font-size-5xl:           var(--bp-text-5xl);
   --font-size-6xl:           var(--bp-text-6xl);
-  --font-weight-light:       var(--bp-font-light);
-  --font-weight-normal:      var(--bp-font-normal);
-  --font-weight-medium:      var(--bp-font-medium);
-  --font-weight-semibold:    var(--bp-font-semibold);
-  --font-weight-bold:        var(--bp-font-bold);
-  --font-weight-label:       var(--bp-font-semibold);
+  --font-weight-light:       var(--bp-weight-light);
+  --font-weight-normal:      var(--bp-weight-normal);
+  --font-weight-medium:      var(--bp-weight-medium);
+  --font-weight-semibold:    var(--bp-weight-semibold);
+  --font-weight-bold:        var(--bp-weight-bold);
+  --font-weight-label:       var(--bp-weight-semibold);
   /* Role aliases — use in element-level base styles */
   --letter-spacing-heading:     var(--bp-tracking-tight);
   /* @deprecated — use --tracking-widest instead; kept for print.css compatibility */
@@ -360,9 +361,9 @@
   --duration-fast:   calc(0.15s * var(--motion-scale));
   --duration-faster: calc(0.08s * var(--motion-scale));
   --duration-base:   calc(0.20s * var(--motion-scale));
-  --duration-mid:    calc(0.25s * var(--motion-scale));
+  --duration-base-plus: calc(0.25s * var(--motion-scale));
   --duration-slow:   calc(0.30s * var(--motion-scale));
-  --duration-relaxed: calc(0.40s * var(--motion-scale));
+  --duration-slowish: calc(0.40s * var(--motion-scale));
   --duration-slower: calc(0.45s * var(--motion-scale));
   --duration-long:   calc(0.5s  * var(--motion-scale));
   --duration-draw:   calc(0.8s  * var(--motion-scale));
@@ -377,7 +378,7 @@
   --bp-transition-fast:   all var(--duration-fast)   var(--easing-smooth);
   --bp-transition-base:   all var(--duration-base)   var(--easing-smooth);
   --bp-transition-smooth: all var(--duration-slow)   var(--easing-smooth);
-  --bp-transition-bounce: all var(--duration-relaxed) var(--easing-bounce);
+  --bp-transition-bounce: all var(--duration-slowish) var(--easing-bounce);
   --motion-fade-distance: 12px;
   --motion-sweep-height:  2px;
 
@@ -406,6 +407,17 @@
 
   /* Layout — structural dimensions and density */
   --space-unit:       1rem;
+  --space-1:  var(--bp-space-1);
+  --space-2:  var(--bp-space-2);
+  --space-3:  var(--bp-space-3);
+  --space-4:  var(--bp-space-4);
+  --space-5:  var(--bp-space-5);
+  --space-6:  var(--bp-space-6);
+  --space-8:  var(--bp-space-8);
+  --space-10: var(--bp-space-10);
+  --space-12: var(--bp-space-12);
+  --space-16: var(--bp-space-16);
+  --space-20: var(--bp-space-20);
   --annotation-indent: var(--bp-space-3);
   --grid-gap:         var(--bp-space-6);
   --hr-margin:     var(--bp-space-8);
@@ -538,8 +550,8 @@
   --scrollbar-size: 6px;
 
   /* Print grid */
-  --color-print-grid-bold: rgba(10, 22, 40, 0.06);
-  --color-print-grid:      rgba(10, 22, 40, 0.03);
+  --color-print-grid-bold: oklch(from var(--color-bg) l c h / 0.06);
+  --color-print-grid:      oklch(from var(--color-bg) l c h / 0.03);
 
   /* Print layout */
   --print-stat-value-min-width: 80px;

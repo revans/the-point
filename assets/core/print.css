@@ -73,6 +73,8 @@
     --color-primary:          #1d4ed8 !important;
     --color-primary-hover:    #1e40af !important;
     --color-primary-subtle:   rgba(29, 78, 216, 0.06) !important;
+    --color-print-grid-bold: rgba(10, 22, 40, 0.06) !important;
+    --color-print-grid:      rgba(10, 22, 40, 0.03) !important;
     --bp-shadow-sm:           none !important;
     --bp-shadow-md:           none !important;
     --bp-shadow-lg:           none !important;
@@ -91,9 +93,9 @@
     --footer-padding-bottom: var(--bp-space-2) !important;
     --footer-gap:            var(--bp-space-4) !important;
     /* Semantic print-spacing aliases — all print density tuning happens here */
-    --print-gap-xs:          var(--bp-space-2);
-    --print-gap-sm:          var(--bp-space-3);
-    --print-gap-md:          var(--bp-space-4);
+    --print-gap-xs:          var(--bp-space-2) !important;
+    --print-gap-sm:          var(--bp-space-3) !important;
+    --print-gap-md:          var(--bp-space-4) !important;
   }
 
   /* --------------------------------------------------------------------------
