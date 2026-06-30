@@ -294,7 +294,8 @@
   --font-body:              var(--bp-font-sans);
   --font-mono:              var(--bp-font-mono);
 
-  --radius:                 var(--bp-radius-md);
+  --radius-md:              var(--bp-radius-md);
+  --radius:                 var(--radius-md);
   --radius-sm:              var(--bp-radius-sm);
   --radius-none:            var(--bp-radius-none);
   --radius-lg:              var(--bp-radius-lg);
@@ -324,14 +325,16 @@
   --font-size-h6:            var(--bp-text-lg);
   --font-weight-heading:     var(--bp-font-semibold);
   --font-weight-body:        var(--bp-font-normal);
+  /* Role tokens — element-level defaults (body, headings, paragraphs in base.css) */
   --line-height-base:        var(--bp-leading-normal);
   --line-height-heading:     var(--bp-leading-tight);
   --line-height-body:        var(--bp-leading-relaxed);
+  /* Scale tokens — one-off overrides in components and utility classes */
+  --leading-display:         var(--bp-leading-display);
   --leading-tight:           var(--bp-leading-tight);
   --leading-snug:            var(--bp-leading-snug);
   --leading-normal:          var(--bp-leading-normal);
   --leading-relaxed:         var(--bp-leading-relaxed);
-  --letter-spacing-heading:  var(--bp-tracking-tight);
   --font-size-xs:            var(--bp-text-xs);
   --font-size-lg:            var(--bp-text-lg);
   --font-size-xl:            var(--bp-text-xl);
@@ -346,13 +349,16 @@
   --font-weight-semibold:    var(--bp-font-semibold);
   --font-weight-bold:        var(--bp-font-bold);
   --font-weight-label:       var(--bp-font-semibold);
-  --letter-spacing-caps:     var(--bp-tracking-widest);
-  --tracking-tight:          var(--bp-tracking-tight);
-  --tracking-normal:         var(--bp-tracking-normal);
-  --tracking-wide:           var(--bp-tracking-wide);
-  --tracking-wider:          var(--bp-tracking-wider);
-  --tracking-widest:         var(--bp-tracking-widest);
-  --letter-spacing-annotation:  var(--bp-tracking-wide);
+  /* Role aliases — use in element-level base styles */
+  --letter-spacing-heading:     var(--bp-tracking-tight);
+  /* @deprecated — use --tracking-widest instead; kept for print.css compatibility */
+  --letter-spacing-caps:        var(--bp-tracking-widest);
+  /* Scale aliases — use in one-off component overrides */
+  --tracking-tight:             var(--bp-tracking-tight);
+  --tracking-normal:            var(--bp-tracking-normal);
+  --tracking-wide:              var(--bp-tracking-wide);
+  --tracking-wider:             var(--bp-tracking-wider);
+  --tracking-widest:            var(--bp-tracking-widest);
 
   /* Motion — adjust --motion-scale to shift the whole page's animation personality.
      0 = instant (good for prefers-reduced-motion), 0.5 = snappy fintech,
@@ -360,9 +366,10 @@
   --motion-scale:    1;
   --duration-fast:   calc(0.15s * var(--motion-scale));
   --duration-base:   calc(0.20s * var(--motion-scale));
+  --duration-mid:    calc(0.25s * var(--motion-scale));
   --duration-slow:   calc(0.30s * var(--motion-scale));
   --duration-bounce: calc(0.40s * var(--motion-scale));
-  --duration-longer: calc(0.45s * var(--motion-scale));
+  --duration-slower: calc(0.45s * var(--motion-scale));
   --duration-long:   calc(0.5s  * var(--motion-scale));
   --duration-draw:   calc(0.8s  * var(--motion-scale));
   --motion-delay-nav:     calc(0.35s * var(--motion-scale));
@@ -417,8 +424,11 @@
   --section-padding-y:     var(--bp-space-20);
   --section-sm-padding-y:  var(--bp-space-12);
   --section-lg-padding-y:  var(--bp-space-32);
-  --hero-padding-top:      var(--bp-space-32);
-  --hero-padding-bottom:   var(--bp-space-24);
+  --section-xl-padding-y:  var(--bp-space-40);
+  --hero-padding-top:           var(--bp-space-32);
+  --hero-padding-bottom:        var(--bp-space-24);
+  --hero-padding-top-mobile:    var(--bp-space-16);
+  --hero-padding-bottom-mobile: var(--bp-space-12);
   --footer-padding-top:    var(--bp-space-12);
   --footer-padding-bottom: var(--bp-space-8);
   --footer-gap:            var(--bp-space-12);

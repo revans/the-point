@@ -105,19 +105,45 @@
 [data-bp-motion="draw"] .bp-section-sm,
 [data-bp-motion="draw"] .bp-section-lg {
   opacity: 0;
-  animation: bp-fade-up var(--duration-longer) var(--easing-smooth) var(--motion-delay-section) forwards;
+  animation: bp-fade-up var(--duration-slower) var(--easing-smooth) var(--motion-delay-section) forwards;
 }
 
 /* App layout body (sidebar apps) */
 [data-bp-motion="draw"] .bp-main-content {
   opacity: 0;
-  animation: bp-fade-up var(--duration-longer) var(--easing-smooth) var(--motion-delay-hero) forwards;
+  animation: bp-fade-up var(--duration-slower) var(--easing-smooth) var(--motion-delay-hero) forwards;
 }
 
 /* Footer is last */
 [data-bp-motion="draw"] .bp-footer {
   opacity: 0;
   animation: bp-fade-up var(--duration-bounce) var(--easing-smooth) var(--motion-delay-footer) forwards;
+}
+
+/* When bp-animate-draw is applied to a page-motion target, the animation
+   shorthand above (specificity 0,2,0) silently overrides .bp-animate-draw's
+   animation (0,1,0) — bp-fade-up runs instead of bp-border-draw, the scroll-
+   driven timeline is lost, and background-size stays at 0%. This rule matches
+   the same specificity and appears later in source order, so it layers both
+   animations and restores the scroll-driven longhands. */
+[data-bp-motion="draw"] .bp-animate-draw {
+  animation:
+    bp-border-draw var(--duration-draw) var(--easing-smooth) both,
+    bp-fade-up var(--duration-slower) var(--easing-smooth) var(--motion-delay-section) forwards;
+  animation-duration: auto, var(--duration-slower);
+  animation-timeline: view(), auto;
+  animation-range: entry 0% entry 50%, normal;
+}
+
+/* Hero variant — specificity (0,3,0) wins over the generic rule above so the
+   hero-specific duration and delay apply when bp-animate-draw is on .bp-hero. */
+[data-bp-motion="draw"] .bp-hero.bp-animate-draw {
+  animation:
+    bp-border-draw var(--duration-draw) var(--easing-smooth) both,
+    bp-fade-up var(--duration-long) var(--easing-smooth) var(--motion-delay-hero) forwards;
+  animation-duration: auto, var(--duration-long);
+  animation-timeline: view(), auto;
+  animation-range: entry 0% entry 50%, normal;
 }
 
 /* --------------------------------------------------------------------------
@@ -160,9 +186,9 @@
    -------------------------------------------------------------------------- */
 
 .bp-animate {
-  --bp-transition-fast:   all calc(0.25s * var(--motion-scale)) var(--easing-bounce);
-  --bp-transition-base:   all calc(0.3s  * var(--motion-scale)) var(--easing-bounce);
-  --bp-transition-smooth: all calc(0.4s  * var(--motion-scale)) var(--easing-bounce);
+  --bp-transition-fast:   all var(--duration-mid)    var(--easing-bounce);
+  --bp-transition-base:   all var(--duration-slow)   var(--easing-bounce);
+  --bp-transition-smooth: all var(--duration-bounce) var(--easing-bounce);
 }
 
 /* --------------------------------------------------------------------------
@@ -224,5 +250,20 @@
 @supports not (animation-timeline: view()) {
   .bp-animate-draw {
     animation: bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both;
+  }
+
+  /* Matching combined-rule overrides — same logic as above but with
+     var(--duration-fast) in place of auto (no scroll timeline here)
+     and no animation-timeline / animation-range longhands. */
+  [data-bp-motion="draw"] .bp-animate-draw {
+    animation:
+      bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both,
+      bp-fade-up var(--duration-slower) var(--easing-smooth) var(--motion-delay-section) forwards;
+  }
+
+  [data-bp-motion="draw"] .bp-hero.bp-animate-draw {
+    animation:
+      bp-border-draw var(--duration-draw) var(--easing-smooth) var(--duration-fast) both,
+      bp-fade-up var(--duration-long) var(--easing-smooth) var(--motion-delay-hero) forwards;
   }
 }

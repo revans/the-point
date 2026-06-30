@@ -25,7 +25,7 @@
     content: "Page " counter(page);
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 8pt;
-    color: #4a7a9b; /* = --color-text-muted print value; @page cannot use custom properties in Chrome/Edge */
+    color: #4a7a9b; /* MUST stay in sync with --color-text-muted in the @media print :root block (line 72); @page margin boxes cannot resolve custom properties in Chrome/Edge */
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
@@ -78,11 +78,7 @@
     --bp-shadow-lg:           none !important;
     --bp-shadow-glow:         none !important;
     --bp-shadow-inset:        none !important;
-    --shadow-sm:              none !important;
-    --shadow-md:              none !important;
-    --shadow-lg:              none !important;
-    --shadow-glow:            none !important;
-    --shadow-inset:           none !important;
+    /* --shadow-* semantic aliases resolve through --bp-shadow-* above; no explicit override needed */
     /* Spacing token overrides — compress layout for paper; override tokens here
        rather than overriding primitives directly in component selectors */
     --grid-gap:              var(--bp-space-4) !important;
@@ -94,6 +90,10 @@
     --footer-padding-top:    var(--bp-space-6) !important;
     --footer-padding-bottom: var(--bp-space-2) !important;
     --footer-gap:            var(--bp-space-4) !important;
+    /* Semantic print-spacing aliases — all print density tuning happens here */
+    --print-gap-xs:          var(--bp-space-2);
+    --print-gap-sm:          var(--bp-space-3);
+    --print-gap-md:          var(--bp-space-4);
   }
 
   /* --------------------------------------------------------------------------
@@ -219,11 +219,11 @@
     display: block !important;
     float: none !important;
     width: auto !important;
-    margin: 1em 0;
+    margin: var(--bp-space-3) 0;
     font-size: var(--print-annotation-font-size);
     color: var(--color-text-muted) !important;
     border-left: var(--border-width-strong) var(--border-style) var(--color-primary) !important;
-    padding-left: var(--bp-space-3);
+    padding-left: var(--annotation-indent);
     font-style: italic;
   }
 
@@ -238,8 +238,8 @@
   .bp-stat {
     flex-direction: row;
     align-items: baseline;
-    gap: var(--bp-space-4);
-    padding: var(--bp-space-2) 0;
+    gap: var(--print-gap-md);
+    padding: var(--print-gap-xs) 0;
     border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
   }
 
@@ -279,7 +279,7 @@
     border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin-bottom: var(--bp-space-4);
+    margin-bottom: var(--print-gap-md);
     break-inside: avoid;
     position: relative;
   }
@@ -294,8 +294,8 @@
     text-transform: uppercase;
     color: var(--color-primary) !important;
     border-bottom: var(--border-width) var(--border-style) var(--color-border) !important;
-    padding-bottom: var(--bp-space-2);
-    margin-bottom: var(--bp-space-3);
+    padding-bottom: var(--print-gap-xs);
+    margin-bottom: var(--print-gap-sm);
   }
 
   .bp-print-spec .bp-card:not(.bp-pricing-card)::before {
@@ -308,7 +308,7 @@
     border: var(--border-width) var(--border-style) var(--color-border) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    margin-bottom: var(--bp-space-4);
+    margin-bottom: var(--print-gap-md);
     break-inside: avoid;
   }
 
@@ -326,8 +326,8 @@
 
   .bp-footer-bottom {
     break-inside: avoid;
-    margin-top: var(--bp-space-4) !important;
-    padding-top: var(--bp-space-3) !important;
+    margin-top: var(--print-gap-md) !important;
+    padding-top: var(--print-gap-sm) !important;
   }
 
   /* --------------------------------------------------------------------------
