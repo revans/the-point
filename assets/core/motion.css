@@ -318,10 +318,11 @@
     animation: bp-border-draw var(--duration-draw) var(--easing-smooth) var(--delay-draw) both;
   }
 
-  /* Matching combined-rule overrides — same logic as above but with an
-     intentional --delay-draw delay in the animation shorthand (no
-     scroll timeline here) and no animation-timeline / animation-range
-     longhands.
+  /* Page-motion + animate-draw fallbacks — mirrors the [data-bp-motion="draw"] .bp-animate-draw
+     scroll-driven rules above, but time-based: uses --delay-draw in the animation shorthand
+     instead of animation-timeline / animation-range longhands. The .bp-card-hover hover/focus
+     combined overrides (lines 311-312) are intentionally absent here — they carry no
+     animation-timeline dependency and apply in both scroll-driven and fallback paths unchanged.
 
      fill-mode NOTE: bp-fade-up uses `both` here (not `forwards`) so that ANY
      element — including ones like bp-card that have no page-level `opacity: 0`

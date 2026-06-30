@@ -109,7 +109,11 @@
     --bp-shadow-lg:           none !important;
     --bp-shadow-glow:         none !important;
     --bp-shadow-inset:        none !important;
-    /* --shadow-* semantic aliases resolve through --bp-shadow-* above; no explicit override needed */
+    --shadow-glow:            none !important;
+    /* --shadow-sm/md/lg/inset alias through --bp-shadow-* above (no override needed).
+       --shadow-glow is a standalone hardcoded value and must be explicitly nulled here.
+       --shadow-glow-error aliases --bp-shadow-glow-error (covered above), but all its
+       usages are hover-only so it would not appear in print regardless. */
     /* Spacing token overrides — compress layout for paper; override tokens here
        rather than overriding primitives directly in component selectors */
     --grid-gap:              var(--bp-space-4) !important;

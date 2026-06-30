@@ -89,6 +89,7 @@
 .bp-font-sans { font-family: var(--font-sans); }
 .bp-font-mono { font-family: var(--font-mono); }
 
+.bp-leading-display { line-height: var(--line-height-display); }
 .bp-leading-tight   { line-height: var(--line-height-tight); }
 .bp-leading-snug    { line-height: var(--line-height-snug); }
 .bp-leading-normal  { line-height: var(--line-height-normal); }
