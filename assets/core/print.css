@@ -23,7 +23,10 @@
      counter(page) works reliably in Chrome/Edge print engines */
   @bottom-right {
     content: "Page " counter(page);
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    /* !! COUPLED VALUE — do not change this stack without updating --bp-font-mono (--font-mono) in base.css.
+       @page margin boxes cannot resolve CSS custom properties in Chrome/Edge (as of 2026), so the value must be hardcoded here.
+       The canonical value lives in --bp-font-mono. This line must always match it exactly: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace */
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
     font-size: 8pt;
     /* !! COUPLED VALUE — do not change this hex without updating --color-text-muted in the @media print :root block below.
        @page margin boxes cannot resolve CSS custom properties in Chrome/Edge (as of 2026), so the value must be hardcoded here.

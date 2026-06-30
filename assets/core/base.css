@@ -314,6 +314,7 @@
   --line-height-base:        var(--bp-leading-normal);
   --line-height-heading:     var(--bp-leading-tight);
   --line-height-body:        var(--bp-leading-relaxed);
+  --line-height-paragraph:   var(--bp-leading-relaxed);
   /* Scale tokens — one-off overrides in components and utility classes */
   --leading-display:         var(--bp-leading-display);
   --leading-tight:           var(--bp-leading-tight);
@@ -334,8 +335,8 @@
      These intentionally exceed the named scale (6xl = 3.75rem) to produce the
      large background number effect. Define them here so brand overrides have a
      lever that keeps components.css responsive type declarations consistent. */
-  --font-size-step-numeral-min: 4rem;   /* 64px — clamp floor */
-  --font-size-step-numeral-max: 7rem;   /* 112px — clamp ceiling */
+  --step-numeral-font-size-min: 4rem;   /* 64px — clamp floor */
+  --step-numeral-font-size-max: 7rem;   /* 112px — clamp ceiling */
   --font-weight-light:       var(--bp-weight-light);
   --font-weight-normal:      var(--bp-weight-normal);
   --font-weight-medium:      var(--bp-weight-medium);
@@ -618,7 +619,7 @@ html {
 body {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
-  line-height: var(--line-height-base);
+  line-height: var(--line-height-body);
   color: var(--color-text);
   background-color: var(--color-bg);
 
@@ -678,7 +679,7 @@ h6 { font-size: var(--font-size-h6); }
 
 p {
   color: var(--color-text-secondary);
-  line-height: var(--line-height-body);
+  line-height: var(--line-height-paragraph);
 }
 
 code, pre, kbd {

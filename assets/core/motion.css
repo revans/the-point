@@ -192,6 +192,23 @@
 }
 
 /* --------------------------------------------------------------------------
+   COMPONENT-LEVEL BOUNCE  .bp-animate
+
+   Rescopes all transition tokens within the container to the bounce curve.
+   Because child components use var(--transition-*) for their transitions,
+   overriding the token here cascades down — no per-component overrides needed.
+
+   Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
+   -------------------------------------------------------------------------- */
+
+.bp-animate {
+  --transition-fast:   all var(--duration-moderate) var(--easing-bounce);
+  --transition-base:   all var(--duration-slow)     var(--easing-bounce);
+  --transition-smooth: all var(--duration-reveal)  var(--easing-bounce);
+  --transition-bounce: all var(--duration-long)     var(--easing-bounce);
+}
+
+/* --------------------------------------------------------------------------
    REDUCED MOTION GUARD
    Users who set prefers-reduced-motion get the final state instantly.
    No layout shift, no flash — just no animation.
@@ -219,29 +236,16 @@
     background-size: 100% var(--border-width), var(--border-width) 100%, 100% var(--border-width), var(--border-width) 100% !important;
   }
 
+  .bp-skeleton {
+    animation: none;
+  }
+
   .bp-animate {
     --transition-fast:   all var(--duration-fast)    var(--easing-smooth);
     --transition-base:   all var(--duration-base)    var(--easing-smooth);
     --transition-smooth: all var(--duration-slow)    var(--easing-smooth);
     --transition-bounce: all var(--duration-reveal) var(--easing-smooth);
   }
-}
-
-/* --------------------------------------------------------------------------
-   COMPONENT-LEVEL BOUNCE  .bp-animate
-
-   Rescopes all transition tokens within the container to the bounce curve.
-   Because child components use var(--transition-*) for their transitions,
-   overriding the token here cascades down — no per-component overrides needed.
-
-   Usage: <div class="bp-animate"> ... bp-btn, bp-card, bp-nav-link inside ... </div>
-   -------------------------------------------------------------------------- */
-
-.bp-animate {
-  --transition-fast:   all var(--duration-moderate) var(--easing-bounce);
-  --transition-base:   all var(--duration-slow)     var(--easing-bounce);
-  --transition-smooth: all var(--duration-reveal)  var(--easing-bounce);
-  --transition-bounce: all var(--duration-long)     var(--easing-bounce);
 }
 
 /* --------------------------------------------------------------------------

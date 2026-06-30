@@ -120,7 +120,7 @@
    COLORS
    -------------------------------------------------------------------------- */
 
-.bp-text-body      { color: var(--color-text); }
+.bp-text-body      { color: var(--color-text); } /* 'body' used because .bp-text-base is taken by the font-size scale */
 .bp-text-secondary { color: var(--color-text-secondary); }
 .bp-text-muted     { color: var(--color-text-muted); }
 .bp-text-primary   { color: var(--color-primary); }
@@ -307,6 +307,15 @@
 
 .bp-hover-lift-glow:hover,
 .bp-hover-lift-glow:focus-visible {
+  transform: translateY(calc(-1 * var(--lift-distance)));
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+/* Specificity trap guard: when both classes ARE stacked despite the comments,
+   this compound selector (0,3,0) beats both individual class rules (0,2,0) and
+   applies the same correct combined output as .bp-hover-lift-glow. */
+.bp-hover-lift.bp-hover-glow:hover,
+.bp-hover-lift.bp-hover-glow:focus-visible {
   transform: translateY(calc(-1 * var(--lift-distance)));
   box-shadow: var(--shadow-md), var(--shadow-glow);
 }
