@@ -51,6 +51,28 @@
 
 
   /* -------------------------------------------------------------------------
+     SECONDARY COLOR
+     Defaults to --color-primary-hover, so it follows your primary automatically —
+     leave this alone unless the brand needs a genuinely distinct second color
+     (e.g. a two-tone brand, or a secondary CTA that shouldn't read as "primary but dimmer").
+
+     Setting --color-secondary derives the same trio as primary:
+       --color-secondary-hover  (darker, same hue)
+       --color-secondary-subtle (12% alpha tint)
+       --color-secondary-glow   (25% alpha tint)
+     ---------------------------------------------------------------------- */
+
+  /* --color-secondary:        #your-secondary-color; */
+
+  /* Override derived values only if needed: */
+  /* --color-secondary-hover:  #your-secondary-color-darker; */
+  /* --color-secondary-subtle: color-mix(in srgb, var(--color-secondary) 12%, transparent); */
+  /* --color-secondary-glow:   color-mix(in srgb, var(--color-secondary) 25%, transparent); */
+
+  /* --color-on-secondary: #000000; */
+
+
+  /* -------------------------------------------------------------------------
      TYPOGRAPHY
      Swap out the fonts. Both @import and system fonts work here.
      If using Google Fonts, add the @import above this block.
