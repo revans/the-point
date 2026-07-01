@@ -94,3 +94,9 @@ export { Dropdown, DropdownItem, DropdownDivider } from './components/Dropdown'
 
 // Drawer
 export { Drawer, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter } from './components/Drawer'
+
+// Empty State
+export { EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateActions } from './components/EmptyState'
+
+// Table (sortable/selectable — the base table is plain HTML, see llm.md)
+export { TableSortableHeader, TableSelectAllCheckbox } from './components/Table'

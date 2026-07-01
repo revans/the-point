@@ -952,6 +952,95 @@ For a corner ribbon that overlaps the card edge instead, use `bp-absolute bp-top
 </div>
 ```
 
+### Sortable headers
+
+Requires JS — see `rails/javascript/controllers/sortable_table_controller.js` (Rails integration README) or the React `<TableSortableHeader>` component. The controller only toggles the native `aria-sort` attribute and tells your app what happened; it doesn't reorder rows itself, since that depends on your data (a client array, a paginated server query, a Turbo Stream request) in ways this library can't know — same "you own the data" split as Pagination.
+
+```html
+<table class="bp-table" data-controller="sortable-table">
+  <thead>
+    <tr>
+      <th aria-sort="none" data-column="name"
+          data-sortable-table-target="header"
+          data-action="click->sortable-table#sort">
+        Name <span class="bp-table-sort-icon">▲</span>
+      </th>
+    </tr>
+  </thead>
+  ...
+</table>
+```
+
+```js
+table.addEventListener("sortable-table:sort", (event) => {
+  const { column, direction } = event.detail
+  // re-sort your array, or request the next page from the server, etc.
+})
+```
+
+**React:**
+```tsx
+const [sort, setSort] = useState({ column: 'name', direction: 'ascending' as const })
+
+<TableSortableHeader
+  column="name"
+  direction={sort.column === 'name' ? sort.direction : 'none'}
+  onSort={(column, direction) => setSort({ column, direction })}
+>
+  Name
+</TableSortableHeader>
+```
+
+### Selectable rows
+
+Row-selection highlighting is pure CSS — `:has()` (same trick as Tabs), no JS needed for that part. The only thing that genuinely needs JS is the header "select all" checkbox's indeterminate state, since `indeterminate` is a JS-only DOM property with no HTML attribute or CSS equivalent. See `rails/javascript/controllers/table_selection_controller.js` or the React `<TableSelectAllCheckbox>` component.
+
+```html
+<table class="bp-table" data-controller="table-selection">
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" class="bp-table-checkbox"
+               data-table-selection-target="all"
+               data-action="change->table-selection#toggleAll">
+      </th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input type="checkbox" class="bp-table-checkbox" value="1"
+               data-table-selection-target="row"
+               data-action="change->table-selection#toggleRow">
+      </td>
+      <td>Alice</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+```js
+table.addEventListener("table-selection:change", (event) => {
+  const { selected } = event.detail // array of checked row values
+})
+```
+
+Row checkboxes are plain `<input type="checkbox" class="bp-table-checkbox">` — the `:has()` rule on `.bp-table tbody tr` reads their `:checked` state directly, no wrapper class needed. Combine with sortable headers on the same `<table>` via `data-controller="sortable-table table-selection"` — Stimulus supports multiple controllers on one element.
+
+**React:**
+```tsx
+const [selected, setSelected] = useState<Set<string>>(new Set())
+
+<TableSelectAllCheckbox
+  checkedCount={selected.size}
+  totalCount={rows.length}
+  onChange={(checked) => setSelected(checked ? new Set(rows.map(r => r.id)) : new Set())}
+/>
+```
+
+Row checkboxes in React are just plain, app-controlled `<input type="checkbox" className="bp-table-checkbox">` elements — no wrapper component needed there either.
+
 ---
 
 ## Avatar
@@ -1076,6 +1165,25 @@ Width is set inline (or via JS) per instance — the track (`bp-progress`) is th
 ```
 
 `bp-spinner` is a bare rotating ring — no wrapper markup needed. Rotation speed follows `--duration-spin`, which (like all durations) scales with `--motion-scale`, so it respects a reduced-motion override.
+
+---
+
+## Empty State
+
+No JS — a plain content block, for the "no data yet" / "no results" placeholder every list or dashboard needs.
+
+```html
+<div class="bp-empty-state">
+  <div class="bp-empty-state-icon">⊘</div>
+  <div class="bp-empty-state-title">No results found</div>
+  <p class="bp-empty-state-description">Try adjusting your filters, or clear them to see everything.</p>
+  <div class="bp-empty-state-actions">
+    <button class="bp-btn bp-btn-primary bp-btn-sm">Clear filters</button>
+  </div>
+</div>
+```
+
+`bp-empty-state-icon` accepts any content (emoji, inline SVG, icon font) — it's just a centered, muted circular slot. `bp-empty-state-actions` is optional; omit it when there's nothing actionable to offer.
 
 ---
 

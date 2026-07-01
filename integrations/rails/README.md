@@ -564,6 +564,110 @@ Add `bp-drawer-left`, `bp-drawer-top`, or `bp-drawer-bottom` on `.bp-drawer` to 
 
 ---
 
+## Sortable Table Headers
+
+The controller only toggles `aria-sort` and tells your app what happened — it doesn't reorder rows itself, since that depends on your data in ways this library can't know (same split as Pagination).
+
+### 1. Register the controller
+
+Copy `rails/javascript/controllers/sortable_table_controller.js` to `app/javascript/controllers/sortable_table_controller.js`.
+
+```js
+// app/javascript/controllers/index.js
+import SortableTableController from "./sortable_table_controller"
+application.register("sortable-table", SortableTableController)
+```
+
+### 2. Markup
+
+```erb
+<table class="bp-table" data-controller="sortable-table">
+  <thead>
+    <tr>
+      <th aria-sort="none" data-column="name"
+          data-sortable-table-target="header"
+          data-action="click->sortable-table#sort">
+        Name <span class="bp-table-sort-icon">▲</span>
+      </th>
+      <th aria-sort="none" data-column="created_at"
+          data-sortable-table-target="header"
+          data-action="click->sortable-table#sort">
+        Created <span class="bp-table-sort-icon">▲</span>
+      </th>
+    </tr>
+  </thead>
+  <%# ... %>
+</table>
+```
+
+### 3. Handle the result
+
+```js
+document.querySelector("table").addEventListener("sortable-table:sort", (event) => {
+  const { column, direction } = event.detail
+  window.location = `?sort=${column}&direction=${direction}`
+})
+```
+
+Clicking a header sets it to `ascending` (or flips `ascending`/`descending` if it's already sorted) and resets every other header's `aria-sort` to `none` — single-column sort, the common case.
+
+---
+
+## Selectable Table Rows
+
+Row-selection highlighting is pure CSS (`:has()`, same trick as Tabs) — no JS needed for that part. The only thing that genuinely needs JS is the header "select all" checkbox's indeterminate state, since `indeterminate` is a JS-only DOM property.
+
+### 1. Register the controller
+
+Copy `rails/javascript/controllers/table_selection_controller.js` to `app/javascript/controllers/table_selection_controller.js`.
+
+```js
+// app/javascript/controllers/index.js
+import TableSelectionController from "./table_selection_controller"
+application.register("table-selection", TableSelectionController)
+```
+
+### 2. Markup
+
+```erb
+<table class="bp-table" data-controller="table-selection">
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" class="bp-table-checkbox"
+               data-table-selection-target="all"
+               data-action="change->table-selection#toggleAll">
+      </th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <input type="checkbox" class="bp-table-checkbox" value="<%= user.id %>"
+                 data-table-selection-target="row"
+                 data-action="change->table-selection#toggleRow">
+        </td>
+        <td><%= user.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+```
+
+### 3. Handle the result
+
+```js
+document.querySelector("table").addEventListener("table-selection:change", (event) => {
+  const { selected } = event.detail // array of checked row values
+})
+```
+
+Combine with sortable headers on the same `<table>` via `data-controller="sortable-table table-selection"` — Stimulus supports multiple controllers on one element.
+
+---
+
 ## Flash Messages
 
 Map Rails flash types to alert variants:

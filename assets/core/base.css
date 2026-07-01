@@ -577,6 +577,7 @@
   --avatar-lg:           48px;
   --avatar-xl:           64px;
   --feature-icon-size:   48px;
+  --empty-state-icon-size: 64px;
   --alert-icon-size:     18px;
   --accordion-icon-size: 14px;
   --tooltip-gap:         6px;

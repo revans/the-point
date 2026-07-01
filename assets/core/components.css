@@ -1790,6 +1790,38 @@
   white-space: nowrap;
 }
 
+/* Sortable headers key off the native aria-sort attribute ("ascending" /
+   "descending" / "none") — see rails/javascript/controllers/
+   sortable_table_controller.js. The controller only toggles aria-sort and
+   dispatches an event; it doesn't reorder rows itself, since that's
+   app/data-specific (same "you own the data" split as Pagination). */
+.bp-table th[aria-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+.bp-table th[aria-sort]:hover {
+  color: var(--color-text);
+}
+
+.bp-table-sort-icon {
+  display: inline-block;
+  margin-left: var(--space-1);
+  font-size: 10px;
+  opacity: 0.4;
+  transition: var(--transition-fast);
+}
+
+.bp-table th[aria-sort="ascending"] .bp-table-sort-icon,
+.bp-table th[aria-sort="descending"] .bp-table-sort-icon {
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+.bp-table th[aria-sort="descending"] .bp-table-sort-icon {
+  transform: rotate(180deg);
+}
+
 .bp-table td {
   padding: var(--space-3) var(--space-4);
   color: var(--color-text-secondary);
@@ -1801,6 +1833,21 @@
 }
 
 .bp-table tbody tr:hover td {
+  background-color: var(--color-primary-subtle);
+}
+
+/* Row selection — CSS-only highlight via :has() (same trick as Tabs).
+   Requires JS only for the header "select all" checkbox's indeterminate
+   state, since that's a JS-only DOM property — see rails/javascript/
+   controllers/table_selection_controller.js. */
+.bp-table-checkbox {
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.bp-table tbody tr:has(.bp-table-checkbox:checked) td {
   background-color: var(--color-primary-subtle);
 }
 
@@ -2484,6 +2531,60 @@
     grid-template-columns: 1fr;
     gap: var(--space-1);
   }
+}
+
+/* --------------------------------------------------------------------------
+   EMPTY STATE
+   No JS — a plain content block. Usage:
+   <div class="bp-empty-state">
+     <div class="bp-empty-state-icon">⊘</div>
+     <div class="bp-empty-state-title">No results found</div>
+     <p class="bp-empty-state-description">Try adjusting your filters.</p>
+     <div class="bp-empty-state-actions">
+       <button class="bp-btn bp-btn-primary bp-btn-sm">Clear filters</button>
+     </div>
+   </div>
+   -------------------------------------------------------------------------- */
+
+.bp-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+  gap: var(--space-4);
+}
+
+.bp-empty-state-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--empty-state-icon-size);
+  height: var(--empty-state-icon-size);
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-size: calc(var(--empty-state-icon-size) * 0.4);
+}
+
+.bp-empty-state-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.bp-empty-state-description {
+  max-width: 360px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.bp-empty-state-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
 }
 
 /* --------------------------------------------------------------------------
