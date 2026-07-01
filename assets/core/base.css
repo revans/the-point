@@ -571,6 +571,7 @@
   --avatar-xl:           64px;
   --feature-icon-size:   48px;
   --alert-icon-size:     18px;
+  --accordion-icon-size: 14px;
 
   /* Modal & toast dimensions */
   --modal-max-width:  520px;
