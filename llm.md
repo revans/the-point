@@ -773,6 +773,47 @@ CSS-only — built on native `<details>`/`<summary>`, no JS required for open/cl
 
 ---
 
+## Tabs
+
+CSS-only — built on hidden radio inputs plus `:has()`, no JS required for switching. Panels are matched to inputs by *position* (1st panel shows when the 1st input is checked, etc.), not by matching ids, so the `.bp-tabs-panels` wrapper is required — it's what makes `:nth-of-type` count only panels instead of also counting the `.bp-tabs-list` div. Supports up to 8 tabs per group.
+
+```html
+<div class="bp-tabs">
+  <div class="bp-tabs-list" role="tablist">
+    <input type="radio" name="tabs-1" class="bp-tabs-input" id="tab-1" checked>
+    <label class="bp-tabs-trigger" for="tab-1">One</label>
+    <input type="radio" name="tabs-1" class="bp-tabs-input" id="tab-2">
+    <label class="bp-tabs-trigger" for="tab-2">Two</label>
+    <input type="radio" name="tabs-1" class="bp-tabs-input" id="tab-3">
+    <label class="bp-tabs-trigger" for="tab-3">Three</label>
+  </div>
+  <div class="bp-tabs-panels">
+    <div class="bp-tabs-panel">Panel one content</div>
+    <div class="bp-tabs-panel">Panel two content</div>
+    <div class="bp-tabs-panel">Panel three content</div>
+  </div>
+</div>
+```
+
+Give each `.bp-tabs` group's inputs a unique `name` — that's what keeps separate tab groups on the same page from fighting over selection state (same mechanism as native radio button groups anywhere else).
+
+---
+
+## Tooltip
+
+CSS-only — shows via `:hover`/`:focus-within`, no JS required. Positions above-center only, with no automatic viewport-edge flipping: a tooltip near the top or side edge of the viewport can render off-screen. Flipping to stay on-screen requires measuring position at show-time, which needs JS — that's a known limit of a CSS-only implementation, not a bug.
+
+```html
+<span class="bp-tooltip">
+  <button class="bp-tooltip-trigger">Hover me</button>
+  <span class="bp-tooltip-bubble" role="tooltip">Helpful tooltip text</span>
+</span>
+```
+
+`.bp-tooltip-trigger` is not a required class — any focusable element works as the trigger (button, link, etc.); `.bp-tooltip` just needs `position: relative` (already set) and the bubble as its direct child. Use `role="tooltip"` on the bubble for screen readers.
+
+---
+
 ## Pricing Cards
 
 ```html
