@@ -30,6 +30,11 @@
 .bp-items-end     { align-items: flex-end; }
 .bp-items-stretch { align-items: stretch; }
 
+.bp-self-start    { align-self: flex-start; }
+.bp-self-center   { align-self: center; }
+.bp-self-end      { align-self: flex-end; }
+.bp-self-stretch  { align-self: stretch; }
+
 .bp-justify-start    { justify-content: flex-start; }
 .bp-justify-center   { justify-content: center; }
 .bp-justify-end      { justify-content: flex-end; }

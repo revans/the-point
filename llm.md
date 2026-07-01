@@ -713,7 +713,7 @@ Ephemeral notifications, distinct from `bp-alert` (which is inline/persistent). 
 There's no dedicated ribbon class — `.bp-pricing-card` is already `position: relative; display: flex; flex-direction: column;`, so the idiomatic way in is a `.bp-badge` as the card's first child. It sits in normal flow, above the plan name:
 ```html
 <div class="bp-pricing-card bp-pricing-card-featured">
-  <span class="bp-badge" style="align-self: flex-start;">Most Popular</span>
+  <span class="bp-badge bp-self-start">Most Popular</span>
   <div class="bp-pricing-plan">Pro</div>
   ...
 </div>
@@ -885,7 +885,8 @@ These give pages the blueprint character. Use sparingly.
 ```
 bp-flex  bp-inline-flex  bp-block  bp-hidden  bp-grid-bare  (bare display:grid, no gap — see .bp-grid for the layout component)
 bp-flex-col  bp-flex-row  bp-flex-wrap
-bp-items-start  bp-items-center  bp-items-end
+bp-items-start  bp-items-center  bp-items-end  bp-items-stretch
+bp-self-start  bp-self-center  bp-self-end  bp-self-stretch   (override align-items for one flex child)
 bp-justify-start  bp-justify-center  bp-justify-end  bp-justify-between
 bp-flex-1  bp-flex-none  bp-shrink-0  bp-grow
 bp-gap-1  bp-gap-2  bp-gap-3  bp-gap-4  bp-gap-5  bp-gap-6  bp-gap-8  bp-gap-10  bp-gap-12
