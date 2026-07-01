@@ -201,10 +201,10 @@ Set to `none` for flat design. Use `var(--bp-shadow-*)` values as references.
 <section class="bp-section-sm">     <!-- py-12 (48px) -->
 <section class="bp-section-lg">     <!-- py-32 (128px) -->
 <section class="bp-section-xl">     <!-- py-40 (160px) — landmark / hero-adjacent sections -->
-<section class="bp-section-dark">   <!-- inverted: dark bg, light text; use for contrast bands -->
+<section class="bp-section-invert"> <!-- inverted: dark bg, light text; use for contrast bands -->
 ```
 
-`bp-section-dark` re-maps text and card tokens inside the band — no extra overrides needed. Combine with `bp-section-lg` for a full interlude.
+`bp-section-invert` re-maps text and card tokens inside the band — no extra overrides needed. Combine with `bp-section-lg` for a full interlude. (`bp-section-dark` still works as a deprecated alias, but new code should use `bp-section-invert`.)
 
 ### Full-Bleed Hero (100vh)
 ```html
@@ -458,9 +458,13 @@ Aspect-ratio-locked wrapper for `<img>`, `<video>`, and `<svg>`. Think of it as 
 
 <textarea class="bp-textarea" placeholder="..."></textarea>
 
-<select class="bp-select">
-  <option>Option</option>
-</select>
+<!-- .bp-select-wrapper is required — it draws the custom dropdown arrow;
+     a bare <select class="bp-select"> renders without one -->
+<div class="bp-select-wrapper">
+  <select class="bp-select">
+    <option>Option</option>
+  </select>
+</div>
 
 <!-- Error state -->
 <input type="text" class="bp-input bp-input-error">
@@ -543,10 +547,10 @@ field.addEventListener('keydown', e => {
 
 ## Badges
 
-**Variants:** `bp-badge-default` `bp-badge-secondary` `bp-badge-success` `bp-badge-warning` `bp-badge-error` `bp-badge-outline`
+**Variants:** `bp-badge` (base — the default look, no modifier needed) `bp-badge-secondary` `bp-badge-success` `bp-badge-warning` `bp-badge-error` `bp-badge-outline`
 
 ```html
-<span class="bp-badge bp-badge-default">Label</span>
+<span class="bp-badge">Label</span>
 <span class="bp-badge bp-badge-success">Active</span>
 <span class="bp-badge bp-badge-warning">Pending</span>
 <span class="bp-badge bp-badge-error">Failed</span>
@@ -590,7 +594,7 @@ Inline pill labels for attributes, categories, flavors, status, or any small met
 
 Numbered process steps with large background numerals. Use `data-step` on each `.bp-step` to set the numeral content (CSS reads it via `attr(data-step)`).
 
-**Column variants:** `bp-steps-3` `bp-steps-4` (collapse to 1-col at 768px)
+**Column variants:** `bp-steps-2` `bp-steps-3` `bp-steps-4` `bp-steps-5` `bp-steps-6` (collapse to 1-col at 768px)
 
 ```html
 <div class="bp-steps bp-steps-3">
@@ -641,7 +645,7 @@ At narrow viewports (≤ 480px) each fact stacks label above value.
 
 ## Alerts
 
-**Variants:** `bp-alert-default` `bp-alert-success` `bp-alert-warning` `bp-alert-error`
+**Variants:** `bp-alert` (base — the default look, no modifier needed) `bp-alert-success` `bp-alert-warning` `bp-alert-error`
 
 ```html
 <div class="bp-alert bp-alert-warning">
@@ -659,6 +663,21 @@ At narrow viewports (≤ 480px) each fact stacks label above value.
 <%= bp_alert variant: :error do %><%= @error_message %><% end %>
 <%= bp_alert variant: :default, icon: "🔒", title: "Secure" do %>Encrypted.<% end %>
 <%= bp_alert variant: :warning, icon: false do %>No icon.<% end %>
+```
+
+---
+
+## Toasts
+
+Ephemeral notifications, distinct from `bp-alert` (which is inline/persistent). `bp-toast-container` fixes to the bottom-right corner and stacks children; JS is responsible for appending/removing individual `bp-toast` elements (no built-in auto-dismiss timer in the CSS).
+
+**Variants:** `bp-toast` (base — neutral surface, no modifier needed) `bp-toast-success` `bp-toast-warning` `bp-toast-error`
+
+```html
+<div class="bp-toast-container">
+  <div class="bp-toast bp-toast-success">Changes saved.</div>
+  <div class="bp-toast bp-toast-error">Something went wrong.</div>
+</div>
 ```
 
 ---
@@ -689,6 +708,17 @@ At narrow viewports (≤ 480px) each fact stacks label above value.
   <a href="#" class="bp-btn bp-btn-primary bp-w-full">Get started</a>
 </div>
 ```
+
+### "Most Popular" badge on a featured card
+There's no dedicated ribbon class — `.bp-pricing-card` is already `position: relative; display: flex; flex-direction: column;`, so the idiomatic way in is a `.bp-badge` as the card's first child. It sits in normal flow, above the plan name:
+```html
+<div class="bp-pricing-card bp-pricing-card-featured">
+  <span class="bp-badge" style="align-self: flex-start;">Most Popular</span>
+  <div class="bp-pricing-plan">Pro</div>
+  ...
+</div>
+```
+For a corner ribbon that overlaps the card edge instead, use `bp-absolute bp-top-0` on the badge with an inline `right`/transform offset — there's no purpose-built utility for that placement, so it needs an inline style either way.
 
 ---
 
@@ -853,7 +883,7 @@ These give pages the blueprint character. Use sparingly.
 
 ### Display & Flex
 ```
-bp-flex  bp-inline-flex  bp-block  bp-hidden
+bp-flex  bp-inline-flex  bp-block  bp-hidden  bp-grid-bare  (bare display:grid, no gap — see .bp-grid for the layout component)
 bp-flex-col  bp-flex-row  bp-flex-wrap
 bp-items-start  bp-items-center  bp-items-end
 bp-justify-start  bp-justify-center  bp-justify-end  bp-justify-between
@@ -862,14 +892,15 @@ bp-gap-1  bp-gap-2  bp-gap-3  bp-gap-4  bp-gap-5  bp-gap-6  bp-gap-8  bp-gap-10 
 ```
 
 ### Spacing (padding)
+The scale is sparse — only these rungs exist, not every integer in between.
 ```
-bp-p-{1-12}   bp-px-{3-8}   bp-py-{2-20}
+bp-p-{0|1|2|3|4|5|6|8|10|12}   bp-px-{3|4|5|6|8}   bp-py-{2|3|4|5|6|8|12|16|20}
 ```
 
 ### Spacing (margin)
 ```
 bp-m-auto  bp-mx-auto
-bp-mb-{1-16}   bp-mt-{1-12}
+bp-mb-{1|2|3|4|5|6|8|10|12|16}   bp-mt-{1|2|3|4|5|6|8|10|12|16}
 ```
 
 ### Typography
@@ -906,16 +937,17 @@ Named typographic registers — answer "what role is this text playing?" not "ho
 
 ### Colors
 ```
-bp-text-body      bp-text-secondary   bp-text-muted   bp-text-primary
+bp-text-body      bp-text-secondary   bp-text-muted   bp-text-primary   bp-text-accent
 bp-text-success   bp-text-warning     bp-text-error
-bp-bg-base        bp-bg-secondary     bp-bg-surface   bp-bg-accent
+bp-bg-base        bp-bg-secondary     bp-bg-surface       bp-bg-primary-subtle
 ```
+Two-tone brand naming: `bp-bg-secondary`/`bp-text-secondary` are already taken by the UI-semantic layer (secondary background, secondary text), so the *brand* secondary color's utilities use a `brand-` infix instead — `bp-text-brand-secondary` / `bp-bg-brand-secondary`. These are the canonical forms, not deprecated aliases.
 
 ### Border & Radius
 ```
 bp-border  bp-border-t  bp-border-b  bp-border-l  bp-border-r  bp-border-none
-bp-border-accent
-bp-rounded-{none|sm|md|lg|xl|2xl|full}
+bp-border-primary  bp-border-secondary
+bp-rounded-{none|sm|lg|xl|2xl|full}   bp-rounded (unsuffixed = the "md" rung)
 ```
 
 ### Shadow
@@ -934,9 +966,21 @@ bp-inset-0  bp-top-0  bp-overflow-hidden  bp-overflow-auto
 ```
 bp-hover-lift      → translateY(-2px) + shadow on hover
 bp-hover-glow      → glow shadow on hover
+bp-hover-lift-glow → both effects combined
 bp-clickable       → cursor pointer, no tap highlight
 bp-disabled        → 40% opacity, pointer-events none
 bp-cursor-pointer
+```
+Do not stack `bp-hover-lift` and `bp-hover-glow` on the same element — equal-specificity cascade order silently drops one effect's shadow. Use `bp-hover-lift-glow` for the combined effect instead.
+
+### Blur (backdrop-filter)
+```
+bp-blur-sm   bp-blur-md   bp-blur-lg
+```
+
+### Prose
+```
+bp-prose   → typographic defaults (spacing, line-height, link/list styling) for long-form rendered content (e.g. markdown output)
 ```
 
 ### Responsive
@@ -1090,9 +1134,9 @@ Add `bp-print-spec` to any `<section>`. Each `bp-card` inside becomes a numbered
 
 ### Dark contrast band
 ```html
-<section class="bp-section-lg bp-section-dark">
+<section class="bp-section-lg bp-section-invert">
   <div class="bp-container">
-    <!-- text and bp-card tokens invert automatically inside bp-section-dark -->
+    <!-- text and bp-card tokens invert automatically inside bp-section-invert -->
   </div>
 </section>
 ```
@@ -1152,6 +1196,14 @@ Two layers of tokens are always accessible. **Prefer semantic aliases** — they
     Colors — state
       --color-success  --color-warning  --color-error
       --color-success-subtle  --color-warning-subtle  --color-error-subtle
+      --color-{success|warning|error}-hover  --color-{success|warning|error}-glow  --color-{success|warning|error}-transparent
+      --color-on-{success|warning|error}     Text color on state-filled surfaces
+      --color-text-{success|warning|error}   Readable state text on the page background (not a filled surface)
+
+    Colors — primary/secondary, additional derived forms
+      --color-primary-transparent    Fully-transparent end-stop of primary (for gradient fades)
+      --color-secondary-glow  --color-secondary-transparent
+      --color-on-secondary           Text on secondary-filled surfaces
 
     Colors — overlay
       --overlay-bg              Dark overlay behind modals (default: rgba(0,0,0,0.6))
@@ -1168,9 +1220,22 @@ Two layers of tokens are always accessible. **Prefer semantic aliases** — they
       --line-height-heading     Heading line height (default: 1.25)
       --letter-spacing-heading  Heading tracking (default: -0.025em)
 
+    Typography — full scales (use these over the raw --bp-text-*/--bp-weight-* primitives)
+      --font-size-{xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl}   Type scale, xs=12px through 6xl=60px
+      --font-size-{h1|h2|h3|h4|h5|h6}                     Heading rungs, h1=5xl down to h6=lg
+      --font-weight-{light|normal|medium|semibold|bold}   300 / 400 / 500 / 600 / 700
+      --line-height-{display|tight|snug|normal|relaxed}   1.1 / 1.25 / 1.375 / 1.5 / 1.625
+      --letter-spacing-{tight|normal|wide|wider|widest}   -0.025em / 0 / 0.025em / 0.05em / 0.1em
+
     Layout & structure
-      --radius                  Base border radius (default: 0.375rem)
+      --radius                  Base border radius (default: 0.375rem — alias for --radius-md)
+      --radius-{none|sm|md|lg|xl|2xl|full}   Full radius scale (0 / 0.25rem / 0.375rem / 0.5rem / 0.75rem / 1rem / 9999px)
       --space-unit              Base spacing unit (default: 1rem)
+      --space-{1|2|3|4|5|6|8|10|12|16|20|24|32|40}   Spacing scale, 1=4px through 40=160px
+      --z-{base|raised|dropdown|sticky|overlay|modal|toast|draw}   Stacking order, 0 through 600
+      --transition-{fast|base|smooth|bounce}   Prebuilt `all <duration> <easing>` shorthands — reach for these before composing duration+easing by hand
+      --container-{sm|md|lg|xl|2xl}   Max-width rungs, sm=640px through 2xl=1440px
+      --container-pad           Container side padding (default: 1.5rem)
       --grid-gap                Gap between grid columns (default: 1.5rem)
       --sidebar-width           Dashboard sidebar width (default: 256px)
       --nav-height              Top navigation bar height (default: 64px)
@@ -1203,7 +1268,7 @@ Two layers of tokens are always accessible. **Prefer semantic aliases** — they
       --duration-fast     calc(0.15s × --motion-scale)
       --duration-base     calc(0.20s × --motion-scale)
       --duration-slow     calc(0.30s × --motion-scale)
-      --duration-bounce   calc(0.40s × --motion-scale)
+      --duration-reveal   calc(0.40s × --motion-scale)   (used for bounce transitions)
       --easing-smooth     cubic-bezier(0.4, 0, 0.2, 1)
       --easing-bounce     cubic-bezier(0.34, 1.56, 0.64, 1)
 
@@ -1282,13 +1347,13 @@ Example brand.css — pill buttons, square cards, dark footer, sharp modals:
     Motion:   var(--bp-transition-fast)  var(--bp-transition-base)  var(--bp-transition-smooth)  var(--bp-transition-bounce)
     Z-index:  var(--bp-z-{base|raised|dropdown|sticky|overlay|modal|toast})
     Fonts:    var(--bp-font-sans)  var(--bp-font-mono)
-    Text:     var(--bp-text-{xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl})
-    Weight:   var(--bp-font-{light|normal|medium|semibold|bold})
+    Text:     var(--bp-text-{xs|sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl})
+    Weight:   var(--bp-weight-{light|normal|medium|semibold|bold})
     Leading:  var(--bp-leading-{tight|snug|normal|relaxed})
     Tracking: var(--bp-tracking-{tight|normal|wide|wider|widest})
     Blue:     var(--bp-blue-{50|100|200|300|400|500|600|700|800|900})
     State:    var(--bp-success)  var(--bp-warning)  var(--bp-error)
-              var(--bp-success-subtle)  var(--bp-warning-subtle)  var(--bp-error-subtle)
+              (no raw "-subtle" primitives — use the semantic --color-{success|warning|error}-subtle instead)
     Container: var(--bp-container-{sm|md|lg|xl|2xl})
 
 ---
