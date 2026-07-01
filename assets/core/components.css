@@ -8,7 +8,14 @@
    LAYOUT
    -------------------------------------------------------------------------- */
 
-.bp-container {
+/* Size variants are standalone — same convention as .bp-section-{sm,lg,xl}.
+   class="bp-container-lg" alone is enough; class="bp-container bp-container-lg" still works too. */
+.bp-container,
+.bp-container-sm,
+.bp-container-md,
+.bp-container-lg,
+.bp-container-xl,
+.bp-container-2xl {
   width: 100%;
   max-width: var(--container-xl);
   margin-left: auto;
@@ -17,7 +24,6 @@
   padding-right: var(--container-pad);
 }
 
-/* SHould these inherit bp-container? That way we don't have to call both bp-container & bp-container-lg on an element */
 .bp-container-sm  { max-width: var(--container-sm); }
 .bp-container-md  { max-width: var(--container-md); }
 .bp-container-lg  { max-width: var(--container-lg); }
