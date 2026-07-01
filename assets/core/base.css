@@ -589,6 +589,7 @@
   --toast-max-width:  380px;
   --dropdown-min-width: 180px;
   --drawer-width:       320px;
+  --drawer-height:      320px;
 
   /* Hero & section text column widths */
   --hero-title-max-width:     800px;

@@ -38,7 +38,8 @@
 // Both the overlay and the panel stay in the DOM at all times — this
 // controller toggles "bp-drawer-open" on each, never "bp-hidden", because a
 // transform/opacity transition can't play once an element hits display:none.
-// Add "bp-drawer-left" on .bp-drawer to slide in from the left instead.
+// Add "bp-drawer-left", "bp-drawer-top", or "bp-drawer-bottom" on .bp-drawer
+// to slide in from that edge instead of the right (the default).
 
 import { Controller } from "@hotwired/stimulus"
 

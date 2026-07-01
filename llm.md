@@ -1024,7 +1024,7 @@ Requires JS — see `rails/javascript/controllers/drawer_controller.js` (Rails i
 </div>
 ```
 
-Add `bp-drawer-left` on `.bp-drawer` to slide in from the left instead of the right (the default). Because a drawer typically holds more content and stays open longer than a modal confirmation, both the Stimulus controller and the React component trap Tab/Shift+Tab focus inside the panel while open — losing focus to the page behind it is a bigger accessibility gap here than in the modal controller, which only does basic focus-on-open.
+Add `bp-drawer-left`, `bp-drawer-top`, or `bp-drawer-bottom` on `.bp-drawer` to slide in from that edge instead of the right (the default). Left/right drawers are full-height and sized with `--drawer-width`; top/bottom drawers are full-width and sized with `--drawer-height`. Because a drawer typically holds more content and stays open longer than a modal confirmation, both the Stimulus controller and the React component trap Tab/Shift+Tab focus inside the panel while open — losing focus to the page behind it is a bigger accessibility gap here than in the modal controller, which only does basic focus-on-open.
 
 **React:**
 ```tsx

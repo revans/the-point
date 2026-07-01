@@ -5,7 +5,7 @@ const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), in
 interface DrawerProps {
   open: boolean
   onClose: () => void
-  side?: 'left' | 'right'
+  side?: 'left' | 'right' | 'top' | 'bottom'
   className?: string
   children: React.ReactNode
 }
@@ -17,7 +17,10 @@ interface DrawerProps {
 // scroll lock, and a focus trap directly — mirroring
 // rails/javascript/controllers/drawer_controller.js, since a drawer holds
 // content longer than a modal confirmation and losing focus to the page
-// behind it is a bigger accessibility gap here.
+// behind it is a bigger accessibility gap here. side defaults to "right";
+// pass "left", "top", or "bottom" to slide in from that edge instead — the
+// CSS handles left/right as full-height + --drawer-width, top/bottom as
+// full-width + --drawer-height.
 export function Drawer({ open, onClose, side = 'right', className = '', children }: DrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const lastFocused = useRef<HTMLElement | null>(null)
@@ -70,7 +73,7 @@ export function Drawer({ open, onClose, side = 'right', className = '', children
         tabIndex={-1}
         className={[
           'bp-drawer',
-          side === 'left' ? 'bp-drawer-left' : '',
+          side !== 'right' ? `bp-drawer-${side}` : '',
           open ? 'bp-drawer-open' : '',
           className,
         ].filter(Boolean).join(' ')}

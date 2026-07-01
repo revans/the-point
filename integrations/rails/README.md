@@ -560,7 +560,7 @@ application.register("drawer", DrawerController)
 </div>
 ```
 
-Add `bp-drawer-left` on `.bp-drawer` to slide in from the left instead of the right (the default). `data-drawer-target="panel"` needs `tabindex="-1"` — the controller focuses it on open, and returns focus to whatever triggered `open()` when it closes.
+Add `bp-drawer-left`, `bp-drawer-top`, or `bp-drawer-bottom` on `.bp-drawer` to slide in from that edge instead of the right (the default). Left/right drawers are full-height and sized with `--drawer-width`; top/bottom drawers are full-width and sized with `--drawer-height`. `data-drawer-target="panel"` needs `tabindex="-1"` — the controller focuses it on open, and returns focus to whatever triggered `open()` when it closes.
 
 ---
 
