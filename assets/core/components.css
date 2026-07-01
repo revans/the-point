@@ -999,6 +999,73 @@
   line-height: var(--line-height-normal);
 }
 
+/* Switch / Toggle — a checkbox re-skinned as a track + sliding thumb.
+   Usage: <label class="bp-switch"><input type="checkbox" class="bp-switch-input">
+   <span class="bp-switch-track"></span></label>
+   The input stays in the DOM (visually hidden, not display:none) so it's
+   still keyboard-operable and reads correctly to screen readers. */
+.bp-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bp-switch-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bp-switch-track {
+  position: relative;
+  display: inline-block;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  background-color: var(--color-surface-elevated);
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-radius: var(--radius-full);
+  transition: var(--transition-fast);
+}
+
+.bp-switch-track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
+  border-radius: var(--radius-full);
+  background-color: var(--color-text-muted);
+  transition: transform var(--duration-fast) var(--easing-smooth), background-color var(--transition-fast);
+}
+
+.bp-switch-input:checked + .bp-switch-track {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.bp-switch-input:checked + .bp-switch-track::after {
+  transform: translateY(-50%) translateX(calc(var(--switch-width) - var(--switch-thumb-size) - 4px));
+  background-color: var(--color-on-primary);
+}
+
+.bp-switch-input:focus-visible + .bp-switch-track {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.bp-switch-input:disabled + .bp-switch-track {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
 /* --------------------------------------------------------------------------
    INPUT COMPOSE
    Flex shell for a grow-in-place textarea + send action button.
@@ -2128,4 +2195,77 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+/* --------------------------------------------------------------------------
+   BREADCRUMB
+   -------------------------------------------------------------------------- */
+
+.bp-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.bp-breadcrumb-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.bp-breadcrumb-link:hover {
+  color: var(--color-primary);
+}
+
+.bp-breadcrumb-separator {
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+.bp-breadcrumb-current {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+/* --------------------------------------------------------------------------
+   PROGRESS
+   -------------------------------------------------------------------------- */
+
+.bp-progress {
+  width: 100%;
+  height: var(--progress-height);
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bp-progress-bar {
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--duration-moderate) var(--easing-smooth);
+}
+
+.bp-progress-bar-success { background-color: var(--color-success); }
+.bp-progress-bar-warning { background-color: var(--color-warning); }
+.bp-progress-bar-error   { background-color: var(--color-error); }
+
+/* --------------------------------------------------------------------------
+   SPINNER
+   -------------------------------------------------------------------------- */
+
+@keyframes bp-spin {
+  to { transform: rotate(360deg); }
+}
+
+.bp-spinner {
+  display: inline-block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  border: var(--spinner-border-width) solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: bp-spin var(--duration-spin) linear infinite;
 }

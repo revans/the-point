@@ -317,6 +317,20 @@ Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, g
 
 ---
 
+## Breadcrumb
+
+```html
+<nav class="bp-breadcrumb" aria-label="Breadcrumb">
+  <a href="#" class="bp-breadcrumb-link">Home</a>
+  <span class="bp-breadcrumb-separator">/</span>
+  <a href="#" class="bp-breadcrumb-link">Section</a>
+  <span class="bp-breadcrumb-separator">/</span>
+  <span class="bp-breadcrumb-current">Current Page</span>
+</nav>
+```
+
+---
+
 ## Hero
 
 ```html
@@ -496,6 +510,17 @@ Aspect-ratio-locked wrapper for `<img>`, `<video>`, and `<svg>`. Think of it as 
 <% end %>
 ```
 Pass `error: true` to force error state, `error: false` to suppress it.
+
+### Switch / Toggle
+
+CSS-only — a checkbox re-skinned as a sliding track/thumb. The `<input>` stays in the DOM (visually hidden, not `display:none`), so it's still keyboard-operable and reads correctly to screen readers.
+
+```html
+<label class="bp-switch">
+  <input type="checkbox" class="bp-switch-input">
+  <span class="bp-switch-track"></span>
+</label>
+```
 
 ### Auto-styling (one class on `<form>`, no per-element classes)
 
@@ -887,6 +912,30 @@ For a corner ribbon that overlaps the card edge instead, use `bp-absolute bp-top
 <div class="bp-divider">or</div>         <!-- text divider with lines -->
 <div class="bp-dashed-connector"></div>  <!-- dashed horizontal line -->
 ```
+
+---
+
+## Progress & Spinner
+
+**Progress bar variants:** `bp-progress-bar` (base — primary color) `bp-progress-bar-success` `bp-progress-bar-warning` `bp-progress-bar-error`
+
+```html
+<div class="bp-progress">
+  <div class="bp-progress-bar" style="width: 60%"></div>
+</div>
+
+<div class="bp-progress">
+  <div class="bp-progress-bar bp-progress-bar-success" style="width: 100%"></div>
+</div>
+```
+
+Width is set inline (or via JS) per instance — the track (`bp-progress`) is the fixed 100%-wide shell, `bp-progress-bar` is the fill.
+
+```html
+<div class="bp-spinner" aria-label="Loading"></div>
+```
+
+`bp-spinner` is a bare rotating ring — no wrapper markup needed. Rotation speed follows `--duration-spin`, which (like all durations) scales with `--motion-scale`, so it respects a reduced-motion override.
 
 ---
 

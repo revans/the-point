@@ -388,6 +388,7 @@
   --duration-reveal:   calc(0.40s * var(--motion-scale)); /* nav/footer reveals, bounce transitions */
   --duration-draw:     calc(0.8s  * var(--motion-scale));
   --duration-shimmer:  calc(1.5s  * var(--motion-scale)); /* skeleton loading animation — longer than transitions by design */
+  --duration-spin:     calc(0.6s  * var(--motion-scale)); /* spinner rotation period */
   --delay-draw:    calc(0.15s * var(--motion-scale));
   --delay-nav:     calc(0.35s * var(--motion-scale));
   --delay-hero:    calc(0.5s  * var(--motion-scale));
@@ -565,6 +566,12 @@
   --compose-field-min-height: 22px;
   --compose-field-max-height: 200px;
   --select-chevron-size: 14px;
+  --switch-width:        40px;
+  --switch-height:       22px;
+  --switch-thumb-size:   16px;
+  --progress-height:     8px;
+  --spinner-size:        20px;
+  --spinner-border-width: 2px;
   --avatar-sm:           32px;
   --avatar-md:           40px;
   --avatar-lg:           48px;
