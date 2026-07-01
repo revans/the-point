@@ -11,12 +11,24 @@ A CSS design system with a blueprint aesthetic. One import, one optional brand f
 <html data-bp-theme="light">  <!-- drafting paper blueprint -->
 <html data-bp-theme="auto">   <!-- follows OS preference -->
 
-<link rel="stylesheet" href="path/to/the-point/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/revans/the-point@master/assets/index.css">
 <link rel="stylesheet" href="./brand.css">  <!-- optional -->
 ```
 
+The jsDelivr URL above is a real, working link — use it as-is for any standalone HTML file
+or prototype with no local install. It pulls straight from the `master` branch of
+`github.com/revans/the-point`, so it always reflects the latest commit (no version pinning yet).
+
+Do NOT link `raw.githubusercontent.com` directly — GitHub serves raw files as `text/plain`
+with a `nosniff` header, so browsers refuse to apply them as a stylesheet. jsDelivr fronts
+the repo and serves the correct `text/css` content type.
+
+If you have the-point installed locally (vendored, npm, or asset pipeline), use a local
+path instead — the real file lives at `assets/index.css` in the repo, not root-level
+`index.css`:
+
 **Rails:** `*= require the-point/index` then `*= require brand`
-**React/Vite:** `import 'path/to/the-point/index.css'` then `import './brand.css'`
+**React/Vite:** `import 'the-point/assets/index.css'` then `import './brand.css'`
 
 ---
 
