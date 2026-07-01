@@ -254,7 +254,11 @@
    BUTTONS
    -------------------------------------------------------------------------- */
 
-.bp-btn {
+.bp-btn,
+:where(.bp-form button),
+:where(.bp-form input[type="submit"]),
+:where(.bp-form input[type="button"]),
+:where(.bp-form input[type="reset"]){
   --btn-radius:      var(--radius);
   --btn-font:        var(--font-body);
   --btn-font-weight: var(--font-weight-medium);
@@ -281,49 +285,70 @@
   padding: 0 var(--space-5);
 }
 
-.bp-btn:focus-visible {
+.bp-btn:focus-visible,
+:where(.bp-form button:focus-visible),
+:where(.bp-form input[type="submit"]:focus-visible),
+:where(.bp-form input[type="button"]:focus-visible),
+:where(.bp-form input[type="reset"]:focus-visible){
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
 }
 
-.bp-btn:disabled {
+.bp-btn:disabled,
+:where(.bp-form button:disabled),
+:where(.bp-form input[type="submit"]:disabled),
+:where(.bp-form input[type="button"]:disabled),
+:where(.bp-form input[type="reset"]:disabled){
   opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 
-/* Primary */
-.bp-btn-primary {
+/* Primary — also the default for <button type="submit">, <input type="submit">,
+   and a type-less <button> (which the HTML spec treats as submit inside a form). */
+.bp-btn-primary,
+:where(.bp-form button:not([type="button"]):not([type="reset"])),
+:where(.bp-form input[type="submit"]){
   background-color: var(--color-primary);
   color: var(--color-on-primary);
   border-color: var(--color-primary);
 }
 
-.bp-btn-primary:hover {
+.bp-btn-primary:hover,
+:where(.bp-form button:not([type="button"]):not([type="reset"]):hover),
+:where(.bp-form input[type="submit"]:hover){
   background-color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
   box-shadow: var(--shadow-glow);
   transform: translateY(calc(-1 * var(--lift-distance) / 2));
 }
 
-.bp-btn-primary:active {
+.bp-btn-primary:active,
+:where(.bp-form button:not([type="button"]):not([type="reset"]):active),
+:where(.bp-form input[type="submit"]:active){
   transform: translateY(0);
   box-shadow: none;
 }
 
-/* Secondary */
-.bp-btn-secondary {
+/* Secondary — default for <button type="button"> / <input type="button"> */
+.bp-btn-secondary,
+:where(.bp-form button[type="button"]),
+:where(.bp-form input[type="button"]){
   background-color: var(--color-surface);
   color: var(--color-text);
   border-color: var(--color-border);
 }
 
-.bp-btn-secondary:hover {
+.bp-btn-secondary:hover,
+:where(.bp-form button[type="button"]:hover),
+:where(.bp-form input[type="button"]:hover){
   background-color: var(--color-surface-hover);
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.bp-btn-secondary:active {
+.bp-btn-secondary:active,
+:where(.bp-form button[type="button"]:active),
+:where(.bp-form input[type="button"]:active){
   background-color: var(--color-surface);
   border-color: var(--color-border);
   color: var(--color-text);
@@ -346,14 +371,18 @@
   box-shadow: none;
 }
 
-/* Ghost */
-.bp-btn-ghost {
+/* Ghost — also the default for <button type="reset"> / <input type="reset"> */
+.bp-btn-ghost,
+:where(.bp-form button[type="reset"]),
+:where(.bp-form input[type="reset"]){
   background-color: transparent;
   color: var(--color-text-secondary);
   border-color: transparent;
 }
 
-.bp-btn-ghost:hover {
+.bp-btn-ghost:hover,
+:where(.bp-form button[type="reset"]:hover),
+:where(.bp-form input[type="reset"]:hover){
   background-color: var(--color-primary-subtle);
   color: var(--color-primary);
 }
@@ -773,6 +802,12 @@
 
 /* --------------------------------------------------------------------------
    FORMS
+   Add .bp-form to a <form> element and every descendant input, textarea,
+   select, and button gets styled by element/type automatically — no
+   per-element classes needed. All the :where(.bp-form selectors below)
+   are folded into the same rules as .bp-input/.bp-btn-* etc., wrapped in
+   :where() so they carry zero specificity — any explicit class on a
+   child (.bp-input-lg, .bp-btn-ghost, ...) still overrides the default.
    -------------------------------------------------------------------------- */
 
 .bp-form-group {
@@ -796,7 +831,10 @@
 
 .bp-input,
 .bp-textarea,
-.bp-select {
+.bp-select,
+:where(.bp-form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"])),
+:where(.bp-form textarea),
+:where(.bp-form select){
   --input-bg:     var(--color-surface);
   --input-radius: var(--radius);
   --input-border: var(--color-border);
@@ -813,9 +851,18 @@
 }
 
 .bp-input,
-.bp-select {
+.bp-select,
+:where(.bp-form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"])),
+:where(.bp-form select){
   height: var(--input-height);
   padding: 0 var(--space-3);
+}
+
+/* Auto-styled <select> keeps its native appearance and arrow — the
+   token-colored chevron requires the .bp-select-wrapper structure below,
+   which CSS can't auto-inject. Add the class explicitly for the full look. */
+:where(.bp-form select){
+  cursor: pointer;
 }
 
 /* Wrapper provides the ::after positioning context for the mask-driven chevron.
@@ -870,7 +917,8 @@
   color: var(--color-text);
 }
 
-.bp-textarea {
+.bp-textarea,
+:where(.bp-form textarea){
   padding: var(--space-3);
   resize: vertical;
   min-height: var(--textarea-min-height);
@@ -878,20 +926,28 @@
 }
 
 .bp-input::placeholder,
-.bp-textarea::placeholder {
+.bp-textarea::placeholder,
+:where(.bp-form input::placeholder),
+:where(.bp-form textarea::placeholder){
   color: var(--color-text-muted);
 }
 
 .bp-input:focus,
 .bp-textarea:focus,
-.bp-select:focus {
+.bp-select:focus,
+:where(.bp-form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):focus),
+:where(.bp-form textarea:focus),
+:where(.bp-form select:focus){
   border-color: var(--color-primary);
   box-shadow: 0 0 0 var(--focus-glow-spread) var(--color-primary-subtle);
 }
 
 .bp-input:disabled,
 .bp-textarea:disabled,
-.bp-select:disabled {
+.bp-select:disabled,
+:where(.bp-form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):disabled),
+:where(.bp-form textarea:disabled),
+:where(.bp-form select:disabled){
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
@@ -925,7 +981,9 @@
 }
 
 .bp-checkbox input[type="checkbox"],
-.bp-radio input[type="radio"] {
+.bp-radio input[type="radio"],
+:where(.bp-form input[type="checkbox"]),
+:where(.bp-form input[type="radio"]){
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   flex-shrink: 0;

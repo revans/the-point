@@ -497,6 +497,37 @@ Aspect-ratio-locked wrapper for `<img>`, `<video>`, and `<svg>`. Think of it as 
 ```
 Pass `error: true` to force error state, `error: false` to suppress it.
 
+### Auto-styling (one class on `<form>`, no per-element classes)
+
+Add `bp-form` to a `<form>` element and every descendant `input`, `textarea`, `select`, and `button` is styled by element/type automatically — you don't need `bp-input`/`bp-textarea`/`bp-select`/`bp-btn-*` on each one. Any explicit class you *do* add to a child still overrides the auto-style (the auto-styling rules are specificity-zero under the hood, so a single class always wins).
+
+```html
+<form class="bp-form">
+  <input type="text" placeholder="Name">
+  <input type="email" placeholder="Email">
+  <textarea placeholder="Message"></textarea>
+
+  <!-- .bp-select-wrapper is still required for the dropdown arrow — auto-
+       styling covers the select's border/background/padding, but it can't
+       inject the wrapper div the custom chevron depends on. A bare
+       <select> inside .bp-form renders with the browser's native arrow. -->
+  <div class="bp-select-wrapper">
+    <select><option>Choose</option></select>
+  </div>
+
+  <label><input type="checkbox"> I agree</label>  <!-- accent-color themed automatically -->
+
+  <button type="submit">Save</button>   <!-- primary/filled — also the default for a type-less <button> -->
+  <button type="button">Cancel</button> <!-- secondary -->
+  <button type="reset">Reset</button>   <!-- ghost -->
+
+  <!-- Override example: explicit class wins over the auto-style -->
+  <input type="text" class="bp-input-error" placeholder="Still shows error state">
+</form>
+```
+
+Button defaults are type-driven: `type="submit"` and a type-less `<button>` (the HTML spec treats it as submit inside a form) get the primary look, `type="button"` gets secondary, `type="reset"` gets ghost.
+
 ---
 
 ## Input Compose
@@ -678,6 +709,41 @@ Ephemeral notifications, distinct from `bp-alert` (which is inline/persistent). 
   <div class="bp-toast bp-toast-success">Changes saved.</div>
   <div class="bp-toast bp-toast-error">Something went wrong.</div>
 </div>
+```
+
+---
+
+## Accordion
+
+CSS-only — built on native `<details>`/`<summary>`, no JS required for open/close, keyboard support, or screen-reader expandable state.
+
+```html
+<!-- Standalone items — each opens/closes independently -->
+<details class="bp-accordion" open>
+  <summary class="bp-accordion-trigger">Question one</summary>
+  <div class="bp-accordion-content">Answer text.</div>
+</details>
+<details class="bp-accordion">
+  <summary class="bp-accordion-trigger">Question two</summary>
+  <div class="bp-accordion-content">Answer text.</div>
+</details>
+
+<!-- Grouped — shared outer border, dividers between items instead of gaps -->
+<div class="bp-accordion-group">
+  <details class="bp-accordion">
+    <summary class="bp-accordion-trigger">First item</summary>
+    <div class="bp-accordion-content">...</div>
+  </details>
+  <details class="bp-accordion">
+    <summary class="bp-accordion-trigger">Second item</summary>
+    <div class="bp-accordion-content">...</div>
+  </details>
+</div>
+
+<!-- Exclusive group — same name="" on sibling <details> makes only one
+     open at a time. Native browser behavior, not CSS. -->
+<details class="bp-accordion" name="faq">...</details>
+<details class="bp-accordion" name="faq">...</details>
 ```
 
 ---
