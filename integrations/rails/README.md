@@ -440,6 +440,130 @@ Three themes cycle: `dark` → `light` → `auto` (follows OS preference). `auto
 
 ---
 
+## Modal
+
+The `.bp-overlay` / `.bp-modal` CSS handles all appearance. The included Stimulus controller wires up open/close, backdrop-click-to-close, Escape-to-close, and body scroll locking.
+
+### 1. Register the controller
+
+Copy `rails/javascript/controllers/modal_controller.js` to `app/javascript/controllers/modal_controller.js`.
+
+```js
+// app/javascript/controllers/index.js
+import ModalController from "./modal_controller"
+application.register("modal", ModalController)
+```
+
+### 2. Markup
+
+The overlay must start with both `bp-overlay` and `bp-hidden` — the controller only ever toggles `bp-hidden`, so the CSS stays the single source of truth for what "open" looks like.
+
+```erb
+<div data-controller="modal">
+  <button class="bp-btn bp-btn-primary bp-btn-sm" data-action="click->modal#open">Open modal</button>
+
+  <div class="bp-overlay bp-hidden"
+       data-modal-target="overlay"
+       data-action="click->modal#backdropClick keydown.esc@window->modal#close">
+    <div class="bp-modal" tabindex="-1" data-modal-target="panel">
+      <div class="bp-modal-header">
+        <span class="bp-modal-title">Confirm action</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" data-action="click->modal#close">✕</button>
+      </div>
+      <div class="bp-modal-body">Are you sure you want to continue?</div>
+      <div class="bp-modal-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" data-action="click->modal#close">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+`data-modal-target="panel"` (on `.bp-modal`, with `tabindex="-1"`) lets the controller focus the modal itself when it opens, and it returns focus to whatever triggered `open()` when it closes.
+
+---
+
+## Dropdown
+
+`:focus-within` alone can't do outside-click-to-close — it only reacts to focus leaving the dropdown, not to a click landing elsewhere on the page. The included Stimulus controller handles that, plus toggle and Escape-to-close.
+
+### 1. Register the controller
+
+Copy `rails/javascript/controllers/dropdown_controller.js` to `app/javascript/controllers/dropdown_controller.js`.
+
+```js
+// app/javascript/controllers/index.js
+import DropdownController from "./dropdown_controller"
+application.register("dropdown", DropdownController)
+```
+
+### 2. Markup
+
+The menu must start with both `bp-dropdown-menu` and `bp-hidden` — the controller only ever toggles `bp-hidden`, so the CSS stays the single source of truth for appearance.
+
+```erb
+<div class="bp-dropdown"
+     data-controller="dropdown"
+     data-action="click@window->dropdown#outsideClick keydown.esc@window->dropdown#close">
+  <button class="bp-btn bp-btn-secondary bp-btn-sm" data-action="click->dropdown#toggle">
+    Menu
+  </button>
+
+  <div class="bp-dropdown-menu bp-hidden" data-dropdown-target="menu">
+    <a class="bp-dropdown-item" href="#" data-action="click->dropdown#close">Item one</a>
+    <div class="bp-dropdown-divider"></div>
+    <button class="bp-dropdown-item" data-action="click->dropdown#close">Item two</button>
+  </div>
+</div>
+```
+
+Add `bp-dropdown-menu-right` to right-align the menu to its trigger. `data-action="click->dropdown#close"` on individual items is optional — a filter menu with checkboxes may want to stay open after a selection.
+
+---
+
+## Drawer
+
+Both the overlay and the panel stay in the DOM at all times and slide/fade via a `bp-drawer-open` class — unlike the modal controller's `bp-hidden` (display:none), a transform/opacity transition can't play once an element goes to `display:none` first. Because a drawer typically holds more content and stays open longer than a modal confirmation, this controller also traps Tab/Shift+Tab focus inside the panel while open.
+
+### 1. Register the controller
+
+Copy `rails/javascript/controllers/drawer_controller.js` to `app/javascript/controllers/drawer_controller.js`.
+
+```js
+// app/javascript/controllers/index.js
+import DrawerController from "./drawer_controller"
+application.register("drawer", DrawerController)
+```
+
+### 2. Markup
+
+```erb
+<div data-controller="drawer">
+  <button class="bp-btn bp-btn-primary bp-btn-sm" data-action="click->drawer#open">Open drawer</button>
+
+  <div class="bp-drawer-overlay"
+       data-drawer-target="overlay"
+       data-action="click->drawer#backdropClick keydown.esc@window->drawer#close">
+    <div class="bp-drawer" tabindex="-1" data-drawer-target="panel">
+      <div class="bp-drawer-header">
+        <span class="bp-drawer-title">Filters</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" data-action="click->drawer#close">✕</button>
+      </div>
+      <div class="bp-drawer-body">Content</div>
+      <div class="bp-drawer-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" data-action="click->drawer#close">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+Add `bp-drawer-left` on `.bp-drawer` to slide in from the left instead of the right (the default). `data-drawer-target="panel"` needs `tabindex="-1"` — the controller focuses it on open, and returns focus to whatever triggered `open()` when it closes.
+
+---
+
 ## Flash Messages
 
 Map Rails flash types to alert variants:

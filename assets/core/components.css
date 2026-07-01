@@ -1502,6 +1502,78 @@
 }
 
 /* --------------------------------------------------------------------------
+   DROPDOWN
+   Requires JS (outside-click-to-close) — see rails/javascript/controllers/
+   dropdown_controller.js or the React <Dropdown> component. The menu starts
+   with bp-hidden in markup; the controller only ever toggles that class.
+   Usage: <div class="bp-dropdown"><button class="bp-dropdown-trigger">Menu</button>
+     <div class="bp-dropdown-menu bp-hidden">
+       <a class="bp-dropdown-item" href="#">Item</a>
+       <div class="bp-dropdown-divider"></div>
+       <button class="bp-dropdown-item">Item</button>
+     </div></div>
+   Add .bp-dropdown-menu-right to right-align the menu to its trigger.
+   -------------------------------------------------------------------------- */
+
+.bp-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.bp-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--space-2);
+  min-width: var(--dropdown-min-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background-color: var(--color-surface);
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+}
+
+.bp-dropdown-menu-right {
+  left: auto;
+  right: 0;
+}
+
+.bp-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.bp-dropdown-item:hover,
+.bp-dropdown-item:focus-visible {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  outline: none;
+}
+
+.bp-dropdown-divider {
+  height: var(--border-width);
+  margin: var(--space-1) 0;
+  background-color: var(--color-border);
+  border: none;
+}
+
+/* --------------------------------------------------------------------------
    PRICING CARDS
    -------------------------------------------------------------------------- */
 
@@ -1825,6 +1897,106 @@
 }
 
 .bp-modal-footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: var(--border-width) var(--border-style) var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+/* --------------------------------------------------------------------------
+   DRAWER (off-canvas panel)
+   Requires JS — see rails/javascript/controllers/drawer_controller.js or the
+   React <Drawer> component. Both the overlay and the panel stay in the DOM
+   at all times and slide/fade via the .bp-drawer-open class — unlike modal's
+   .bp-hidden (display:none), a transform/opacity transition can't play if
+   the element goes to display:none first, so this uses its own visibility
+   + pointer-events mechanism instead of the bp-hidden utility.
+   Usage: <div class="bp-drawer-overlay" data-drawer-target="overlay">
+     <div class="bp-drawer" tabindex="-1" data-drawer-target="panel">
+       <div class="bp-drawer-header">...</div>
+       <div class="bp-drawer-body">...</div>
+       <div class="bp-drawer-footer">...</div>
+     </div></div>
+   Add .bp-drawer-left to slide in from the left instead of the right.
+   -------------------------------------------------------------------------- */
+
+.bp-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--overlay-bg);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  z-index: var(--z-draw);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--duration-moderate) var(--easing-smooth),
+              visibility var(--duration-moderate) var(--easing-smooth);
+}
+
+.bp-drawer-overlay.bp-drawer-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.bp-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--drawer-width);
+  max-width: 100vw;
+  background-color: var(--color-surface);
+  border-left: var(--border-width) var(--border-style) var(--color-border);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-draw);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform var(--duration-moderate) var(--easing-smooth);
+}
+
+.bp-drawer.bp-drawer-open {
+  transform: translateX(0);
+}
+
+.bp-drawer-left {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: var(--border-width) var(--border-style) var(--color-border);
+  transform: translateX(-100%);
+}
+
+.bp-drawer-left.bp-drawer-open {
+  transform: translateX(0);
+}
+
+.bp-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: var(--border-width) var(--border-style) var(--color-border);
+}
+
+.bp-drawer-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.bp-drawer-body {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.bp-drawer-footer {
   padding: var(--space-4) var(--space-6);
   border-top: var(--border-width) var(--border-style) var(--color-border);
   display: flex;
@@ -2366,6 +2538,65 @@
 .bp-breadcrumb-current {
   color: var(--color-text);
   font-weight: var(--font-weight-medium);
+}
+
+/* --------------------------------------------------------------------------
+   PAGINATION
+   Pure styling contract — no JS. "Current page" and page-range logic are
+   server/app-driven (Rails: Kaminari/Pagy; React: your own state). Render
+   the active item with .active, and render prev/next as a plain <span>
+   (no href) instead of an <a> when there's no page to go to — that alone
+   produces the disabled look via .bp-pagination-disabled, no JS needed.
+   -------------------------------------------------------------------------- */
+
+.bp-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+}
+
+.bp-pagination-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-8);
+  height: var(--space-8);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border: var(--border-width) var(--border-style) transparent;
+  transition: var(--transition-fast);
+}
+
+.bp-pagination-item:hover {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.bp-pagination-item.active {
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.bp-pagination-disabled {
+  color: var(--color-text-muted);
+  opacity: var(--opacity-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+.bp-pagination-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-8);
+  height: var(--space-8);
+  color: var(--color-text-muted);
+  user-select: none;
 }
 
 /* --------------------------------------------------------------------------

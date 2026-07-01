@@ -88,3 +88,9 @@ export {
 
 // Theme
 export { ThemeToggle, useTheme } from './components/ThemeToggle'
+
+// Dropdown
+export { Dropdown, DropdownItem, DropdownDivider } from './components/Dropdown'
+
+// Drawer
+export { Drawer, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter } from './components/Drawer'

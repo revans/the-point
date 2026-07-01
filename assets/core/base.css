@@ -587,6 +587,8 @@
   --modal-max-width:  520px;
   --modal-max-height: 90vh;
   --toast-max-width:  380px;
+  --dropdown-min-width: 180px;
+  --drawer-width:       320px;
 
   /* Hero & section text column widths */
   --hero-title-max-width:     800px;

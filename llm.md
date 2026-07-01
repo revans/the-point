@@ -331,6 +331,26 @@ Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, g
 
 ---
 
+## Pagination
+
+Pure styling contract — no JS. "Current page" and page-range logic are server/app-driven (Rails: Kaminari/Pagy; React: your own state).
+
+```html
+<nav class="bp-pagination" aria-label="Pagination">
+  <span class="bp-pagination-item bp-pagination-disabled">‹ Prev</span>
+  <a href="#" class="bp-pagination-item">1</a>
+  <a href="#" class="bp-pagination-item active" aria-current="page">2</a>
+  <a href="#" class="bp-pagination-item">3</a>
+  <span class="bp-pagination-ellipsis">…</span>
+  <a href="#" class="bp-pagination-item">12</a>
+  <a href="#" class="bp-pagination-item">Next ›</a>
+</nav>
+```
+
+Render disabled prev/next as a plain `<span>` with no `href` instead of an `<a>` — the `bp-pagination-disabled` class handles the visual state, and the missing `href` means there's nothing to click, so no JS is needed to actually prevent navigation.
+
+---
+
 ## Hero
 
 ```html
@@ -814,6 +834,41 @@ CSS-only — shows via `:hover`/`:focus-within`, no JS required. Positions above
 
 ---
 
+## Dropdown
+
+Requires JS for outside-click-to-close — `:focus-within` alone can't detect a click landing elsewhere on the page. Use the Rails Stimulus controller (`rails/javascript/controllers/dropdown_controller.js`, see the Rails integration README) or the React `<Dropdown>` component, which is self-contained and manages its own state.
+
+```html
+<div class="bp-dropdown"
+     data-controller="dropdown"
+     data-action="click@window->dropdown#outsideClick keydown.esc@window->dropdown#close">
+  <button class="bp-btn bp-btn-secondary bp-btn-sm" data-action="click->dropdown#toggle">
+    Menu
+  </button>
+
+  <div class="bp-dropdown-menu bp-hidden" data-dropdown-target="menu">
+    <a class="bp-dropdown-item" href="#" data-action="click->dropdown#close">Item one</a>
+    <div class="bp-dropdown-divider"></div>
+    <button class="bp-dropdown-item" data-action="click->dropdown#close">Item two</button>
+  </div>
+</div>
+```
+
+The menu must start with both `bp-dropdown-menu` and `bp-hidden` — the controller only ever toggles `bp-hidden`, so the CSS stays the single source of truth for appearance. Add `bp-dropdown-menu-right` to right-align the menu to its trigger (e.g. a user menu at the end of a navbar). `data-action="click->dropdown#close"` on individual items is optional — a filter menu with checkboxes may want to stay open after a selection.
+
+**React:**
+```tsx
+<Dropdown trigger={<button className="bp-btn bp-btn-secondary bp-btn-sm">Menu</button>}>
+  <DropdownItem href="#">Item one</DropdownItem>
+  <DropdownDivider />
+  <DropdownItem onClick={() => console.log('clicked')}>Item two</DropdownItem>
+</Dropdown>
+```
+
+`DropdownItem` renders an `<a>` when given `href`, otherwise a `<button type="button">`. Pass `closeOnClick={false}` to keep the menu open after a click (e.g. a checkbox filter item).
+
+---
+
 ## Pricing Cards
 
 ```html
@@ -944,6 +999,50 @@ For a corner ribbon that overlaps the card edge instead, use `bp-absolute bp-top
   </div>
 </div>
 ```
+
+For open/close/backdrop-click/Escape wiring, see the Rails Stimulus controller (`rails/javascript/controllers/modal_controller.js`, documented in the Rails integration README) — it toggles `bp-hidden` on `.bp-overlay`, so the overlay must start with `class="bp-overlay bp-hidden"` when JS-driven.
+
+---
+
+## Drawer
+
+Requires JS — see `rails/javascript/controllers/drawer_controller.js` (Rails integration README) or the React `<Drawer>` component. Unlike modal, both the overlay and panel stay in the DOM at all times and slide/fade via a `bp-drawer-open` class — a transform/opacity transition can't play if the element goes to `display:none` first, so this doesn't use the `bp-hidden` utility.
+
+```html
+<div class="bp-drawer-overlay" data-drawer-target="overlay">
+  <div class="bp-drawer" tabindex="-1" data-drawer-target="panel">
+    <div class="bp-drawer-header">
+      <span class="bp-drawer-title">Filters</span>
+      <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm">✕</button>
+    </div>
+    <div class="bp-drawer-body">Content</div>
+    <div class="bp-drawer-footer">
+      <button class="bp-btn bp-btn-secondary bp-btn-sm">Cancel</button>
+      <button class="bp-btn bp-btn-primary bp-btn-sm">Apply</button>
+    </div>
+  </div>
+</div>
+```
+
+Add `bp-drawer-left` on `.bp-drawer` to slide in from the left instead of the right (the default). Because a drawer typically holds more content and stays open longer than a modal confirmation, both the Stimulus controller and the React component trap Tab/Shift+Tab focus inside the panel while open — losing focus to the page behind it is a bigger accessibility gap here than in the modal controller, which only does basic focus-on-open.
+
+**React:**
+```tsx
+const [open, setOpen] = useState(false)
+
+<Drawer open={open} onClose={() => setOpen(false)}>
+  <DrawerHeader>
+    <DrawerTitle>Filters</DrawerTitle>
+  </DrawerHeader>
+  <DrawerBody>Content</DrawerBody>
+  <DrawerFooter>
+    <button className="bp-btn bp-btn-secondary bp-btn-sm" onClick={() => setOpen(false)}>Cancel</button>
+    <button className="bp-btn bp-btn-primary bp-btn-sm">Apply</button>
+  </DrawerFooter>
+</Drawer>
+```
+
+`<Drawer>` is controlled (`open`/`onClose`) like `<Modal>`, but — matching the Stimulus controller — it also bakes in Escape-to-close, backdrop-click, body scroll lock, and the focus trap itself, rather than leaving those to the consumer.
 
 ---
 
