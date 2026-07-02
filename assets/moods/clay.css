@@ -1,0 +1,64 @@
+/* ==========================================================================
+   THE POINT — Mood: Clay
+   Warm, earthy, tactile. Adobe walls and pottery studios — the background
+   is a warm mid-tone stone-brown, not a dark server room.
+
+   Use for: craft goods, ceramics/home studios, hospitality with a rustic
+            register, anything that should feel handmade and grounded
+            rather than high-tech.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/clay.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #c2673b;
+    --color-primary-hover:  #9e502e;
+    --color-primary-subtle: rgba(194, 103, 59, 0.12);
+    --color-primary-glow:   rgba(194, 103, 59, 0.22);
+  }
+
+  /* Background, surface, border, and text — a deliberately lighter "dark"
+     theme (warm mid-tone stone-brown, not near-black) paired with a warm
+     cream light theme. Every token still holds strong contrast against
+     its own background (10.6:1+ for primary text, 7:1+ for secondary),
+     just built on a different lightness floor than the base blueprint
+     palette. */
+  :root,
+  [data-bp-theme="dark"] {
+    --bp-bg:               #42362e;
+    --bp-bg-secondary:     #4e4036;
+    --bp-surface-inset:    #4b3e34;
+    --bp-surface:          #56483e;
+    --bp-surface-elevated: #6c594b;
+    --bp-surface-hover:    #5f4f44;
+    --bp-border:           #816856;
+    --bp-border-subtle:    #665447;
+    --bp-text-primary:     #f8f4f2;
+    --bp-text-secondary:   #e8c3b0;
+    --bp-text-muted:       #af9383;
+    --bp-text-accent:      #e29878;
+    --bp-grid-color:        rgba(194, 103, 59, 0.08);
+    --bp-grid-color-strong: rgba(194, 103, 59, 0.15);
+  }
+
+  [data-bp-theme="light"] {
+    --bp-bg:               #faf7f5;
+    --bp-bg-secondary:     #f4efec;
+    --bp-surface-inset:    #f0eae6;
+    --bp-surface:          #ffffff;
+    --bp-surface-elevated: #ffffff;
+    --bp-surface-hover:    #f8f5f2;
+    --bp-border:           #e3beab;
+    --bp-border-subtle:    #eddacf;
+    --bp-text-primary:     #302017;
+    --bp-text-secondary:   #964c2c;
+    --bp-text-muted:       #a38675;
+    --bp-text-accent:      #ca552b;
+    --bp-grid-color:        rgba(194, 103, 59, 0.07);
+    --bp-grid-color-strong: rgba(194, 103, 59, 0.14);
+  }
+}

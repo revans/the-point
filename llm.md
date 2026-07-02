@@ -60,13 +60,17 @@ Pre-built color directions in `moods/`. Drop one in between `index.css` and `bra
 | Mood | Feel | Use for |
 |---|---|---|
 | `amber.css` | Warm, editorial, confident | Food, hospitality, independent makers |
-| `slate.css` | Professional, restrained, trustworthy | Legal, finance, B2B consulting |
-| `forest.css` | Natural, calm, approachable | Wellness, education, nonprofits |
-| `violet.css` | Creative, expressive, modern | Design tools, agencies, creative software |
-| `ember.css` | Bold, warm, high-energy | Events, launches, sports, media |
 | `arctic.css` | Clean, precise, cold-functional | Developer tools, infrastructure, fintech |
+| `clay.css` | Warm, earthy, tactile — lighter background than the others | Craft goods, ceramics, rustic hospitality |
+| `draftboard.css` | Technical, architectural — the canonical blueprint look | Design systems, dev tools, technical docs |
+| `ember.css` | Bold, warm, high-energy | Events, launches, sports, media |
+| `forest.css` | Natural, calm, approachable | Wellness, education, nonprofits |
+| `mist.css` | Soft, dusty, contemplative — lighter background than the others | Journaling, mindfulness, editorial reading |
+| `sage.css` | Muted, botanical, calm — lighter and dustier than Forest | Wellness, apothecary, slow-living brands |
+| `slate.css` | Professional, restrained, trustworthy | Legal, finance, B2B consulting |
+| `violet.css` | Creative, expressive, modern | Design tools, agencies, creative software |
 
-Mood files only set `--color-primary` and its variants. Your `brand.css` overrides any of them.
+Each mood sets `--color-primary` and its variants, plus a full background/surface/border/text/grid palette for both dark and light themes. The seven original moods (amber, arctic, draftboard, ember, forest, slate, violet) hue-rotate the base blueprint palette, keeping every token's lightness identical to the base so contrast ratios stay exactly as validated. `clay`, `mist`, and `sage` are hand-designed with a deliberately different (lighter) lightness structure instead — each was verified independently to hold strong contrast (10:1+ for primary text, 6.7:1+ for secondary, both themes). Your `brand.css` overrides any of it.
 
 ### Runtime theme switching (10 lines of JS)
 
@@ -294,6 +298,7 @@ Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, g
   <main class="bp-main-content">...</main>
 </div>
 ```
+Below 767.98px the sidebar stacks above `.bp-main-content` (full width, bottom border instead of right border) instead of staying a fixed 256px column — it has no collapse/toggle mechanism of its own, so at narrow widths a fixed sidebar would crush main content into a sliver. If something inside main content has `overflow-x: auto` (e.g. `.bp-tabs-list`), that's the symptom that shows up first — a scrollbar on that component, even though the actual cause is the sidebar eating the viewport.
 
 ---
 

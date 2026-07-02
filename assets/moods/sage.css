@@ -1,0 +1,65 @@
+/* ==========================================================================
+   THE POINT — Mood: Sage
+   Muted, botanical, calm. Dried herbs and quiet greenhouses — deliberately
+   dustier and lighter than Forest's deep, saturated green; this is the
+   restrained cousin, not a second version of the same idea.
+
+   Use for: wellness, botanical/apothecary brands, slow-living and
+            sustainability brands, anything that should feel organic
+            without leaning "outdoorsy-adventure."
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/sage.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #7c9b72;
+    --color-primary-hover:  #698f56;
+    --color-primary-subtle: rgba(124, 155, 114, 0.12);
+    --color-primary-glow:   rgba(124, 155, 114, 0.22);
+  }
+
+  /* Background, surface, border, and text — a deliberately lighter "dark"
+     theme (muted sage-charcoal, not near-black) paired with a soft
+     off-white light theme. Every token still holds strong contrast
+     against its own background (10.5:1+ for primary text, 7.6:1+ for
+     secondary), just built on a different lightness floor than the base
+     blueprint palette. */
+  :root,
+  [data-bp-theme="dark"] {
+    --bp-bg:               #2f3c2f;
+    --bp-bg-secondary:     #384738;
+    --bp-surface-inset:    #364536;
+    --bp-surface:          #404f40;
+    --bp-surface-elevated: #4e654e;
+    --bp-surface-hover:    #465946;
+    --bp-border:           #577557;
+    --bp-border-subtle:    #475c47;
+    --bp-text-primary:     #f2f5f0;
+    --bp-text-secondary:   #c1d8b6;
+    --bp-text-muted:       #8fa484;
+    --bp-text-accent:      #a4ca91;
+    --bp-grid-color:        rgba(124, 155, 114, 0.08);
+    --bp-grid-color-strong: rgba(124, 155, 114, 0.15);
+  }
+
+  [data-bp-theme="light"] {
+    --bp-bg:               #f7f9f6;
+    --bp-bg-secondary:     #f0f2ed;
+    --bp-surface-inset:    #ebeee7;
+    --bp-surface:          #ffffff;
+    --bp-surface-elevated: #ffffff;
+    --bp-surface-hover:    #f5f7f3;
+    --bp-border:           #bcd4af;
+    --bp-border-subtle:    #d8e4d2;
+    --bp-text-primary:     #1e2919;
+    --bp-text-secondary:   #457237;
+    --bp-text-muted:       #7e9772;
+    --bp-text-accent:      #528f3d;
+    --bp-grid-color:        rgba(124, 155, 114, 0.07);
+    --bp-grid-color-strong: rgba(124, 155, 114, 0.14);
+  }
+}

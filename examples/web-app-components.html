@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" data-bp-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Point — Web App Components</title>
+  <link rel="stylesheet" href="../assets/index.css">
+  <!-- Mood stylesheet — no href = the base blue (#3b82f6), no mood applied.
+       A mood is just @layer brand-base overrides on top of index.css, so
+       swapping moods means swapping which file this <link> points at.
+       No href (not href="") to avoid an empty href re-fetching the page
+       itself as a stylesheet. -->
+  <link rel="stylesheet" id="mood-stylesheet">
+  <style>
+    :root {
+      --bp-grid-color:      transparent;
+      --bp-grid-color-strong: transparent;
+    }
+    .demo-section-title { font-size: .8125rem; color: var(--color-text-muted); margin-bottom: .75rem; }
+    .demo-action-bar {
+      align-items: center;
+      justify-content: space-between;
+      padding: .75rem 1rem;
+      margin-bottom: .75rem;
+      background-color: var(--color-primary-subtle);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius);
+    }
+  </style>
+</head>
+<body style="padding: 0;">
+
+  <div class="bp-app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="bp-sidebar">
+      <div class="bp-sidebar-header">
+        <span class="bp-nav-brand">THE POINT</span>
+      </div>
+
+      <nav class="bp-sidebar-nav">
+        <div class="bp-sidebar-label">Overlays</div>
+        <a href="#modal-section" class="bp-sidebar-item">Modal</a>
+        <a href="#dropdown-section" class="bp-sidebar-item">Dropdown</a>
+        <a href="#drawer-section" class="bp-sidebar-item">Drawer</a>
+        <a href="#tooltip-section" class="bp-sidebar-item">Tooltip</a>
+
+        <div class="bp-sidebar-label" style="margin-top: 0.75rem;">Navigation</div>
+        <a href="#tabs-section" class="bp-sidebar-item">Tabs</a>
+        <a href="#breadcrumb-section" class="bp-sidebar-item">Breadcrumb</a>
+        <a href="#pagination-section" class="bp-sidebar-item">Pagination</a>
+
+        <div class="bp-sidebar-label" style="margin-top: 0.75rem;">Data &amp; Feedback</div>
+        <a href="#table-section" class="bp-sidebar-item">Table</a>
+        <a href="#empty-state-section" class="bp-sidebar-item">Empty State</a>
+        <a href="#accordion-section" class="bp-sidebar-item">Accordion</a>
+        <a href="#progress-section" class="bp-sidebar-item">Progress &amp; Spinner</a>
+        <a href="#switch-section" class="bp-sidebar-item">Switch</a>
+      </nav>
+
+      <div style="padding: 1rem; border-top: 1px solid var(--color-border); display: flex; flex-direction: column; gap: .5rem;">
+        <div class="bp-select-wrapper">
+          <select class="bp-select" id="mood-select" onchange="setMood(this.value)" aria-label="Mood">
+            <option value="">None (base blue)</option>
+            <option value="amber">Amber</option>
+            <option value="arctic">Arctic</option>
+            <option value="clay">Clay</option>
+            <option value="draftboard">Draftboard</option>
+            <option value="ember">Ember</option>
+            <option value="forest">Forest</option>
+            <option value="mist">Mist</option>
+            <option value="sage">Sage</option>
+            <option value="slate">Slate</option>
+            <option value="violet">Violet</option>
+          </select>
+        </div>
+        <button id="theme-toggle" class="bp-btn bp-btn-secondary bp-btn-sm" style="width: 100%;" onclick="toggleTheme()" aria-label="Toggle theme">☀ Light</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="bp-main-content">
+
+      <div style="position: sticky; top: 0; z-index: 100; background-color: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-border); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <h1 style="font-size: 1rem; font-weight: 600; color: var(--color-text);">Web App Components</h1>
+        <span class="bp-badge bp-badge-secondary">14 components</span>
+      </div>
+
+      <div style="padding: 2rem; max-width: 900px;">
+
+        <!-- BREADCRUMB -->
+        <section id="breadcrumb-section" style="margin-bottom: 2.5rem;">
+          <nav class="bp-breadcrumb" aria-label="Breadcrumb">
+            <a href="#" class="bp-breadcrumb-link">Home</a>
+            <span class="bp-breadcrumb-separator">/</span>
+            <a href="#" class="bp-breadcrumb-link">Components</a>
+            <span class="bp-breadcrumb-separator">/</span>
+            <span class="bp-breadcrumb-current">Web App Demo</span>
+          </nav>
+        </section>
+
+        <!-- TABS -->
+        <div class="bp-card" id="tabs-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Tabs</div>
+            <div class="bp-card-description">CSS-only via radio inputs + :has() — no JS.</div>
+          </div>
+          <div class="bp-card-body">
+            <div class="bp-tabs">
+              <div class="bp-tabs-list" role="tablist">
+                <input type="radio" name="demo-tabs" class="bp-tabs-input" id="tab-1" checked>
+                <label class="bp-tabs-trigger" for="tab-1">Overview</label>
+                <input type="radio" name="demo-tabs" class="bp-tabs-input" id="tab-2">
+                <label class="bp-tabs-trigger" for="tab-2">Activity</label>
+                <input type="radio" name="demo-tabs" class="bp-tabs-input" id="tab-3">
+                <label class="bp-tabs-trigger" for="tab-3">Settings</label>
+              </div>
+              <div class="bp-tabs-panels">
+                <div class="bp-tabs-panel">Overview panel — switching tabs never touches JS, it's all driven by radio input state and the <code>:has()</code> selector.</div>
+                <div class="bp-tabs-panel">Activity panel — this is the second tab's content, matched to the second input by position.</div>
+                <div class="bp-tabs-panel">Settings panel — the third and last tab in this group.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCORDION -->
+        <div class="bp-card" id="accordion-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Accordion</div>
+            <div class="bp-card-description">Native &lt;details&gt;/&lt;summary&gt; — no JS for open/close or keyboard support.</div>
+          </div>
+          <div class="bp-card-body">
+            <div class="bp-accordion-group">
+              <details class="bp-accordion" name="demo-faq" open>
+                <summary class="bp-accordion-trigger">What is The Point?</summary>
+                <div class="bp-accordion-content">A CSS design system with a blueprint aesthetic — works in React, Rails, Electron, and plain HTML.</div>
+              </details>
+              <details class="bp-accordion" name="demo-faq">
+                <summary class="bp-accordion-trigger">Does it need a build step?</summary>
+                <div class="bp-accordion-content">No — it's plain CSS files you link directly. The optional Stimulus controllers are the only JS, and only for the handful of components that genuinely need it.</div>
+              </details>
+              <details class="bp-accordion" name="demo-faq">
+                <summary class="bp-accordion-trigger">Why do these three share a name attribute?</summary>
+                <div class="bp-accordion-content">A shared <code>name=""</code> on sibling &lt;details&gt; elements makes only one open at a time — native browser behavior, not CSS.</div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOOLTIP + SWITCH (paired, both small) -->
+        <div class="bp-grid bp-grid-2" style="margin-bottom: 2.5rem; gap: 1.5rem;">
+          <div class="bp-card" id="tooltip-section">
+            <div class="bp-card-header">
+              <div class="bp-card-title">Tooltip</div>
+              <div class="bp-card-description">CSS-only via :hover/:focus-within.</div>
+            </div>
+            <div class="bp-card-body">
+              <span class="bp-tooltip">
+                <button class="bp-btn bp-btn-secondary bp-btn-sm bp-tooltip-trigger">Hover me</button>
+                <span class="bp-tooltip-bubble" role="tooltip">Helpful tooltip text</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="bp-card" id="switch-section">
+            <div class="bp-card-header">
+              <div class="bp-card-title">Switch</div>
+              <div class="bp-card-description">CSS-only — a re-skinned checkbox.</div>
+            </div>
+            <div class="bp-card-body" style="display: flex; align-items: center; gap: .75rem;">
+              <label class="bp-switch">
+                <input type="checkbox" class="bp-switch-input" checked>
+                <span class="bp-switch-track"></span>
+              </label>
+              <span style="font-size: .875rem; color: var(--color-text-secondary);">Email notifications</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DROPDOWN -->
+        <div class="bp-card" id="dropdown-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Dropdown</div>
+            <div class="bp-card-description">Requires JS — outside-click-to-close, Escape, item-click-to-close.</div>
+          </div>
+          <div class="bp-card-body">
+            <div class="bp-dropdown" id="demo-dropdown">
+              <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="toggleDropdown()">Actions ▾</button>
+              <div class="bp-dropdown-menu bp-hidden" id="demo-dropdown-menu">
+                <a class="bp-dropdown-item" href="#" onclick="event.preventDefault(); toggleDropdown()">Edit</a>
+                <a class="bp-dropdown-item" href="#" onclick="event.preventDefault(); toggleDropdown()">Duplicate</a>
+                <div class="bp-dropdown-divider"></div>
+                <button class="bp-dropdown-item" onclick="toggleDropdown()">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRESS & SPINNER -->
+        <div class="bp-card" id="progress-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Progress &amp; Spinner</div>
+            <div class="bp-card-description">CSS-only, respects reduced-motion via --motion-scale.</div>
+          </div>
+          <div class="bp-card-body" style="display: flex; align-items: center; gap: 2rem;">
+            <div class="bp-progress" style="flex: 1;">
+              <div class="bp-progress-bar" style="width: 68%"></div>
+            </div>
+            <div class="bp-spinner" aria-label="Loading"></div>
+          </div>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="bp-card" id="pagination-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Pagination</div>
+            <div class="bp-card-description">Pure styling contract — no JS. Current-page state is app-driven.</div>
+          </div>
+          <div class="bp-card-body">
+            <nav class="bp-pagination" aria-label="Pagination">
+              <span class="bp-pagination-item bp-pagination-disabled">‹ Prev</span>
+              <a href="#" class="bp-pagination-item">1</a>
+              <a href="#" class="bp-pagination-item active" aria-current="page">2</a>
+              <a href="#" class="bp-pagination-item">3</a>
+              <span class="bp-pagination-ellipsis">…</span>
+              <a href="#" class="bp-pagination-item">12</a>
+              <a href="#" class="bp-pagination-item">Next ›</a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="bp-card" id="empty-state-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Empty State</div>
+            <div class="bp-card-description">No JS — a plain content block.</div>
+          </div>
+          <div class="bp-card-body">
+            <div class="bp-empty-state">
+              <div class="bp-empty-state-icon">⊘</div>
+              <div class="bp-empty-state-title">No results found</div>
+              <p class="bp-empty-state-description">Try adjusting your filters, or clear them to see everything.</p>
+              <div class="bp-empty-state-actions">
+                <button class="bp-btn bp-btn-primary bp-btn-sm">Clear filters</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE (sortable + selectable) -->
+        <div class="bp-card" id="table-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Table — sortable &amp; selectable</div>
+            <div class="bp-card-description">Click a column header to sort (real client-side sort, for this demo). Select rows to reveal the action bar. Selected-row highlighting is pure CSS via :has().</div>
+          </div>
+          <div class="bp-card-body">
+            <div class="demo-action-bar" id="demo-action-bar" style="display: none;">
+              <span id="demo-action-bar-label" style="font-size: .875rem; color: var(--color-text);"></span>
+              <button class="bp-btn bp-btn-destructive bp-btn-sm">Remove</button>
+            </div>
+            <div class="bp-table-wrapper">
+              <table class="bp-table">
+                <thead>
+                  <tr>
+                    <th style="width: 2.5rem;">
+                      <input type="checkbox" class="bp-table-checkbox" id="demo-select-all" onchange="toggleSelectAll()">
+                    </th>
+                    <th aria-sort="none" class="demo-sortable-th" data-column="name" onclick="sortBy('name')">
+                      Name <span class="bp-table-sort-icon">▲</span>
+                    </th>
+                    <th>Role</th>
+                    <th aria-sort="none" class="demo-sortable-th" data-column="joined" onclick="sortBy('joined')">
+                      Joined <span class="bp-table-sort-icon">▲</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="demo-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL -->
+        <div class="bp-card" id="modal-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Modal</div>
+            <div class="bp-card-description">Requires JS — backdrop-click, Escape, focus-on-open, focus-restore-on-close.</div>
+          </div>
+          <div class="bp-card-body">
+            <button class="bp-btn bp-btn-primary bp-btn-sm" onclick="openModal()">Open modal</button>
+          </div>
+        </div>
+
+        <!-- DRAWER -->
+        <div class="bp-card" id="drawer-section" style="margin-bottom: 2.5rem;">
+          <div class="bp-card-header">
+            <div class="bp-card-title">Drawer</div>
+            <div class="bp-card-description">Requires JS — slides in from any edge, backdrop-click, Escape, scroll lock, and a full Tab/Shift+Tab focus trap.</div>
+          </div>
+          <div class="bp-card-body" style="display: flex; gap: .75rem; flex-wrap: wrap;">
+            <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="openDrawer('right')">Open right</button>
+            <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="openDrawer('left')">Open left</button>
+            <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="openDrawer('top')">Open top</button>
+            <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="openDrawer('bottom')">Open bottom</button>
+          </div>
+          <p style="margin: .75rem 0 0; font-size: .8125rem; color: var(--color-text-muted);">Each button opens its own drawer instance — a single shared instance re-classed per side turned out to carry a stale leftover transform between different sides, causing it to visibly slide in from the wrong edge.</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL (shared overlay) -->
+  <div class="bp-overlay bp-hidden" id="demo-modal-overlay">
+    <div class="bp-modal" tabindex="-1" id="demo-modal-panel">
+      <div class="bp-modal-header">
+        <span class="bp-modal-title">Confirm action</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" onclick="closeModal()">✕</button>
+      </div>
+      <div class="bp-modal-body">This is the bp-overlay + bp-modal pattern — wired with backdrop-click, Escape, focus-on-open, and focus-restore-on-close.</div>
+      <div class="bp-modal-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="closeModal()">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm" onclick="closeModal()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER — four independent instances, one per side. Each keeps its
+       side class fixed from page load, matching the documented usage
+       pattern (a drawer's side is set once in markup, not swapped at
+       runtime) — that's what makes the transform behave correctly. -->
+  <div class="bp-drawer-overlay" id="demo-drawer-overlay-right">
+    <div class="bp-drawer" tabindex="-1" id="demo-drawer-panel-right">
+      <div class="bp-drawer-header">
+        <span class="bp-drawer-title">Drawer — right</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" onclick="closeDrawer('right')">✕</button>
+      </div>
+      <div class="bp-drawer-body">
+        <p style="margin: 0 0 1rem; font-size: .875rem; color: var(--color-text-secondary);">Try tabbing through this drawer — focus is trapped inside it while open.</p>
+        <div class="bp-form-group">
+          <label class="bp-label" for="demo-drawer-input-right">Name</label>
+          <input class="bp-input" id="demo-drawer-input-right" type="text" placeholder="Jane Doe">
+        </div>
+      </div>
+      <div class="bp-drawer-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="closeDrawer('right')">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm" onclick="closeDrawer('right')">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bp-drawer-overlay" id="demo-drawer-overlay-left">
+    <div class="bp-drawer bp-drawer-left" tabindex="-1" id="demo-drawer-panel-left">
+      <div class="bp-drawer-header">
+        <span class="bp-drawer-title">Drawer — left</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" onclick="closeDrawer('left')">✕</button>
+      </div>
+      <div class="bp-drawer-body">
+        <p style="margin: 0 0 1rem; font-size: .875rem; color: var(--color-text-secondary);">Try tabbing through this drawer — focus is trapped inside it while open.</p>
+        <div class="bp-form-group">
+          <label class="bp-label" for="demo-drawer-input-left">Name</label>
+          <input class="bp-input" id="demo-drawer-input-left" type="text" placeholder="Jane Doe">
+        </div>
+      </div>
+      <div class="bp-drawer-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="closeDrawer('left')">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm" onclick="closeDrawer('left')">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bp-drawer-overlay" id="demo-drawer-overlay-top">
+    <div class="bp-drawer bp-drawer-top" tabindex="-1" id="demo-drawer-panel-top">
+      <div class="bp-drawer-header">
+        <span class="bp-drawer-title">Drawer — top</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" onclick="closeDrawer('top')">✕</button>
+      </div>
+      <div class="bp-drawer-body">
+        <p style="margin: 0; font-size: .875rem; color: var(--color-text-secondary);">Try tabbing through this drawer — focus is trapped inside it while open.</p>
+      </div>
+      <div class="bp-drawer-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="closeDrawer('top')">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm" onclick="closeDrawer('top')">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bp-drawer-overlay" id="demo-drawer-overlay-bottom">
+    <div class="bp-drawer bp-drawer-bottom" tabindex="-1" id="demo-drawer-panel-bottom">
+      <div class="bp-drawer-header">
+        <span class="bp-drawer-title">Drawer — bottom</span>
+        <button class="bp-btn bp-btn-ghost bp-btn-icon bp-btn-sm" onclick="closeDrawer('bottom')">✕</button>
+      </div>
+      <div class="bp-drawer-body">
+        <p style="margin: 0; font-size: .875rem; color: var(--color-text-secondary);">Try tabbing through this drawer — focus is trapped inside it while open.</p>
+      </div>
+      <div class="bp-drawer-footer">
+        <button class="bp-btn bp-btn-secondary bp-btn-sm" onclick="closeDrawer('bottom')">Cancel</button>
+        <button class="bp-btn bp-btn-primary bp-btn-sm" onclick="closeDrawer('bottom')">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Theme toggle (matches examples/starter.html) ─────────────────────
+    const STORAGE_KEY = 'bp-theme'
+    const html = document.documentElement
+    const themeBtn = document.getElementById('theme-toggle')
+    const savedTheme = localStorage.getItem(STORAGE_KEY)
+    if (savedTheme) html.setAttribute('data-bp-theme', savedTheme)
+    updateThemeLabel()
+    function toggleTheme() {
+      const next = html.getAttribute('data-bp-theme') === 'dark' ? 'light' : 'dark'
+      html.setAttribute('data-bp-theme', next)
+      localStorage.setItem(STORAGE_KEY, next)
+      updateThemeLabel()
+    }
+    function updateThemeLabel() {
+      if (!themeBtn) return
+      themeBtn.textContent = html.getAttribute('data-bp-theme') === 'dark' ? '☀ Light' : '◑ Dark'
+    }
+
+    // ── Mood switcher — swaps which moods/*.css file the mood <link>
+    //    points at. A mood is just @layer brand-base overrides on top of
+    //    index.css, so "no mood" is simply no href on that <link>. ───────
+    const MOOD_STORAGE_KEY = 'bp-mood'
+    const moodLink = document.getElementById('mood-stylesheet')
+    const moodSelect = document.getElementById('mood-select')
+    const savedMood = localStorage.getItem(MOOD_STORAGE_KEY) || ''
+    moodSelect.value = savedMood
+    setMood(savedMood, { persist: false })
+    function setMood(mood, options) {
+      if (mood) {
+        moodLink.setAttribute('href', '../assets/moods/' + mood + '.css')
+      } else {
+        moodLink.removeAttribute('href')
+      }
+      if (!options || options.persist !== false) localStorage.setItem(MOOD_STORAGE_KEY, mood)
+    }
+
+    // ── Modal — mirrors rails/javascript/controllers/modal_controller.js ─
+    const modalOverlay = document.getElementById('demo-modal-overlay')
+    const modalPanel = document.getElementById('demo-modal-panel')
+    let modalLastFocused = null
+    function openModal() {
+      modalLastFocused = document.activeElement
+      modalOverlay.classList.remove('bp-hidden')
+      document.body.style.overflow = 'hidden'
+      // A real click's own default action re-focuses the trigger after this
+      // handler runs — deferring one frame lets our focus call run last.
+      requestAnimationFrame(() => modalPanel.focus())
+    }
+    function closeModal() {
+      if (modalOverlay.classList.contains('bp-hidden')) return
+      modalOverlay.classList.add('bp-hidden')
+      document.body.style.overflow = ''
+      requestAnimationFrame(() => modalLastFocused && modalLastFocused.focus())
+    }
+    modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal() })
+
+    // ── Dropdown — mirrors dropdown_controller.js ────────────────────────
+    const dropdownRoot = document.getElementById('demo-dropdown')
+    const dropdownMenu = document.getElementById('demo-dropdown-menu')
+    function toggleDropdown() { dropdownMenu.classList.toggle('bp-hidden') }
+    window.addEventListener('click', (e) => {
+      if (!dropdownRoot.contains(e.target)) dropdownMenu.classList.add('bp-hidden')
+    })
+
+    // ── Drawer — mirrors drawer_controller.js. Four independent instances,
+    //    one per side — each keeps its side class fixed from page load, the
+    //    same way the documented usage pattern works (a drawer's side is
+    //    set once in markup, never swapped at runtime on a live instance).
+    //    Swapping side classes on one shared instance leaves a stale
+    //    leftover transform behind, which is what caused the previous
+    //    version of this demo to visibly slide in from the wrong edge.
+    const DRAWER_SIDES = ['right', 'left', 'top', 'bottom']
+    const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    const drawers = {}
+    DRAWER_SIDES.forEach((side) => {
+      const overlay = document.getElementById('demo-drawer-overlay-' + side)
+      const panel = document.getElementById('demo-drawer-panel-' + side)
+      const trapFocus = (e) => {
+        if (e.key !== 'Tab') return
+        const focusable = panel.querySelectorAll(FOCUSABLE)
+        if (!focusable.length) return
+        const first = focusable[0], last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeDrawer(side) })
+      drawers[side] = { overlay, panel, trapFocus, lastFocused: null }
+    })
+    function openDrawer(side) {
+      const d = drawers[side]
+      d.lastFocused = document.activeElement
+      d.overlay.classList.add('bp-drawer-open')
+      d.panel.classList.add('bp-drawer-open')
+      document.body.style.overflow = 'hidden'
+      document.addEventListener('keydown', d.trapFocus)
+      // Double rAF: the panel sits inside an overlay mid-transition from
+      // visibility:hidden to visible, and doesn't become focusable until
+      // the frame after that transition's class change is painted.
+      requestAnimationFrame(() => requestAnimationFrame(() => d.panel.focus()))
+    }
+    function closeDrawer(side) {
+      const d = drawers[side]
+      if (!d.overlay.classList.contains('bp-drawer-open')) return
+      d.overlay.classList.remove('bp-drawer-open')
+      d.panel.classList.remove('bp-drawer-open')
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', d.trapFocus)
+      requestAnimationFrame(() => d.lastFocused && d.lastFocused.focus())
+    }
+
+    // Shared Escape handling for modal + dropdown + drawer
+    window.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return
+      closeModal()
+      dropdownMenu.classList.add('bp-hidden')
+      DRAWER_SIDES.forEach((side) => closeDrawer(side))
+    })
+
+    // ── Table — real client-side sort + select, standing in for whatever
+    //    your app does (a Turbo Stream request, a server-sorted query, etc)
+    const tableData = [
+      { name: 'Jamie Dawson', role: 'Engineering', joined: '2024-02-11' },
+      { name: 'Ari Kessler',  role: 'Design',       joined: '2023-08-04' },
+      { name: 'Priya Shah',   role: 'Product',      joined: '2025-01-22' },
+      { name: 'Noah Reyes',   role: 'Engineering',  joined: '2022-11-30' },
+      { name: 'Beck Osei',    role: 'Support',      joined: '2024-06-17' },
+    ]
+    let sortState = { column: null, direction: 'ascending' }
+    const tableBody = document.getElementById('demo-table-body')
+    const selectAllBox = document.getElementById('demo-select-all')
+    const actionBar = document.getElementById('demo-action-bar')
+    const actionBarLabel = document.getElementById('demo-action-bar-label')
+
+    function renderTable() {
+      let rows = tableData.slice()
+      if (sortState.column) {
+        const dir = sortState.direction === 'ascending' ? 1 : -1
+        rows.sort((a, b) => (a[sortState.column] > b[sortState.column] ? dir : -dir))
+      }
+      // Built via DOM methods + textContent, not innerHTML — this is a
+      // reference file other apps copy patterns from, and real row data
+      // (unlike this hardcoded demo array) is usually not trustworthy
+      // enough to interpolate into an HTML string.
+      tableBody.replaceChildren(...rows.map((r) => {
+        const tr = document.createElement('tr')
+
+        const checkboxCell = document.createElement('td')
+        const checkbox = document.createElement('input')
+        checkbox.type = 'checkbox'
+        checkbox.className = 'bp-table-checkbox'
+        checkbox.value = r.name
+        checkbox.addEventListener('change', updateSelection)
+        checkboxCell.appendChild(checkbox)
+        tr.appendChild(checkboxCell)
+
+        for (const value of [r.name, r.role, r.joined]) {
+          const td = document.createElement('td')
+          td.textContent = value
+          tr.appendChild(td)
+        }
+
+        return tr
+      }))
+      updateSelection()
+    }
+
+    function sortBy(column) {
+      sortState.direction = (sortState.column === column && sortState.direction === 'ascending') ? 'descending' : 'ascending'
+      sortState.column = column
+      document.querySelectorAll('.demo-sortable-th').forEach((th) => {
+        th.setAttribute('aria-sort', th.dataset.column === column ? sortState.direction : 'none')
+      })
+      renderTable()
+    }
+
+    function updateSelection() {
+      const boxes = Array.from(tableBody.querySelectorAll('.bp-table-checkbox'))
+      const checked = boxes.filter((b) => b.checked)
+      selectAllBox.checked = boxes.length > 0 && checked.length === boxes.length
+      selectAllBox.indeterminate = checked.length > 0 && checked.length < boxes.length
+      actionBar.style.display = checked.length > 0 ? 'flex' : 'none'
+      if (checked.length > 0) actionBarLabel.textContent = checked.length + ' selected'
+    }
+
+    function toggleSelectAll() {
+      tableBody.querySelectorAll('.bp-table-checkbox').forEach((b) => { b.checked = selectAllBox.checked })
+      updateSelection()
+    }
+
+    renderTable()
+  </script>
+
+</body>
+</html>

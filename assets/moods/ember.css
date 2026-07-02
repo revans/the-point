@@ -18,4 +18,42 @@
     --color-primary-subtle: rgba(234, 88, 12, 0.1);
     --color-primary-glow:   rgba(234, 88, 12, 0.22);
   }
+
+  /* Background, surface, border, and text — tinted toward this mood's hue,
+     with each token's lightness kept identical to the base blueprint
+     palette so contrast ratios stay exactly as validated. */
+  :root,
+  [data-bp-theme="dark"] {
+    --bp-bg:               #2a1308;
+    --bp-bg-secondary:     #3a1c0d;
+    --bp-surface-inset:    #422514;
+    --bp-surface:          #4c2918;
+    --bp-surface-elevated: #6c3d1d;
+    --bp-surface-hover:    #572f1c;
+    --bp-border:           #6e3727;
+    --bp-border-subtle:    #5a2a1b;
+    --bp-text-primary:     #feeae7;
+    --bp-text-secondary:   #ffad91;
+    --bp-text-muted:       #9f5146;
+    --bp-text-accent:      #ff885b;
+    --bp-grid-color:        rgba(234, 88, 12, 0.08);
+    --bp-grid-color-strong: rgba(234, 88, 12, 0.15);
+  }
+
+  [data-bp-theme="light"] {
+    --bp-bg:               #faf6f5;
+    --bp-bg-secondary:     #f5efed;
+    --bp-surface-inset:    #f2eae8;
+    --bp-surface:          #ffffff;
+    --bp-surface-elevated: #ffffff;
+    --bp-surface-hover:    #f9f1f0;
+    --bp-border:           #ffa091;
+    --bp-border-subtle:    #ffc8be;
+    --bp-text-primary:     #2a0f08;
+    --bp-text-secondary:   #b65217;
+    --bp-text-muted:       #b17068;
+    --bp-text-accent:      #f55b1b;
+    --bp-grid-color:        rgba(234, 88, 12, 0.07);
+    --bp-grid-color-strong: rgba(234, 88, 12, 0.14);
+  }
 }

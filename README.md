@@ -132,7 +132,7 @@ The brand file is a spectrum, not a switch:
 
 ## Mood library
 
-Six pre-built color directions. Drop one in between `index.css` and your `brand.css` to get a full primary color family without writing one yourself:
+Ten pre-built color directions. Drop one in between `index.css` and your `brand.css` to reskin the whole page — background, surface, border, text, grid lines, and the primary color family — without writing a palette yourself:
 
 ```html
 <link rel="stylesheet" href="the-point/index.css">
@@ -143,13 +143,17 @@ Six pre-built color directions. Drop one in between `index.css` and your `brand.
 | Mood | Feel | Primary color |
 |---|---|---|
 | `amber.css` | Warm, editorial, confident | #d97706 |
-| `slate.css` | Professional, restrained, trustworthy | #475569 |
-| `forest.css` | Natural, calm, approachable | #16a34a |
-| `violet.css` | Creative, expressive, modern | #7c3aed |
-| `ember.css` | Bold, warm, high-energy | #ea580c |
 | `arctic.css` | Clean, precise, cold-functional | #0ea5e9 |
+| `clay.css` | Warm, earthy, tactile — lighter background than the others | #c2673b |
+| `draftboard.css` | Technical, architectural — the canonical blueprint look | #00B4D8 |
+| `ember.css` | Bold, warm, high-energy | #ea580c |
+| `forest.css` | Natural, calm, approachable | #16a34a |
+| `mist.css` | Soft, dusty, contemplative — lighter background than the others | #6b7fd7 |
+| `sage.css` | Muted, botanical, calm — lighter and dustier than Forest | #7c9b72 |
+| `slate.css` | Professional, restrained, trustworthy | #475569 |
+| `violet.css` | Creative, expressive, modern | #7c3aed |
 
-Mood files only set the primary color family. Your `brand.css` overrides any of them.
+Every mood provides both a dark and a light palette (each token's lightness matches the base blueprint palette exactly, so contrast ratios stay identical to the validated default — only the hue changes) and works with either `data-bp-theme`. Your `brand.css` overrides any of it.
 
 ### Layer compositing
 
@@ -205,11 +209,15 @@ the-point/
   │   │   └── print.css      ← print mode, bp-print-spec
   │   └── moods/
   │       ├── amber.css      ← warm, editorial, confident
-  │       ├── slate.css      ← professional, restrained, trustworthy
-  │       ├── forest.css     ← natural, calm, approachable
-  │       ├── violet.css     ← creative, expressive, modern
+  │       ├── arctic.css     ← clean, precise, cold-functional
+  │       ├── clay.css       ← warm, earthy, tactile (lighter background)
+  │       ├── draftboard.css ← technical, architectural (canonical blueprint look)
   │       ├── ember.css      ← bold, warm, high-energy
-  │       └── arctic.css     ← clean, precise, cold-functional
+  │       ├── forest.css     ← natural, calm, approachable
+  │       ├── mist.css       ← soft, dusty, contemplative (lighter background)
+  │       ├── sage.css       ← muted, botanical, calm (lighter background)
+  │       ├── slate.css      ← professional, restrained, trustworthy
+  │       └── violet.css     ← creative, expressive, modern
   ├── integrations/
   │   ├── rails/             ← helpers, ERB partials, Stimulus theme controller
   │   └── react/             ← TypeScript component wrappers

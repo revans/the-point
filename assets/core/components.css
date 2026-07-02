@@ -2305,6 +2305,26 @@
   overflow-x: hidden;
 }
 
+/* Tier 2 — mobile (≤767.98px): the sidebar has no collapse/toggle mechanism
+   of its own, so below tablet-portrait width it stacks above the main
+   content instead of staying a fixed 256px column — otherwise main content
+   gets crushed into a sliver, and anything with overflow-x:auto inside it
+   (e.g. .bp-tabs-list) shows a scrollbar that has nothing to do with that
+   component and everything to do with the sidebar eating the viewport. */
+@media (max-width: 767.98px) {
+  .bp-app-layout {
+    flex-direction: column;
+  }
+
+  .bp-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: var(--border-width) var(--border-style) var(--sidebar-border);
+  }
+}
+
 /* --------------------------------------------------------------------------
    TYPOGRAPHY VOICES
    Three named typographic registers that go beyond size. They answer the

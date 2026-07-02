@@ -1,0 +1,65 @@
+/* ==========================================================================
+   THE POINT — Mood: Mist
+   Soft, dusty, contemplative. Overcast morning light, not a night sky —
+   the background itself is a mid-tone lavender-gray rather than the
+   near-black base blueprint depth.
+
+   Use for: journaling apps, mindfulness/wellness tools, editorial reading
+            experiences, anything that should feel quiet and unhurried
+            without going fully dark.
+
+   Usage:
+     <link rel="stylesheet" href="the-point/index.css">
+     <link rel="stylesheet" href="the-point/moods/mist.css">
+     <link rel="stylesheet" href="./brand.css">  ← optional fine-tuning
+   ========================================================================== */
+
+@layer brand-base {
+  :root {
+    --color-primary:        #6b7fd7;
+    --color-primary-hover:  #5562c3;
+    --color-primary-subtle: rgba(107, 127, 215, 0.12);
+    --color-primary-glow:   rgba(107, 127, 215, 0.22);
+  }
+
+  /* Background, surface, border, and text — a deliberately lighter "dark"
+     theme (mid-tone lavender-gray, not near-black) paired with a soft
+     lavender-white light theme. Every token still holds strong contrast
+     against its own background (12:1+ for primary text, 6.7:1+ for
+     secondary), just built on a different lightness floor than the base
+     blueprint palette. */
+  :root,
+  [data-bp-theme="dark"] {
+    --bp-bg:               #2e2b3b;
+    --bp-bg-secondary:     #373446;
+    --bp-surface-inset:    #343144;
+    --bp-surface:          #3e3b4e;
+    --bp-surface-elevated: #4d4965;
+    --bp-surface-hover:    #454158;
+    --bp-border:           #5a5478;
+    --bp-border-subtle:    #49455f;
+    --bp-text-primary:     #f0eff5;
+    --bp-text-secondary:   #b8b0dd;
+    --bp-text-muted:       #867ea9;
+    --bp-text-accent:      #a498e1;
+    --bp-grid-color:        rgba(107, 127, 215, 0.08);
+    --bp-grid-color-strong: rgba(107, 127, 215, 0.15);
+  }
+
+  [data-bp-theme="light"] {
+    --bp-bg:               #f6f5f9;
+    --bp-bg-secondary:     #eeedf3;
+    --bp-surface-inset:    #e8e7ef;
+    --bp-surface:          #ffffff;
+    --bp-surface-elevated: #ffffff;
+    --bp-surface-hover:    #f3f2f7;
+    --bp-border:           #beb8e0;
+    --bp-border-subtle:    #d9d6eb;
+    --bp-text-primary:     #181528;
+    --bp-text-secondary:   #3e3181;
+    --bp-text-muted:       #7d75a3;
+    --bp-text-accent:      #4c39ac;
+    --bp-grid-color:        rgba(107, 127, 215, 0.07);
+    --bp-grid-color-strong: rgba(107, 127, 215, 0.14);
+  }
+}
