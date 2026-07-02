@@ -54,7 +54,7 @@ Use the library's component classes in your HTML. A minimal page looks like:
 </main>
 ```
 
-See `llm.md` for full HTML patterns for every component. The `examples/` directory has nine complete pages you can copy from.
+See `llm.md` for full HTML patterns for every component. The `examples/` directory has 40 files — nine curated ones show complete pages in different use cases, three are templates (see [Examples](#examples)), and the rest are client-branded builds generated via `@blueprint`.
 
 ### 3. Set the theme
 
@@ -238,6 +238,14 @@ All components use `bp-` prefixed classes. A brief overview:
 **Navigation**
 `bp-nav` `bp-nav-inner` `bp-nav-brand` `bp-nav-links` `bp-nav-link` `bp-nav-actions`
 
+**Breadcrumb & pagination**
+`bp-breadcrumb` `bp-breadcrumb-link` `bp-breadcrumb-separator` `bp-breadcrumb-current`
+`bp-pagination` `bp-pagination-item` `bp-pagination-disabled` `bp-pagination-ellipsis` (pure styling contract — no JS, current-page state is app-driven)
+
+**Disclosure**
+`bp-accordion` `bp-accordion-trigger` `bp-accordion-content` `bp-accordion-group` (CSS-only, native `<details>`/`<summary>`)
+`bp-tabs` `bp-tabs-list` `bp-tabs-trigger` `bp-tabs-input` `bp-tabs-panels` `bp-tabs-panel` (CSS-only, radio inputs + `:has()`)
+
 **Hero & sections**
 `bp-hero` `bp-hero-eyebrow` `bp-hero-title` `bp-hero-subtitle` `bp-hero-actions`
 `bp-section-header` `bp-section-label` `bp-section-title` `bp-section-subtitle`
@@ -250,18 +258,25 @@ All components use `bp-` prefixed classes. A brief overview:
 `bp-card` `bp-card-hover` `bp-card-feature` `bp-card-feature-icon`
 `bp-card-header` `bp-card-title` `bp-card-description` `bp-card-body` `bp-card-footer`
 
+**Media**
+`bp-media` + ratio: `bp-media-16-9/4-3/3-2/1-1/3-4/2-3/21-9` (aspect-ratio-locked wrapper for `<img>`/`<video>`/`<svg>`)
+
 **Forms**
 `bp-form-group` `bp-label` `bp-input` `bp-textarea` `bp-select`
-`bp-input-error` `bp-form-error` `bp-form-hint` `bp-checkbox` `bp-radio`
+`bp-input-error` `bp-form-error` `bp-form-hint` `bp-checkbox` `bp-radio` `bp-switch`
+`bp-input-compose` (grow-in-place textarea + send action, for chat/comment inputs)
 
 **Feedback**
 `bp-badge` + `bp-badge-default/secondary/success/warning/error/outline`
 `bp-alert` + `bp-alert-default/success/warning/error`
 `bp-toast` `bp-toast-container`
+`bp-progress` `bp-progress-bar` + `bp-progress-bar-success/warning/error`
+`bp-spinner`
+`bp-empty-state` `bp-empty-state-icon` `bp-empty-state-title` `bp-empty-state-description` `bp-empty-state-actions`
 
 **Data display**
 `bp-stat` `bp-stat-value` `bp-stat-label` `bp-stat-change-up/down`
-`bp-table-wrapper` `bp-table`
+`bp-table-wrapper` `bp-table` `bp-table-checkbox` `bp-table-sort-icon` (sortable headers via `aria-sort` + selectable rows via `:has()` both require JS — see Rails/React integrations)
 `bp-avatar` `bp-avatar-sm/md/lg/xl`
 
 **Content**
@@ -270,13 +285,18 @@ All components use `bp-` prefixed classes. A brief overview:
 `bp-divider` `bp-skeleton` `bp-skeleton-text` `bp-skeleton-title`
 `bp-skeleton-1u` `bp-skeleton-2u` `bp-skeleton-3u` `bp-skeleton-4u` `bp-skeleton-6u`
 `bp-skeleton-card`
+`bp-chip` + `bp-chip-outline/secondary/success/warning/error` `bp-chip-group`
+`bp-tooltip` `bp-tooltip-bubble` (CSS-only, `:hover`/`:focus-within`)
+`bp-steps` `bp-fact-list`
 
 **App layout**
 `bp-app-layout` `bp-sidebar` `bp-sidebar-header` `bp-sidebar-nav`
-`bp-sidebar-label` `bp-sidebar-item` `bp-main-content`
+`bp-sidebar-label` `bp-sidebar-item` `bp-main-content` (stacks below 767.98px)
 
-**Modal**
-`bp-overlay` `bp-modal` `bp-modal-header` `bp-modal-title` `bp-modal-body` `bp-modal-footer`
+**Overlays**
+`bp-overlay` `bp-modal` `bp-modal-header` `bp-modal-title` `bp-modal-body` `bp-modal-footer` (requires JS — see Rails/React integrations)
+`bp-dropdown` `bp-dropdown-menu` `bp-dropdown-item` `bp-dropdown-divider` (requires JS — outside-click-to-close)
+`bp-drawer-overlay` `bp-drawer` `bp-drawer-left/top/bottom` `bp-drawer-header` `bp-drawer-title` `bp-drawer-body` `bp-drawer-footer` (requires JS — slides in from any edge, full focus trap)
 
 **Footer**
 `bp-footer` `bp-footer-grid` `bp-footer-brand-name` `bp-footer-brand-desc`
@@ -298,7 +318,7 @@ For full HTML patterns for every component, see `llm.md`.
 
 ## Examples
 
-The `examples/` directory has eleven files. Nine show complete pages in different use cases. Two are templates: `starter.html` (blank starting point) and `showcase.html` (component reference).
+The `examples/` directory has 40 files. Nine curated ones (below) show complete pages in different use cases. Three are templates: `starter.html` (blank starting point), `showcase.html` (systematic reference — every component gets its own section), and `web-app-components.html` (dashboard-shell demo of every interactive/app-oriented component: tabs, accordion, dropdown, modal, drawer, sortable/selectable table, and a mood switcher). The remaining ~28 are client-branded builds generated via `@blueprint` — real, varied output from the design agent, not meant as a curated tour.
 
 | File | Theme | Brand | Layout type |
 |---|---|---|---|
