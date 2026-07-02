@@ -298,7 +298,7 @@ Three panels in a **28 : 44 : 28** ratio — no gap, hairline border dividers, g
   <main class="bp-main-content">...</main>
 </div>
 ```
-Below 767.98px the sidebar stacks above `.bp-main-content` (full width, bottom border instead of right border) instead of staying a fixed 256px column — it has no collapse/toggle mechanism of its own, so at narrow widths a fixed sidebar would crush main content into a sliver. If something inside main content has `overflow-x: auto` (e.g. `.bp-tabs-list`), that's the symptom that shows up first — a scrollbar on that component, even though the actual cause is the sidebar eating the viewport.
+Below 767.98px the sidebar stacks above `.bp-main-content` (full width, bottom border instead of right border) instead of staying a fixed 256px column — it has no collapse/toggle mechanism of its own, so at narrow widths a fixed sidebar would crush main content into a sliver. If something inside main content has `overflow-x: auto`, that's the symptom that shows up first — a scrollbar on that component, even though the actual cause is the sidebar eating the viewport.
 
 ---
 
@@ -800,7 +800,7 @@ CSS-only — built on native `<details>`/`<summary>`, no JS required for open/cl
 
 ## Tabs
 
-CSS-only — built on hidden radio inputs plus `:has()`, no JS required for switching. Panels are matched to inputs by *position* (1st panel shows when the 1st input is checked, etc.), not by matching ids, so the `.bp-tabs-panels` wrapper is required — it's what makes `:nth-of-type` count only panels instead of also counting the `.bp-tabs-list` div. Supports up to 8 tabs per group.
+CSS-only — built on hidden radio inputs plus `:has()`, no JS required for switching. Panels are matched to inputs by *position* (1st panel shows when the 1st input is checked, etc.), not by matching ids, so the `.bp-tabs-panels` wrapper is required — it's what makes `:nth-of-type` count only panels instead of also counting the `.bp-tabs-list` div. Supports up to 8 tabs per group. If a group doesn't fit on one line, `.bp-tabs-list` wraps to a second row rather than scrolling — a scrollbar under 2-3 short tab labels reads as a bug even when it's technically correct, so wrapping is the friendlier default.
 
 ```html
 <div class="bp-tabs">
